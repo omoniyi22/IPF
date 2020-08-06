@@ -5,7 +5,7 @@ import IpfLogo from "../assets/IPF_Logo.png";
 class Header extends Component {
   render() {
     return (
-      <div className="header-bg-blue"> 
+      <div className="header-bg-blue fixed-header"> 
           <div className="container-fluid h-100">
 
             <div className="row align-items-center h-100">

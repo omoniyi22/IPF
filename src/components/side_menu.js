@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 
 class SideMenu extends Component{
+   logout = (e) => {
+      e.preventDefault();
+      localStorage.removeItem('x-access-token')
+      this.props.history.push('/login')
+  }
     render(){
         return(
             <ul className="side-menu-list">
@@ -12,13 +18,13 @@ class SideMenu extends Component{
                         </Link>
                       </li>
                       <li className="list-item">
-                        <Link><span> <i className="material-icons">date_range</i></span>
+                        <Link to="/events"><span> <i className="material-icons">date_range</i></span>
                         
                            <span>Events</span>
                         </Link>
                       </li>
                       <li className="list-item">
-                        <Link>
+                        <Link to="/profile">
                         <span> <i className="material-icons">account_circle</i></span>
                            <span>Manage Profile</span>
                         </Link>
@@ -30,7 +36,7 @@ class SideMenu extends Component{
                         </Link>
                       </li>
                       <li className="list-item">
-                        <Link>
+                        <Link to="/payment">
                         <span> <i className="material-icons">payment</i></span>
                            <span>Payments</span>
                         </Link>
@@ -62,9 +68,16 @@ class SideMenu extends Component{
                            </span>
                         </Link>
                       </li>
+                      <li className="list-item">
+                        <Link onClick={this.logout} to="#">
+                        <span className="rotate-90-deg"> <i className="material-icons">play_for_work</i></span>
+                           <span>Logout</span>
+                           
+                        </Link>
+                      </li>
                   </ul>
         )
     }
 }
 
-export default SideMenu;
+export default withRouter(SideMenu);

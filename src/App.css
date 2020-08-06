@@ -95,6 +95,8 @@ ul.side-menu-list{
   height: 60px;
   background-color: #006D3A;
   height: 60px;
+  position: fixed;
+  top: 100px;
 }
 
 .header-bg-blue{
@@ -167,4 +169,158 @@ li.header-sub-menu-list-item{
 
 .header-user-profile h4, .header-user-profile h6{
   font-weight: inherit;
+}
+
+.fixed-header{
+  height: 100px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 5;
+}
+
+.bg-yellow{
+  background-color: #FA6400;
+  color: #fff;
+}
+
+.home-supervisor-icon{
+  font-size: 3rem;
+  color: #3C6679;
+  padding-right: 8px;
+}
+
+.home-supervisor-icon .material-icons{
+  font-size: inherit;
+}
+
+.summary-report h4{
+  font-size: 12px;
+  color:#2A4B5A;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+}
+
+.summary-report h6{
+  font-size: 20px;
+  font-weight: bolder;
+}
+
+.home-chats-count, .home-user-profile{
+  
+  min-height: 250px;
+  border-radius: 5px;
+  position: relative;
+}
+
+.home-chats-count{
+  background: #6A8DA7;
+}
+
+.home-user-profile{
+  background-color: #3C444D;
+}
+
+.home-more-icon{
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  color: #fff;
+  font-size: 16px;
+}
+
+.home-chats-icon .material-icons{
+  color: #fff;
+  font-size: 20px;
+}
+
+.bg-green{
+  background-color: #006D3A;
+}
+
+.profile label{
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15px;
+  font-family: 'Roboto', sans-serif;
+  color: #000;
+}
+
+.user-dasboard-header2{
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 100vh;
+  z-index: 20;
+  background-color: #2A4B5A;
+}
+
+.user-dasboard-header1, .user-dasboard-header2{
+  
+  position: fixed;
+  
+}
+
+
+.body{
+
+}
+
+.user-dasboard-header1{
+  z-index: 10;
+  top: 0;
+  height: 80px;
+  left: 0;
+  width: 100%;
+  background-color: rgba(42, 75, 90, 0.88);
+}
+
+.user-profile-section{
+  /* padding-top: 80px; */
+  /* padding-left: 180px; */
+  width: calc(100vw - 8px);
+  position: relative;
+}
+
+.user-profile-container{
+  padding-top: 20px;
+  padding-left: 195px;
+  width: calc(100vw - 8px);
+  position: relative;
+}
+
+.user-profile-score-card{
+  position: absolute;
+  top: -7rem;
+  
+  min-height: 25rem;
+  width: 90%;
+}
+
+.bg-blue {
+  background-color: #2A4B5A;
+}
+
+.membership-settings .box{
+  min-height: 250px;
+}
+
+.loader-wrapper{
+  position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100vw;
+    min-height: 100vh;
+    background: rgba(0,0,0,0.5);
+}
+
+.loader{
+  position: absolute;
+    top: calc(50vh - 100px);
+    left: calc(50vw - 100px);
+}
+
+.rotate-90-deg{
+  transform: rotate(90deg);
 }

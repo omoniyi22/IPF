@@ -6,6 +6,8 @@ import {LoginBg, LoginBgWhite, Input,SubmitButton,
    LoginForm, FormLegend, StyledColorOrange} from '../components/login-bg';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
+import * as actions from "../redux/actions";
+import { connect } from 'react-redux';
 
 class Login extends Component {
   state = {emailAddress:'', password: ''}
@@ -18,16 +20,21 @@ class Login extends Component {
   submit = async (e) => {
     e.preventDefault();
     try{
-      
+        this.props.showLoader(true)
         const {emailAddress, password} = this.state;
         const response = await Axios.post('/api/v1/auth/login',{emailAddress, password})
         const {data: {token, firstName, lastName,email,isAdmin,approved,position, phoneNumber}} = response.data;
         localStorage.setItem('x-access-token', token)
         localStorage.setItem('ipf-user', JSON.stringify({firstName, lastName, email, isAdmin, approved, position, phoneNumber}))
-        this.props.history.push('/')
+        this.props.showLoader(false)
+        if(isAdmin){
+          return this.props.history.push('/')
+        }
+        return this.props.history.push('/user/dashboard')
+        
     }catch(error){
       console.error(error)
-
+      this.props.showLoader(false)
     }
   }
   render() {
@@ -81,4 +88,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default connect(null, actions)(Login);
