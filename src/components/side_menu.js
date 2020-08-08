@@ -59,7 +59,7 @@ class SideMenu extends Component{
                            <span>Report</span>
                         </Link>
                       </li>
-                      <li className="list-item">
+                      <li className="list-item sub-menu-controller" style={{position:'relative'}}>
                         <Link>
                         <span> <i className="material-icons">settings</i></span>
                            <span>Masters</span>
@@ -67,6 +67,23 @@ class SideMenu extends Component{
                               <i className="material-icons">keyboard_arrow_down</i>
                            </span>
                         </Link>
+                        <ul className="submenu">
+                           <li className="submenu-item">
+                              <Link to="/admin/settings/membership">
+                              Settings
+                              </Link>
+                           </li>
+                           <li className="submenu-item">
+                              <Link to="/admin/settings">
+                              Admins
+                              </Link>
+                           </li>
+                           <li className="submenu-item">
+                              <Link>
+                              Organisation
+                              </Link>
+                           </li>
+                        </ul>
                       </li>
                       <li className="list-item">
                         <Link onClick={this.logout} to="#">

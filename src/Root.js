@@ -19,11 +19,12 @@ function Root(){
             <AuthRoute exact path="/" component={HomePage}/>
             <AuthRoute exact path="/platform-settings" component={MembershipSettings} />
             <AuthRoute exact path="/user/dashboard" component={UserProfile} />
-            <AuthRoute exac path="/admin/settings" component={PlatformAdmin} />
             <AuthRoute exact path="/profile" component={ManageProfile} />
             <AuthRoute exact path="/payment" component={PaymentPage} />
             <Route exact path="/login" component={Login} />
             <AuthRoute exact path="/events" component={Events} />
+            <AuthRoute exact path="/admin/settings/membership" component={MembershipSettings} />
+            <AuthRoute exact path="/admin/settings" component={PlatformAdmin} />
         </Switch>
     )
 }

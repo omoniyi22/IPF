@@ -1,11 +1,28 @@
 
 import React, { Component } from "react";
 import Dashboard from "../hoc/Dashboard";
-
+import Axios from "axios";
+import * as actions from '../redux/actions'
+import { connect } from "react-redux";
 class PaymentPage extends Component{
     componentDidMount(){
         console.log(window.M)
         window.M.updateTextFields();
+        this.getUserDebt()
+    }
+    getUserDebt = async () => {
+        try{
+            this.props.showLoader(true);
+            const token = localStorage.getItem('x-access-token');
+            const response = await Axios.get('/api/v1/pay/init-dues', {
+                headers: {'x-access-token': token}
+            })
+            console.log(response.data)
+            this.props.showLoader()
+        }catch(error){
+            console.error(error.response)
+            this.props.showLoader()
+        }
     }
     submit = (e) => {
         e.preventDefault()
@@ -45,4 +62,4 @@ class PaymentPage extends Component{
     }
 }
 
-export default PaymentPage;
+export default connect(null, actions)(PaymentPage);

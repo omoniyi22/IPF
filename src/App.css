@@ -313,6 +313,7 @@ li.header-sub-menu-list-item{
     min-width: 100vw;
     min-height: 100vh;
     background: rgba(0,0,0,0.5);
+    z-index: 10000;
 }
 
 .loader{
@@ -323,4 +324,48 @@ li.header-sub-menu-list-item{
 
 .rotate-90-deg{
   transform: rotate(90deg);
+}
+
+.sub-menu-controller:hover ul.submenu{
+  display: inline-block !important;
+}
+
+ul.submenu{
+  display: none;
+  position: absolute;
+  top: -120px;
+  left: 40px;
+  z-index: 23;
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+li.submenu-item{
+  color: #1D3F4F;
+    padding: 9px 15px;
+}
+
+.MuiTypography-root.MuiTypography-h6{
+  font-family: 'Open Sans', sans-serif;
+  color: #FA6400;
+}
+
+.MuiInput-underline:before {
+  /* border-bottom: none !important; */
+}
+
+.MuiInput-underline:focus:before{
+  border-bottom: none !important;
+}
+
+.MuiInput-underline input{
+  border-bottom: none !important;
+}
+
+.MuiInput-underline input[type=text]:focus{
+  border-bottom: none !important;
+}
+
+.MuiPaper-root {
+  box-shadow: none !important;
 }
