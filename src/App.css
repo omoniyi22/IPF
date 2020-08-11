@@ -402,6 +402,11 @@ color: rgba(0, 0, 0, 0.63);
   font-size: 11px;
 }
 
+.header-secondary .container-fluid{
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
 /* .member-type-header:hover:before{
   content: "";
     position: absolute;
