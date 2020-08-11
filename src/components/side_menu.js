@@ -24,7 +24,7 @@ class SideMenu extends Component{
                         </Link>
                       </li>
                       <li className="list-item">
-                        <Link to="/profile">
+                        <Link to="/user/dashboard/profile-update">
                         <span> <i className="material-icons">account_circle</i></span>
                            <span>Manage Profile</span>
                         </Link>
@@ -42,7 +42,7 @@ class SideMenu extends Component{
                         </Link>
                       </li>
                       <li className="list-item">
-                        <Link>
+                        <Link to="/admin/manage-members">
                         <span> <i className="material-icons">supervisor_account</i></span>
                            <span>Members</span>
                         </Link>

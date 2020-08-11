@@ -23,17 +23,18 @@ class MembershipSettings extends Component {
             Axios.defaults.headers.common['x-access-token'] = token;
             this.props.showLoader(true);
             const response1 = await Axios.get('/api/v1/admin/membership-type', {headers: {'x-access-token': token}});
-            // const response2 = await Axios.get('/api/v1/admin/industry-type', {headers: {'x-access-token': token}});
-            // const response3 = await Axios.get('/api/v1/admin/industry-classification', {headers: {'x-access-token': token}});
+            const response2 = await Axios.get('/api/v1/admin/industry-type', {headers: {'x-access-token': token}});
+            const response3 = await Axios.get('/api/v1/admin/industry-classification', {headers: {'x-access-token': token}});
             // const response4 = await Axios.get('', {headers: {'x-access-token': token}});
+            console.log(response2.data)
             this.props.showLoader(false);
             const membershipTypes = response1.data.data;
-            // const industryTypes = response2.data.data;
-            // const industryClassification = response3.data.data;
+            const industryTypes = response2.data.data;
+            const industryClassification = response3.data.data;
             this.setState({
                 membershipTypes,
-                // industryTypes,
-                // industryClassification
+                industryTypes,
+                industryClassification
             })
 
         }catch(error){
@@ -142,16 +143,8 @@ class MembershipSettings extends Component {
                             <MaterialTable
                             title=""
                             columns={[
-                                { title: 'Name', field: 'name' },
-                                { title: 'Code', field: 'code' },
-                                { title: 'Limit', field: 'limit', type: 'numeric' },
-                                // { title: 'Membership NO:', field: 'membershipNo', type: 'numeric' },
+                                { title: 'Industry Type', field: 'industry_name' },
                                 
-                                // {
-                                // title: 'Birth Place',
-                                // field: 'birthCity',
-                                // lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
-                                // },
                             ]}
                             data={this.state.industryTypes}        
                             
@@ -185,9 +178,7 @@ class MembershipSettings extends Component {
                             <MaterialTable
                             title=""
                             columns={[
-                                { title: 'Name', field: 'name' },
-                                { title: 'Code', field: 'code' },
-                                { title: 'Limit', field: 'limit', type: 'numeric' },
+                                { title: 'Industry Name', field: 'industry_name' },
                                 // { title: 'Membership NO:', field: 'membershipNo', type: 'numeric' },
                                 
                                 // {
