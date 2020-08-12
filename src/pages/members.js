@@ -7,11 +7,13 @@ import Axios from 'axios';
 import UserAction from '../components/user-action';
 import Dashboard from '../hoc/Dashboard';
 import { TextInput } from '../components/components';
+import MemberActions from '../components/member-actions';
 
 class Members extends Component{
     state = {
         currentTab: 'organisation' ,
         companies: [],
+        registeredMembers: [],
         data: {},
         members: [],
         firstName:'',
@@ -23,7 +25,7 @@ class Members extends Component{
     async componentDidMount(){
         //initialize materialize modal
         window.$('.modal').modal();
-        this.getCompanies()
+        this.getCompaniesAndMembers()
     }
 
     perfromUserAction = (action, data) => {
@@ -75,14 +77,20 @@ class Members extends Component{
         }
     }
 
-    getCompanies = async () => {
+    getMembers = async () => {
+
+    }
+
+    getCompaniesAndMembers = async () => {
         try{
             this.props.showLoader(true)
             const token = localStorage.getItem('x-access-token')
             const response = await Axios.get('/api/v1/admin/companies', {headers: {'x-access-token': token}});
+            const response2 = await Axios.get('/api/v1/auth/get-registered-members', {headers: {'x-access-token': token}})
+            const registeredMembers = response2.data.data;
             const companies = response.data.data
             this.props.showLoader(false)
-            this.setState({companies})
+            this.setState({companies, registeredMembers})
         }catch(error){
             console.error(error)
             this.props.showLoader()
@@ -169,23 +177,75 @@ class Members extends Component{
         }
         
     }
+    handleOnClickMemberActions = (action, data) => {
+        switch(action){
+            case 'assign-position':
+
+            break;
+
+            case 'suspend':
+                this.suspendMember(data)
+            break;
+
+            case 'remove':
+                this.removeMemeber(data)
+            break;
+
+            default:
+                break;
+
+        }
+    }
+    removeMemeber = async (data) => {
+        try{
+            const onDelete = window.confirm('Are you sure?');
+            if(onDelete){
+                this.props.showLoader(true)
+                const token = localStorage.getItem('x-access-token');
+                await Axios.delete('/api/v1/admin/remove', { userId: data.member_id}, {headers: {'x-access-token': token}})
+                this.props.showLoader()
+                alert('Operation successful')
+            }
+        }catch(error){
+            console.error(error)
+            this.props.showLoader(false)
+            alert('some errors were encountered')
+        }
+    }
+    suspendMember = async (data) => {
+        try{
+            const onApproved = window.confirm('Are you sure?');
+            if(onApproved){
+                this.props.showLoader(true)
+                const token = localStorage.getItem('x-access-token');
+                await Axios.put('/api/v1/admin/suspend', { userId: data.member_id}, {headers: {'x-access-token': token}})
+                this.props.showLoader()
+                alert('Operation successful')
+            }
+        }catch(error){
+            console.error(error)
+            this.props.showLoader(false)
+            alert('some errors were encountered')
+        }
+    }
     renderIndividualBlock = () => (<div className="shadow rounded bg-white col-md-12 p-3">
     <MaterialTable
         components={{
             Action: (props) => {
                 console.log(props)
                 if(props.action.icon === 'save'){
-                    return <TableAction data={props.data} onClick={this.handleOnClick} />
+                    return <MemberActions data={props.data} onClick={this.handleOnClickMemberActions} />
                 }
                 return <button>Hello</button>
             }
         }}
         title=""
         columns={[
-            { title: 'Name', field: 'name' },
-            { title: 'Email', field: 'email' },
-            { title: 'Member No', field: 'memberNo' },
-            { title: 'Member Type', field: 'memberType' },
+            { title: 'First Name', field: 'firstName' },
+            { title: 'Last Name', field: 'lastName' },
+            { title: 'Email', field: 'emailAddress' },
+            { title: 'Member No', field: 'memberNumber' },
+            { title: 'Member Type', field: 'membershipType' },
             { title: 'Phone Number', field: 'phoneNumber' },
             // { title: 'Membership NO:', field: 'membershipNo', type: 'numeric' },
             
@@ -195,10 +255,7 @@ class Members extends Component{
             // lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
             // },
         ]}
-        data={[{
-            name: 'charles onuorah', email: 'charles.onuorah@yahoo.com',
-            memberNo: 'A091019', memberType: 'Full', phoneNumber: '019019019019'
-        }]}        
+        data={this.state.registeredMembers}        
         
         options={{
             headerStyle: {
@@ -397,46 +454,46 @@ class Members extends Component{
 export default connect(null, actions)(Members);
 
 /*
-DomPurchase: null
-address: null
-approved: 1
-avatar: null
-barcode: null
-city: null
-companyDetails: null
-company_id: 21
-country: null
-createdAt: "2020-07-17T10:22:39.000Z"
-dob: null
-emailAddress: "narcisse.egonu@gmail.com"
-emailAddress2: null
-enrolled: null
-expiryDate: null
-expiryStatus: null
-firstName: "Narcisse"
-industryClassification: null
-industryType: null
-isAdmin: 0
-lastName: "Egonu"
-memberId: 81
-memberNumber: "AB02101"
-member_id: "8154b680-b833-47d7-8349-573b1b539795"
-membershipType: "AB"
-nameOfCompany: null
-passport: null
-password: "$2a$15$Y4VcqasPK.QXnQvXZfvVpeHd0o.JDyG6Wa85FDV74mBkb65OsM4Si"
-phoneNumber: "07067656150"
-phoneNumber2: null
-position: null
-position_duration: null
-profileCompleted: 0
-qualifications: null
-registeredBy: null
-role: "super-user"
-state: null
-street1: null
-street2: null
-suspended: 0
-website: null
+ "memberId": 1,
+            "firstName": "Aliyu",
+            "lastName": "Oladimeji",
+            "emailAddress": "aliyu@techparlons.com",
+            "nameOfCompany": "Techparlons",
+            "phoneNumber": "07065656141",
+            "password": "$2a$15$bmWNaB9.iZW/gP4PrCvGeurAuzV3TTpdL.exmv1ZBQs/vWS54zcr.",
+            "memberNumber": "AM00100",
+            "membershipType": "admin",
+            "address": null,
+            "city": null,
+            "industryClassification": null,
+            "industryType": null,
+            "website": null,
+            "companyDetails": null,
+            "isAdmin": 1,
+            "profileCompleted": 0,
+            "barcode": null,
+            "DomPurchase": null,
+            "expiryDate": null,
+            "expiryStatus": null,
+            "approved": 1,
+            "createdAt": "2020-07-16T17:25:17.000Z",
+            "enrolled": null,
+            "registeredBy": null,
+            "suspended": 0,
+            "position": "President",
+            "company_id": 0,
+            "role": "President",
+            "avatar": null,
+            "position_duration": "2020-2021",
+            "dob": "04-01-1990",
+            "phoneNumber2": null,
+            "emailAddress2": null,
+            "passport": null,
+            "street1": null,
+            "street2": null,
+            "state": null,
+            "country": null,
+            "qualifications": null,
+            "member_id": "72c43b34-ad8d-4a98-a55c-b49e2917cbe5"
 
 */
