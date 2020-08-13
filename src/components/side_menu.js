@@ -6,7 +6,7 @@ class SideMenu extends Component{
    logout = (e) => {
       e.preventDefault();
       localStorage.removeItem('x-access-token')
-      this.props.logoutUser()
+      this.props.logoutUser();
   }
     render(){
         return(
