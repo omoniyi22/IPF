@@ -1,9 +1,9 @@
 import React, { Component } from "react"
 import AltDasboard from "../hoc/AltDasboard";
-import CustomHeader from "../hoc/CustomHeader";
+// import CustomHeader from "../hoc/CustomHeader";
 import MaterialTable from 'material-table'
 // import { TableHeader, TableBody } from "../components/components";
-import MembershipStatus from "../components/membershipStatus";
+// import MembershipStatus from "../components/membershipStatus";
 import Axios from "axios";
 import * as actions from '../redux/actions';
 import { connect } from "react-redux";
@@ -45,12 +45,12 @@ class MembershipSettings extends Component {
     render(){
         return (
             <AltDasboard>
-                <CustomHeader>
+                {/* <CustomHeader>
                     <MembershipStatus></MembershipStatus>
-                </CustomHeader>
+                </CustomHeader> */}
                 <div className="membership-settings container-fluid mt-5" style={{width: '90%'}}>
                     <div className="row">
-                        <div className="col-md-6 box col-sm-12">
+                        <div className=" col-lg-6 mb-3 box col-sm-12">
                             <div className="shadow h-100 bg-white p-3 ">
                             <h5 className="mt-3" style={{color:'#089242', fontWeight:'bold'}}>Manage Membership Type</h5>
                             <MaterialTable
@@ -137,7 +137,7 @@ class MembershipSettings extends Component {
                             />
                             </div>
                         </div>
-                        <div className="col-md-6 box col-sm-12">
+                        <div className=" col-lg-6 mb-3 box col-sm-12">
                             <div className="shadow h-100 bg-white p-3 ">
                             <h5 className="mt-3" style={{color:'#089242', fontWeight:'bold'}}>Manage Industry Type</h5>
                             <MaterialTable
@@ -172,7 +172,7 @@ class MembershipSettings extends Component {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-md-6 box col-sm-12">
+                        <div className=" col-lg-6 mb-3 box col-sm-12">
                             <div className="shadow h-100 bg-white p-3 ">
                             <h5 className="mt-3" style={{color:'#089242', fontWeight:'bold'}}>Manage Industry Classfication</h5>
                             <MaterialTable
@@ -211,7 +211,7 @@ class MembershipSettings extends Component {
                             />
                             </div>
                         </div>
-                        <div className="col-md-6 box col-sm-12">
+                        <div className=" col-lg-6 mb-3 box col-sm-12">
                             <div className="shadow h-100 bg-white p-3 ">
                             <h5 className="mt-3" style={{color:'#089242', fontWeight:'bold'}}>Manage Position</h5>
                             <MaterialTable

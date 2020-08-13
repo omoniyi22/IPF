@@ -10,14 +10,16 @@ class Dashboard extends Component {
   render() {
     return (
       <div className="container-fluid" style={{padding: 0}}>
+            <Header />
             <div className="desktop">
-                <Header />
+                
                 <div className="side-menu-left ">
                   <SideMenu></SideMenu>
                 </div>
-              <div className="menu-content">
+              
+            </div>
+            <div className="menu-content">
                   {this.props.children}
-              </div>
             </div>
         </div>
     );

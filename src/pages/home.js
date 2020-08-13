@@ -12,7 +12,7 @@ class HomePage extends Component {
       <Dashboard>
           <div className="container-fluid">
               <div className="row mt-3">
-                  <div className="col-lg-3">
+                  <div className="col-lg-3 mb-2">
                       <div className="shadow d-flex bg-white p-3">
                         <span className="home-supervisor-icon"> <i className="material-icons">supervisor_account</i></span>
                         <div className="summary-report" style={{flex:1}}>
@@ -25,7 +25,7 @@ class HomePage extends Component {
                         </div>
                       </div>
                   </div>
-                  <div className="col-lg-3">
+                  <div className="col-lg-3 mb-2">
                     <div className="shadow d-flex bg-white p-3">
                     <span className="home-supervisor-icon">  <i className="material-icons">supervisor_account</i></span>
                     <div className="summary-report"  style={{flex:1}}>
@@ -38,7 +38,7 @@ class HomePage extends Component {
                         </div>
                     </div>
                   </div>
-                  <div className="col-lg-3">
+                  <div className="col-lg-3 mb-2">
                     <div className="shadow d-flex bg-white p-3">
                     <span className="home-supervisor-icon"> <i className="material-icons">supervisor_account</i></span>
                     <div className="summary-report"  style={{flex:1}}>
@@ -51,7 +51,7 @@ class HomePage extends Component {
                         </div>
                     </div>
                   </div>
-                  <div className="col-lg-3">
+                  <div className="col-lg-3 mb-2">
                     <div className="shadow d-flex bg-white p-3">
                     <span className="home-supervisor-icon"> <i className="material-icons">supervisor_account</i></span>
                     <div className="summary-report"  style={{flex:1}}>

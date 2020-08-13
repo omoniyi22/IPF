@@ -6,13 +6,13 @@ class SideMenu extends Component{
    logout = (e) => {
       e.preventDefault();
       localStorage.removeItem('x-access-token')
-      this.props.history.push('/login')
+      this.props.logoutUser()
   }
     render(){
         return(
-            <ul className="side-menu-list">
+            <ul className="desktop side-menu-list">
                       <li className="list-item">
-                        <Link>
+                        <Link to="/">
                            <span> <i className="material-icons">format_list_bulleted</i></span>
                            <span>Overview</span>
                         </Link>

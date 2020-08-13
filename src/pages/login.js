@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import * as actions from "../redux/actions";
 import { connect } from 'react-redux';
+import IpfLogo from "../assets/IPF_Logo.png";
 
 class Login extends Component {
   state = {emailAddress:'', password: ''}
@@ -81,7 +82,38 @@ class Login extends Component {
               </div>
           </BlackBackground>
         </div>
-        
+        <div className="mobile">
+              <section className="p-5 d-flex flex-column align-items-center justify-content-center" style={{background:'#2A4B5A'}}>
+                    <img className="mb-3" src={IpfLogo} alt="ipf" style={{width: 200, height: 200, objectFit:'contain'}} />
+                    <h4 style={{color:'#FA6400', fontWeight:'bolder'}}>India Professionals Forum, Nigeria</h4>
+                    <span className="text-italic">Connecting Professionals and Beyond</span>
+              </section>
+              <section>
+              <div className="d-flex align-items-center w-100 h-100">
+                                      <LoginForm onSubmit={this.submit}>
+                                          <FormLegend >
+                                              Welcome
+                                          </FormLegend>
+                                          <Input value={this.state.emailAddress} onChange={this.handleOnChange} name="emailAddress" placeholder="Username/Email" />
+                                          <Input value={this.state.password} onChange={this.handleOnChange}  name="password" type="password" placeholder="password" />
+                                          <div className="text-center">
+                                            <SubmitButton type="submit">
+                                                Sign In
+                                            </SubmitButton>
+
+                                          </div>
+                                          <div className="text-center mt-5">
+                                              <span>Don't have an account?</span>
+                                              <Link to="#">
+                                                  <StyledColorOrange>
+                                                      Sign up
+                                                  </StyledColorOrange>
+                                              </Link>
+                                          </div>
+                                      </LoginForm>
+                                    </div>
+              </section>
+        </div>
 
      </div>
     );

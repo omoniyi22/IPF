@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import CustomHeader from "../hoc/CustomHeader";
+// import CustomHeader from "../hoc/CustomHeader";
 import MaterialTable from 'material-table'
 // import { TableHeader, TableBody } from "../components/components";
-import MembershipStatus from "../components/membershipStatus";
+// import MembershipStatus from "../components/membershipStatus";
 const { default: AltDashboard } = require("../hoc/AltDasboard");
 
 
@@ -12,9 +12,9 @@ class PlatformAdmin extends Component{
     render(){
         return (
             <AltDashboard>
-                <CustomHeader>
+                {/* <CustomHeader>
                     <MembershipStatus></MembershipStatus>
-                </CustomHeader>
+                </CustomHeader> */}
                 <div className="container" style={{width:'90%'}}>
                     <div className="row">
                         <div className="col-md-12">
