@@ -211,8 +211,8 @@ class Members extends Component{
                 }
                 const token = localStorage.getItem('x-access-token')
                 this.props.showLoader(true)
-                await Axios.post('/api/v1/auth/add-member', { 
-                    firstName, lastName, email, phoneNumber}, {headers: {'x-access-token': token}})
+                await Axios.post('/api/v1/admin/register-user', { 
+                    firstName, lastName, email,membershipType: this.state.companyCode,  phoneNumber}, {headers: {'x-access-token': token}})
                 this.props.showLoader(false)
                 return this.setState({
                   company_name: '', company_address: '',  firstName: '', lastName: '', email: '', phoneNumber: ''
