@@ -399,7 +399,7 @@ color: rgba(0, 0, 0, 0.63);
   border: 2px solid #089242;
   width: calc(100% + 5px);
   margin-left: 8px;
-  bottom: -1rem;
+  bottom: 0rem;
   left: -16px;
 }
 
@@ -501,3 +501,18 @@ div.menu{
     bottom: -1rem;
     left: calc(50% - 20px);
 } */
+
+.sidenav img{
+  width: 100%;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.sidenav .background{
+  height: 200px;
+}
+
+.sidenav .list-item{
+  font-weight: bolder;
+}

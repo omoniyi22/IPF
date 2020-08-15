@@ -53,7 +53,8 @@ class Header extends Component {
                   <div className="d-flex w-100">
                       <div className="d-flex flex-column">
                             <div>
-                                <span style={{color: '#fff', fontSize: 40, cursor: 'pointer'}}><i style={{color: '#fff',fontSize:'inherit'}} className="material-icons">list</i></span>
+                            <Link data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></Link>
+                                {/* <span style={{color: '#fff', fontSize: 40, cursor: 'pointer'}}><i style={{color: '#fff',fontSize:'inherit'}} className="material-icons">list</i></span> */}
                             </div>
                             <div className="p-1 p-1 shadow" style={{backgroundColor:'#2B4B59', border: '1px solid #2B4B59'}} >
                                 <img src={IpfLogo} alt="ipf" style={{width: 40, height: 40, objectFit:'contain'}} />
@@ -87,7 +88,7 @@ class Header extends Component {
                         <h6 style={{color:"#fff", fontWeight: 'bold'}}>MemberShip Status: <span className="status">Approved</span></h6>
                   </div>
               </div>
-              <div className="menu mobile-header-bg-blue" style={{backgroundColor: '#2A4B5A', paddingTop: 20, paddingBottom: 20}}>
+              {/* <div className="menu mobile-header-bg-blue" style={{backgroundColor: '#2A4B5A', paddingTop: 20, paddingBottom: 20}}>
                   <div className={`container mobile-menu`}>
                       <div className="row">
                           <div className="col-md-6"> 
@@ -169,7 +170,7 @@ class Header extends Component {
                   <div onClick={() => this.setState({expanded: !this.state.expanded})} className="text-center text-white"style={{fontWeight:'bold', fontSize: 18, padding: '8px 8px'}}>
                     Show {this.state.expanded ? 'Less' : 'More'}
                   </div>
-              </div>
+              </div> */}
               
           </div>
       </div>

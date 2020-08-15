@@ -297,10 +297,10 @@ class Members extends Component{
 
                 <div className="container-fluid" style={{width: '90%'}}>
                     <div className="row mt-5">
-                        <div className="shadow rounded bg-white col-md-12 p-3">
+                        <div className="shadow rounded bg-white col-md-12 px-3 py-1">
                             <div className="d-flex justify-content-center align-items-center">
                                     <div onClick={() => this.setState({currentTab: 'individual'})} style={{position:'relative'}}>
-                                        <h4 className={`member-type-header mx-5 ${this.state.currentTab === 'individual' ? 'active' :''}`}>Individual</h4>
+                                        <h4 className={`member-type-header mx-2 ${this.state.currentTab === 'individual' ? 'active' :''}`}>Individual</h4>
                                     </div>
                                     <div onClick={() => this.setState({currentTab: 'organisation'})} style={{position:'relative'}}>
                                         <h4  className={`member-type-header ${this.state.currentTab === 'organisation' ? 'active' :''}`}>Organisation</h4>

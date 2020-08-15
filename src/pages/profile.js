@@ -1,10 +1,11 @@
 import React, { Component} from 'react'
-import AltDashboard from '../hoc/AltDasboard';
-import CustomHeader from '../hoc/CustomHeader';
+// import AltDashboard from '../hoc/Dashboard';
+// import CustomHeader from '../hoc/CustomHeader';
 import { TextInput, FormButton } from '../components/components';
 import Axios from 'axios';
 import * as actions from '../redux/actions';
 import { connect } from 'react-redux';
+import Dashboard from '../hoc/Dashboard';
 
 
 class ManageProfile extends Component{
@@ -74,6 +75,11 @@ class ManageProfile extends Component{
         console.log(this.state)
 
         try{
+            const re = /^\s*(?:\+?(\d{1,3}))?[- (]*(\d{3})[- )]*(\d{3})[- ]*(\d{4})(?: *[x/#]{1}(\d+))?\s*$/
+            if(re.test(this.state.phoneNumber) || re.test(this.state.phoneNumber2)){
+                alert('Phone Number is not valid')
+                return ;
+            }
             this.props.showLoader(true)
             const token = localStorage.getItem('x-access-token')
             const response = await Axios.patch('/api/v1/auth/edit', this.state, {headers: {'x-access-token': token}} )
@@ -95,8 +101,8 @@ class ManageProfile extends Component{
     }
     render(){
         return (
-            <AltDashboard>
-                <CustomHeader>
+            <Dashboard>
+                {/* <CustomHeader>
                     <div className="container-fluid">
                         <div className="row  text-white bg-green">
                             <div className="col-lg-4 text-white">
@@ -109,7 +115,7 @@ class ManageProfile extends Component{
                             </div>
                         </div>
                     </div>
-                </CustomHeader>
+                </CustomHeader> */}
                 <div className="profile container-fluid py-3">
                     <form onSubmit={this.submit} className="mt-3 px-3">
                         <div className="row">
@@ -136,10 +142,12 @@ class ManageProfile extends Component{
                             <div className="col-lg-6">
                                 <label>Phone number 1</label>
                                 <TextInput name={"phoneNumber"} onChange={this.handleOnChange} value={this.state.phoneNumber}  />
+                                <span>format: 2348070706069</span>
                             </div>
                             <div className="col-lg-6">
                                 <label>Phone number 2</label>
                                 <TextInput name={"phoneNumber2"} onChange={this.handleOnChange} value={this.state.phoneNumber2} />
+                                <span>format: 2348070706069</span>
                             </div>
                         </div>
                         <div className="row">
@@ -189,7 +197,7 @@ class ManageProfile extends Component{
                         </div>
                     </form>
                 </div>
-            </AltDashboard>
+            </Dashboard>
         )
     }
 }
