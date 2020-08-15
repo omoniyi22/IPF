@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import { withRouter } from "react-router-dom";
-
+import nigeria from '../assets/nigeria.png'
+import india from '../assets/india.png'
 class SideMenu extends Component{
    logout = (e) => {
       e.preventDefault();
@@ -10,6 +11,7 @@ class SideMenu extends Component{
   }
     render(){
         return(
+           <>
             <ul className="desktop side-menu-list">
                       <li className="list-item">
                         <Link to="/">
@@ -92,7 +94,13 @@ class SideMenu extends Component{
                            
                         </Link>
                       </li>
+                      
                   </ul>
+                  <div className="d-flex mt-3 justify-content-center">
+                        <img  src={india} alt="flag"/>
+                        <img  src={nigeria} alt="flag"/>
+                  </div>
+                  </>
         )
     }
 }

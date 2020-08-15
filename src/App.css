@@ -516,3 +516,11 @@ div.menu{
 .sidenav .list-item{
   font-weight: bolder;
 }
+
+.select-wrapper{
+  width: 100%;
+}
+
+select{
+  display: block;
+}

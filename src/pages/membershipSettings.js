@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import AltDasboard from "../hoc/AltDasboard";
+// import AltDasboard from "../hoc/AltDasboard";
 // import CustomHeader from "../hoc/CustomHeader";
 import MaterialTable from 'material-table'
 // import { TableHeader, TableBody } from "../components/components";
@@ -7,15 +7,30 @@ import MaterialTable from 'material-table'
 import Axios from "axios";
 import * as actions from '../redux/actions';
 import { connect } from "react-redux";
+import Dashboard from "../hoc/Dashboard";
 
 class MembershipSettings extends Component {
     state = {
         membershipTypes: [],
         industryTypes: [],
-        industryClassification: []
+        industryClassification: [],
+        types: []
     }
     componentDidMount(){
         this.getPageAccountSettings()
+        this.getMembershipTypes()
+    }
+    getMembershipTypes = async () => {
+        try{
+            const token = localStorage.getItem('x-access-token');
+            const response = await Axios.get('/api/v1/admin/membership-type', {headers: {'x-access-token': token}})
+            this.setState({
+                types: response.data.data
+            })
+        }catch(error){
+            console.error(error)
+            alert('some errors were encountered')
+        }
     }
     getPageAccountSettings = async () => {
         try{
@@ -44,7 +59,7 @@ class MembershipSettings extends Component {
     }
     render(){
         return (
-            <AltDasboard>
+            <Dashboard>
                 {/* <CustomHeader>
                     <MembershipStatus></MembershipStatus>
                 </CustomHeader> */}
@@ -257,7 +272,7 @@ class MembershipSettings extends Component {
                         </div>
                     </div>
                 </div>
-            </AltDasboard>
+            </Dashboard>
         )
     }
 }

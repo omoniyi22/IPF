@@ -20,12 +20,25 @@ class Members extends Component{
         lastName: '',
         email: '',
         phoneNumber: '',
+        types: [],
+        companyCode: '',
+        phone_number: '',
+        company_name: '',
+        codes: ['AB','AA','LB', 'LA'],
+        adminFirstName: '',
+        adminLastName: '',
+        adminEmail:'',
+        adminPhoneNumber:'',
+        company_address: ''
 
         }
     async componentDidMount(){
         //initialize materialize modal
         window.$('.modal').modal();
+        //initialize select field
+        // window.$('select').formSelect();
         this.getCompaniesAndMembers()
+        this.getMembershipTypes()
     }
 
     perfromUserAction = (action, data) => {
@@ -79,6 +92,18 @@ class Members extends Component{
 
     getMembers = async () => {
 
+    }
+    getMembershipTypes = async () => {
+        try{
+            const token = localStorage.getItem('x-access-token');
+            const response = await Axios.get('/api/v1/admin/membership-type', {headers: {'x-access-token': token}})
+            this.setState({
+                types: response.data.data
+            })
+        }catch(error){
+            console.error(error)
+            alert('some errors were encountered')
+        }
     }
 
     getCompaniesAndMembers = async () => {
@@ -153,8 +178,78 @@ class Members extends Component{
             }, () => alert('Operation successful') )
             
         }catch(error){
-            console.error(error);
+            console.error(error.response);
+            if(error.response){
+                alert(error.response.data.error)
+                return this.props.showLoader()
+              }
+             
             this.props.showLoader()
+            return alert('some errors were encountered, please contact admin')
+        }
+    }
+
+    addIndividualMember =  async (e) => {
+        e.preventDefault();
+        if(this.state.companyCode.trim() === ''){
+            return alert('please select company type')
+        }
+        const phoneNumberRegx = /^\s*(?:\+?(\d{1,3}))?[- (]*(\d{3})[- )]*(\d{3})[- ]*(\d{4})(?: *[x/#]{1}(\d+))?\s*$/
+        const emailRegx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+        try{
+            if(!this.state.codes.includes(this.state.companyCode)){
+                const {firstName, lastName, email, phoneNumber} = this.state;
+                if(firstName.trim() === '' || lastName.trim() === '' || email.trim() === '' || phoneNumber.trim() === ''){
+                    return alert('Incomplete details, please fill all required')
+                }
+                if(!phoneNumberRegx.test(phoneNumber)){
+                    return alert('Phone Number is invalid')
+                }
+                if(!emailRegx.test(email)){
+                    return alert('Email is invalid')
+                }
+                const token = localStorage.getItem('x-access-token')
+                this.props.showLoader(true)
+                await Axios.post('/api/v1/auth/add-member', { 
+                    firstName, lastName, email, phoneNumber}, {headers: {'x-access-token': token}})
+                this.props.showLoader(false)
+                return this.setState({
+                  company_name: '', company_address: '',  firstName: '', lastName: '', email: '', phoneNumber: ''
+                }, () => alert('Operation successful') )
+            }
+            const {company_name, company_address,email, phone_number, adminFirstName, adminLastName, adminEmail, adminPhoneNumber} = this.state;
+            if(company_name.trim() === '' || phone_number.trim() === '' || company_address.trim() === '' || email.trim() === '' || adminEmail.trim() == '' || adminPhoneNumber.trim() == '' ||  adminFirstName.trim() === '' || adminLastName.trim() === ''){
+                return alert('Incomplete details, please fill all required')
+            }
+            if(!phoneNumberRegx.test(adminPhoneNumber) || !phoneNumberRegx.test(phone_number)){
+                return alert('Phone Number is invalid')
+            }
+            if(!emailRegx.test(email) || !emailRegx.test(adminEmail)){
+                return alert('Email is invalid')
+            }
+            
+            const token = localStorage.getItem('x-access-token')
+                this.props.showLoader(true)
+                await Axios.post('/api/v1/admin/add-company', { 
+                    company_name, phone_number, email, companyAdmin: {firstName: adminFirstName, lastName: adminLastName,
+                        emailAddress: adminEmail, phoneNumber: adminPhoneNumber} }, {headers: {'x-access-token': token}})
+                this.props.showLoader(false)
+                return this.setState({
+                  company_name: '', company_address: '',  firstName: '', lastName: '', email: '', phoneNumber: ''
+                }, () => alert('Operation successful') )
+           
+                        
+            
+        }catch(error){
+            console.error(error.response);
+            if(error.response){
+                alert(error.response.data.error)
+                return this.props.showLoader()
+              }
+             
+            this.props.showLoader()
+            return alert('some errors were encountered, please contact admin')
         }
     }
 
@@ -172,8 +267,14 @@ class Members extends Component{
             this.props.showLoader()
             
         }catch(error){
-            console.error(error);
+            console.error(error.response);
+            if(error.response){
+              alert(error.response.data.error)
+              return this.props.showLoader()
+            }
+             
             this.props.showLoader()
+            return alert('some errors were encountered, please contact admin')
         }
         
     }
@@ -289,13 +390,28 @@ class Members extends Component{
         //   }}
         />
     </div>)
+    openAddMemberModal = async (e) => {
+        try{
+            await this.props.showLoader(true);
+            await this.getMembershipTypes();
+            this.props.showLoader()
+            window.$('#modal3').modal('open')
+        }catch(error){
+            console.error(error)
+            alert('some errors were encountered')
+        }
+    }
     render(){
-        console.log('state => ', this.state.currentTab)
+        
+        console.log(this.state.types)
         return (
             <Dashboard>
                 
 
                 <div className="container-fluid" style={{width: '90%'}}>
+                <div className="d-flex justify-content-end mb-3">
+                    <button onClick={this.openAddMemberModal} class="waves-effect waves-light btn">Add Member</button>
+                </div>
                     <div className="row mt-5">
                         <div className="shadow rounded bg-white col-md-12 px-3 py-1">
                             <div className="d-flex justify-content-center align-items-center">
@@ -443,6 +559,75 @@ class Members extends Component{
                         
                         <a href="#!" class="modal-close  waves-effect waves-green btn-flat">Close</a>
                         <button onClick={this.addMember} className="waves-effect waves-green btn-primary btn">Add</button>
+                        </div>
+                    </div>
+                    <div id="modal3" class="modal modal-fixed-footer">
+                        <div class="modal-content">
+                        <h4>{'Add members'}</h4>
+                        <div className="container-fluid mt-3">
+                            <div className="row input-field">
+                                    <select name="companyCode" onChange={this.handleOnChange}>
+                                        <option>Select membership type</option>
+                                        
+                                        {
+                                            this.state.types.map(ele => 
+                                             <option value={ele.code}>{ele.name}</option>
+                                            )
+                                        }
+                                    </select>
+                            </div>
+                            {
+                                !this.state.codes.includes(this.state.companyCode) ? (
+                                    <>
+                                        <div className="row">
+                                            <TextInput name={"firstName"} placeholder="First Name" onChange={this.handleOnChange} value={this.state.firstName} />
+                                        </div>
+                                        <div className="row">
+                                            <TextInput name={"lastName"} placeholder="Last Name" onChange={this.handleOnChange} value={this.state.lastName} />
+                                        </div>
+                                        <div className="row">
+                                            <TextInput name={"email"} placeholder="Email Addresss" onChange={this.handleOnChange} value={this.state.email} />
+                                        </div>
+                                        <div className="row">
+                                            <TextInput name={"phoneNumber"} placeholder="Phone Number" onChange={this.handleOnChange} value={this.state.phoneNumber} />
+                                            <span>format: 2348070706069</span>
+                                        </div>
+                                    </>
+                                ): null
+                            }
+                            {
+                             this.state.codes.includes(this.state.companyCode) ?    (
+                            <>
+                            <div className="row">
+                                <TextInput name={'company_name'} placeholder="Company Name" onChange={this.handleOnChange} value={this.state.company_name} />
+                            </div>
+                            <div className="row">
+                                <TextInput name={'email'} placeholder="Email" onChange={this.handleOnChange} value={this.state.email} />
+                            </div>
+                            <div className="row">
+                                <TextInput name={'phone_number'} placeholder="Phone Number" onChange={this.handleOnChange} value={this.state.phone_number} />
+                                <span>format: 2348070706069</span>
+                            </div>
+                             <div className="row">
+                                <TextInput name={'adminFirstName'} placeholder="Company Admin First Name" onChange={this.handleOnChange} value={this.state.adminFirstName} />
+                            </div>
+                            <div className="row">
+                                <TextInput name={'adminLastName'} placeholder="Company Admin Last Name" onChange={this.handleOnChange} value={this.state.adminLastName} />
+                            </div>
+                            <div className="row">
+                                <TextInput name={'adminEmail'} placeholder="Company Admin Email Addresss" onChange={this.handleOnChange} value={this.state.adminEmail} />
+                            </div>
+                            <div className="row">
+                                <TextInput name={'adminPhoneNumber'} placeholder="Company Admin Phone Number" onChange={this.handleOnChange} value={this.state.adminPhoneNumber} />
+                                <span>format: 2348070706069</span>
+                            </div></>): null
+                            }
+                        </div>
+                        </div>
+                        <div class="modal-footer">
+                        
+                        <a href="#!" class="modal-close  waves-effect waves-green btn-flat">Close</a>
+                        <button onClick={this.addIndividualMember} className="waves-effect waves-green btn-primary btn">Add</button>
                         </div>
                     </div>
                 </div>

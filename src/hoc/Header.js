@@ -31,12 +31,17 @@ class Header extends Component {
                               </div>
                               <div className="col-lg-4 d-flex justify-content-between w-100">
                                     <div>
+                                        <Link to="/events">
                                         <span><i className="material-icons">notifications_active</i></span>
+                                        </Link>
                                     </div>
                                     <div>
+                                        
+                                        <Link to="/admin/settings/membership">
                                         <span className="material-icons"><i>settings</i></span>
+                                        </Link>
                                     </div>
-                                    <div>
+                                    <div onClick={() => this.props.logoutUser()}>
                                         <span className="material-icons"><i>power_settings_new</i></span>
                                     </div>
                               </div>

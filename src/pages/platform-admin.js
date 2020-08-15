@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 // import CustomHeader from "../hoc/CustomHeader";
 import MaterialTable from 'material-table'
+import Dashboard from "../hoc/Dashboard";
 // import { TableHeader, TableBody } from "../components/components";
 // import MembershipStatus from "../components/membershipStatus";
-const { default: AltDashboard } = require("../hoc/AltDasboard");
+// const { default: AltDashboard } = require("../hoc/AltDasboard");
 
 
 
@@ -11,7 +12,7 @@ const { default: AltDashboard } = require("../hoc/AltDasboard");
 class PlatformAdmin extends Component{
     render(){
         return (
-            <AltDashboard>
+            <Dashboard>
                 {/* <CustomHeader>
                     <MembershipStatus></MembershipStatus>
                 </CustomHeader> */}
@@ -75,7 +76,7 @@ class PlatformAdmin extends Component{
                         </div>
                     </div>
                 </div>
-            </AltDashboard>
+            </Dashboard>
         )
     }
 }
