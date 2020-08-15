@@ -75,9 +75,15 @@ class ManageProfile extends Component{
         console.log(this.state)
 
         try{
-            const re = /^\s*(?:\+?(\d{1,3}))?[- (]*(\d{3})[- )]*(\d{3})[- ]*(\d{4})(?: *[x/#]{1}(\d+))?\s*$/
-            if(re.test(this.state.phoneNumber) || re.test(this.state.phoneNumber2)){
+            const phoneNumberRegx = /^\s*(?:\+?(\d{1,3}))?[- (]*(\d{3})[- )]*(\d{3})[- ]*(\d{4})(?: *[x/#]{1}(\d+))?\s*$/
+            const emailRegx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    
+            if(!phoneNumberRegx.test(this.state.phoneNumber) || !phoneNumberRegx.test(this.state.phoneNumber2)){
                 alert('Phone Number is not valid')
+                return ;
+            }
+            if(!emailRegx.test(this.state.emailAddress) || !emailRegx.test(this.state.emailAddress2)){
+                alert('Email Address is not valid')
                 return ;
             }
             this.props.showLoader(true)
