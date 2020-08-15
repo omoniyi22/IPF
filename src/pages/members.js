@@ -213,7 +213,7 @@ class Members extends Component{
                 this.props.showLoader(true)
                 await Axios.post('/api/v1/admin/register-user', { 
                     firstName, lastName, email,membershipType: this.state.companyCode,  phoneNumber}, {headers: {'x-access-token': token}})
-                this.props.showLoader(false)
+                this.props.showLoader(false);
                 return this.setState({
                   company_name: '', company_address: '',  firstName: '', lastName: '', email: '', phoneNumber: ''
                 }, () => alert('Operation successful') )
