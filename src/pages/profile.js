@@ -214,7 +214,7 @@ class ManageProfile extends Component{
                             </div>
                             <div className="col-lg-6">
                                 <label>Role</label>
-                                <TextInput name={"role"} onChange={this.handleOnChange} value={this.state.role} />
+                                <TextInput disabled name={"role"} onChange={this.handleOnChange} value={this.state.role} />
                             </div>
                         </div>
                         <div className="my-4 text-center w-100">

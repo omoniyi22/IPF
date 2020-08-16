@@ -4,9 +4,76 @@ import IpfLogo from "../assets/IPF_Logo.png";
 import { Link } from 'react-router-dom';
 import * as actions from "../redux/actions";
 import { connect } from 'react-redux';
+import Axios from 'axios';
 
 class Header extends Component {
-  state = {expanded: true}
+    state = {
+        DomPurchase: '',
+        phoneNumber1: '',
+address: '',
+company_address: '',
+company_name: '',
+approved: 0,
+avatar: '',
+barcode: '',
+city: '',
+companyDetails: '',
+company_id: 0,
+country: '',
+createdAt: "2020-08-15T16:30:09.000Z",
+dob: '',
+emailAddress: "chika.egon@techparlons.com",
+emailAddress2: '',
+enrolled: '',
+expiryDate: '',
+expiryStatus: '',
+firstName: "Narcisse",
+industryClassification: '',
+industryType: '',
+isAdmin: 0,
+lastName: "Egonu",
+memberId: 281,
+memberNumber: '',
+member_id: "216244c9-df4f-4b34-a549-a220dab233c4",
+membershipType: "AM",
+nameOfCompany: "Techparlons",
+passport: '',
+password: '',
+phoneNumber: "07067656151",
+phoneNumber2: '',
+phone1_whatsapp: 0,
+phone2_whatsapp: 0,
+position: '',
+position_duration: '',
+profileCompleted: 0,
+qualifications: '',
+registeredBy: '',
+role: '',
+state: '',
+street1: '',
+street2: '',
+suspended: 0,
+website: '',
+expanded: true
+    }
+    componentDidMount(){
+        this.getUserDetails()
+        window.$('.modal').modal();
+    }
+
+    getUserDetails = async () => {
+        try{
+            const token = localStorage.getItem('x-access-token')
+            const response = await Axios.get('/api/v1/auth/details', {headers: {'x-access-token': token}});
+            
+            const data = response.data.data;
+            console.log(data)
+            this.setState({...data})
+        }catch(error){
+            console.error(error);
+        }
+    }
+
   render() {
     return (
       <div className="">
@@ -23,10 +90,10 @@ class Header extends Component {
                     <div className="col-lg-6">
                         <div className="row align-items-center h-100">
                               <div className="col-lg-8 d-flex">
-                                  <img src="http://www.venmond.com/demo/vendroid/img/avatar/big.jpg" alt="IPf" className="img-fluid img-logo rounded" />
+                                  <img src={this.state.avatar ? this.state.avatar : "http://www.venmond.com/demo/vendroid/img/avatar/big.jpg"} alt="IPf" className="img-fluid img-logo rounded" />
                                   <span className="mx-3 header-user-profile">
-                                      <h4>Andrew Murray</h4>
-                                      <h6>murray@gmail.com</h6>
+                                        <h4>{`${this.state.firstName} ${this.state.lastName}`}</h4>
+                                        <h6>{this.state.emailAddress}</h6>
                                   </span>
                               </div>
                               <div className="col-lg-4 d-flex justify-content-between w-100">

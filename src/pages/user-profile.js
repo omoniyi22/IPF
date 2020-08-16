@@ -11,7 +11,10 @@ import EventRole from "../components/event-role";
 class UserProfile extends Component{
     state = {
         DomPurchase: '',
+        phoneNumber1: '',
 address: '',
+company_address: '',
+company_name: '',
 approved: 0,
 avatar: '',
 barcode: '',
@@ -40,6 +43,8 @@ passport: '',
 password: '',
 phoneNumber: "07067656151",
 phoneNumber2: '',
+phone1_whatsapp: 0,
+phone2_whatsapp: 0,
 position: '',
 position_duration: '',
 profileCompleted: 0,
@@ -58,6 +63,9 @@ website: '',
     }
     openModal = () => {
         window.$('#modal1').modal('open')
+    }
+    openCompanyModay = () => {
+        window.$('#modal2').modal('open')
     }
     getUserDetails = async () => {
         try{
@@ -124,8 +132,39 @@ website: '',
                 })
             });
     }
+    uploadWidget2 = ()=> {
+        const $this = this;
+        window.cloudinary.openUploadWidget({ cloud_name: 'dnevwxinm', upload_preset: 'onfjtj7b', tags:['xmas']},
+            function(error, result) {
+                if(error){
+                    return console.log(error)
+                }
+                $this.setState({
+                    companyLogo: result[0].url
+                })
+            });
+    }
     viewEvent = () => {
 
+    }
+    updateCompany = async (e) => {
+        console.log(this.state)
+
+        try{
+           if(this.state.companyDetails.trim() === ''){
+               return alert('Please provide company details')
+           }
+            this.props.showLoader(true)
+            const token = localStorage.getItem('x-access-token')
+            const response = await Axios.patch('/api/v1/auth/edit', this.state, {headers: {'x-access-token': token}} )
+            console.log(response.data)
+            this.props.showLoader()
+            alert('Update Successful')
+        }catch(error){
+            console.error(error)
+            this.props.showLoader()
+            alert('Some errors were encountered');
+        }
     }
     render(){
         
@@ -142,19 +181,26 @@ website: '',
                                 <div className="user-profile-score-card shadow bg-white p-1">
                                 <div className="row justify-content-between px-3 border-bottom mb-0" >
                                         <div className="d-flex">
-                                        <h5 className="fw-bold book-family">Member Id:</h5>
-                                        <h5  className="mx-2 fw-bold book-family">{this.state.memberId}</h5>
+                                        <h5 style={{fontSize: 18}} className="fw-bold book-family">Member Id:</h5>
+                                        <h5 style={{fontSize: 18}} className="mx-2 fw-bold book-family">{this.state.memberNumber}</h5>
                                         </div>
-                                             <div className="d-flex flex-grow-1 justify-content-end"><h5 onClick={this.openModal} className="book-family text-underline">Edit Profile</h5></div>
+                                             <div className="d-flex flex-grow-1 justify-content-end"><h5 style={{fontSize: 16}} onClick={this.openModal} className="book-family text-underline">Edit Profile</h5></div>
                                         </div>
                                     <div className="">
                                         <div className="w-1oo" >
                                             <img src={`${this.state.avatar ? this.state.avatar: 'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=700&amp;q=60'}`}  className="user-profile-image" alt="bg" />
                                         </div>
                                     </div>
-                                    <div className="row">
+                                    <div className="row mb-0">
                                         <h5 className="book-family">Welcome, {this.state.firstName}</h5>
-                                            <h6 className="book-family w-100 mt-0">{this.state.nameOfCompany}</h6>
+                                            
+                                    </div>
+                                    <div className="row">
+                                    <h6 className="book-family mt-0">{this.state.nameOfCompany}</h6>
+                                         {
+                                             this.state.role === 'super-user' ?
+                                             <span onClick={this.openCompanyModay} className="mx-2 cursor-pointer"><i style={{fontSize: 32}} className="material-icons">create</i></span> : null
+                                         }   
                                     </div>
                                     <div>
                                         <span className="mx-3"><i className="material-icons">stay_current_portrait</i></span><span classNam="px-3 book-family">{this.state.phoneNumber}</span>
@@ -250,8 +296,27 @@ website: '',
                             </div>
                             <div className="row">
                                 <TextInput name={"phoneNumber"} placeholder="Phone Number" onChange={this.handleOnChange} value={this.state.phoneNumber} />
+                                <label className="mx-3">
+                                <input type="checkbox" checked={this.state.phone1_whatsapp} onChange={() => this.setState({phone1_whatsapp: this.state.phone2_whatsapp === 0 ? 1 : 0})} />
+                                    <span>Whatsapp number</span>
+                                </label>
                                 <span>format: 2348070706069</span>
                             </div>
+                            <div className="row">
+                                <TextInput name={"phoneNumber2"} placeholder="Phone Number" onChange={this.handleOnChange} value={this.state.phoneNumber1} />
+                                <label className="mx-3">
+                                    <input type="checkbox" onChange={() => this.setState({phone2_whatsapp: this.state.phone2_whatsapp === 0 ? 1 : 0})} value={this.state.phone2_whatsapp} checked={this.state.phone2_whatsapp} />
+                                    <span>Whatsapp number</span>
+                                </label>
+                                <span>format: 2348070706069</span>
+                            </div>
+                            <div className="row">
+                                <TextInput name={"company_name"} placeholder="Company Name" onChange={this.handleOnChange} value={this.state.company_name} />
+                            </div>
+                            <div className="row">
+                                <TextInput name={"comapany_address"} placeholder="Company Addresss" onChange={this.handleOnChange} value={this.state.company_address} />
+                            </div>
+                            
                                   
                             
                         </div>
@@ -260,6 +325,42 @@ website: '',
                         
                         <a href="#!" class="modal-close  waves-effect waves-green btn-flat">Close</a>
                         <button onClick={this.submit} className="waves-effect waves-green btn-primary btn">Update</button>
+                        </div>
+                    </div>
+                    <div id="modal2" class="modal modal-fixed-footer">
+                        <div class="modal-content">
+                        <h4>{'Update Company'}</h4>
+                        <div className="container-fluid mt-3">
+                            <div className="row justify-content-center">
+                            <div className="circle-avatar text-center d-flex align-items-center justify-content-center">
+                                {
+                                    this.state.avatar ? <img className="img-avatar" src={this.state.avatar} alt="profile" />
+                                    : <span><i style={{fontSize: 200, color: '#bdbdbd'}} className="material-icons">account_circle</i></span>
+                                }
+                                <span onClick={this.uploadWidget2} className="camera-button"><i className="material-icons">camera_enhance</i></span>
+                            </div>
+                            </div>
+                            
+                                
+                            <div className="row">
+                                <TextInput disabled name={"nameOfCompany"} placeholder="Company Name" onChange={this.handleOnChange} value={this.state.nameOfCompany} />
+                            </div>
+                            <div className="row">
+                                <TextInput name={"companyDetails"} placeholder="Company Details" onChange={this.handleOnChange} value={this.state.companyDetails} />
+                            </div>
+                            <div className="row">
+                                <TextInput name={"website"} placeholder="Company Website" onChange={this.handleOnChange} value={this.state.website} />
+                            </div>
+               
+                            
+                                  
+                            
+                        </div>
+                        </div>
+                        <div class="modal-footer">
+                        
+                        <a href="#!" class="modal-close  waves-effect waves-green btn-flat">Close</a>
+                        <button onClick={this.updateCompany} className="waves-effect waves-green btn-primary btn">Update</button>
                         </div>
                     </div>
             </UserDashboard>
