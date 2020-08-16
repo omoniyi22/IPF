@@ -3,6 +3,9 @@ import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import logo from "../assets/IPF_Logo.png";
+import nigeria from '../assets/nigeria.png';
+
+import india from '../assets/india.png'
 
 class UserDashboard extends Component{
     logout = (e) => {
@@ -25,7 +28,7 @@ class UserDashboard extends Component{
                         <ul className="side-menu-list">
                         
                         
-                        <li className="list-item">
+                        <li className="list-item active">
                             <Link>
                             <span> <i className="material-icons">account_circle</i></span>
                             <span>Accounts</span>
@@ -59,6 +62,12 @@ class UserDashboard extends Component{
                     <section className="user-profile-section">
                         {this.props.children}
                     </section>
+                    <div className="bg-blue p-2">
+                        <div className="d-flex mt-3 justify-content-end">
+                            <img  src={india} alt="flag"/>
+                            <img  src={nigeria} alt="flag"/>
+                    </div>
+                    </div>
             </div>
         )
     }

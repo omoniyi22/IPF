@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import { withRouter } from "react-router-dom";
-import nigeria from '../assets/nigeria.png'
+import nigeria from '../assets/nigeria.png';
+
 import india from '../assets/india.png'
 class SideMenu extends Component{
    logout = (e) => {
       e.preventDefault();
       localStorage.removeItem('x-access-token')
-      this.props.logoutUser();
+      window.location.reload()
   }
     render(){
         return(

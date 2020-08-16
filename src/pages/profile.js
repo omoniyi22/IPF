@@ -105,6 +105,18 @@ class ManageProfile extends Component{
             [name]: value
         })
     }
+    uploadWidget = ()=> {
+        const $this = this;
+        window.cloudinary.openUploadWidget({ cloud_name: 'dnevwxinm', upload_preset: 'onfjtj7b', tags:['xmas']},
+            function(error, result) {
+                if(error){
+                    return console.log(error)
+                }
+                $this.setState({
+                    avatar: result[0].url
+                })
+            });
+    }
     render(){
         return (
             <Dashboard>
@@ -123,6 +135,15 @@ class ManageProfile extends Component{
                     </div>
                 </CustomHeader> */}
                 <div className="profile container-fluid py-3">
+                    <div className="row justify-content-center my-4">
+                            <div className="circle-avatar text-center d-flex align-items-center justify-content-center">
+                                {
+                                    this.state.avatar ? <img className="img-avatar" src={this.state.avatar} alt="profile" />
+                                    : <span><i style={{fontSize: 200, color: '#bdbdbd'}} className="material-icons">account_circle</i></span>
+                                }
+                                <span onClick={this.uploadWidget} className="camera-button"><i className="material-icons">camera_enhance</i></span>
+                            </div>
+                    </div>
                     <form onSubmit={this.submit} className="mt-3 px-3">
                         <div className="row">
                             <div className="col-lg-6">

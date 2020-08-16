@@ -219,7 +219,7 @@ class Members extends Component{
                 }, () => alert('Operation successful') )
             }
             const {company_name, company_address,email, phone_number, adminFirstName, adminLastName, adminEmail, adminPhoneNumber} = this.state;
-            if(company_name.trim() === '' || phone_number.trim() === '' || company_address.trim() === '' || email.trim() === '' || adminEmail.trim() == '' || adminPhoneNumber.trim() == '' ||  adminFirstName.trim() === '' || adminLastName.trim() === ''){
+            if(company_name.trim() === '' || phone_number.trim() === '' || company_address.trim() === '' || email.trim() === '' || adminEmail.trim() === '' || adminPhoneNumber.trim() === '' ||  adminFirstName.trim() === '' || adminLastName.trim() === ''){
                 return alert('Incomplete details, please fill all required')
             }
             if(!phoneNumberRegx.test(adminPhoneNumber) || !phoneNumberRegx.test(phone_number)){

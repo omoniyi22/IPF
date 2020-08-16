@@ -305,8 +305,8 @@ li.header-sub-menu-list-item{
 }
 
 .user-profile-score-card{
-  position: absolute;
-  top: -7rem;
+  /* position: absolute; */
+  margin-top: -7rem;
   
   min-height: 25rem;
   width: 90%;
@@ -523,4 +523,75 @@ div.menu{
 
 select{
   display: block;
+}
+
+.circle-avatar{
+  position: relative;
+  /* width: 96px;
+  height: 96px; */
+  border-radius: 50%;
+  /* background-color: #bdbdbd; */
+}
+
+.camera-button{
+  position: absolute;
+  bottom: 17px;
+  left: 156px;
+    cursor: pointer;
+    font-size: 30px;
+}
+
+.camera-button i{
+  font-size: inherit;
+}
+
+.img-avatar{
+  object-fit: cover;
+  width: 200px;
+  height: 200px;
+  /* height: 100%; */
+  border-radius: 50%;
+
+}
+
+.fw-bold{
+  font-weight: bold;
+}
+
+.book-family{
+  font-family: 'Modern Antiqua', cursive;
+}
+
+.border-bottom{
+  border-bottom: 1px solid #f3f3f3;
+}
+
+.text-underline:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.user-profile-image{
+  object-fit: cover;
+  height: 250px;
+  width: 100%;
+}
+
+.cs-bottom{
+  background: #0F2F3E;
+    border-radius: 5px;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.event-role-item{
+
+}
+
+
+.user-dasboard-header2 li.active{
+  background: #fff;
+    color: #000;
+    border-right: 1px solid #2A4B5A;
 }
