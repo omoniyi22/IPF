@@ -6,58 +6,27 @@ import { connect } from "react-redux";
 import Axios from "axios";
 import { TextInput } from "../components/components";
 import EventRole from "../components/event-role";
+import { getIndustryCall, getClassificationCall } from "../services";
+import PhoneNumber from "../components/General/phoneInput";
 
 class UserProfile extends Component {
   state = {
-    DomPurchase: "",
-    phoneNumber1: "",
-    address: "",
-    company_address: "",
-    company_name: "",
-    approved: 0,
-    avatar: "",
-    barcode: "",
-    city: "",
-    companyDetails: "",
-    company_id: 0,
-    country: "",
-    createdAt: "2020-08-15T16:30:09.000Z",
-    dob: "",
-    emailAddress: "chika.egon@techparlons.com",
-    emailAddress2: "",
-    enrolled: "",
-    expiryDate: "",
-    expiryStatus: "",
-    firstName: "Narcisse",
-    industryClassification: "",
-    industryType: "",
-    isAdmin: 0,
-    lastName: "Egonu",
-    memberId: 281,
-    memberNumber: "",
-    member_id: "216244c9-df4f-4b34-a549-a220dab233c4",
-    membershipType: "AM",
-    nameOfCompany: "Techparlons",
-    passport: "",
-    password: "",
-    phoneNumber: "07067656151",
-    phoneNumber2: "",
-    phone1_whatsapp: 0,
-    phone2_whatsapp: 0,
-    position: "",
-    position_duration: "",
-    profileCompleted: 0,
-    qualifications: "",
-    registeredBy: "",
     role: "",
     state: "",
     street1: "",
     street2: "",
     suspended: 0,
     website: "",
+    indusClass: [],
+    industry: [],
+    industryClassification: "",
+    industryType: "",
+    phone1_whatsapp: false,
+    phone2_whatsapp: false,
   };
   componentDidMount() {
     this.getUserDetails();
+    this.getIndustyClassification();
     window.$(".modal").modal();
   }
   openModal = () => {
@@ -82,8 +51,16 @@ class UserProfile extends Component {
       this.props.showLoader();
     }
   };
-  handleOnChange = (e) => {
-    e.preventDefault();
+  handleOnChange = (e, phone = false) => {
+    if (phone) {
+      const { name, value } = e;
+      this.setState({
+        [name]: value,
+      });
+
+      return;
+    }
+
     const {
       target: { name, value },
     } = e;
@@ -155,15 +132,19 @@ class UserProfile extends Component {
   };
   viewEvent = () => {};
   updateCompany = async (e) => {
-    console.log(this.state);
-
     try {
       if (this.state.companyDetails.trim() === "") {
         return alert("Please provide company details");
       }
+
+      const data = {
+        ...this.state,
+        phone1_whatsapp: this.state.phone1_whatsapp ? 1 : 0,
+        phone2_whatsapp: this.state.phone2_whatsapp ? 1 : 0,
+      };
       this.props.showLoader(true);
       const token = localStorage.getItem("x-access-token");
-      const response = await Axios.patch("/api/v1/auth/edit", this.state, {
+      const response = await Axios.patch("/api/v1/auth/edit", data, {
         headers: { "x-access-token": token },
       });
       console.log(response.data);
@@ -175,7 +156,27 @@ class UserProfile extends Component {
       alert("Some errors were encountered");
     }
   };
+
+  getIndustyClassification = async () => {
+    try {
+      const [classRes, indusRes] = await Promise.all([
+        getClassificationCall(),
+        getIndustryCall(),
+      ]);
+      const industry = indusRes.data.data;
+      const indusClass = classRes.data.data;
+
+      this.setState({
+        indusClass,
+        industry,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   render() {
+    const { industryClassification, industryType } = this.state;
     return (
       <UserDashboard>
         <div className="">
@@ -217,7 +218,7 @@ class UserProfile extends Component {
                         src={`${
                           this.state.avatar
                             ? this.state.avatar
-                            : "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=700&amp;q=60"
+                            : "https://res.cloudinary.com/ninja-dev/image/upload/v1597409650/user_cibuzv.png"
                         }`}
                         className="user-profile-image"
                         alt="bg"
@@ -229,7 +230,7 @@ class UserProfile extends Component {
                       Welcome, {this.state.firstName}
                     </h5>
                   </div>
-                  <div className="row">
+                  {/* <div className="row">
                     <h6 className="book-family mt-0">
                       {this.state.nameOfCompany}
                     </h6>
@@ -243,7 +244,7 @@ class UserProfile extends Component {
                         </i>
                       </span>
                     ) : null}
-                  </div>
+                  </div> */}
                   <div>
                     <span className="mx-3">
                       <i className="material-icons">stay_current_portrait</i>
@@ -408,7 +409,7 @@ class UserProfile extends Component {
                 />
               </div>
               <div className="row">
-                <TextInput
+                <PhoneNumber
                   name={"phoneNumber"}
                   placeholder="Phone Number"
                   onChange={this.handleOnChange}
@@ -418,39 +419,35 @@ class UserProfile extends Component {
                   <input
                     type="checkbox"
                     checked={this.state.phone1_whatsapp}
-                    onChange={() =>
-                      this.setState({
-                        phone1_whatsapp:
-                          this.state.phone2_whatsapp === 0 ? 1 : 0,
-                      })
-                    }
+                    onChange={() => {
+                      this.setState((prevState) => ({
+                        phone1_whatsapp: !prevState.phone1_whatsapp,
+                      }));
+                    }}
                   />
                   <span>Whatsapp number</span>
                 </label>
-                <span>format: 2348070706069</span>
               </div>
               <div className="row">
-                <TextInput
+                <PhoneNumber
                   name={"phoneNumber2"}
                   placeholder="Phone Number"
                   onChange={this.handleOnChange}
-                  value={this.state.phoneNumber1}
+                  value={this.state.phoneNumber2}
                 />
                 <label className="mx-3">
                   <input
                     type="checkbox"
-                    onChange={() =>
-                      this.setState({
-                        phone2_whatsapp:
-                          this.state.phone2_whatsapp === 0 ? 1 : 0,
-                      })
-                    }
-                    value={this.state.phone2_whatsapp}
                     checked={this.state.phone2_whatsapp}
+                    onChange={() => {
+                      this.setState((prevState) => ({
+                        phone2_whatsapp: !prevState.phone2_whatsapp,
+                      }));
+                    }}
+                    value={this.state.phone2_whatsapp}
                   />
                   <span>Whatsapp number</span>
                 </label>
-                <span>format: 2348070706069</span>
               </div>
               <div className="row">
                 <TextInput
@@ -462,11 +459,50 @@ class UserProfile extends Component {
               </div>
               <div className="row">
                 <TextInput
-                  name={"comapany_address"}
+                  name={"company_address"}
                   placeholder="Company Addresss"
                   onChange={this.handleOnChange}
                   value={this.state.company_address}
                 />
+              </div>
+
+              <div className="row">
+                <select
+                  name="industryType"
+                  defaultValue={this.state.industryType}
+                  onChange={this.handleOnChange}
+                >
+                  {industryType ? (
+                    <option>{industryType}</option>
+                  ) : (
+                    <option>Select Industry Type</option>
+                  )}
+                  {this.state.industry.map((ele) => (
+                    <option key={ele.id} value={ele.industry_name}>
+                      {ele.industry_name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="row">
+                <select
+                  name="industryClassification"
+                  defaultValue={this.state.industryClassification}
+                  onChange={this.handleOnChange}
+                >
+                  {industryClassification ? (
+                    <option>{industryClassification}</option>
+                  ) : (
+                    <option>Select Industry Classification</option>
+                  )}
+
+                  {this.state.indusClass.map((ele) => (
+                    <option key={ele.id} value={ele.industry_name}>
+                      {ele.industry_name}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
           </div>

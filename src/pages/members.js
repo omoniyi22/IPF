@@ -11,8 +11,12 @@ import MemberActions from "../components/member-actions";
 import roleSanitizer from "../utils/roleSanitizer";
 import { createCompanyCall } from "../services/requests";
 import { emailRegx, phoneNumberRegx } from "../utils/regex";
+import PhoneNumber from "../components/General/phoneInput";
+import AppWrapper from "../components/appWrapper";
+import { api, attachApiToken } from "../services/api";
 class Members extends Component {
   state = {
+    openSnackbar: false,
     currentTab: "organisation",
     companies: [],
     registeredMembers: [],
@@ -32,6 +36,7 @@ class Members extends Component {
     adminEmail: "",
     adminPhoneNumber: "",
     company_address: "",
+    type: "default",
   };
   async componentDidMount() {
     //initialize materialize modal
@@ -62,8 +67,6 @@ class Members extends Component {
     try {
     } catch (error) {
       this.props.showLoader();
-      console.error(error);
-      alert("Some errors were encountered");
     }
   };
 
@@ -81,12 +84,12 @@ class Members extends Component {
           { headers: { "x-access-token": token } }
         );
         this.props.showLoader();
-        alert("Action Successful");
+        this.handleFireSnackbar("Action Successful", "success");
       }
     } catch (error) {
       this.props.showLoader();
-      console.error(error);
-      alert("some errors were encountered");
+
+      this.handleFireSnackbar("some errors were encountered", "error");
     }
   };
 
@@ -100,10 +103,7 @@ class Members extends Component {
       this.setState({
         types: response.data.data,
       });
-    } catch (error) {
-      console.error(error);
-      alert("some errors were encountered");
-    }
+    } catch (error) {}
   };
 
   getCompaniesAndMembers = async () => {
@@ -126,8 +126,16 @@ class Members extends Component {
     }
   };
 
-  handleOnChange = (e) => {
-    e.preventDefault();
+  handleOnChange = (e, phone = false) => {
+    if (phone) {
+      const { name, value } = e;
+      this.setState({
+        [name]: value,
+      });
+
+      return;
+    }
+
     const {
       target: { name, value },
     } = e;
@@ -145,9 +153,38 @@ class Members extends Component {
       case "add-member":
         this.addMemberToCompany(data);
         break;
+      case "remove-company":
+        this.removeCompany(data);
+        break;
 
       default:
         return;
+    }
+  };
+
+  removeCompany = async (data) => {
+    const response = window.confirm(
+      "You are about to remove a Company. This action is irreversible! Proceed with action?"
+    );
+    if (response) {
+      // remove(item.memberId);
+      try {
+        this.props.showLoader(true);
+
+        const authApi = await attachApiToken(api);
+        await authApi.delete("/admin/corporate-member", {
+          data: {
+            company_id: data["company_id"],
+          },
+        });
+        this.handleFireSnackbar("Removal Successful", "success");
+        this.props.showLoader(false);
+        this.getCompaniesAndMembers();
+      } catch (error) {
+        console.log(error);
+        this.handleFireSnackbar("some errors where encountered", "error");
+        this.props.showLoader(false);
+      }
     }
   };
 
@@ -156,8 +193,8 @@ class Members extends Component {
       this.setState({ data }, () => window.$("#modal2").modal("open"));
     } catch (error) {
       this.props.showLoader();
-      console.error(error);
-      alert("some errors where encountered");
+
+      this.handleFireSnackbar("some errors where encountered", "error");
     }
   };
 
@@ -196,17 +233,20 @@ class Members extends Component {
           email: "",
           phoneNumber: "",
         },
-        () => alert("Operation successful")
+        () => this.handleFireSnackbar("Operation successful", "error")
       );
     } catch (error) {
       console.error(error.response);
       if (error.response) {
-        alert(error.response.data.error);
+        this.handleFireSnackbar(error.response.data.message, "error");
         return this.props.showLoader();
       }
 
       this.props.showLoader();
-      return alert("some errors were encountered, please contact admin");
+      return this.handleFireSnackbar(
+        "some errors were encountered, please contact admin",
+        "error"
+      );
     }
   };
 
@@ -245,21 +285,25 @@ class Members extends Component {
         adminFirstName.trim() === "" ||
         adminLastName.trim() === ""
       ) {
-        return alert("Incomplete details, please fill all required");
+        return this.handleFireSnackbar(
+          "Incomplete details, please fill all required",
+          "error"
+        );
       }
       if (
         !phoneNumberRegx.test(adminPhoneNumber) ||
         !phoneNumberRegx.test(phone_number)
       ) {
-        return alert("Phone Number is invalid");
+        return this.handleFireSnackbar("Phone Number is invalid", "error");
       }
 
       if (!emailRegx.test(email) || !emailRegx.test(adminEmail)) {
-        return alert("Email is invalid");
+        return this.handleFireSnackbar("Email is invalid", "error");
       }
 
       this.props.showLoader(true);
       await createCompanyCall(addCompany);
+
       this.props.showLoader(false);
       this.setState(
         {
@@ -268,12 +312,18 @@ class Members extends Component {
           firstName: "",
           lastName: "",
           email: "",
+          phone_number: "",
           phoneNumber: "",
+          adminFirstName: "",
+          adminLastName: "",
+          adminEmail: "",
+          adminPhoneNumber: "",
         },
-        () => alert("Operation successful")
+        () => this.handleFireSnackbar("Operation successful", "success")
       );
     } catch (error) {
       this.props.showLoader(false);
+
       throw error;
     }
   };
@@ -281,66 +331,75 @@ class Members extends Component {
   addIndividualMember = async (e) => {
     e.preventDefault();
     if (this.state.companyCode.trim() === "") {
-      return alert("please select company type");
+      return this.handleFireSnackbar("please select company type", "error");
     }
     try {
-      // if (!this.state.codes.includes(this.state.companyCode)) {
-      //   const { firstName, lastName, email, phoneNumber } = this.state;
-      //   if (
-      //     firstName.trim() === "" ||
-      //     lastName.trim() === "" ||
-      //     email.trim() === "" ||
-      //     phoneNumber.trim() === ""
-      //   ) {
-      //     return alert("Incomplete details, please fill all required");
-      //   }
-      //   if (!phoneNumberRegx.test(phoneNumber)) {
-      //     return alert("Phone Number is invalid");
-      //   }
-      //   if (!emailRegx.test(email)) {
-      //     return alert("Email is invalid");
-      //   }
-      //   const token = localStorage.getItem("x-access-token");
-      //   this.props.showLoader(true);
-      //   await Axios.post(
-      //     "/api/v1/admin/register-user",
-      //     {
-      //       firstName,
-      //       lastName,
-      //       email,
-      //       membershipType: this.state.companyCode,
-      //       phoneNumber,
-      //     },
-      //     { headers: { "x-access-token": token } }
-      //   );
-      //   this.props.showLoader(false);
-      //   return this.setState(
-      //     {
-      //       company_name: "",
-      //       company_address: "",
-      //       firstName: "",
-      //       lastName: "",
-      //       email: "",
-      //       phoneNumber: "",
-      //     },
-      //     () => alert("Operation successful")
-      //   );
-      // }
+      if (!this.state.codes.includes(this.state.companyCode)) {
+        const { firstName, lastName, email, phoneNumber } = this.state;
+        if (
+          firstName.trim() === "" ||
+          lastName.trim() === "" ||
+          email.trim() === "" ||
+          phoneNumber.trim() === ""
+        ) {
+          return this.handleFireSnackbar(
+            "Incomplete details, please fill all required",
+            "error"
+          );
+        }
+        if (!phoneNumberRegx.test(phoneNumber)) {
+          return this.handleFireSnackbar("Phone Number is invalid", "error");
+        }
+        if (!emailRegx.test(email)) {
+          return this.handleFireSnackbar("Email is invalid", "error");
+        }
+        const token = localStorage.getItem("x-access-token");
+        this.props.showLoader(true);
+        await Axios.post(
+          "/api/v1/admin/register-user",
+          {
+            firstName,
+            lastName,
+            email,
+            membershipType: this.state.companyCode,
+            phoneNumber,
+          },
+          { headers: { "x-access-token": token } }
+        );
+        this.props.showLoader(false);
+        return this.setState(
+          {
+            company_name: "",
+            company_address: "",
+            firstName: "",
+            lastName: "",
+            email: "",
+            phoneNumber: "",
+          },
+          () => this.handleFireSnackbar("Operation successful", "success")
+        );
+      }
 
       this.addCompany();
     } catch (error) {
       this.props.showLoader(false);
-      console.error(error.response);
-      if (error.response) {
-        alert(error.response.data.error);
+      if (error.response && error.response.data) {
+        this.setState({
+          openSnackbar: true,
+          msg: error.response.data.message,
+        });
+
+        return;
+        // alert(error.response.data.error);
       }
 
-      return alert("some errors were encountered, please contact admin");
+      return this.handleFireSnackbar(
+        "some errors were encountered, please contact admin"
+      );
     }
   };
 
   viewMembers = async (data) => {
-    console.log(window.$(".modal"));
     this.setState({ data });
     try {
       this.props.showLoader(true);
@@ -349,7 +408,7 @@ class Members extends Component {
         `/api/v1/admin/company-members?company_id=${data.company_id}`,
         { headers: { "x-access-token": token } }
       );
-      console.log(response.data);
+
       this.setState(
         {
           members: response.data.data,
@@ -360,12 +419,15 @@ class Members extends Component {
     } catch (error) {
       console.error(error.response);
       if (error.response) {
-        alert(error.response.data.error);
+        this.handleFireSnackbar(error.response.data.error);
         return this.props.showLoader();
       }
 
       this.props.showLoader();
-      return alert("some errors were encountered, please contact admin");
+      return this.handleFireSnackbar(
+        "some errors were encountered, please contact admin",
+        "error"
+      );
     }
   };
   handleOnClickMemberActions = (action, data) => {
@@ -399,12 +461,11 @@ class Members extends Component {
         });
 
         this.props.showLoader();
-        alert("Operation successful");
+        this.handleFireSnackbar("Operation successful", "success");
       }
     } catch (error) {
-      console.error(error);
       this.props.showLoader(false);
-      alert("some errors were encountered");
+      this.handleFireSnackbar("some errors were encountered", "error");
     }
   };
   suspendMember = async (data) => {
@@ -419,12 +480,11 @@ class Members extends Component {
           { headers: { "x-access-token": token } }
         );
         this.props.showLoader();
-        alert("Operation successful");
+        this.handleFireSnackbar("Operation successful", "success");
       }
     } catch (error) {
-      console.error(error);
       this.props.showLoader(false);
-      alert("some errors were encountered");
+      this.handleFireSnackbar("some errors were encountered", "error");
     }
   };
   renderIndividualBlock = () => (
@@ -496,356 +556,388 @@ class Members extends Component {
       this.props.showLoader();
       window.$("#modal3").modal("open");
     } catch (error) {
-      console.error(error);
       // alert("some errors were encountered");
     }
   };
+
+  handleFireSnackbar = (msg, type = "default") => {
+    this.setState({
+      msg,
+      openSnackbar: true,
+      type,
+    });
+  };
+
   render() {
     return (
       <Dashboard>
-        <div className="container-fluid" style={{ width: "90%" }}>
-          <div className="d-flex justify-content-end mb-3">
-            <button
-              onClick={this.openAddMemberModal}
-              class="waves-effect waves-light btn"
-            >
-              Add Member
-            </button>
-          </div>
-          <div className="row mt-5">
-            <div className="shadow rounded bg-white col-md-12 px-3 py-1">
-              <div className="d-flex justify-content-center align-items-center">
-                <div
-                  onClick={() => this.setState({ currentTab: "individual" })}
-                  style={{ position: "relative" }}
-                >
-                  <h4
-                    className={`member-type-header mx-2 ${
-                      this.state.currentTab === "individual" ? "active" : ""
-                    }`}
+        <AppWrapper
+          open={this.state.openSnackbar}
+          onClose={() => {
+            this.setState({
+              openSnackbar: false,
+            });
+          }}
+          message={this.state.msg}
+          type={this.state.type}
+        >
+          <div className="container-fluid" style={{ width: "90%" }}>
+            <div className="d-flex justify-content-end mb-3">
+              <button
+                onClick={this.openAddMemberModal}
+                class="waves-effect waves-light btn"
+              >
+                Add Member
+              </button>
+            </div>
+            <div className="row mt-5">
+              <div className="shadow rounded bg-white col-md-12 px-3 py-1">
+                <div className="d-flex justify-content-center align-items-center">
+                  <div
+                    onClick={() => this.setState({ currentTab: "individual" })}
+                    style={{ position: "relative" }}
                   >
-                    Individual
-                  </h4>
-                </div>
-                <div
-                  onClick={() => this.setState({ currentTab: "organisation" })}
-                  style={{ position: "relative" }}
-                >
-                  <h4
-                    className={`member-type-header ${
-                      this.state.currentTab === "organisation" ? "active" : ""
-                    }`}
+                    <h4
+                      className={`member-type-header mx-2 ${
+                        this.state.currentTab === "individual" ? "active" : ""
+                      }`}
+                    >
+                      Individual
+                    </h4>
+                  </div>
+                  <div
+                    onClick={() =>
+                      this.setState({ currentTab: "organisation" })
+                    }
+                    style={{ position: "relative" }}
                   >
-                    Organisation
-                  </h4>
+                    <h4
+                      className={`member-type-header ${
+                        this.state.currentTab === "organisation" ? "active" : ""
+                      }`}
+                    >
+                      Organisation
+                    </h4>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="row mt-4">
-            {this.state.currentTab === "organisation" ? (
-              <div className="shadow rounded bg-white col-md-12 p-3">
-                <MaterialTable
-                  components={{
-                    Action: (props) => {
-                      console.log(props);
-                      if (props.action.icon === "save") {
-                        return (
-                          <TableAction
-                            data={props.data}
-                            onClick={this.handleOnClick}
-                          />
-                        );
-                      }
-                      return <button>Hello</button>;
-                    },
-                  }}
-                  title=""
-                  columns={[
-                    { title: "Name", field: "company_name" },
-                    { title: "Email", field: "email" },
-                    { title: "Member No", field: "memberNumber" },
-                    { title: "Member Type", field: "company_type" },
-                    { title: "Phone Number", field: "phone_number" },
-                    // { title: 'Membership NO:', field: 'membershipNo', type: 'numeric' },
-
-                    // {
-                    // title: 'Birth Place',
-                    // field: 'birthCity',
-                    // lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
-                    // },
-                  ]}
-                  data={this.state.companies}
-                  options={{
-                    headerStyle: {
-                      background: "#FA6400",
-                      color: "#FFF",
-                      fontFamily: '"Open Sans", sans-serif',
-                      fontWeight: "bold",
-                      zIndex: 1,
-                    },
-                    searchFieldStyle: {},
-                    actionsColumnIndex: -1,
-                  }}
-                  actions={[
-                    {
-                      icon: "save",
-                      tooltip: "Save User",
-                      onClick: (event, rowData) => {
-                        // Do save operation
+            <div className="row mt-4">
+              {this.state.currentTab === "organisation" ? (
+                <div className="shadow rounded bg-white col-md-12 p-3">
+                  <MaterialTable
+                    components={{
+                      Action: (props) => {
+                        console.log(props);
+                        if (props.action.icon === "save") {
+                          return (
+                            <TableAction
+                              data={props.data}
+                              onClick={this.handleOnClick}
+                            />
+                          );
+                        }
+                        return <button>Hello</button>;
                       },
-                    },
-                  ]}
-                  //   editable={{
-                  //     onRowAdd: newData => {},
-                  //     onRowUpdate: (newData, oldData) => {},
-                  //     onRowDelete: oldData => {}
-                  //   }}
-                />
-              </div>
-            ) : (
-              this.renderIndividualBlock()
-            )}
-          </div>
-          <div id="modal1" class="modal modal-fixed-footer">
-            <div class="modal-content">
-              <h4>{this.state.data.company_name + " Members"}</h4>
-              <div className="container-fluid mt-3">
-                {this.state.members.map((item) => (
-                  <div className="row shadow bg-white rounded p-2">
-                    <div className="col-md-12">
-                      <div className="row " style={{ marginBottom: 8 }}>
-                        <div className="col-md-8">
-                          <h5>{`${item.firstName} ${item.lastName}`}</h5>
+                    }}
+                    title=""
+                    columns={[
+                      { title: "Name", field: "company_name" },
+                      { title: "Email", field: "email" },
+                      { title: "Member No", field: "memberNumber" },
+                      { title: "Member Type", field: "company_type" },
+                      { title: "Phone Number", field: "phone_number" },
+                      // { title: 'Membership NO:', field: 'membershipNo', type: 'numeric' },
+
+                      // {
+                      // title: 'Birth Place',
+                      // field: 'birthCity',
+                      // lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
+                      // },
+                    ]}
+                    data={this.state.companies}
+                    options={{
+                      headerStyle: {
+                        background: "#FA6400",
+                        color: "#FFF",
+                        fontFamily: '"Open Sans", sans-serif',
+                        fontWeight: "bold",
+                        zIndex: 1,
+                      },
+                      searchFieldStyle: {},
+                      actionsColumnIndex: -1,
+                    }}
+                    actions={[
+                      {
+                        icon: "save",
+                        tooltip: "Save User",
+                        onClick: (event, rowData) => {
+                          // Do save operation
+                        },
+                      },
+                    ]}
+                    //   editable={{
+                    //     onRowAdd: newData => {},
+                    //     onRowUpdate: (newData, oldData) => {},
+                    //     onRowDelete: oldData => {}
+                    //   }}
+                  />
+                </div>
+              ) : (
+                this.renderIndividualBlock()
+              )}
+            </div>
+            <div id="modal1" class="modal modal-fixed-footer">
+              <div class="modal-content">
+                <h4>{this.state.data.company_name + " Members"}</h4>
+                <div className="container-fluid mt-3">
+                  {this.state.members.map((item) => (
+                    <div className="row shadow bg-white rounded p-2">
+                      <div className="col-md-12">
+                        <div className="row " style={{ marginBottom: 8 }}>
+                          <div className="col-md-8">
+                            <h5>{`${item.firstName} ${item.lastName}`}</h5>
+                          </div>
+                          <div className="col-md-4">
+                            <h5 className="text-primary">{`#${item.memberNumber}`}</h5>
+                          </div>
                         </div>
-                        <div className="col-md-4">
-                          <h5 className="text-primary">{`#${item.memberNumber}`}</h5>
+                        <div className="row " style={{ marginBottom: 8 }}>
+                          <div className="col-md-12">
+                            <span>{`${item.emailAddress}`}</span>
+                          </div>
                         </div>
-                      </div>
-                      <div className="row " style={{ marginBottom: 8 }}>
-                        <div className="col-md-12">
-                          <span>{`${item.emailAddress}`}</span>
-                        </div>
-                      </div>
-                      <div className="row " style={{ marginBottom: 8 }}>
-                        <div className="col-md-12">
-                          <span>
-                            {`Role:`}
-                            <span
-                              className="mx-1"
-                              style={{ fontWeight: "bold", fontSize: "16px" }}
-                            >
-                              {roleSanitizer(item.role)}
+                        <div className="row " style={{ marginBottom: 8 }}>
+                          <div className="col-md-12">
+                            <span>
+                              {`Role:`}
+                              <span
+                                className="mx-1"
+                                style={{ fontWeight: "bold", fontSize: "16px" }}
+                              >
+                                {roleSanitizer(item.role)}
+                              </span>
                             </span>
-                          </span>
+                          </div>
                         </div>
-                      </div>
-                      <div className="row " style={{ marginBottom: 8 }}>
-                        <div className="col-md-12 d-flex justify-content-end">
-                          <UserAction
-                            data={item}
-                            onClick={this.perfromUserAction}
-                          />
+                        <div className="row " style={{ marginBottom: 8 }}>
+                          <div className="col-md-12 d-flex justify-content-end">
+                            <UserAction
+                              data={item}
+                              onClick={this.perfromUserAction}
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
+              </div>
+              <div class="modal-footer">
+                <a
+                  href="#!"
+                  class="modal-close  waves-effect waves-green btn-info btn"
+                >
+                  Close
+                </a>
               </div>
             </div>
-            <div class="modal-footer">
-              <a
-                href="#!"
-                class="modal-close  waves-effect waves-green btn-info btn"
-              >
-                Close
-              </a>
-            </div>
-          </div>
 
-          <div id="modal2" class="modal modal-fixed-footer">
-            <div class="modal-content">
-              <h4>{"Add members to " + this.state.data.company_name}</h4>
-              <div className="container-fluid mt-3">
-                <div className="row">
-                  <TextInput
-                    name={"firstName"}
-                    placeholder="First Name"
-                    onChange={this.handleOnChange}
-                    value={this.state.firstName}
-                  />
-                </div>
-                <div className="row">
-                  <TextInput
-                    name={"lastName"}
-                    placeholder="Last Name"
-                    onChange={this.handleOnChange}
-                    value={this.state.lastName}
-                  />
-                </div>
-                <div className="row">
-                  <TextInput
-                    name={"email"}
-                    placeholder="Email Addresss"
-                    onChange={this.handleOnChange}
-                    value={this.state.email}
-                  />
-                </div>
-                <div className="row">
-                  <TextInput
+            <div id="modal2" class="modal modal-fixed-footer">
+              <div class="modal-content">
+                <h4>{"Add members to " + this.state.data.company_name}</h4>
+                <div className="container-fluid mt-3">
+                  <div className="row">
+                    <TextInput
+                      name={"firstName"}
+                      placeholder="First Name"
+                      onChange={this.handleOnChange}
+                      value={this.state.firstName}
+                    />
+                  </div>
+                  <div className="row">
+                    <TextInput
+                      name={"lastName"}
+                      placeholder="Last Name"
+                      onChange={this.handleOnChange}
+                      value={this.state.lastName}
+                    />
+                  </div>
+                  <div className="row">
+                    <TextInput
+                      name={"email"}
+                      placeholder="Email Addresss"
+                      onChange={this.handleOnChange}
+                      value={this.state.email}
+                    />
+                  </div>
+                  <div className="row">
+                    {/* <TextInput
                     name={"phoneNumber"}
                     placeholder="Phone Number"
                     onChange={this.handleOnChange}
                     value={this.state.phoneNumber}
-                  />
+                  /> */}
+
+                    <PhoneNumber
+                      name={"phoneNumber"}
+                      placeholder="Phone Number"
+                      onChange={this.handleOnChange}
+                      value={this.state.phoneNumber}
+                    />
+                  </div>
                 </div>
               </div>
+              <div class="modal-footer">
+                <a
+                  href="#!"
+                  class="modal-close  waves-effect waves-green btn-flat"
+                >
+                  Close
+                </a>
+                <button
+                  onClick={this.addMember}
+                  className="waves-effect waves-green btn-primary btn"
+                >
+                  Add
+                </button>
+              </div>
             </div>
-            <div class="modal-footer">
-              <a
-                href="#!"
-                class="modal-close  waves-effect waves-green btn-flat"
-              >
-                Close
-              </a>
-              <button
-                onClick={this.addMember}
-                className="waves-effect waves-green btn-primary btn"
-              >
-                Add
-              </button>
-            </div>
-          </div>
-          <div id="modal3" class="modal modal-fixed-footer">
-            <div class="modal-content">
-              <h4>{"Add members"}</h4>
-              <div className="container-fluid mt-3">
-                <div className="row input-field">
-                  <select name="companyCode" onChange={this.handleOnChange}>
-                    <option>Select membership type</option>
+            <div id="modal3" class="modal modal-fixed-footer">
+              <div class="modal-content">
+                <h4>{"Add members"}</h4>
+                <div className="container-fluid mt-3">
+                  <div className="row input-field">
+                    <select name="companyCode" onChange={this.handleOnChange}>
+                      <option>Select membership type</option>
 
-                    {this.state.types.map((ele) => (
-                      <option value={ele.code}>{ele.name}</option>
-                    ))}
-                  </select>
-                </div>
-                {!this.state.codes.includes(this.state.companyCode) ? (
-                  <>
-                    <div className="row">
-                      <TextInput
-                        name={"firstName"}
-                        placeholder="First Name"
-                        onChange={this.handleOnChange}
-                        value={this.state.firstName}
-                      />
-                    </div>
-                    <div className="row">
-                      <TextInput
-                        name={"lastName"}
-                        placeholder="Last Name"
-                        onChange={this.handleOnChange}
-                        value={this.state.lastName}
-                      />
-                    </div>
-                    <div className="row">
-                      <TextInput
-                        name={"email"}
-                        placeholder="Email Addresss"
-                        onChange={this.handleOnChange}
-                        value={this.state.email}
-                      />
-                    </div>
-                    <div className="row">
-                      <TextInput
-                        name={"phoneNumber"}
-                        placeholder="Phone Number"
-                        onChange={this.handleOnChange}
-                        value={this.state.phoneNumber}
-                      />
-                      <span>format: 2348070706069</span>
-                    </div>
-                  </>
-                ) : null}
-                {this.state.codes.includes(this.state.companyCode) ? (
-                  <>
-                    <div className="row">
-                      <TextInput
-                        name={"company_name"}
-                        placeholder="Company Name"
-                        onChange={this.handleOnChange}
-                        value={this.state.company_name}
-                      />
-                    </div>
-                    <div className="row">
-                      <TextInput
-                        name={"email"}
-                        placeholder="Email"
-                        onChange={this.handleOnChange}
-                        value={this.state.email}
-                      />
-                    </div>
-                    <div className="row">
-                      <TextInput
+                      {this.state.types.map((ele) => (
+                        <option value={ele.code}>{ele.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                  {!this.state.codes.includes(this.state.companyCode) ? (
+                    <>
+                      <div className="row">
+                        <TextInput
+                          name={"firstName"}
+                          placeholder="First Name"
+                          onChange={this.handleOnChange}
+                          value={this.state.firstName}
+                        />
+                      </div>
+                      <div className="row">
+                        <TextInput
+                          name={"lastName"}
+                          placeholder="Last Name"
+                          onChange={this.handleOnChange}
+                          value={this.state.lastName}
+                        />
+                      </div>
+                      <div className="row">
+                        <TextInput
+                          name={"email"}
+                          placeholder="Email Addresss"
+                          onChange={this.handleOnChange}
+                          value={this.state.email}
+                        />
+                      </div>
+                      <div className="row">
+                        <PhoneNumber
+                          name={"phoneNumber"}
+                          placeholder="Phone Number"
+                          onChange={this.handleOnChange}
+                          value={this.state.phoneNumber}
+                        />
+                      </div>
+                    </>
+                  ) : null}
+                  {this.state.codes.includes(this.state.companyCode) ? (
+                    <>
+                      <div className="row">
+                        <TextInput
+                          name={"company_name"}
+                          placeholder="Company Name"
+                          onChange={this.handleOnChange}
+                          value={this.state.company_name}
+                        />
+                      </div>
+                      <div className="row">
+                        <TextInput
+                          name={"email"}
+                          placeholder="Email"
+                          onChange={this.handleOnChange}
+                          value={this.state.email}
+                        />
+                      </div>
+                      <div className="row">
+                        <PhoneNumber
+                          name={"phone_number"}
+                          placeholder="Phone Number"
+                          onChange={this.handleOnChange}
+                          value={this.state.phone_number}
+                        />
+                        {/* <TextInput
                         name={"phone_number"}
                         placeholder="Phone Number"
                         onChange={this.handleOnChange}
                         value={this.state.phone_number}
-                      />
-                      <span>format: 2348070706069</span>
-                    </div>
-                    <div className="row">
-                      <TextInput
-                        name={"adminFirstName"}
-                        placeholder="Company Admin First Name"
-                        onChange={this.handleOnChange}
-                        value={this.state.adminFirstName}
-                      />
-                    </div>
-                    <div className="row">
-                      <TextInput
-                        name={"adminLastName"}
-                        placeholder="Company Admin Last Name"
-                        onChange={this.handleOnChange}
-                        value={this.state.adminLastName}
-                      />
-                    </div>
-                    <div className="row">
-                      <TextInput
-                        name={"adminEmail"}
-                        placeholder="Company Admin Email Addresss"
-                        onChange={this.handleOnChange}
-                        value={this.state.adminEmail}
-                      />
-                    </div>
-                    <div className="row">
-                      <TextInput
-                        name={"adminPhoneNumber"}
-                        placeholder="Company Admin Phone Number"
-                        onChange={this.handleOnChange}
-                        value={this.state.adminPhoneNumber}
-                      />
-                      <span>format: 2348070706069</span>
-                    </div>
-                  </>
-                ) : null}
+                      /> */}
+                        {/* <span>format: 2348070706069</span> */}
+                      </div>
+                      <div className="row">
+                        <TextInput
+                          name={"adminFirstName"}
+                          placeholder="Company Admin First Name"
+                          onChange={this.handleOnChange}
+                          value={this.state.adminFirstName}
+                        />
+                      </div>
+                      <div className="row">
+                        <TextInput
+                          name={"adminLastName"}
+                          placeholder="Company Admin Last Name"
+                          onChange={this.handleOnChange}
+                          value={this.state.adminLastName}
+                        />
+                      </div>
+                      <div className="row">
+                        <TextInput
+                          name={"adminEmail"}
+                          placeholder="Company Admin Email Addresss"
+                          onChange={this.handleOnChange}
+                          value={this.state.adminEmail}
+                        />
+                      </div>
+                      <div className="row">
+                        <PhoneNumber
+                          name={"adminPhoneNumber"}
+                          placeholder="Company Admin Phone Number"
+                          onChange={this.handleOnChange}
+                          value={this.state.adminPhoneNumber}
+                        />
+                      </div>
+                    </>
+                  ) : null}
+                </div>
+              </div>
+              <div class="modal-footer">
+                <a
+                  href="#!"
+                  class="modal-close  waves-effect waves-green btn-flat"
+                >
+                  Close
+                </a>
+                <button
+                  onClick={this.addIndividualMember}
+                  className="waves-effect waves-green btn-primary btn"
+                >
+                  Add
+                </button>
               </div>
             </div>
-            <div class="modal-footer">
-              <a
-                href="#!"
-                class="modal-close  waves-effect waves-green btn-flat"
-              >
-                Close
-              </a>
-              <button
-                onClick={this.addIndividualMember}
-                className="waves-effect waves-green btn-primary btn"
-              >
-                Add
-              </button>
-            </div>
           </div>
-        </div>
+        </AppWrapper>
       </Dashboard>
     );
   }

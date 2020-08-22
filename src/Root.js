@@ -14,10 +14,18 @@ import HomePage from "./pages/home";
 import GeneralSettings from "./pages/generalSettings";
 import Members from "./pages/members";
 import Position from "./pages/designation";
-
+import LandingPage from "./pages/landingPage";
+import AddCompany from "./pages/manageCompany";
+import AddMember from "./pages/addMember";
 function Root() {
   return (
     <Switch>
+      <Route exact path="/user/dashboard/addmember" component={AddMember} />
+      <Route
+        exact
+        path="/user/dashboard/managecompany"
+        component={AddCompany}
+      />
       <AuthRoute exact path="/" component={HomePage} />
       <AuthRoute exact path="/admin/manage-members" component={Members} />
       <AuthRoute

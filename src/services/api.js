@@ -2,7 +2,7 @@ import axios from "axios";
 import { AUTH_TOKEN_KEY } from "./constants";
 
 const api = axios.create({
-  baseURL: "https://6db5d714690f.ngrok.io/api/v1",
+  baseURL: "https://b3f463d713a9.ngrok.io/api/v1",
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",

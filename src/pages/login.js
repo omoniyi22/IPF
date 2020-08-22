@@ -8,12 +8,18 @@ import {
   LoginForm,
   FormLegend,
   StyledColorOrange,
+  LoginSectionOne,
+  LogoContainer,
+  CustomIntro,
+  FooterLogoContainer,
+  FooterLogo,
 } from "../components/login-bg";
 import { Link } from "react-router-dom";
 import Axios from "axios";
 import * as actions from "../redux/actions";
 import { connect } from "react-redux";
 import IpfLogo from "../assets/IPF_Logo.png";
+import images from "../assets/images";
 
 class Login extends Component {
   state = { emailAddress: "", password: "" };
@@ -42,6 +48,8 @@ class Login extends Component {
           approved,
           position,
           phoneNumber,
+          role,
+          nrole,
         },
       } = response.data;
       localStorage.setItem("x-access-token", token);
@@ -55,6 +63,8 @@ class Login extends Component {
           approved,
           position,
           phoneNumber,
+          role,
+          nrole,
         })
       );
       this.props.showLoader(false);
@@ -75,7 +85,23 @@ class Login extends Component {
             <div className="py-4 px-4">
               <LoginBg>
                 <div className="row">
-                  <div className="col-md-6 col-lg-6"></div>
+                  <div className="col-md-6 col-lg-6">
+                    <LoginSectionOne>
+                      <LogoContainer />
+
+                      <CustomIntro
+                        fontWeight="bold"
+                        color="#FA6400"
+                        fontWeight="bold"
+                        fontSize="24px"
+                      >
+                        Indian Professionals Forum, Nigeria
+                      </CustomIntro>
+                      <CustomIntro lineHeight="0.01">
+                        Connecting Professionals and Beyond.......
+                      </CustomIntro>
+                    </LoginSectionOne>
+                  </div>
                   <div className="col-md-6 col-lg-6">
                     <LoginBgWhite>
                       <div className="d-flex align-items-center w-100 h-100">
@@ -105,6 +131,10 @@ class Login extends Component {
                           </div>
                         </LoginForm>
                       </div>
+                      <FooterLogoContainer>
+                        <FooterLogo src={images.indianFlag} />
+                        <FooterLogo src={images.naijaFlag} />
+                      </FooterLogoContainer>
                     </LoginBgWhite>
                   </div>
                 </div>

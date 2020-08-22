@@ -8,12 +8,38 @@ import nigeria from "../assets/nigeria.png";
 import india from "../assets/india.png";
 
 class UserDashboard extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      companyAdmin: false,
+      active: "home",
+    };
+  }
   logout = (e) => {
     e.preventDefault();
     localStorage.removeItem("x-access-token");
     this.props.history.push("/login");
   };
+
+  componentDidMount() {
+    const ipfUser = JSON.parse(localStorage.getItem("ipf-user"));
+    if (ipfUser.nrole === "super-user") {
+      this.setState({
+        companyAdmin: true,
+      });
+    }
+  }
+
+  onActive = (s = "managecompany") => {
+    this.setState({
+      active: s,
+    });
+  };
+
   render() {
+    const { companyAdmin } = this.state;
+    const { other } = this.props;
     return (
       <div className="container-fluid">
         <div className="user-dasboard-header1"></div>
@@ -48,8 +74,12 @@ class UserDashboard extends Component {
             </h5>
           </div>
           <ul className="side-menu-list">
-            <li className="list-item active">
-              <Link>
+            <li
+              className={`list-item  ${
+                this.state.active === "home" && "active"
+              }`}
+            >
+              <Link to="/user/dashboard" onClick={() => this.onActive("home")}>
                 <span>
                   {" "}
                   <i className="material-icons">account_circle</i>
@@ -57,6 +87,42 @@ class UserDashboard extends Component {
                 <span>Accounts</span>
               </Link>
             </li>
+
+            {companyAdmin && (
+              <li
+                className={`list-item  ${
+                  this.state.active === "managecompany" && "active"
+                }`}
+              >
+                <Link
+                  to="/user/dashboard/managecompany"
+                  onClick={() => this.onActive("managecompany")}
+                >
+                  <span>
+                    <i className="material-icons">account_circle</i>
+                  </span>
+                  <span>Manage Company</span>
+                </Link>
+              </li>
+            )}
+
+            {companyAdmin && (
+              <li
+                className={`list-item  ${
+                  this.state.active === "addmember" && "active"
+                }`}
+              >
+                <Link
+                  to="/user/dashboard/addmember"
+                  onClick={() => this.onActive("addmember")}
+                >
+                  <span>
+                    <i className="material-icons">account_circle</i>
+                  </span>
+                  <span>Add Member</span>
+                </Link>
+              </li>
+            )}
 
             <li className="list-item">
               <Link>
@@ -88,15 +154,23 @@ class UserDashboard extends Component {
             </li>
           </ul>
         </div>
-        <section className="user-profile-section">
-          {this.props.children}
-        </section>
-        <div className="bg-blue p-2">
-          <div className="d-flex mt-3 justify-content-end">
-            <img src={india} alt="flag" />
-            <img src={nigeria} alt="flag" />
-          </div>
-        </div>
+
+        {other ? (
+          <section className="">{this.props.children}</section>
+        ) : (
+          <>
+            <section className="user-profile-section">
+              {this.props.children}
+            </section>
+
+            <div className="bg-blue p-2">
+              <div className="d-flex mt-3 justify-content-end">
+                <img src={india} alt="flag" />
+                <img src={nigeria} alt="flag" />
+              </div>
+            </div>
+          </>
+        )}
       </div>
     );
   }
