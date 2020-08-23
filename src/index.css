@@ -13,3 +13,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.custom-form-group {
+  margin: 0 50px;
+}
+
+::placeholder {
+  color: #444;
+  opacity: 1;
+}

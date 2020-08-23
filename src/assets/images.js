@@ -5,6 +5,7 @@ const images = {
   landing: require("./landing.png"),
   calenderBg: require("./calendar.png"),
   medal: require("./medal.png"),
+  report: require("./report.png"),
 };
 
 export default images;

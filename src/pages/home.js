@@ -102,12 +102,29 @@ class HomePage extends Component {
               </div>
             </div>
           </div>
-          <div className="row mt-3">
-            <div className="col-lg-8 mb-3 ">
-              <div
-                className="shadow bg-white p-5"
-                style={{ height: "100%" }}
-              ></div>
+          <div className="row mt-3 mb-10">
+            <div className="col-lg-8 mb-3">
+              <TableHeader style={{ backgroundColor: "#2A4B5A" }}>
+                <h5
+                  style={{ lineHeight: 2, color: "#fff", fontWeight: "bold" }}
+                >
+                  Reports
+                </h5>
+              </TableHeader>
+              <div className="shadow bg-white p-5" style={{ height: "100%" }}>
+                <Container>
+                  <div className="no-notification">
+                    <img
+                      src={Images.report}
+                      alt="bg"
+                      style={{ height: 180, width: 180 }}
+                    />
+                  </div>
+                  <div>
+                    <P>No available Report</P>
+                  </div>
+                </Container>
+              </div>
             </div>
             <div className="col-lg-4 mb-3 ">
               <div className="shadow bg-white">
@@ -162,7 +179,7 @@ class HomePage extends Component {
                         fontWeight: "bold",
                       }}
                     >
-                      2501
+                      0
                     </h2>
                   </div>
                   <div className="text-center text-white">

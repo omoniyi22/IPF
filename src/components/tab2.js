@@ -11,6 +11,7 @@ import MuiAlert from "@material-ui/lab/Alert";
 import { isEmailValid } from "../utils/app";
 import { api, attachApiToken } from "../services/api";
 import PhoneNumber from "./General/phoneInput";
+import { TextInput } from "./components";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -147,12 +148,13 @@ export default function CustomTab2({ userDetails, saveMember }) {
           /> */}
         </FormGroup>
         <FormGroup style={{ width: "49%" }}>
-          <TextField
+          <TextInput
             // classes={classes.input}
             id="outlined-controlled"
             label={labelTwo}
             value={valueB}
             variant="outlined"
+            placeholder="Email address"
             onChange={onChangeText}
             name={name2}
           />
@@ -165,14 +167,28 @@ export default function CustomTab2({ userDetails, saveMember }) {
     <Fragment>
       <Paper className={classes.root}>
         <Tabs
+          style={{ background: "#3E5E6E" }}
           value={value}
-          onChange={handleChange}
           indicatorColor="primary"
           textColor="primary"
           centered
         >
-          <Tab label="Add Member" />
+          <Tab
+            style={{ color: "#fff", fontWeight: "bold" }}
+            label="Add Member"
+          />
         </Tabs>
+
+        {/* <Tabs
+          value={value}
+          onChange={handleChange}
+          indicatorColor="primary"
+          textColor="primary"
+          style={{ background: "#3E5E6E" }}
+          centered
+        >
+          <Tab label="Add Member" />
+        </Tabs> */}
       </Paper>
 
       <div className="tab-container">
@@ -189,10 +205,10 @@ export default function CustomTab2({ userDetails, saveMember }) {
                 }}
               >
                 <FormGroup style={{ width: "49%" }}>
-                  <TextField
+                  <TextInput
                     // classes={classes.input}
                     id="outlined-controlled"
-                    label={"First Name"}
+                    placeholder={"First Name"}
                     defaultValue={state.firstName}
                     value={state.firstName}
                     variant="outlined"
@@ -201,10 +217,10 @@ export default function CustomTab2({ userDetails, saveMember }) {
                   />
                 </FormGroup>
                 <FormGroup style={{ width: "49%" }}>
-                  <TextField
+                  <TextInput
                     // classes={classes.input}
                     id="outlined-controlled"
-                    label={"Last Name"}
+                    placeholder={"Last Name"}
                     defaultValue={state.lastName}
                     value={state.lastName}
                     variant="outlined"

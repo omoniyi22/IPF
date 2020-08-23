@@ -10,10 +10,11 @@ import DashBoard from "../hoc/UserDashboard";
 import * as actions from "../redux/actions";
 import { api, attachApiToken } from "../services/api";
 import { sanitizeMember } from "../utils/memberType";
+import { TextInput } from "../components/components";
 
 const useStyles = makeStyles((theme) => ({
   header: {
-    backgroundColor: "#46B049",
+    backgroundColor: "#3E5E6E",
     padding: "8px 10px",
   },
   padding: {

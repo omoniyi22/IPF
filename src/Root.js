@@ -20,8 +20,8 @@ import AddMember from "./pages/addMember";
 function Root() {
   return (
     <Switch>
-      <Route exact path="/user/dashboard/addmember" component={AddMember} />
-      <Route
+      <AuthRoute exact path="/user/dashboard/addmember" component={AddMember} />
+      <AuthRoute
         exact
         path="/user/dashboard/managecompany"
         component={AddCompany}

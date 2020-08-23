@@ -1,4 +1,3 @@
-import DateFnsUtils from "@date-io/date-fns";
 import {
   Button,
   FormControl,
@@ -14,20 +13,15 @@ import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import TextField from "@material-ui/core/TextField";
 import MuiAlert from "@material-ui/lab/Alert";
-import {
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-} from "@material-ui/pickers";
 import axios from "axios";
 import "date-fns";
-import * as dateFns from "date-fns";
 import React, { Fragment } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import Images from "../assets/images";
-import { SHOW_ALERT, SHOW_LOADER } from "../redux/types";
+import { SHOW_LOADER } from "../redux/types";
 import { api, attachApiToken } from "../services/api";
 import CustomAvatar from "./avatar";
+import { TextInput } from "./components";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -276,12 +270,25 @@ export default function CustomTab({ userDetails, updateDetails }) {
                   justifyContent: "space-between",
                   display: "flex",
                   width: "100%",
+
                   marginTop: 20,
                   marginBottom: 20,
                 }}
               >
                 <FormGroup className style={styles.formGroup}>
-                  <TextField
+                  <TextInput
+                    disabled
+                    label={"Company Name"}
+                    value={company.company_name || ""}
+                    name="nameOfCompany"
+                    onChange={({ target: { value, name } }) => {
+                      setCompany({
+                        ...company,
+                        company_name: value,
+                      });
+                    }}
+                  />
+                  {/* <TextField
                     classes={classes.input}
                     disabled
                     id="outlined-uncontrolled"
@@ -295,7 +302,7 @@ export default function CustomTab({ userDetails, updateDetails }) {
                         company_name: value,
                       });
                     }}
-                  />
+                  /> */}
                 </FormGroup>
               </div>
               <div
@@ -369,12 +376,19 @@ export default function CustomTab({ userDetails, updateDetails }) {
               </div>
 
               <FormGroup className style={styles.formGroup}>
-                <TextField
-                  classes={classes.input}
-                  id="outlined-uncontrolled"
-                  label={"Company Details"}
+                <TextInput
+                  value={company.email || ""}
+                  name="companyDetails"
+                  disabled
+                />
+              </FormGroup>
+
+              <FormGroup className style={styles.formGroup}>
+                <TextInput
+                  placeholder={
+                    "Kindly provide details of what your company deals in"
+                  }
                   value={company.company_details || ""}
-                  variant="outlined"
                   name="companyDetails"
                   onChange={({ target: { value } }) => {
                     setCompany({
@@ -386,8 +400,7 @@ export default function CustomTab({ userDetails, updateDetails }) {
               </FormGroup>
 
               <FormGroup className style={styles.formGroup}>
-                <TextField
-                  classes={classes.input}
+                <TextInput
                   label={"Company Website"}
                   value={company.website || ""}
                   variant="outlined"
@@ -424,6 +437,10 @@ export default function CustomTab({ userDetails, updateDetails }) {
   async function updateCompanyDetails() {
     if (company.company_name.trim() === "") {
       return handleClick("Company's name cannot be empty", "error");
+    }
+
+    if (!company.logo) {
+      return handleClick("Please provide your company logo", "error");
     }
 
     dispatch({ type: SHOW_LOADER, payload: true });
