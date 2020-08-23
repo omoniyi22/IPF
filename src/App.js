@@ -7,7 +7,7 @@ import axios from "axios";
 
 function App() {
   // axios.defaults.baseURL = "https://ipf-backend.herokuapp.com";
-  axios.defaults.baseURL = "https://b3f463d713a9.ngrok.io";
+  axios.defaults.baseURL = "https://087e246599ab.ngrok.io";
   return (
     <div className="App">
       <Provider store={store}>

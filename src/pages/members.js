@@ -14,6 +14,7 @@ import { emailRegx, phoneNumberRegx } from "../utils/regex";
 import PhoneNumber from "../components/General/phoneInput";
 import AppWrapper from "../components/appWrapper";
 import { api, attachApiToken } from "../services/api";
+import EditOrganization from "../components/organization/edit";
 class Members extends Component {
   state = {
     openSnackbar: false,
@@ -37,6 +38,7 @@ class Members extends Component {
     adminPhoneNumber: "",
     company_address: "",
     type: "default",
+    companyData: {},
   };
   async componentDidMount() {
     //initialize materialize modal
@@ -156,7 +158,9 @@ class Members extends Component {
       case "remove-company":
         this.removeCompany(data);
         break;
-
+      case "edit-detail":
+        this.saveEditedCompanyDetail(data);
+        break;
       default:
         return;
     }
@@ -417,7 +421,6 @@ class Members extends Component {
       );
       this.props.showLoader();
     } catch (error) {
-      console.error(error.response);
       if (error.response) {
         this.handleFireSnackbar(error.response.data.error);
         return this.props.showLoader();
@@ -566,6 +569,18 @@ class Members extends Component {
       openSnackbar: true,
       type,
     });
+  };
+
+  saveEditedCompanyDetail = async (data) => {
+    this.setState({ editCompany: true, companyData: data }, () => {
+      window.$("#modal3").modal("open");
+    });
+
+    // const response = await Axios.patch("/api/v1/admin/edit-company", {
+    //   ...this.state,
+    //   company_id: "asd",
+    // });
+    // const response2 = await axios.get("/api/v1/admin/companies");
   };
 
   render() {
@@ -804,137 +819,148 @@ class Members extends Component {
               </div>
             </div>
             <div id="modal3" class="modal modal-fixed-footer">
-              <div class="modal-content">
-                <h4>{"Add members"}</h4>
-                <div className="container-fluid mt-3">
-                  <div className="row input-field">
-                    <select name="companyCode" onChange={this.handleOnChange}>
-                      <option>Select membership type</option>
+              {this.state.editCompany && (
+                <EditOrganization data={this.state.companyData} />
+              )}
 
-                      {this.state.types.map((ele) => (
-                        <option value={ele.code}>{ele.name}</option>
-                      ))}
-                    </select>
-                  </div>
-                  {!this.state.codes.includes(this.state.companyCode) ? (
-                    <>
-                      <div className="row">
-                        <TextInput
-                          name={"firstName"}
-                          placeholder="First Name"
+              {!this.state.editCompany && (
+                <>
+                  <div class="modal-content">
+                    <h4>{"Add members"}</h4>
+                    <div className="container-fluid mt-3">
+                      <div className="row input-field">
+                        <select
+                          name="companyCode"
                           onChange={this.handleOnChange}
-                          value={this.state.firstName}
-                        />
+                        >
+                          <option>Select membership type</option>
+
+                          {this.state.types.map((ele) => (
+                            <option value={ele.code}>{ele.name}</option>
+                          ))}
+                        </select>
                       </div>
-                      <div className="row">
-                        <TextInput
-                          name={"lastName"}
-                          placeholder="Last Name"
-                          onChange={this.handleOnChange}
-                          value={this.state.lastName}
-                        />
-                      </div>
-                      <div className="row">
-                        <TextInput
-                          name={"email"}
-                          placeholder="Email Addresss"
-                          onChange={this.handleOnChange}
-                          value={this.state.email}
-                        />
-                      </div>
-                      <div className="row">
-                        <PhoneNumber
-                          name={"phoneNumber"}
-                          placeholder="Phone Number"
-                          onChange={this.handleOnChange}
-                          value={this.state.phoneNumber}
-                        />
-                      </div>
-                    </>
-                  ) : null}
-                  {this.state.codes.includes(this.state.companyCode) ? (
-                    <>
-                      <div className="row">
-                        <TextInput
-                          name={"company_name"}
-                          placeholder="Company Name"
-                          onChange={this.handleOnChange}
-                          value={this.state.company_name}
-                        />
-                      </div>
-                      <div className="row">
-                        <TextInput
-                          name={"email"}
-                          placeholder="Email"
-                          onChange={this.handleOnChange}
-                          value={this.state.email}
-                        />
-                      </div>
-                      <div className="row">
-                        <PhoneNumber
-                          name={"phone_number"}
-                          placeholder="Phone Number"
-                          onChange={this.handleOnChange}
-                          value={this.state.phone_number}
-                        />
-                        {/* <TextInput
+                      {!this.state.codes.includes(this.state.companyCode) ? (
+                        <>
+                          <div className="row">
+                            <TextInput
+                              name={"firstName"}
+                              placeholder="First Name"
+                              onChange={this.handleOnChange}
+                              value={this.state.firstName}
+                            />
+                          </div>
+                          <div className="row">
+                            <TextInput
+                              name={"lastName"}
+                              placeholder="Last Name"
+                              onChange={this.handleOnChange}
+                              value={this.state.lastName}
+                            />
+                          </div>
+                          <div className="row">
+                            <TextInput
+                              name={"email"}
+                              placeholder="Email Addresss"
+                              onChange={this.handleOnChange}
+                              value={this.state.email}
+                            />
+                          </div>
+                          <div className="row">
+                            <PhoneNumber
+                              name={"phoneNumber"}
+                              placeholder="Phone Number"
+                              onChange={this.handleOnChange}
+                              value={this.state.phoneNumber}
+                            />
+                          </div>
+                        </>
+                      ) : null}
+                      {this.state.codes.includes(this.state.companyCode) ? (
+                        <>
+                          <div className="row">
+                            <TextInput
+                              name={"company_name"}
+                              placeholder="Company Name"
+                              onChange={this.handleOnChange}
+                              value={this.state.company_name}
+                            />
+                          </div>
+                          <div className="row">
+                            <TextInput
+                              name={"email"}
+                              placeholder="Email"
+                              onChange={this.handleOnChange}
+                              value={this.state.email}
+                            />
+                          </div>
+                          <div className="row">
+                            <PhoneNumber
+                              name={"phone_number"}
+                              placeholder="Phone Number"
+                              onChange={this.handleOnChange}
+                              value={this.state.phone_number}
+                            />
+                            {/* <TextInput
                         name={"phone_number"}
                         placeholder="Phone Number"
                         onChange={this.handleOnChange}
                         value={this.state.phone_number}
                       /> */}
-                        {/* <span>format: 2348070706069</span> */}
-                      </div>
-                      <div className="row">
-                        <TextInput
-                          name={"adminFirstName"}
-                          placeholder="Company Admin First Name"
-                          onChange={this.handleOnChange}
-                          value={this.state.adminFirstName}
-                        />
-                      </div>
-                      <div className="row">
-                        <TextInput
-                          name={"adminLastName"}
-                          placeholder="Company Admin Last Name"
-                          onChange={this.handleOnChange}
-                          value={this.state.adminLastName}
-                        />
-                      </div>
-                      <div className="row">
-                        <TextInput
-                          name={"adminEmail"}
-                          placeholder="Company Admin Email Addresss"
-                          onChange={this.handleOnChange}
-                          value={this.state.adminEmail}
-                        />
-                      </div>
-                      <div className="row">
-                        <PhoneNumber
-                          name={"adminPhoneNumber"}
-                          placeholder="Company Admin Phone Number"
-                          onChange={this.handleOnChange}
-                          value={this.state.adminPhoneNumber}
-                        />
-                      </div>
-                    </>
-                  ) : null}
-                </div>
-              </div>
-              <div class="modal-footer">
-                <a
-                  href="#!"
-                  class="modal-close  waves-effect waves-green btn-flat"
-                >
-                  Close
-                </a>
-                <button
-                  onClick={this.addIndividualMember}
-                  className="waves-effect waves-green btn-primary btn"
-                >
-                  Add
-                </button>
-              </div>
+                            {/* <span>format: 2348070706069</span> */}
+                          </div>
+                          <div className="row">
+                            <TextInput
+                              name={"adminFirstName"}
+                              placeholder="Company Admin First Name"
+                              onChange={this.handleOnChange}
+                              value={this.state.adminFirstName}
+                            />
+                          </div>
+                          <div className="row">
+                            <TextInput
+                              name={"adminLastName"}
+                              placeholder="Company Admin Last Name"
+                              onChange={this.handleOnChange}
+                              value={this.state.adminLastName}
+                            />
+                          </div>
+                          <div className="row">
+                            <TextInput
+                              name={"adminEmail"}
+                              placeholder="Company Admin Email Addresss"
+                              onChange={this.handleOnChange}
+                              value={this.state.adminEmail}
+                            />
+                          </div>
+                          <div className="row">
+                            <PhoneNumber
+                              name={"adminPhoneNumber"}
+                              placeholder="Company Admin Phone Number"
+                              onChange={this.handleOnChange}
+                              value={this.state.adminPhoneNumber}
+                            />
+                          </div>
+                        </>
+                      ) : null}
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <a
+                      href="#!"
+                      class="modal-close  waves-effect waves-green btn-flat"
+                    >
+                      Close
+                    </a>
+                    <button
+                      onClick={this.addIndividualMember}
+                      className="waves-effect waves-green btn-primary btn"
+                    >
+                      Add
+                    </button>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </AppWrapper>
