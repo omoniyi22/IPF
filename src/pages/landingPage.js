@@ -1,13 +1,19 @@
 import React from "react";
-import LandingFooter from "../components/LandingPage/footer";
 import LandingHeader from "../components/LandingPage/Header";
+import HeaderFooter from "../components/LandingPage/footer";
+import LandingContent from "../components/LandingPage/main";
+import styled from "styled-components";
 
+const LandingContainer = styled.div`
+  border: 1px solid pink;
+`;
 const LandingPage = () => {
   return (
-    <div>
+    <LandingContainer>
       <LandingHeader />
-      <LandingFooter />
-    </div>
+      <LandingContent />
+      <HeaderFooter />
+    </LandingContainer>
   );
 };
 

@@ -25,25 +25,13 @@ export default function CustomAvatar({
   url = "https://res.cloudinary.com/dev-ninja/image/upload/v1591254816/user_owjmx2.png",
   onChangeAvatar,
   hide,
+  edit,
 }) {
   const [avatar, setAvatar] = React.useState(url);
   React.useEffect(() => {
     setAvatar(url);
   }, [url, setAvatar]);
   const classes = useStyles();
-
-  const showUploadModal = () => {
-    window.cloudinary.openUploadWidget(cloudinary, (error, result) => {
-      const eventData = result.data;
-      if (result && result.event === "success") {
-        console.log(result.info.secure_url);
-        addImages(result.info.secure_url);
-      } else {
-        if (error) throw error;
-        // reject(new Error ("CLoudinary error"))
-      }
-    });
-  };
 
   const uploadWidget = () => {
     const $this = this;
@@ -66,7 +54,7 @@ export default function CustomAvatar({
   return (
     <div className={classes.root}>
       <Avatar
-        onClick={uploadWidget}
+        onClick={edit ? uploadWidget : () => {}}
         alt="Profile"
         src={avatar}
         className={classes.large}

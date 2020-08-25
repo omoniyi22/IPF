@@ -6,6 +6,5 @@ export default function roleSanitizer(role) {
       return "Company Admin";
     default:
       return "Member";
-      break;
   }
 }

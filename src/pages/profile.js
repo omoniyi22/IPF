@@ -1,15 +1,14 @@
-import React, { Component, useState } from "react";
-import { TextInput, FormButton } from "../components/components";
-import Axios from "axios";
-import * as actions from "../redux/actions";
+import React, { Component } from "react";
 import { connect } from "react-redux";
-import Dashboard from "../hoc/Dashboard";
-import PhoneNumber from "../components/General/phoneInput";
 import styled from "styled-components";
 import Images from "../assets/images";
 import AppWrapper from "../components/appWrapper";
+import { FormButton, TextInput } from "../components/components";
+import PhoneNumber from "../components/General/phoneInput";
+import Dashboard from "../hoc/Dashboard";
+import * as actions from "../redux/actions";
 import { api, attachApiToken } from "../services/api";
-import { phoneNumberRegx, emailRegx } from "../utils/regex";
+import { emailRegx, phoneNumberRegx } from "../utils/regex";
 
 class ManageProfile extends Component {
   state = {
@@ -26,6 +25,7 @@ class ManageProfile extends Component {
     emailAddress: "",
     emailAddress2: "",
     avatar: "",
+    company_designation: "",
   };
   componentDidMount() {
     this.getUserDetail();
@@ -320,6 +320,14 @@ class ManageProfile extends Component {
               </div>
               <div className="row">
                 <div className="col-lg-6">
+                  <label>Company Designation</label>
+                  <TextInput
+                    name={"company_designation"}
+                    onChange={this.handleOnChange}
+                    value={this.state.company_designation}
+                  />
+                </div>
+                <div className="col-lg-6">
                   <label>Passport No</label>
                   <TextInput
                     name={"passport"}
@@ -327,6 +335,9 @@ class ManageProfile extends Component {
                     value={this.state.passport}
                   />
                 </div>
+              </div>
+
+              <div className="row">
                 <div className="col-lg-6">
                   <label>Date of Birth</label>
                   <TextInput
@@ -336,8 +347,6 @@ class ManageProfile extends Component {
                     type="date"
                   />
                 </div>
-              </div>
-              <div className="row">
                 <div className="col-lg-6">
                   <label>Street 1</label>
                   <TextInput
@@ -346,6 +355,8 @@ class ManageProfile extends Component {
                     value={this.state.street1}
                   />
                 </div>
+              </div>
+              <div className="row">
                 <div className="col-lg-6">
                   <label>Street 2</label>
                   <TextInput
@@ -354,8 +365,7 @@ class ManageProfile extends Component {
                     value={this.state.street2}
                   />
                 </div>
-              </div>
-              <div className="row">
+
                 <div className="col-lg-6">
                   <label>City</label>
                   <TextInput
@@ -364,6 +374,8 @@ class ManageProfile extends Component {
                     value={this.state.city}
                   />
                 </div>
+              </div>
+              <div className="row">
                 <div className="col-lg-6">
                   <label>State</label>
                   <TextInput
@@ -372,8 +384,7 @@ class ManageProfile extends Component {
                     value={this.state.state}
                   />
                 </div>
-              </div>
-              <div className="row">
+
                 <div className="col-lg-6">
                   <label>Website</label>
                   <TextInput
@@ -382,6 +393,8 @@ class ManageProfile extends Component {
                     value={this.state.website}
                   />
                 </div>
+              </div>
+              <div className="row">
                 <div className="col-lg-6">
                   <label>Position</label>
                   <TextInput
@@ -392,6 +405,7 @@ class ManageProfile extends Component {
                   />
                 </div>
               </div>
+
               <div className="my-4 text-center w-100">
                 <FormButton type="submit">Update</FormButton>
               </div>

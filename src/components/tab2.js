@@ -1,17 +1,15 @@
-import React, { Fragment } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import FormGroup from "@material-ui/core/FormGroup";
 import { Button } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
+import FormGroup from "@material-ui/core/FormGroup";
+import Paper from "@material-ui/core/Paper";
 import Snackbar from "@material-ui/core/Snackbar";
+import { makeStyles } from "@material-ui/core/styles";
+import Tab from "@material-ui/core/Tab";
+import Tabs from "@material-ui/core/Tabs";
 import MuiAlert from "@material-ui/lab/Alert";
+import React, { Fragment } from "react";
 import { isEmailValid } from "../utils/app";
-import { api, attachApiToken } from "../services/api";
-import PhoneNumber from "./General/phoneInput";
 import { TextInput } from "./components";
+import PhoneNumber from "./General/phoneInput";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -53,28 +51,6 @@ export default function CustomTab2({ userDetails, saveMember }) {
     type: "",
     open: false,
   });
-
-  //   const saveMember = async (data) => {
-  //     try {
-  //       const authApi = await attachApiToken(api);
-  //       await authApi.post("/auth/add-member", {
-  //         ...data,
-  //         email: data.emailAddress,
-  //       });
-  //       const response = await authApi.get("/auth/get-registered-members");
-  //       setMembers(response.data.data);
-
-  //       handleClick("Member Registration Successful", "success");
-  //     } catch (error) {
-  //       console.log(error.response);
-
-  //       if (error.response.data.error) {
-  //         return handleClick(error.response.data.error, "error");
-  //       }
-
-  //       return handleClick("Unsuccessful. Try again", "error");
-  //     }
-  //   };
 
   const handleClick = (message, type) => {
     setOpen({
@@ -178,17 +154,6 @@ export default function CustomTab2({ userDetails, saveMember }) {
             label="Add Member"
           />
         </Tabs>
-
-        {/* <Tabs
-          value={value}
-          onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          style={{ background: "#3E5E6E" }}
-          centered
-        >
-          <Tab label="Add Member" />
-        </Tabs> */}
       </Paper>
 
       <div className="tab-container">

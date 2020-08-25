@@ -10,7 +10,6 @@ import DashBoard from "../hoc/UserDashboard";
 import * as actions from "../redux/actions";
 import { api, attachApiToken } from "../services/api";
 import { sanitizeMember } from "../utils/memberType";
-import { TextInput } from "../components/components";
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -100,22 +99,6 @@ const AddMembers = ({
   const classes = useStyles();
   const dispatch = useDispatch();
   const [members, setMembers] = useState([]);
-  const initiateState = React.useCallback(() => {
-    const getDetails = async () => {
-      try {
-        const response = await axios.get("/auth/get-registered-members");
-        setMembers(response.data.data);
-      } catch (error) {
-        console.error(error);
-      }
-      //   getUserDetails();
-    };
-    // getDetails();
-  }, []);
-  //   React.useEffect(() => {
-  //     dispatch({ type: SET_ACTIVE_LINK, payload: "addMember" });
-  //     initiateState();
-  //   }, [initiateState, dispatch]);
 
   function updateAccountDetails(data) {
     isLoading(true);

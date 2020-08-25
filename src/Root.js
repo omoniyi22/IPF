@@ -20,6 +20,7 @@ import AddMember from "./pages/addMember";
 function Root() {
   return (
     <Switch>
+      <Route exact path="/landing" component={LandingPage} />
       <AuthRoute exact path="/user/dashboard/addmember" component={AddMember} />
       <AuthRoute
         exact

@@ -6,6 +6,8 @@ import { connect } from "react-redux";
 import Axios from "axios";
 import styled from "styled-components";
 import Images from "../assets/images";
+
+import { getDashboardOverview } from "../services";
 class HomePage extends Component {
   state = {
     totalMembers: 0,
@@ -21,15 +23,11 @@ class HomePage extends Component {
   getDashboardDetails = async () => {
     try {
       this.props.showLoader(true);
-      const token = localStorage.getItem("x-access-token");
-      const response = await Axios.get("/api/v1/admin/dashboard-overview", {
-        headers: { "x-access-token": token },
-      });
+      const response = await getDashboardOverview();
       const data = response.data.data;
       this.setState({ ...data }, () => this.props.showLoader());
     } catch (error) {
       this.props.showLoader();
-      console.error(error);
     }
   };
   render() {

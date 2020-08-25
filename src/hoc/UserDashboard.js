@@ -88,23 +88,21 @@ class UserDashboard extends Component {
               </Link>
             </li>
 
-            {companyAdmin && (
-              <li
-                className={`list-item  ${
-                  this.state.active === "managecompany" && "active"
-                }`}
+            <li
+              className={`list-item  ${
+                this.state.active === "managecompany" && "active"
+              }`}
+            >
+              <Link
+                to="/user/dashboard/managecompany"
+                onClick={() => this.onActive("managecompany")}
               >
-                <Link
-                  to="/user/dashboard/managecompany"
-                  onClick={() => this.onActive("managecompany")}
-                >
-                  <span>
-                    <i className="material-icons">account_circle</i>
-                  </span>
-                  <span>Manage Company</span>
-                </Link>
-              </li>
-            )}
+                <span>
+                  <i className="material-icons">account_circle</i>
+                </span>
+                <span>Company Details</span>
+              </Link>
+            </li>
 
             {companyAdmin && (
               <li

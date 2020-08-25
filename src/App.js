@@ -4,10 +4,11 @@ import store from "./redux/store";
 import AppRoot from "./AppRoot";
 import "./App.css";
 import axios from "axios";
+import { PROD_URL } from "./config/api";
 
 function App() {
-  // axios.defaults.baseURL = "https://ipf-backend.herokuapp.com";
-  axios.defaults.baseURL = "https://087e246599ab.ngrok.io";
+  axios.defaults.baseURL = PROD_URL;
+  // axios.defaults.baseURL = "https://08ed948356fe.ngrok.io";
   return (
     <div className="App">
       <Provider store={store}>

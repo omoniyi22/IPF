@@ -1,61 +1,113 @@
 import styled from "styled-components";
 import images from "../../assets/images";
 
-// Header Contianer
+//Landing Header section
 
 const HeaderContainer = styled.div`
-  border: 1px solid red;
-`;
-
-// Main COntainer
-
-const MainContainer = styled.div`
-  border: 1px solid orange;
-  background-image: url(${images.landing});
-  background-position: center;
-  height: 60%;
-  background-repeat: no-repeat;
-`;
-
-const FooterLogoContainer = styled.div`
-  margin-top: 10px;
-  margin-right: 10px;
+  height: 30vh;
+  background-color: #2a4b5c;
   display: flex;
-  justify-content: flex-end;
+  padding: 0rem 1.4rem;
 `;
 
-const FooterLogo = styled.img`
-  width: 46.51px;
-  height: 35px;
+const HeaderLogoContaienr = styled.div`
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `;
 
-const FooterContainer = styled.footer`
-  border: 1px solid orange;
-  height: 100vh;
+const HeaderContentContainer = styled.div`
+  width: 60%;
 `;
 
-const FooterSection = styled.div`
-  border: 1px solid red;
-  padding-top: 0.8rem;
-  padding-bottom: 0.8rem;
-  background: #2a4b5a;
+const Image = styled.img`
+  height: 140px;
+  width: 135px;
 `;
 
-const FooterText = styled.p`
-  font-style: normal;
-  padding-top: 1.2rem;
-  padding-bottom: 1.2rem;
-  font-weight: 600;
-  font-size: 18px;
-  color: rgba(0, 0, 0, 0.6);
+const HeaderText = styled.h1`
+  color: #fff;
+  word-break: normal;
   text-align: center;
+  font-weight: bold;
+  font-size: 4rem;
 `;
+
+//FOOTER
+const FooterContainer = styled.div`
+  height: 10vh;
+  background-color: #2a4b5c;
+  padding: 0rem 1.4rem;
+`;
+
+//Main Content
+
+const LandingContentContainer = styled.div`
+  display: flex;
+  height: 60vh;
+  // padding: 0rem 1.4rem;
+  background: #fff;
+`;
+
+const ContentSectionA = styled.div`
+
+  width: 40%;
+  padding : 0rem 0.9rem;
+  // background-image: url(${images.logo});
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  filter: brightness(0.78);
+`;
+
+const ContentOffset = styled.div`
+  opacity: 1;
+`;
+
+const UL = styled.ul`
+  opacity: 1;
+`;
+const LI = styled.li`
+  color: #000;
+  font-weight: bold;
+  font-size: 1.1rem;
+`;
+
+const CarouselSection = styled.div`
+  width: 60%;
+  background: #bfccd4;
+  box-shadow: 10px 10px 9px -5px rgba(117, 117, 125, 0.78);
+  -webkit-box-shadow: 10px 10px 9px -5px rgba(117, 117, 125, 0.78);
+  -moz-box-shadow: 10px 10px 9px -5px rgba(117, 117, 125, 0.78);
+`;
+
+const Login = styled.a`
+  color: #fff !important;
+  font-weight: bold;
+  font-size: 1.4rem;
+  position: relative;
+  top: 0.4rem;
+  cursor: pointer;
+
+  &:hover {
+    color: green !important;
+  }
+`;
+
 export {
-  FooterContainer,
-  FooterText,
-  FooterSection,
-  FooterLogo,
-  FooterLogoContainer,
-  MainContainer,
   HeaderContainer,
+  HeaderLogoContaienr,
+  HeaderContentContainer,
+  Image,
+  HeaderText,
+  FooterContainer,
+  LandingContentContainer,
+  ContentSectionA,
+  UL,
+  ContentOffset,
+  LI,
+  CarouselSection,
+  Login,
 };

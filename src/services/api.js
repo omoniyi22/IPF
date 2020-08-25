@@ -1,8 +1,9 @@
 import axios from "axios";
 import { AUTH_TOKEN_KEY } from "./constants";
+import { PROD_URL } from "../config/api";
 
 const api = axios.create({
-  baseURL: " https://087e246599ab.ngrok.io/api/v1",
+  baseURL: `${PROD_URL}/api/v1`,
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
@@ -12,6 +13,7 @@ const api = axios.create({
 const attachApiToken = async (api) => {
   try {
     const apiToken = localStorage.getItem(AUTH_TOKEN_KEY);
+
     if (apiToken) {
       api.defaults.headers.common["x-access-token"] = apiToken;
     }

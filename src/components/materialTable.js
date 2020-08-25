@@ -1,5 +1,5 @@
 import MaterialTable from "material-table";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 export default function MaterialTableDemo({
   title,
   columns,
@@ -19,7 +19,7 @@ export default function MaterialTableDemo({
       data,
       columns,
     });
-  }, [data]);
+  }, [data, columns]);
 
   return (
     <MaterialTable

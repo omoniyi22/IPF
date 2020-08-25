@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect } from "react";
-import { connect, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import styled from "styled-components";
 import MaterialTableDemo from "../components/materialTable";
 import Dashboard from "../hoc/Dashboard";
@@ -18,7 +18,6 @@ function Settings() {
   const [industryClass, setClass] = React.useState([]);
   const [position, setPosition] = React.useState([]);
   const [qualification, setQual] = React.useState([]);
-  const dispatch = useDispatch();
 
   const initiateMember = React.useCallback(() => {
     const getUser = async () => {
@@ -38,11 +37,7 @@ function Settings() {
         const authApi = await attachApiToken(api);
         const response = await authApi.get("/admin/industry-type");
         setIndustry(response.data.data);
-
-        console.log(response.data.data);
-      } catch (error) {
-        // console.log(error);
-      }
+      } catch (error) {}
     };
     getUser();
   }, [setIndustry]);
@@ -53,7 +48,6 @@ function Settings() {
         const authApi = await attachApiToken(api);
         const response = await authApi.get("/admin/industry-classification");
         setClass(response.data.data);
-        console.log(response.data.data);
       } catch (error) {
         // console.log(error);
       }
@@ -67,7 +61,6 @@ function Settings() {
         const authApi = await attachApiToken(api);
         const response = await authApi.get("/admin/positions");
         setPosition(response.data.data);
-        // console.log("===========>", response.data.data);
       } catch (error) {
         // console.log(error);
       }

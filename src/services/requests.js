@@ -19,3 +19,8 @@ export async function getClassificationCall() {
   const authApi = await attachApiToken(api);
   return authApi.get("/admin/industry-classification");
 }
+
+export async function getDashboardOverview() {
+  const authApi = await attachApiToken(api);
+  return authApi.get("/admin/dashboard-overview");
+}

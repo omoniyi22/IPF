@@ -8,7 +8,7 @@ import { TextInput } from "../components/components";
 import EventRole from "../components/event-role";
 import { getIndustryCall, getClassificationCall } from "../services";
 import PhoneNumber from "../components/General/phoneInput";
-
+import AppWrapper from "../components/appWrapper.js";
 class UserProfile extends Component {
   state = {
     role: "",
@@ -23,6 +23,11 @@ class UserProfile extends Component {
     industryType: "",
     phone1_whatsapp: false,
     phone2_whatsapp: false,
+    company_designation: "",
+    avatar: "",
+    msg: "",
+    type: "default",
+    open: false,
   };
   componentDidMount() {
     this.getUserDetails();
@@ -71,7 +76,6 @@ class UserProfile extends Component {
   };
   submit = async (e) => {
     e.preventDefault();
-    console.log(this.state);
 
     try {
       if (this.state.firstName.trim() === "" || this.state.lastName === "") {
@@ -81,25 +85,35 @@ class UserProfile extends Component {
       const emailRegx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
       if (!phoneNumberRegx.test(this.state.phoneNumber)) {
-        alert("Phone Number is not valid");
-        return;
+        return this.openSnack("Phone Number is not valid");
       }
       if (!emailRegx.test(this.state.emailAddress)) {
-        alert("Email Address is not valid");
-        return;
+        return this.openSnack("Email Address is not valid", "error");
+      }
+
+      if (!this.state.avatar) {
+        return this.openSnack("Please provide profile picture", "error");
       }
       this.props.showLoader(true);
       const token = localStorage.getItem("x-access-token");
-      const response = await Axios.patch("/api/v1/auth/edit", this.state, {
+      await Axios.patch("/api/v1/auth/edit", this.state, {
         headers: { "x-access-token": token },
       });
-      console.log(response.data);
+
       this.props.showLoader();
-      alert("Update Successful");
+      this.openSnack("Update Successful", "success");
     } catch (error) {
-      console.error(error);
+      let _error = "Some errors were encountered";
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        _error = error.response.data.message;
+      }
+
       this.props.showLoader();
-      alert("Some errors were encountered");
+      this.openSnack(_error, "error");
     }
   };
   uploadWidget = () => {
@@ -134,7 +148,7 @@ class UserProfile extends Component {
   updateCompany = async (e) => {
     try {
       if (this.state.companyDetails.trim() === "") {
-        return alert("Please provide company details");
+        return this.openSnack("Please provide company details", "error");
       }
 
       const data = {
@@ -147,14 +161,20 @@ class UserProfile extends Component {
       const response = await Axios.patch("/api/v1/auth/edit", data, {
         headers: { "x-access-token": token },
       });
-      console.log(response.data);
       this.props.showLoader();
-      alert("Update Successful");
+      this.openSnack("Update Successful", "success");
     } catch (error) {
-      console.error(error);
       this.props.showLoader();
-      alert("Some errors were encountered");
+      this.openSnack("Some errors were encountered", "error");
     }
+  };
+
+  openSnack = (msg, type = "default") => {
+    this.setState({
+      msg,
+      open: true,
+      type,
+    });
   };
 
   getIndustyClassification = async () => {
@@ -176,156 +196,159 @@ class UserProfile extends Component {
   };
 
   render() {
-    const { industryClassification, industryType } = this.state;
+    const {
+      industryClassification,
+      industryType,
+      msg,
+      type,
+      open,
+    } = this.state;
     return (
       <UserDashboard>
-        <div className="">
-          <div style={{ height: 250 }}>
-            <img src={bg01} className="img-fluid h-100" alt="background" />
-          </div>
-          <div className="container-fluid user-profile-container">
-            <div className="row">
-              <div className="col-md-6" style={{ position: "relative" }}>
-                <div className="user-profile-score-card shadow bg-white p-1">
-                  <div className="row justify-content-between px-3 border-bottom mb-0">
-                    <div className="d-flex">
-                      <h5
-                        style={{ fontSize: 18 }}
-                        className="fw-bold book-family"
-                      >
-                        Member Id:
-                      </h5>
-                      <h5
-                        style={{ fontSize: 18 }}
-                        className="mx-2 fw-bold book-family"
-                      >
-                        {this.state.memberNumber}
-                      </h5>
-                    </div>
-                    <div className="d-flex flex-grow-1 justify-content-end">
-                      <h5
-                        style={{ fontSize: 16 }}
-                        onClick={this.openModal}
-                        className="book-family text-underline"
-                      >
-                        Edit Profile
-                      </h5>
-                    </div>
-                  </div>
-                  <div className="">
-                    <div className="w-1oo">
-                      <img
-                        src={`${
-                          this.state.avatar
-                            ? this.state.avatar
-                            : "https://res.cloudinary.com/ninja-dev/image/upload/v1597409650/user_cibuzv.png"
-                        }`}
-                        className="user-profile-image"
-                        alt="bg"
-                      />
-                    </div>
-                  </div>
-                  <div className="row mb-0">
-                    <h5 className="book-family">
-                      Welcome, {this.state.firstName}
-                    </h5>
-                  </div>
-                  {/* <div className="row">
-                    <h6 className="book-family mt-0">
-                      {this.state.nameOfCompany}
-                    </h6>
-                    {this.state.role === "super-user" ? (
-                      <span
-                        onClick={this.openCompanyModay}
-                        className="mx-2 cursor-pointer"
-                      >
-                        <i style={{ fontSize: 32 }} className="material-icons">
-                          create
-                        </i>
-                      </span>
-                    ) : null}
-                  </div> */}
-                  <div>
-                    <span className="mx-3">
-                      <i className="material-icons">stay_current_portrait</i>
-                    </span>
-                    <span classNam="px-3 book-family">
-                      {this.state.phoneNumber}
-                    </span>
-                  </div>
-                  <div className="row">
-                    <span className="mx-3">
-                      <i className="material-icons">mail</i>
-                    </span>
-                    <span classNam="px-3 book-family">
-                      {this.state.emailAddress}
-                    </span>
-                  </div>
-                  <div className="row justify-content-center">
-                    <button className="waves-effect waves-light btn ">
-                      Membership status:{" "}
-                      {this.state.approved === 1 ? "Approved" : "Pending"}
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="row">
-                  <div className="col-md-12">
-                    <h3 className="book-family" style={{ fontSize: 24 }}>
-                      Member Type
-                    </h3>
-                    <div className="shadow bg-white p-2">
-                      <div className="row border-bottom">
-                        <h5 className="book-family w-100 fw-bold ">
-                          Upcoming Events
+        <AppWrapper
+          message={msg}
+          type={type}
+          open={open}
+          onClose={() => {
+            this.setState({
+              open: false,
+            });
+          }}
+        >
+          <div className="">
+            <div style={{ height: 250 }}>
+              <img src={bg01} className="img-fluid h-100" alt="background" />
+            </div>
+            <div className="container-fluid user-profile-container">
+              <div className="row">
+                <div className="col-md-6" style={{ position: "relative" }}>
+                  <div className="user-profile-score-card shadow bg-white p-1">
+                    <div className="row justify-content-between px-3 border-bottom mb-0">
+                      <div className="d-flex">
+                        <h5
+                          style={{ fontSize: 18 }}
+                          className="fw-bold book-family"
+                        >
+                          Member Id:
+                        </h5>
+                        <h5
+                          style={{ fontSize: 18 }}
+                          className="mx-2 fw-bold book-family"
+                        >
+                          {this.state.memberNumber}
                         </h5>
                       </div>
-                      <div className="row">
-                        <EventRole
-                          title="Annual Conference 2020"
-                          details="June 15th, 2020"
-                          onClick={this.viewEvent}
-                        />
-                        <EventRole
-                          title="Annual Conference 2020"
-                          details="June 15th, 2020"
-                          onClick={this.viewEvent}
-                        />
-                        <EventRole
-                          title="Annual Conference 2020"
-                          details="June 15th, 2020"
-                          onClick={this.viewEvent}
+                      <div className="d-flex flex-grow-1 justify-content-end">
+                        <h5
+                          style={{ fontSize: 16 }}
+                          onClick={this.openModal}
+                          className="book-family text-underline"
+                        >
+                          Edit Profile
+                        </h5>
+                      </div>
+                    </div>
+                    <div className="">
+                      <div className="w-1oo">
+                        <img
+                          src={`${
+                            this.state.avatar
+                              ? this.state.avatar
+                              : "https://res.cloudinary.com/ninja-dev/image/upload/v1597409650/user_cibuzv.png"
+                          }`}
+                          className="user-profile-image"
+                          alt="bg"
                         />
                       </div>
                     </div>
+                    <div className="row mb-0">
+                      <h5 className="book-family">
+                        Welcome, {this.state.firstName}
+                      </h5>
+                    </div>
+
+                    <div>
+                      <span className="mx-3">
+                        <i className="material-icons">stay_current_portrait</i>
+                      </span>
+                      <span classNam="px-3 book-family">
+                        {this.state.phoneNumber}
+                      </span>
+                    </div>
+                    <div className="row">
+                      <span className="mx-3">
+                        <i className="material-icons">mail</i>
+                      </span>
+                      <span classNam="px-3 book-family">
+                        {this.state.emailAddress}
+                      </span>
+                    </div>
+                    <div className="row justify-content-center">
+                      <button className="waves-effect waves-light btn ">
+                        Membership status:{" "}
+                        {this.state.approved === 1 ? "Approved" : "Pending"}
+                      </button>
+                    </div>
                   </div>
-                  <div className="col-md-12 mt-3">
-                    <div className="shadow bg-blue p-1">
-                      <div className="row">
-                        <div className="col-md-8">
-                          <p>
-                            <h5
-                              className="book-family fw-bold text-white"
-                              style={{ fontSize: 18 }}
-                            >
-                              {" "}
-                              2020 Innovation Conference
-                            </h5>
-                          </p>
-                          <p>
-                            <h5
-                              className="book-family text-white"
-                              style={{ fontSize: 16 }}
-                            >
-                              Interesting seakers, delicious food, do not miss
-                              the event!
-                            </h5>
-                          </p>
+                </div>
+                <div className="col-md-6">
+                  <div className="row">
+                    <div className="col-md-12">
+                      <h3 className="book-family" style={{ fontSize: 24 }}>
+                        Member Type
+                      </h3>
+                      <div className="shadow bg-white p-2">
+                        <div className="row border-bottom">
+                          <h5 className="book-family w-100 fw-bold ">
+                            Upcoming Events
+                          </h5>
                         </div>
-                        <div className="col-md-4">
-                          <div className="row h-100 align-items-center">
-                            <span className="cs-bottom fw-bold">Sign Up</span>
+                        <div className="row">
+                          <EventRole
+                            title="Annual Conference 2020"
+                            details="June 15th, 2020"
+                            onClick={this.viewEvent}
+                          />
+                          <EventRole
+                            title="Annual Conference 2020"
+                            details="June 15th, 2020"
+                            onClick={this.viewEvent}
+                          />
+                          <EventRole
+                            title="Annual Conference 2020"
+                            details="June 15th, 2020"
+                            onClick={this.viewEvent}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-md-12 mt-3">
+                      <div className="shadow bg-blue p-1">
+                        <div className="row">
+                          <div className="col-md-8">
+                            <p>
+                              <h5
+                                className="book-family fw-bold text-white"
+                                style={{ fontSize: 18 }}
+                              >
+                                {" "}
+                                2020 Innovation Conference
+                              </h5>
+                            </p>
+                            <p>
+                              <h5
+                                className="book-family text-white"
+                                style={{ fontSize: 16 }}
+                              >
+                                Interesting seakers, delicious food, do not miss
+                                the event!
+                              </h5>
+                            </p>
+                          </div>
+                          <div className="col-md-4">
+                            <div className="row h-100 align-items-center">
+                              <span className="cs-bottom fw-bold">Sign Up</span>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -333,258 +356,276 @@ class UserProfile extends Component {
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="row">
-              <div className="col-md-4">
-                <div className="shadow bg-white p-2">
-                  <div className="row border-bottom">
-                    <h5 className="book-family w-100 fw-bold ">
-                      Upcoming Events
-                    </h5>
+              <div className="row">
+                <div className="col-md-4">
+                  <div className="shadow bg-white p-2">
+                    <div className="row border-bottom">
+                      <h5 className="book-family w-100 fw-bold ">
+                        Upcoming Events
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-8">
+                  <div className="shadow bg-white p-2">
+                    <div className="row border-bottom">
+                      <h5 className="book-family w-100 fw-bold ">
+                        Upcoming Events
+                      </h5>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div className="col-md-8">
-                <div className="shadow bg-white p-2">
-                  <div className="row border-bottom">
-                    <h5 className="book-family w-100 fw-bold ">
-                      Upcoming Events
-                    </h5>
+            </div>
+          </div>
+          <div id="modal1" class="modal modal-fixed-footer">
+            <div class="modal-content">
+              <h4>{"Update Profile"}</h4>
+              <div className="container-fluid mt-3">
+                <div className="row justify-content-center">
+                  <div className="circle-avatar text-center d-flex align-items-center justify-content-center">
+                    {this.state.avatar ? (
+                      <img
+                        className="img-avatar"
+                        src={this.state.avatar}
+                        alt="profile"
+                      />
+                    ) : (
+                      <span>
+                        <i
+                          style={{ fontSize: 200, color: "#bdbdbd" }}
+                          className="material-icons"
+                        >
+                          account_circle
+                        </i>
+                      </span>
+                    )}
+                    <span onClick={this.uploadWidget} className="camera-button">
+                      <i className="material-icons">camera_enhance</i>
+                    </span>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div id="modal1" class="modal modal-fixed-footer">
-          <div class="modal-content">
-            <h4>{"Update Profile"}</h4>
-            <div className="container-fluid mt-3">
-              <div className="row justify-content-center">
-                <div className="circle-avatar text-center d-flex align-items-center justify-content-center">
-                  {this.state.avatar ? (
-                    <img
-                      className="img-avatar"
-                      src={this.state.avatar}
-                      alt="profile"
+
+                <div className="row">
+                  <TextInput
+                    name={"firstName"}
+                    placeholder="First Name"
+                    onChange={this.handleOnChange}
+                    value={this.state.firstName}
+                  />
+                </div>
+                <div className="row">
+                  <TextInput
+                    name={"lastName"}
+                    placeholder="Last Name"
+                    onChange={this.handleOnChange}
+                    value={this.state.lastName}
+                  />
+                </div>
+                <div className="row">
+                  <TextInput
+                    name={"emailAddress"}
+                    placeholder="Email Addresss"
+                    onChange={this.handleOnChange}
+                    value={this.state.emailAddress}
+                  />
+                </div>
+                <div className="row">
+                  <PhoneNumber
+                    name={"phoneNumber"}
+                    placeholder="Phone Number"
+                    onChange={this.handleOnChange}
+                    value={this.state.phoneNumber}
+                  />
+                  <label className="mx-3">
+                    <input
+                      type="checkbox"
+                      checked={this.state.phone1_whatsapp}
+                      onChange={() => {
+                        this.setState((prevState) => ({
+                          phone1_whatsapp: !prevState.phone1_whatsapp,
+                        }));
+                      }}
                     />
-                  ) : (
-                    <span>
-                      <i
-                        style={{ fontSize: 200, color: "#bdbdbd" }}
-                        className="material-icons"
-                      >
-                        account_circle
-                      </i>
-                    </span>
-                  )}
-                  <span onClick={this.uploadWidget} className="camera-button">
-                    <i className="material-icons">camera_enhance</i>
-                  </span>
+                    <span>Whatsapp number</span>
+                  </label>
+                </div>
+                <div className="row">
+                  <PhoneNumber
+                    name={"phoneNumber2"}
+                    placeholder="Phone Number"
+                    onChange={this.handleOnChange}
+                    value={this.state.phoneNumber2}
+                  />
+                  <label className="mx-3">
+                    <input
+                      type="checkbox"
+                      checked={this.state.phone2_whatsapp}
+                      onChange={() => {
+                        this.setState((prevState) => ({
+                          phone2_whatsapp: !prevState.phone2_whatsapp,
+                        }));
+                      }}
+                      value={this.state.phone2_whatsapp}
+                    />
+                    <span>Whatsapp number</span>
+                  </label>
+                </div>
+                <div className="row">
+                  <TextInput
+                    name={"company_name"}
+                    placeholder="Company Name"
+                    onChange={this.handleOnChange}
+                    value={this.state.company_name}
+                  />
+                </div>
+                <div className="row">
+                  <TextInput
+                    name={"company_address"}
+                    placeholder="Company Addresss"
+                    onChange={this.handleOnChange}
+                    value={this.state.company_address}
+                  />
+                </div>
+
+                <div className="row">
+                  <TextInput
+                    name={"company_designation"}
+                    placeholder="Company Designation"
+                    onChange={this.handleOnChange}
+                    value={this.state.company_designation}
+                  />
+                </div>
+
+                <div className="row">
+                  <select
+                    name="industryType"
+                    defaultValue={this.state.industryType}
+                    onChange={this.handleOnChange}
+                  >
+                    {industryType ? (
+                      <option>{industryType}</option>
+                    ) : (
+                      <option>Select Industry Type</option>
+                    )}
+                    {this.state.industry.map((ele) => (
+                      <option key={ele.id} value={ele.industry_name}>
+                        {ele.industry_name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="row">
+                  <select
+                    name="industryClassification"
+                    defaultValue={this.state.industryClassification}
+                    onChange={this.handleOnChange}
+                  >
+                    {industryClassification ? (
+                      <option>{industryClassification}</option>
+                    ) : (
+                      <option>Select Industry Classification</option>
+                    )}
+
+                    {this.state.indusClass.map((ele) => (
+                      <option key={ele.id} value={ele.industry_name}>
+                        {ele.industry_name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
-
-              <div className="row">
-                <TextInput
-                  name={"firstName"}
-                  placeholder="First Name"
-                  onChange={this.handleOnChange}
-                  value={this.state.firstName}
-                />
-              </div>
-              <div className="row">
-                <TextInput
-                  name={"lastName"}
-                  placeholder="Last Name"
-                  onChange={this.handleOnChange}
-                  value={this.state.lastName}
-                />
-              </div>
-              <div className="row">
-                <TextInput
-                  name={"emailAddress"}
-                  placeholder="Email Addresss"
-                  onChange={this.handleOnChange}
-                  value={this.state.emailAddress}
-                />
-              </div>
-              <div className="row">
-                <PhoneNumber
-                  name={"phoneNumber"}
-                  placeholder="Phone Number"
-                  onChange={this.handleOnChange}
-                  value={this.state.phoneNumber}
-                />
-                <label className="mx-3">
-                  <input
-                    type="checkbox"
-                    checked={this.state.phone1_whatsapp}
-                    onChange={() => {
-                      this.setState((prevState) => ({
-                        phone1_whatsapp: !prevState.phone1_whatsapp,
-                      }));
-                    }}
-                  />
-                  <span>Whatsapp number</span>
-                </label>
-              </div>
-              <div className="row">
-                <PhoneNumber
-                  name={"phoneNumber2"}
-                  placeholder="Phone Number"
-                  onChange={this.handleOnChange}
-                  value={this.state.phoneNumber2}
-                />
-                <label className="mx-3">
-                  <input
-                    type="checkbox"
-                    checked={this.state.phone2_whatsapp}
-                    onChange={() => {
-                      this.setState((prevState) => ({
-                        phone2_whatsapp: !prevState.phone2_whatsapp,
-                      }));
-                    }}
-                    value={this.state.phone2_whatsapp}
-                  />
-                  <span>Whatsapp number</span>
-                </label>
-              </div>
-              <div className="row">
-                <TextInput
-                  name={"company_name"}
-                  placeholder="Company Name"
-                  onChange={this.handleOnChange}
-                  value={this.state.company_name}
-                />
-              </div>
-              <div className="row">
-                <TextInput
-                  name={"company_address"}
-                  placeholder="Company Addresss"
-                  onChange={this.handleOnChange}
-                  value={this.state.company_address}
-                />
-              </div>
-
-              <div className="row">
-                <select
-                  name="industryType"
-                  defaultValue={this.state.industryType}
-                  onChange={this.handleOnChange}
-                >
-                  {industryType ? (
-                    <option>{industryType}</option>
-                  ) : (
-                    <option>Select Industry Type</option>
-                  )}
-                  {this.state.industry.map((ele) => (
-                    <option key={ele.id} value={ele.industry_name}>
-                      {ele.industry_name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="row">
-                <select
-                  name="industryClassification"
-                  defaultValue={this.state.industryClassification}
-                  onChange={this.handleOnChange}
-                >
-                  {industryClassification ? (
-                    <option>{industryClassification}</option>
-                  ) : (
-                    <option>Select Industry Classification</option>
-                  )}
-
-                  {this.state.indusClass.map((ele) => (
-                    <option key={ele.id} value={ele.industry_name}>
-                      {ele.industry_name}
-                    </option>
-                  ))}
-                </select>
-              </div>
+            </div>
+            <div class="modal-footer">
+              <a
+                href="#!"
+                class="modal-close  waves-effect waves-green btn-flat"
+              >
+                Close
+              </a>
+              <button
+                onClick={this.submit}
+                className="waves-effect waves-green btn-primary btn"
+              >
+                Update
+              </button>
             </div>
           </div>
-          <div class="modal-footer">
-            <a href="#!" class="modal-close  waves-effect waves-green btn-flat">
-              Close
-            </a>
-            <button
-              onClick={this.submit}
-              className="waves-effect waves-green btn-primary btn"
-            >
-              Update
-            </button>
-          </div>
-        </div>
-        <div id="modal2" class="modal modal-fixed-footer">
-          <div class="modal-content">
-            <h4>{"Update Company"}</h4>
-            <div className="container-fluid mt-3">
-              <div className="row justify-content-center">
-                <div className="circle-avatar text-center d-flex align-items-center justify-content-center">
-                  {this.state.avatar ? (
-                    <img
-                      className="img-avatar"
-                      src={this.state.avatar}
-                      alt="profile"
-                    />
-                  ) : (
-                    <span>
-                      <i
-                        style={{ fontSize: 200, color: "#bdbdbd" }}
-                        className="material-icons"
-                      >
-                        account_circle
-                      </i>
+          <div id="modal2" class="modal modal-fixed-footer">
+            <div class="modal-content">
+              <h4>{"Update Company"}</h4>
+              <div className="container-fluid mt-3">
+                <div className="row justify-content-center">
+                  <div className="circle-avatar text-center d-flex align-items-center justify-content-center">
+                    {this.state.avatar ? (
+                      <img
+                        className="img-avatar"
+                        src={this.state.avatar}
+                        alt="profile"
+                      />
+                    ) : (
+                      <span>
+                        <i
+                          style={{ fontSize: 200, color: "#bdbdbd" }}
+                          className="material-icons"
+                        >
+                          account_circle
+                        </i>
+                      </span>
+                    )}
+                    <span
+                      onClick={this.uploadWidget2}
+                      className="camera-button"
+                    >
+                      <i className="material-icons">camera_enhance</i>
                     </span>
-                  )}
-                  <span onClick={this.uploadWidget2} className="camera-button">
-                    <i className="material-icons">camera_enhance</i>
-                  </span>
+                  </div>
+                </div>
+
+                <div className="row">
+                  <TextInput
+                    disabled
+                    name={"nameOfCompany"}
+                    placeholder="Company Name"
+                    onChange={this.handleOnChange}
+                    value={this.state.nameOfCompany}
+                  />
+                </div>
+                <div className="row">
+                  <TextInput
+                    name={"companyDetails"}
+                    placeholder="Company Details"
+                    onChange={this.handleOnChange}
+                    value={this.state.companyDetails}
+                  />
+                </div>
+                <div className="row">
+                  <TextInput
+                    name={"website"}
+                    placeholder="Company Website"
+                    onChange={this.handleOnChange}
+                    value={this.state.website}
+                  />
                 </div>
               </div>
-
-              <div className="row">
-                <TextInput
-                  disabled
-                  name={"nameOfCompany"}
-                  placeholder="Company Name"
-                  onChange={this.handleOnChange}
-                  value={this.state.nameOfCompany}
-                />
-              </div>
-              <div className="row">
-                <TextInput
-                  name={"companyDetails"}
-                  placeholder="Company Details"
-                  onChange={this.handleOnChange}
-                  value={this.state.companyDetails}
-                />
-              </div>
-              <div className="row">
-                <TextInput
-                  name={"website"}
-                  placeholder="Company Website"
-                  onChange={this.handleOnChange}
-                  value={this.state.website}
-                />
-              </div>
+            </div>
+            <div class="modal-footer">
+              <a
+                href="#!"
+                class="modal-close  waves-effect waves-green btn-flat"
+              >
+                Close
+              </a>
+              <button
+                onClick={this.updateCompany}
+                className="waves-effect waves-green btn-primary btn"
+              >
+                Update
+              </button>
             </div>
           </div>
-          <div class="modal-footer">
-            <a href="#!" class="modal-close  waves-effect waves-green btn-flat">
-              Close
-            </a>
-            <button
-              onClick={this.updateCompany}
-              className="waves-effect waves-green btn-primary btn"
-            >
-              Update
-            </button>
-          </div>
-        </div>
+        </AppWrapper>
       </UserDashboard>
     );
   }

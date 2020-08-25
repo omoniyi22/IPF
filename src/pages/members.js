@@ -14,6 +14,7 @@ import { emailRegx, phoneNumberRegx } from "../utils/regex";
 import PhoneNumber from "../components/General/phoneInput";
 import AppWrapper from "../components/appWrapper";
 import { api, attachApiToken } from "../services/api";
+import { getCompanies, getMembershipTypes, getMembers } from "../services";
 import EditOrganization from "../components/organization/edit";
 class Members extends Component {
   state = {
@@ -45,11 +46,11 @@ class Members extends Component {
     window.$(".modal").modal();
     //initialize select field
     // window.$('select').formSelect();
-    this.getCompaniesAndMembers();
-    this.getMembershipTypes();
+    this.getDataAtOnce();
   }
 
   perfromUserAction = (action, data) => {
+    console.log(data, "H===>");
     switch (action) {
       case "assign-admin":
         this.assignAdmin(data);
@@ -79,12 +80,10 @@ class Members extends Component {
       const onConfirm = window.confirm("Are you sure?");
       if (onConfirm) {
         this.props.showLoader(true);
-        const token = localStorage.getItem("x-access-token");
-        await Axios.delete(
-          "/api/v1/admin/remove",
-          { userId: data.memberId },
-          { headers: { "x-access-token": token } }
-        );
+        const authApi = await attachApiToken(api);
+        await authApi.delete("/admin/remove", {
+          data: { userId: data.member_id },
+        });
         this.props.showLoader();
         this.handleFireSnackbar("Action Successful", "success");
       }
@@ -96,35 +95,24 @@ class Members extends Component {
   };
 
   getMembers = async () => {};
-  getMembershipTypes = async () => {
-    try {
-      const token = localStorage.getItem("x-access-token");
-      const response = await Axios.get("/api/v1/admin/membership-type", {
-        headers: { "x-access-token": token },
-      });
-      this.setState({
-        types: response.data.data,
-      });
-    } catch (error) {}
-  };
 
-  getCompaniesAndMembers = async () => {
+  getDataAtOnce = async () => {
     try {
       this.props.showLoader(true);
-      const token = localStorage.getItem("x-access-token");
-      const response = await Axios.get("/api/v1/admin/companies", {
-        headers: { "x-access-token": token },
+      const [memberRes, compRes, memTypeRes] = await Promise.all([
+        getMembers(),
+        getCompanies(),
+        getMembershipTypes(),
+      ]);
+
+      const registeredMembers = memberRes.data.data;
+      const companies = compRes.data.data;
+      const types = memTypeRes.data.data;
+      this.setState({ companies, registeredMembers, types }, () => {
+        this.props.showLoader(false);
       });
-      const response2 = await Axios.get("/api/v1/admin/get-members", {
-        headers: { "x-access-token": token },
-      });
-      const registeredMembers = response2.data.data;
-      const companies = response.data.data;
-      this.props.showLoader(false);
-      this.setState({ companies, registeredMembers });
     } catch (error) {
-      console.error(error);
-      this.props.showLoader();
+      this.props.showLoader(false);
     }
   };
 
@@ -183,7 +171,7 @@ class Members extends Component {
         });
         this.handleFireSnackbar("Removal Successful", "success");
         this.props.showLoader(false);
-        this.getCompaniesAndMembers();
+        this.getDataAtOnce();
       } catch (error) {
         console.log(error);
         this.handleFireSnackbar("some errors where encountered", "error");
@@ -237,7 +225,7 @@ class Members extends Component {
           email: "",
           phoneNumber: "",
         },
-        () => this.handleFireSnackbar("Operation successful", "error")
+        () => this.handleFireSnackbar("Operation successful", "success")
       );
     } catch (error) {
       console.error(error.response);
@@ -323,7 +311,10 @@ class Members extends Component {
           adminEmail: "",
           adminPhoneNumber: "",
         },
-        () => this.handleFireSnackbar("Operation successful", "success")
+        () => {
+          this.handleFireSnackbar("Operation successful", "success");
+          this.getDataAtOnce();
+        }
       );
     } catch (error) {
       this.props.showLoader(false);
@@ -455,16 +446,16 @@ class Members extends Component {
       const onDelete = window.confirm("Are you sure?");
       if (onDelete) {
         this.props.showLoader(true);
-        const token = localStorage.getItem("x-access-token");
-        await Axios.delete("/api/v1/admin/remove", {
+        const authApi = await attachApiToken(api);
+        await authApi.delete("/admin/remove", {
           data: {
             userId: data.member_id,
           },
-          headers: { "x-access-token": token },
         });
 
         this.props.showLoader();
         this.handleFireSnackbar("Operation successful", "success");
+        this.getDataAtOnce();
       }
     } catch (error) {
       this.props.showLoader(false);
@@ -554,9 +545,6 @@ class Members extends Component {
   );
   openAddMemberModal = async (e) => {
     try {
-      await this.props.showLoader(true);
-      await this.getMembershipTypes();
-      this.props.showLoader();
       window.$("#modal3").modal("open");
     } catch (error) {
       // alert("some errors were encountered");
@@ -643,7 +631,6 @@ class Members extends Component {
                   <MaterialTable
                     components={{
                       Action: (props) => {
-                        console.log(props);
                         if (props.action.icon === "save") {
                           return (
                             <TableAction
@@ -652,7 +639,7 @@ class Members extends Component {
                             />
                           );
                         }
-                        return <button>Hello</button>;
+                        return <button></button>;
                       },
                     }}
                     title=""
@@ -662,13 +649,6 @@ class Members extends Component {
                       { title: "Member No", field: "memberNumber" },
                       { title: "Member Type", field: "company_type" },
                       { title: "Phone Number", field: "phone_number" },
-                      // { title: 'Membership NO:', field: 'membershipNo', type: 'numeric' },
-
-                      // {
-                      // title: 'Birth Place',
-                      // field: 'birthCity',
-                      // lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
-                      // },
                     ]}
                     data={this.state.companies}
                     options={{

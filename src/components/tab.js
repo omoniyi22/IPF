@@ -11,7 +11,6 @@ import Snackbar from "@material-ui/core/Snackbar";
 import { makeStyles } from "@material-ui/core/styles";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
-import TextField from "@material-ui/core/TextField";
 import MuiAlert from "@material-ui/lab/Alert";
 import axios from "axios";
 import "date-fns";
@@ -227,6 +226,8 @@ export default function CustomTab({ userDetails, updateDetails }) {
     setValue(newValue);
   };
 
+  const isCompanyAdmin = () => state?.nrole === "super-user";
+
   return (
     <Fragment>
       <Paper className={classes.root}>
@@ -237,22 +238,21 @@ export default function CustomTab({ userDetails, updateDetails }) {
           textColor="primary"
           centered
         >
-          {state.nrole === "super-user" && (
-            <Tab
-              style={{ color: "#fff", fontWeight: "bold" }}
-              label="Company Details"
-            />
-          )}
+          <Tab
+            style={{ color: "#fff", fontWeight: "bold" }}
+            label="Company Details"
+          />
         </Tabs>
       </Paper>
 
       <div className="tab-container">
-        {value === 1 && state.nrole === "super-user" && (
+        {value === 1 && (
           <>
             <AvatarContainer>
               <CustomAvatar
                 url={company.logo}
                 alt={company.company_name}
+                edit={isCompanyAdmin() ? true : false}
                 onChangeAvatar={(url) => {
                   setCompany({
                     ...company,
@@ -261,7 +261,11 @@ export default function CustomTab({ userDetails, updateDetails }) {
                 }}
               />
 
-              <span style={{ fontWeight: "bold" }}>Upload Corporate Logo</span>
+              {isCompanyAdmin() && (
+                <span style={{ fontWeight: "bold" }}>
+                  Upload Corporate Logo
+                </span>
+              )}
             </AvatarContainer>
 
             <section className="custom-form-group">
@@ -320,6 +324,7 @@ export default function CustomTab({ userDetails, updateDetails }) {
                       Industry Classification
                     </InputLabel>
                     <Select
+                      disabled={isCompanyAdmin() ? false : true}
                       labelId="demo-simple-select-helper"
                       id="demo-simple-select-helper"
                       value={company.industryClassification}
@@ -350,6 +355,7 @@ export default function CustomTab({ userDetails, updateDetails }) {
                       Industry Type
                     </InputLabel>
                     <Select
+                      disabled={isCompanyAdmin() ? false : true}
                       labelId="demo-simple-select-helper"
                       id="demo-simple-select-helper"
                       value={company.industry_type}
@@ -379,12 +385,13 @@ export default function CustomTab({ userDetails, updateDetails }) {
                 <TextInput
                   value={company.email || ""}
                   name="companyDetails"
-                  disabled
+                  disabled={isCompanyAdmin() ? false : true}
                 />
               </FormGroup>
 
               <FormGroup className style={styles.formGroup}>
                 <TextInput
+                  disabled={isCompanyAdmin() ? false : true}
                   placeholder={
                     "Kindly provide details of what your company deals in"
                   }
@@ -401,6 +408,7 @@ export default function CustomTab({ userDetails, updateDetails }) {
 
               <FormGroup className style={styles.formGroup}>
                 <TextInput
+                  disabled={isCompanyAdmin() ? false : true}
                   label={"Company Website"}
                   value={company.website || ""}
                   variant="outlined"
@@ -413,14 +421,17 @@ export default function CustomTab({ userDetails, updateDetails }) {
                   }}
                 />
               </FormGroup>
-              <Button
-                className={classes.edit}
-                variant="contained"
-                onClick={updateCompanyDetails}
-                color="secondary"
-              >
-                Update
-              </Button>
+
+              {isCompanyAdmin() && (
+                <Button
+                  className={classes.edit}
+                  variant="contained"
+                  onClick={updateCompanyDetails}
+                  color="secondary"
+                >
+                  Update
+                </Button>
+              )}
             </section>
           </>
         )}
