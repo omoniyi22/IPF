@@ -25,7 +25,6 @@ function Settings() {
         const authApi = await attachApiToken(api);
         const response = await authApi.get("/admin/membership-type");
         setMember(response.data.data);
-        console.log(response.data.data);
       } catch (error) {}
     };
     getUser();
@@ -48,9 +47,7 @@ function Settings() {
         const authApi = await attachApiToken(api);
         const response = await authApi.get("/admin/industry-classification");
         setClass(response.data.data);
-      } catch (error) {
-        // console.log(error);
-      }
+      } catch (error) {}
     };
     getUser();
   }, [setClass]);
@@ -61,9 +58,7 @@ function Settings() {
         const authApi = await attachApiToken(api);
         const response = await authApi.get("/admin/positions");
         setPosition(response.data.data);
-      } catch (error) {
-        // console.log(error);
-      }
+      } catch (error) {}
     };
     getUser();
   }, [setPosition]);
@@ -74,11 +69,7 @@ function Settings() {
         const authApi = await attachApiToken(api);
         const response = await authApi.get("/admin/qualifications");
         setQual(response.data.data);
-        // console.log("===========>", response.data.data);
-      } catch (error) {
-        alert(JSON.stringify(error));
-        // console.log(error);
-      }
+      } catch (error) {}
     };
     getUser();
   }, [setQual]);
@@ -108,9 +99,7 @@ function Settings() {
       const authApi = await attachApiToken(api);
       const response = await authApi.get("/admin/industry-type");
       setIndustry(response.data.data);
-    } catch (error) {
-      // console.log(error);
-    }
+    } catch (error) {}
   };
 
   async function addMemberType(data) {
@@ -121,9 +110,7 @@ function Settings() {
         code: data.code,
         enrol_limit: data.enrol_limit,
       });
-    } catch (error) {
-      // console.log(error);
-    }
+    } catch (error) {}
   }
 
   async function editMemberType(data) {
@@ -148,9 +135,7 @@ function Settings() {
         },
       });
       _getMemberType();
-    } catch (error) {
-      console.log(error.response);
-    }
+    } catch (error) {}
   }
 
   // Add Industry Type
@@ -181,9 +166,7 @@ function Settings() {
           id: data.id,
         },
       });
-    } catch (error) {
-      console.log(error.response);
-    }
+    } catch (error) {}
   }
 
   // Add Classification Type
@@ -258,7 +241,7 @@ function Settings() {
         detail: data.detail,
       });
     } catch (error) {
-      alert(JSON.stringify(error.response));
+      // alert(JSON.stringify(error.response));
     }
   }
 
