@@ -14,12 +14,11 @@ import {
 const data = [
   {
     id: "5",
-    text: "To project a positive image of the Indian community in Nigeria.",
+    text: "Link between Indian High Commission and Industry",
   },
   {
     id: "1",
-    text:
-      "Projecting and highlighting the many important contributions made by Indian Professionals in Nigeria.",
+    text: "Linking Indian and Nigerian Professionals",
   },
 
   {
@@ -29,21 +28,23 @@ const data = [
   },
   {
     id: "3",
-    text:
-      "To encourage more frequent business and social links between opinion makers in Nigeria and Indian Professionals.",
+    text: "Highlight contributions made by Indian Professionals in Nigeria",
   },
 
   {
     id: "4",
-    text:
-      "To emphasise the professionalism of the average Indian expatriate working in Nigeria.",
+    text: "Present positive perspective of India's role in International Forum",
+  },
+  {
+    id: "8",
+    text: "Enhance the role of Indian Professionals across the globe.",
   },
 ];
 const LandingContent = () => {
   return (
     <LandingContentContainer>
       <ContentSectionA>
-        <h4>About IPF</h4>
+        <h4>Our Purpose</h4>
         <ContentOffset>
           <UL>
             {data.map((item) => {

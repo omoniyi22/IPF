@@ -4,9 +4,7 @@ import HeaderFooter from "../components/LandingPage/footer";
 import LandingContent from "../components/LandingPage/main";
 import styled from "styled-components";
 
-const LandingContainer = styled.div`
-  border: 1px solid pink;
-`;
+const LandingContainer = styled.div``;
 const LandingPage = () => {
   return (
     <LandingContainer>
