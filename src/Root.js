@@ -17,10 +17,19 @@ import Position from "./pages/designation";
 import LandingPage from "./pages/landingPage";
 import AddCompany from "./pages/manageCompany";
 import AddMember from "./pages/addMember";
+import ForgotPassword from "./pages/forgotPassword";
+import ResetPassword from "./pages/resetPassword";
+
 function Root() {
   return (
     <Switch>
       <Route exact path="/landing" component={LandingPage} />
+      <Route exact path="/forgot" component={ForgotPassword} />
+      <Route
+        exact
+        path="/password/reset/:id/:token"
+        component={ResetPassword}
+      />
       <AuthRoute exact path="/user/dashboard/addmember" component={AddMember} />
       <AuthRoute
         exact
