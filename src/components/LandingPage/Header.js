@@ -3,9 +3,9 @@ import {
   HeaderContainer,
   HeaderLogoContaienr,
   HeaderContentContainer,
-  Image,
   HeaderText,
   Login,
+  LoginButton,
 } from "./styles";
 import images from "../../assets/images";
 
@@ -18,12 +18,15 @@ const LandingHeader = () => {
       </HeaderLogoContaienr> */}
       <HeaderContentContainer>
         <HeaderText>Indian Professional Forum, Nigeria</HeaderText>
+
+        <LoginButton>
+          <Link to="/login">
+            <Login>Login</Login>
+          </Link>
+        </LoginButton>
       </HeaderContentContainer>
       {/* <HeaderLogoContaienr>
         <Image src={images.merge} alt="ipf-logo" />
-        <Link to="/login">
-          <Login>Login</Login>
-        </Link>
       </HeaderLogoContaienr> */}
     </HeaderContainer>
   );

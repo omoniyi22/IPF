@@ -27,6 +27,8 @@ const HeaderContainer = styled.div`
   justify-content: center;
   display: flex;
   align-items: center;
+
+  position: relative;
 `;
 
 const HeaderLogoContaienr = styled.div`
@@ -43,6 +45,26 @@ const HeaderContentContainer = styled.div`
   padding: 0rem 3rem;
   @media (max-width: 768px) {
     width: 82%;
+  }
+`;
+
+const LoginButton = styled.div`
+  position: absolute;
+  bottom: 1rem;
+  right: 7rem;
+  font-size: 15px;
+  font-weight: 700;
+
+  @media (max-width: 768px) {
+    right: 1.5rem;
+    * {
+      font-size: 13px;
+      font-weight: 700;
+    }
+  }
+
+  @media (max-width: 992px) {
+    right: 3rem;
   }
 `;
 
@@ -105,7 +127,7 @@ const ContentSectionA = styled.div`
   position: relative;
 `;
 
-export const ContentSectionBackground = styled.div`
+const ContentSectionBackground = styled.div`
   background-image: url(${images.logo});
   position: absolute;
   background-repeat: no-repeat;
@@ -153,8 +175,7 @@ const CarouselSection = styled.div`
 
 const Login = styled.a`
   color: #fff !important;
-  font-weight: bold;
-  font-size: 1.4rem;
+  /* font-size: 1.4rem; */
   position: relative;
   top: 0.4rem;
   cursor: pointer;
@@ -178,4 +199,6 @@ export {
   LI,
   CarouselSection,
   Login,
+  LoginButton,
+  ContentSectionBackground,
 };
