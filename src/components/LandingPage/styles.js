@@ -1,13 +1,32 @@
 import styled from "styled-components";
 import images from "../../assets/images";
+import { device } from "../../constants/devices";
+
+{
+  /* <Image src={images.merge} alt="ipf-logo" /> */
+}
 
 //Landing Header section
 
 const HeaderContainer = styled.div`
   height: 30vh;
-  background-color: #2a4b5c;
   display: flex;
-  padding: 0rem 1.4rem;
+
+  width: 100vw;
+
+  background: url("${images.logo}"), url("${images.merge}");
+  background-repeat: no-repeat;
+  background-size: 10rem;
+  background-position: center left 5%, center right 5%;
+  background-color: #2a4b5c;
+
+  @media (max-width: 768px) {
+    background-size: 50px;
+    height: 20vh;
+  }
+  justify-content: center;
+  display: flex;
+  align-items: center;
 `;
 
 const HeaderLogoContaienr = styled.div`
@@ -19,7 +38,12 @@ const HeaderLogoContaienr = styled.div`
 `;
 
 const HeaderContentContainer = styled.div`
-  width: 60%;
+  width: 70%;
+  margin: 0 auto;
+  padding: 0rem 3rem;
+  @media (max-width: 768px) {
+    width: 82%;
+  }
 `;
 
 const Image = styled.img`
@@ -33,6 +57,18 @@ const HeaderText = styled.h1`
   text-align: center;
   font-weight: bold;
   font-size: 4rem;
+
+  @media (max-width: 992px) {
+    font-size: 3rem;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+
+  @media (max-width: 500px) {
+    font-size: 1.3rem;
+  }
 `;
 
 //FOOTER
@@ -46,20 +82,38 @@ const FooterContainer = styled.div`
 
 const LandingContentContainer = styled.div`
   display: flex;
-  height: 60vh;
-  // padding: 0rem 1.4rem;
-  background: #fff;
+  width: 100%;
+  // background: #fff;
+
+  justify-content: space-between;
+  @media (max-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column-reverse;
+  }
 `;
 
 const ContentSectionA = styled.div`
-
   width: 40%;
-  padding : 0rem 0.9rem;
-  // background-image: url(${images.logo});
+  padding: 0rem 0.9rem;
+
+  filter: brightness(0.78);
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+  position: relative;
+`;
+
+export const ContentSectionBackground = styled.div`
+  background-image: url(${images.logo});
+  position: absolute;
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-  filter: brightness(0.78);
+  opacity: 0.1;
+  width: 90%;
+  height: 90%;
 `;
 
 const ContentOffset = styled.div`
@@ -81,6 +135,20 @@ const CarouselSection = styled.div`
   box-shadow: 10px 10px 9px -5px rgba(117, 117, 125, 0.78);
   -webkit-box-shadow: 10px 10px 9px -5px rgba(117, 117, 125, 0.78);
   -moz-box-shadow: 10px 10px 9px -5px rgba(117, 117, 125, 0.78);
+
+  @media (max-width: 768px) {
+    width: 100%;
+
+    .carousel {
+      height: 30vh;
+
+      img {
+        height: 30vh;
+        object-fit: cover;
+        width: 100%;
+      }
+    }
+  }
 `;
 
 const Login = styled.a`

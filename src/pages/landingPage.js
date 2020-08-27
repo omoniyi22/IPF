@@ -4,7 +4,9 @@ import HeaderFooter from "../components/LandingPage/footer";
 import LandingContent from "../components/LandingPage/main";
 import styled from "styled-components";
 
-const LandingContainer = styled.div``;
+const LandingContainer = styled.div`
+  width: 100vw;
+`;
 const LandingPage = () => {
   return (
     <LandingContainer>

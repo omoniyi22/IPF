@@ -20,7 +20,7 @@ const AuthRoute = ({ component: Component, authenticated, ...rest }) => (
       isAuthenticated() ? (
         <Component {...props} />
       ) : (
-        <Redirect to="/" {...props} />
+        <Redirect to="/landing" {...props} />
       )
     }
   />

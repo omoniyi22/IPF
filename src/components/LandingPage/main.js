@@ -9,6 +9,7 @@ import {
   LandingContentContainer,
   LI,
   UL,
+  ContentSectionBackground,
 } from "./styles";
 
 const data = [
@@ -44,6 +45,7 @@ const LandingContent = () => {
   return (
     <LandingContentContainer>
       <ContentSectionA>
+        <ContentSectionBackground />
         <h4>Our Purpose</h4>
         <ContentOffset>
           <UL>
