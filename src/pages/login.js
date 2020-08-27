@@ -77,6 +77,27 @@ class Login extends Component {
       this.props.showLoader(false);
     }
   };
+
+  componentDidMount() {
+    this.getQuery();
+  }
+
+  getQuery() {
+    const _query = window.location.search;
+    if (!_query) return;
+
+    let params = new URLSearchParams(_query);
+
+    let emailAddress = params.get("email");
+    let password = params.get("pwd");
+
+    if (emailAddress && password) {
+      this.setState({
+        emailAddress,
+        password,
+      });
+    }
+  }
   render() {
     return (
       <div className="container-fluid" style={{ padding: 0 }}>
