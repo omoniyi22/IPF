@@ -1,19 +1,28 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
-
 import logo from "../assets/IPF_Logo.png";
 import nigeria from "../assets/nigeria.png";
-
+import { Snackbar } from "@material-ui/core";
+import Alert from "@material-ui/lab/Alert";
 import india from "../assets/india.png";
+import { api, attachApiToken } from "../services/api";
 
 class UserDashboard extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       companyAdmin: false,
       active: "home",
+      openSnackbar: true,
+      company: {
+        company_name: "",
+        company_details: "",
+        industry_type: "",
+        industryClassification: "",
+        website: "",
+        logo: "",
+      },
     };
   }
   logout = (e) => {
@@ -25,11 +34,26 @@ class UserDashboard extends Component {
   componentDidMount() {
     const ipfUser = JSON.parse(localStorage.getItem("ipf-user"));
     if (ipfUser.nrole === "super-user") {
-      this.setState({
-        companyAdmin: true,
-      });
+      this.setState(
+        {
+          companyAdmin: true,
+        },
+        () => {
+          this.getUser();
+        }
+      );
     }
   }
+
+  getUser = async () => {
+    try {
+      const authApi = await attachApiToken(api);
+      const response = await authApi.get("/company");
+      this.setState({
+        company: { ...response.data.data },
+      });
+    } catch (error) {}
+  };
 
   onActive = (link = "managecompany") => {
     switch (link) {
@@ -55,8 +79,20 @@ class UserDashboard extends Component {
     }
   };
 
+  handleClose = () => {
+    this.setState({
+      openSnackbar: false,
+    });
+  };
+
+  isObjectEmpty = (obj) => {
+    if (obj.constructor === Object && Object.keys(obj).length === 0)
+      return true;
+    return false;
+  };
+
   render() {
-    const { companyAdmin } = this.state;
+    const { companyAdmin, openSnackbar } = this.state;
     const { other, location } = this.props;
 
     const editCompany =
@@ -176,6 +212,25 @@ class UserDashboard extends Component {
               </div>
             </div>
           </>
+        )}
+
+        {companyAdmin && this.state.company.company_details === "" && (
+          <Snackbar
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            open={openSnackbar}
+            // autoHideDuration={6000}
+            onClose={this.handleClose}
+          >
+            <Alert
+              style={{ marginTop: "8%" }}
+              onClose={this.handleClose}
+              severity="warning"
+            >
+              Please proceed to{" "}
+              <b style={{ fontWeight: "bold" }}>Company Details</b> to complete
+              your company details.
+            </Alert>
+          </Snackbar>
         )}
       </div>
     );

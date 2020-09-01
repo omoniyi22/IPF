@@ -16,6 +16,7 @@ import AppWrapper from "../components/appWrapper";
 import { api, attachApiToken } from "../services/api";
 import { getCompanies, getMembershipTypes, getMembers } from "../services";
 import EditOrganization from "../components/organization/edit";
+import EditMember from "../components/Members/editMember";
 import styled from "styled-components";
 class Members extends Component {
   state = {
@@ -42,6 +43,12 @@ class Members extends Component {
     type: "default",
     companyData: {},
     editCompany: false,
+    userData: {
+      firstName: "",
+      lastName: "",
+      phoneNumber: "",
+      emailAddress: "",
+    },
   };
   async componentDidMount() {
     //initialize materialize modal
@@ -62,11 +69,22 @@ class Members extends Component {
       case "remove":
         this.removeUser(data);
         break;
+
       default:
         break;
     }
   };
 
+  editMember = (data) => {
+    this.setState(
+      {
+        userData: data,
+      },
+      () => {
+        window.$("#modal6").modal("open");
+      }
+    );
+  };
   assignAdmin = async (data) => {
     try {
     } catch (error) {
@@ -95,7 +113,7 @@ class Members extends Component {
 
   getDataAtOnce = async () => {
     try {
-      this.props.showLoader(true);
+      // this.props.showLoader(true);
       const [memberRes, compRes, memTypeRes] = await Promise.all([
         getMembers(),
         getCompanies(),
@@ -105,10 +123,10 @@ class Members extends Component {
       const companies = compRes.data.data;
       const types = memTypeRes.data.data;
       this.setState({ companies, registeredMembers, types }, () => {
-        this.props.showLoader(false);
+        // this.props.showLoader(false);
       });
     } catch (error) {
-      this.props.showLoader(false);
+      // this.props.showLoader(false);
     }
   };
 
@@ -443,6 +461,10 @@ class Members extends Component {
         this.suspendMember(data);
         break;
 
+      case "edit-member":
+        this.editMember(data);
+        break;
+
       case "remove":
         this.removeMemeber(data);
         break;
@@ -491,103 +513,299 @@ class Members extends Component {
       this.handleFireSnackbar("some errors were encountered", "error");
     }
   };
-  renderIndividualBlock = () => (
-    <div className="shadow rounded bg-white col-md-12 p-3">
-      <MaterialTable
-        detailPanel={[
-          {
-            tooltip: "More",
-            render: (rowData) => {
-              return (
-                <div
-                  style={{
-                    fontSize: 15,
-                    color: "white",
-                    backgroundColor: "#2A4B5A",
-                    display: "flex",
-                    flexDirection: "row",
-                    padding: 10,
-                  }}
-                >
-                  <SpanContainer>
-                    <Item className="mr-1">Passport:</Item>
-                    <Item>{rowData.passport}</Item>
-                  </SpanContainer>
 
-                  <SpanContainer>
-                    <Item className="mr-1">Street:</Item>
-                    <Item>{rowData.street1}</Item>
-                  </SpanContainer>
+  handleEditUserOnchange = ({ target: { name, value } }) => {
+    this.setState({
+      userData: Object.assign({}, this.state.userData, {
+        [name]: value,
+      }),
+    });
+  };
+  renderIndividualBlock = () => {
+    const _members = this.state.registeredMembers || [];
+    let _list = ["AM", "P", "LM"];
+    let individualMembers = [];
+    _members.forEach((item) => {
+      if (_list.includes(item.membershipType)) {
+        individualMembers.push(item);
+      }
+    });
+    return (
+      <div className="shadow rounded bg-white col-md-12 p-3">
+        <MaterialTable
+          detailPanel={[
+            {
+              tooltip: "More",
+              render: (rowData) => {
+                return (
+                  <div
+                    style={{
+                      fontSize: 15,
+                      color: "white",
+                      backgroundColor: "#2A4B5A",
+                      display: "flex",
+                      flexDirection: "row",
+                      padding: 10,
+                    }}
+                  >
+                    <SpanContainer>
+                      <Item className="mr-1">Passport:</Item>
+                      <Item>{rowData.passport}</Item>
+                    </SpanContainer>
 
-                  <SpanContainer>
-                    <Item className="mr-1">Industry Type:</Item>
-                    <Item>{rowData.industry_type}</Item>
-                  </SpanContainer>
+                    <SpanContainer>
+                      <Item className="mr-1">Street:</Item>
+                      <Item>{rowData.street1}</Item>
+                    </SpanContainer>
 
-                  <SpanContainer>
-                    <Item className="mr-1">Industry Classification:</Item>
-                    <Item>{rowData.industryClassification}</Item>
-                  </SpanContainer>
-                </div>
-              );
+                    <SpanContainer>
+                      <Item className="mr-1">Industry Type:</Item>
+                      <Item>{rowData.industry_type}</Item>
+                    </SpanContainer>
+
+                    <SpanContainer>
+                      <Item className="mr-1">Industry Classification:</Item>
+                      <Item>{rowData.industryClassification}</Item>
+                    </SpanContainer>
+                  </div>
+                );
+              },
             },
-          },
-        ]}
-        components={{
-          Action: (props) => {
-            console.log(props);
-            if (props.action.icon === "save") {
-              return (
-                <MemberActions
-                  data={props.data}
-                  onClick={this.handleOnClickMemberActions}
-                />
-              );
-            }
-            return <button>Hello</button>;
-          },
-        }}
-        title=""
-        columns={[
-          { title: "First Name", field: "firstName" },
-          { title: "Last Name", field: "lastName" },
-          { title: "Email", field: "emailAddress" },
-          { title: "Member No", field: "memberNumber" },
-          { title: "Member Type", field: "membershipType" },
-          { title: "Phone Number", field: "phoneNumber" },
-          // { title: "Industry Type", field: "industryType" },
-          // { title: "Street", field: "street1" },
-          // { title: "Passport", field: "passport" },
-        ]}
-        data={this.state.registeredMembers}
-        options={{
-          headerStyle: {
-            background: "#FA6400",
-            color: "#FFF",
-            fontFamily: '"Open Sans", sans-serif',
-            fontWeight: "bold",
-            zIndex: 1,
-          },
-          searchFieldStyle: {},
-          actionsColumnIndex: -1,
-        }}
-        actions={[
-          {
-            icon: "save",
-            tooltip: "Save User",
-            onClick: (event, rowData) => {
-              // Do save operation
+          ]}
+          components={{
+            Action: (props) => {
+              if (props.action.icon === "save") {
+                return (
+                  <MemberActions
+                    data={props.data}
+                    onClick={this.handleOnClickMemberActions}
+                  />
+                );
+              }
+              return <button></button>;
             },
-          },
-        ]}
-        //   editable={{
-        //     onRowAdd: newData => {},
-        //     onRowUpdate: (newData, oldData) => {},
-        //     onRowDelete: oldData => {}
-        //   }}
-      />
-    </div>
-  );
+          }}
+          title=""
+          columns={[
+            { title: "First Name", field: "firstName" },
+            { title: "Last Name", field: "lastName" },
+            { title: "Email", field: "emailAddress" },
+            { title: "Member No", field: "memberNumber" },
+            { title: "Member Type", field: "membershipType" },
+            { title: "Phone Number", field: "phoneNumber" },
+          ]}
+          data={individualMembers}
+          options={{
+            headerStyle: {
+              background: "#FA6400",
+              color: "#FFF",
+              fontFamily: '"Open Sans", sans-serif',
+              fontWeight: "bold",
+              zIndex: 1,
+            },
+            searchFieldStyle: {},
+            actionsColumnIndex: -1,
+          }}
+          actions={[
+            {
+              icon: "save",
+              tooltip: "Save User",
+              onClick: (event, rowData) => {},
+            },
+          ]}
+        />
+      </div>
+    );
+  };
+
+  renderCorporateMemberBlock = () => {
+    const _members = this.state.registeredMembers || [];
+    let _list = ["AM", "P", "LM"];
+    let individualMembers = [];
+    _members.forEach((item) => {
+      if (!_list.includes(item.membershipType)) {
+        individualMembers.push(item);
+      }
+    });
+    return (
+      <div className="shadow rounded bg-white col-md-12 p-3">
+        <MaterialTable
+          detailPanel={[
+            {
+              tooltip: "More",
+              render: (rowData) => {
+                return (
+                  <div
+                    style={{
+                      fontSize: 15,
+                      color: "white",
+                      backgroundColor: "#2A4B5A",
+                      display: "flex",
+                      flexDirection: "row",
+                      padding: 10,
+                    }}
+                  >
+                    <SpanContainer>
+                      <Item className="mr-1">Passport:</Item>
+                      <Item>{rowData.passport}</Item>
+                    </SpanContainer>
+
+                    <SpanContainer>
+                      <Item className="mr-1">Street:</Item>
+                      <Item>{rowData.street1}</Item>
+                    </SpanContainer>
+
+                    <SpanContainer>
+                      <Item className="mr-1">Industry Type:</Item>
+                      <Item>{rowData.industry_type}</Item>
+                    </SpanContainer>
+
+                    <SpanContainer>
+                      <Item className="mr-1">Industry Classification:</Item>
+                      <Item>{rowData.industryClassification}</Item>
+                    </SpanContainer>
+                  </div>
+                );
+              },
+            },
+          ]}
+          components={{
+            Action: (props) => {
+              if (props.action.icon === "save") {
+                return (
+                  <MemberActions
+                    data={props.data}
+                    onClick={this.handleOnClickMemberActions}
+                  />
+                );
+              }
+              return <button></button>;
+            },
+          }}
+          title=""
+          columns={[
+            { title: "First Name", field: "firstName" },
+            { title: "Last Name", field: "lastName" },
+            { title: "Email", field: "emailAddress" },
+            { title: "Member No", field: "memberNumber" },
+            { title: "Member Type", field: "membershipType" },
+            { title: "Phone Number", field: "phoneNumber" },
+          ]}
+          data={individualMembers}
+          options={{
+            headerStyle: {
+              background: "#FA6400",
+              color: "#FFF",
+              fontFamily: '"Open Sans", sans-serif',
+              fontWeight: "bold",
+              zIndex: 1,
+            },
+            searchFieldStyle: {},
+            actionsColumnIndex: -1,
+          }}
+          actions={[
+            {
+              icon: "save",
+              tooltip: "Save User",
+              onClick: (event, rowData) => {},
+            },
+          ]}
+        />
+      </div>
+    );
+  };
+
+  renderAllMembersBlock = () => {
+    const _members = this.state.registeredMembers || [];
+
+    return (
+      <div className="shadow rounded bg-white col-md-12 p-3">
+        <MaterialTable
+          detailPanel={[
+            {
+              tooltip: "More",
+              render: (rowData) => {
+                return (
+                  <div
+                    style={{
+                      fontSize: 15,
+                      color: "white",
+                      backgroundColor: "#2A4B5A",
+                      display: "flex",
+                      flexDirection: "row",
+                      padding: 10,
+                    }}
+                  >
+                    <SpanContainer>
+                      <Item className="mr-1">Passport:</Item>
+                      <Item>{rowData.passport}</Item>
+                    </SpanContainer>
+
+                    <SpanContainer>
+                      <Item className="mr-1">Street:</Item>
+                      <Item>{rowData.street1}</Item>
+                    </SpanContainer>
+
+                    <SpanContainer>
+                      <Item className="mr-1">Industry Type:</Item>
+                      <Item>{rowData.industry_type}</Item>
+                    </SpanContainer>
+
+                    <SpanContainer>
+                      <Item className="mr-1">Industry Classification:</Item>
+                      <Item>{rowData.industryClassification}</Item>
+                    </SpanContainer>
+                  </div>
+                );
+              },
+            },
+          ]}
+          components={{
+            Action: (props) => {
+              if (props.action.icon === "save") {
+                return (
+                  <MemberActions
+                    data={props.data}
+                    onClick={this.handleOnClickMemberActions}
+                  />
+                );
+              }
+              return <button></button>;
+            },
+          }}
+          title=""
+          columns={[
+            { title: "First Name", field: "firstName" },
+            { title: "Last Name", field: "lastName" },
+            { title: "Email", field: "emailAddress" },
+            { title: "Member No", field: "memberNumber" },
+            { title: "Member Type", field: "membershipType" },
+            { title: "Phone Number", field: "phoneNumber" },
+          ]}
+          data={_members}
+          options={{
+            headerStyle: {
+              background: "#FA6400",
+              color: "#FFF",
+              fontFamily: '"Open Sans", sans-serif',
+              fontWeight: "bold",
+              zIndex: 1,
+            },
+            searchFieldStyle: {},
+            actionsColumnIndex: -1,
+          }}
+          actions={[
+            {
+              icon: "save",
+              tooltip: "Save User",
+              onClick: (event, rowData) => {},
+            },
+          ]}
+        />
+      </div>
+    );
+  };
+
   openAddMemberModal = async (e) => {
     try {
       window.$("#modal3").modal("open");
@@ -608,12 +826,6 @@ class Members extends Component {
     this.setState({ editCompany: true, companyData: data }, () => {
       window.$("#modal3").modal("open");
     });
-
-    // const response = await Axios.patch("/api/v1/admin/edit-company", {
-    //   ...this.state,
-    //   company_id: "asd",
-    // });
-    // const response2 = await axios.get("/api/v1/admin/companies");
   };
 
   render() {
@@ -646,13 +858,40 @@ class Members extends Component {
                     style={{ position: "relative" }}
                   >
                     <h4
-                      className={`member-type-header mx-2 ${
+                      className={`member-type-header ${
                         this.state.currentTab === "individual" ? "active" : ""
                       }`}
                     >
-                      Members
+                      Individual Members
                     </h4>
                   </div>
+
+                  <div
+                    onClick={() => this.setState({ currentTab: "corporate" })}
+                    style={{ position: "relative" }}
+                  >
+                    <h4
+                      className={`member-type-header ${
+                        this.state.currentTab === "corporate" ? "active" : ""
+                      }`}
+                    >
+                      Corporate Members
+                    </h4>
+                  </div>
+
+                  <div
+                    onClick={() => this.setState({ currentTab: "all" })}
+                    style={{ position: "relative" }}
+                  >
+                    <h4
+                      className={`member-type-header ${
+                        this.state.currentTab === "all" ? "active" : ""
+                      }`}
+                    >
+                      All Members
+                    </h4>
+                  </div>
+
                   <div
                     onClick={() =>
                       this.setState({ currentTab: "organisation" })
@@ -660,7 +899,7 @@ class Members extends Component {
                     style={{ position: "relative" }}
                   >
                     <h4
-                      className={`member-type-header ${
+                      className={`member-type-header mx-2 ${
                         this.state.currentTab === "organisation" ? "active" : ""
                       }`}
                     >
@@ -671,7 +910,15 @@ class Members extends Component {
               </div>
             </div>
             <div className="row mt-4">
-              {this.state.currentTab === "organisation" ? (
+              {this.state.currentTab === "corporate" &&
+                this.renderCorporateMemberBlock()}
+
+              {this.state.currentTab === "individual" &&
+                this.renderIndividualBlock()}
+
+              {this.state.currentTab === "all" && this.renderAllMembersBlock()}
+
+              {this.state.currentTab === "organisation" && (
                 <div className="shadow rounded bg-white col-md-12 p-3">
                   <MaterialTable
                     components={{
@@ -718,8 +965,6 @@ class Members extends Component {
                     ]}
                   />
                 </div>
-              ) : (
-                this.renderIndividualBlock()
               )}
             </div>
 
@@ -1013,6 +1258,12 @@ class Members extends Component {
                   </div>
                 </>
               )}
+            </div>
+            <div id="modal6" class="modal modal-fixed-footer">
+              <EditMember
+                getAll={this.getDataAtOnce}
+                data={this.state.userData}
+              />
             </div>
           </div>
         </AppWrapper>

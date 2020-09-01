@@ -30,10 +30,8 @@ function MemberActions({ data, onClick, type }) {
         Actions
       </Dropdown.Toggle>
       <Dropdown.Menu>
-        <Dropdown.Item onClick={() => onClick("assign-position", data)}>
-          <span style={{ fontWeight: "bold", color: "#000" }}>
-            Assign Position
-          </span>
+        <Dropdown.Item onClick={() => onClick("edit-member", data)}>
+          <span style={{ fontWeight: "bold", color: "#000" }}>Edit</span>
         </Dropdown.Item>
         <Dropdown.Item onClick={() => onClick("suspend", data)}>
           <span className="text-danger" style={{ fontWeight: "bold" }}>

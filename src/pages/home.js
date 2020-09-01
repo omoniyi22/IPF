@@ -13,6 +13,7 @@ class HomePage extends Component {
     paidMembers: 0,
     unpaidMembers: 0,
     pendingApproval: 0,
+    openSnackbar: true,
   };
 
   componentDidMount() {
@@ -29,7 +30,9 @@ class HomePage extends Component {
       this.props.showLoader();
     }
   };
+
   render() {
+    const { openSnackbar } = this.state;
     return (
       <Dashboard>
         <div className="container-fluid">

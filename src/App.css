@@ -381,17 +381,19 @@ li.submenu-item {
   font-weight: bold;
   font-size: 16px;
   cursor: pointer;
+  margin-left: 1rem;
+  margin-right: 1rem;
   color: rgba(0, 0, 0, 0.63);
 }
 
 .member-type-header.active:before {
   content: "";
   position: absolute;
-  border: 2px solid #089242;
-  width: calc(100% + 5px);
+  border: 1px solid #089242;
+  width: calc(100% + 10px);
   margin-left: 8px;
   bottom: 0rem;
-  left: -16px;
+  left: -9px;
 }
 
 .dropdown-toggle {

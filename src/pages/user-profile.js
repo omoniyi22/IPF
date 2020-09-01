@@ -40,6 +40,7 @@ class UserProfile extends Component {
     industryType: "",
     companyDetails: "",
     position: "Member",
+    openSnackbar: true,
   };
   componentDidMount() {
     this.getUserDetails();
@@ -86,6 +87,7 @@ class UserProfile extends Component {
       [name]: value,
     });
   };
+
   submit = async (e) => {
     e.preventDefault();
 
@@ -258,6 +260,7 @@ class UserProfile extends Component {
       company_designation,
       dob,
       position,
+      openSnackbar,
     } = this.state;
     return (
       <UserDashboard>
