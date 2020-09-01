@@ -1,8 +1,11 @@
+@font-face {
+  font-family: Verdana;
+  src: url("../src/fonts/verdana.ttf");
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: Verdana, "Roboto" sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
@@ -21,4 +24,18 @@ code {
 ::placeholder {
   color: #444;
   opacity: 1;
+}
+
+.no-notification {
+  height: 100px;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.li-item {
+  list-style-type: circle !important;
+  margin-top: 0.9rem !important;
+  margin-left: 10px !important;
 }

@@ -143,7 +143,7 @@ function Settings() {
   async function addIndustryType(data) {
     try {
       const authApi = await attachApiToken(api);
-      await authApi.post("/api/v1/admin/industry-type", {
+      await authApi.post("/admin/industry-type", {
         industry_name: data.industry_name,
       });
     } catch (error) {}

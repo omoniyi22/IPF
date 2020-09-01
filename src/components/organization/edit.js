@@ -7,7 +7,7 @@ import * as actions from "../../redux/actions";
 import { connect } from "react-redux";
 import AppWrapper from "../appWrapper";
 import { isEmailValid } from "../../utils/app";
-const EditOrganization = ({ data, showLoader }) => {
+const EditOrganization = ({ data, showLoader, onEdit }) => {
   const [state, setState] = React.useState({
     email: "",
     company_name: "",
@@ -107,8 +107,10 @@ const EditOrganization = ({ data, showLoader }) => {
         open: true,
       });
       showLoader(false);
+      onEdit();
     } catch (error) {
       showLoader(false);
+      onEdit();
 
       let _error = "Unsuccessful, Try again";
       if (
@@ -216,7 +218,11 @@ const EditOrganization = ({ data, showLoader }) => {
       </div>
 
       <div class="modal-footer">
-        <a href="#!" class="modal-close  waves-effect waves-green btn-flat">
+        <a
+          onClick={() => onEdit()}
+          href="#!"
+          class="modal-close  waves-effect waves-green btn-flat"
+        >
           Close
         </a>
         <button

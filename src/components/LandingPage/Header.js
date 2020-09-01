@@ -13,9 +13,6 @@ import { Link } from "react-router-dom";
 const LandingHeader = () => {
   return (
     <HeaderContainer>
-      {/* <HeaderLogoContaienr>
-        <Image src={images.logo} alt="ipf-logo" />
-      </HeaderLogoContaienr> */}
       <HeaderContentContainer>
         <HeaderText>Indian Professional Forum, Nigeria</HeaderText>
 
@@ -25,9 +22,6 @@ const LandingHeader = () => {
           </Link>
         </LoginButton>
       </HeaderContentContainer>
-      {/* <HeaderLogoContaienr>
-        <Image src={images.merge} alt="ipf-logo" />
-      </HeaderLogoContaienr> */}
     </HeaderContainer>
   );
 };

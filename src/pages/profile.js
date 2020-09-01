@@ -24,6 +24,8 @@ class ManageProfile extends Component {
     phoneNumber2: "",
     emailAddress: "",
     emailAddress2: "",
+    firstName: "",
+    lastName: "",
     avatar: "",
     company_designation: "",
   };
@@ -45,8 +47,6 @@ class ManageProfile extends Component {
     e.preventDefault();
     try {
       const {
-        phone2_whatsapp,
-        phone1_whatsapp,
         phoneNumber,
         phoneNumber2,
         email1_primary,
@@ -64,6 +64,10 @@ class ManageProfile extends Component {
       }
       if (!emailRegx.test(emailAddress) || !emailRegx.test(emailAddress2)) {
         return this.handleFireSnackbar("Email Address is not valid", "error");
+      }
+
+      if (phoneNumber.length < 13) {
+        return this.handleFireSnackbar("Phone Number is not valid", "error");
       }
 
       if (!avatar) {

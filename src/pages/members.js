@@ -16,6 +16,7 @@ import AppWrapper from "../components/appWrapper";
 import { api, attachApiToken } from "../services/api";
 import { getCompanies, getMembershipTypes, getMembers } from "../services";
 import EditOrganization from "../components/organization/edit";
+import styled from "styled-components";
 class Members extends Component {
   state = {
     openSnackbar: false,
@@ -40,6 +41,7 @@ class Members extends Component {
     company_address: "",
     type: "default",
     companyData: {},
+    editCompany: false,
   };
   async componentDidMount() {
     //initialize materialize modal
@@ -50,7 +52,6 @@ class Members extends Component {
   }
 
   perfromUserAction = (action, data) => {
-    console.log(data, "H===>");
     switch (action) {
       case "assign-admin":
         this.assignAdmin(data);
@@ -73,8 +74,6 @@ class Members extends Component {
     }
   };
 
-  blockUser = async (data) => {};
-
   removeUser = async (data) => {
     try {
       const onConfirm = window.confirm("Are you sure?");
@@ -94,8 +93,6 @@ class Members extends Component {
     }
   };
 
-  getMembers = async () => {};
-
   getDataAtOnce = async () => {
     try {
       this.props.showLoader(true);
@@ -104,7 +101,6 @@ class Members extends Component {
         getCompanies(),
         getMembershipTypes(),
       ]);
-
       const registeredMembers = memberRes.data.data;
       const companies = compRes.data.data;
       const types = memTypeRes.data.data;
@@ -199,7 +195,14 @@ class Members extends Component {
       email.trim() === "" ||
       phoneNumber.trim() === ""
     ) {
-      // return alert("Incomplete details, please fill all required");
+      return this.handleFireSnackbar(
+        "Incomplete details, please fill all required",
+        "error"
+      );
+    }
+
+    if (!emailRegx.test(email)) {
+      return this.handleFireSnackbar("Email is incorrect", "error");
     }
 
     try {
@@ -289,6 +292,10 @@ class Members extends Component {
         return this.handleFireSnackbar("Phone Number is invalid", "error");
       }
 
+      if (phone_number.length < 13 || adminPhoneNumber.length < 13) {
+        return this.handleFireSnackbar("Phone Number is invalid", "error");
+      }
+
       if (!emailRegx.test(email) || !emailRegx.test(adminEmail)) {
         return this.handleFireSnackbar("Email is invalid", "error");
       }
@@ -347,6 +354,9 @@ class Members extends Component {
         }
         if (!emailRegx.test(email)) {
           return this.handleFireSnackbar("Email is invalid", "error");
+        }
+        if (phoneNumber.length < 13) {
+          return this.handleFireSnackbar("Phone Number is invalid", "error");
         }
         const token = localStorage.getItem("x-access-token");
         this.props.showLoader(true);
@@ -484,6 +494,45 @@ class Members extends Component {
   renderIndividualBlock = () => (
     <div className="shadow rounded bg-white col-md-12 p-3">
       <MaterialTable
+        detailPanel={[
+          {
+            tooltip: "More",
+            render: (rowData) => {
+              return (
+                <div
+                  style={{
+                    fontSize: 15,
+                    color: "white",
+                    backgroundColor: "#2A4B5A",
+                    display: "flex",
+                    flexDirection: "row",
+                    padding: 10,
+                  }}
+                >
+                  <SpanContainer>
+                    <Item className="mr-1">Passport:</Item>
+                    <Item>{rowData.passport}</Item>
+                  </SpanContainer>
+
+                  <SpanContainer>
+                    <Item className="mr-1">Street:</Item>
+                    <Item>{rowData.street1}</Item>
+                  </SpanContainer>
+
+                  <SpanContainer>
+                    <Item className="mr-1">Industry Type:</Item>
+                    <Item>{rowData.industry_type}</Item>
+                  </SpanContainer>
+
+                  <SpanContainer>
+                    <Item className="mr-1">Industry Classification:</Item>
+                    <Item>{rowData.industryClassification}</Item>
+                  </SpanContainer>
+                </div>
+              );
+            },
+          },
+        ]}
         components={{
           Action: (props) => {
             console.log(props);
@@ -506,13 +555,9 @@ class Members extends Component {
           { title: "Member No", field: "memberNumber" },
           { title: "Member Type", field: "membershipType" },
           { title: "Phone Number", field: "phoneNumber" },
-          // { title: 'Membership NO:', field: 'membershipNo', type: 'numeric' },
-
-          // {
-          // title: 'Birth Place',
-          // field: 'birthCity',
-          // lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
-          // },
+          // { title: "Industry Type", field: "industryType" },
+          // { title: "Street", field: "street1" },
+          // { title: "Passport", field: "passport" },
         ]}
         data={this.state.registeredMembers}
         options={{
@@ -605,7 +650,7 @@ class Members extends Component {
                         this.state.currentTab === "individual" ? "active" : ""
                       }`}
                     >
-                      Individual
+                      Members
                     </h4>
                   </div>
                   <div
@@ -671,17 +716,13 @@ class Members extends Component {
                         },
                       },
                     ]}
-                    //   editable={{
-                    //     onRowAdd: newData => {},
-                    //     onRowUpdate: (newData, oldData) => {},
-                    //     onRowDelete: oldData => {}
-                    //   }}
                   />
                 </div>
               ) : (
                 this.renderIndividualBlock()
               )}
             </div>
+
             <div id="modal1" class="modal modal-fixed-footer">
               <div class="modal-content">
                 <h4>{this.state.data.company_name + " Members"}</h4>
@@ -699,9 +740,40 @@ class Members extends Component {
                         </div>
                         <div className="row " style={{ marginBottom: 8 }}>
                           <div className="col-md-12">
-                            <span>{`${item.emailAddress}`}</span>
+                            <span>
+                              Email :
+                              <span
+                                style={{ fontWeight: "bold", fontSize: "16px" }}
+                              >
+                                {" "}
+                                {`${item.emailAddress}`}
+                              </span>
+                            </span>
                           </div>
                         </div>
+
+                        <div className="row " style={{ marginBottom: 8 }}>
+                          <div className="col-md-12">
+                            <span>Phone number :</span>
+
+                            <span
+                              style={{ fontWeight: "bold", fontSize: "16px" }}
+                            >
+                              {" "}
+                              {`${item.phoneNumber || " "}`}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="row " style={{ marginBottom: 8 }}>
+                          <div className="col-md-12">
+                            <span>Position :</span>
+
+                            <span
+                              style={{ fontWeight: "bold", fontSize: "16px" }}
+                            >{`${item.position || " Member"}`}</span>
+                          </div>
+                        </div>
+
                         <div className="row " style={{ marginBottom: 8 }}>
                           <div className="col-md-12">
                             <span>
@@ -767,13 +839,6 @@ class Members extends Component {
                     />
                   </div>
                   <div className="row">
-                    {/* <TextInput
-                    name={"phoneNumber"}
-                    placeholder="Phone Number"
-                    onChange={this.handleOnChange}
-                    value={this.state.phoneNumber}
-                  /> */}
-
                     <PhoneNumber
                       name={"phoneNumber"}
                       placeholder="Phone Number"
@@ -800,7 +865,14 @@ class Members extends Component {
             </div>
             <div id="modal3" class="modal modal-fixed-footer">
               {this.state.editCompany && (
-                <EditOrganization data={this.state.companyData} />
+                <EditOrganization
+                  data={this.state.companyData}
+                  onEdit={() => {
+                    this.setState({
+                      editCompany: false,
+                    });
+                  }}
+                />
               )}
 
               {!this.state.editCompany && (
@@ -950,3 +1022,18 @@ class Members extends Component {
 }
 
 export default connect(null, actions)(Members);
+
+const SpanContainer = styled.div`
+  border: 1px solid orage;
+  display: flex;
+  margin: 5px 5px;
+`;
+
+const CustomText = styled.p`
+  margin: 0px 2px;
+`;
+
+const Item = styled.p`
+  font-weight: bold;
+  text-transform: capitalize;
+`;

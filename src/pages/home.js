@@ -1,13 +1,12 @@
 import React, { Component } from "react";
-import Dashboard from "../hoc/Dashboard";
-import { TableHeader, TableBody } from "../components/components";
-import * as actions from "../redux/actions";
 import { connect } from "react-redux";
-import Axios from "axios";
 import styled from "styled-components";
 import Images from "../assets/images";
-
+import { TableBody, TableHeader } from "../components/components";
+import Dashboard from "../hoc/Dashboard";
+import * as actions from "../redux/actions";
 import { getDashboardOverview } from "../services";
+
 class HomePage extends Component {
   state = {
     totalMembers: 0,
@@ -101,7 +100,7 @@ class HomePage extends Component {
             </div>
           </div>
           <div className="row mt-3 mb-10">
-            <div className="col-lg-8 mb-3">
+            <div className="col-lg-12 mb-20">
               <TableHeader style={{ backgroundColor: "#2A4B5A" }}>
                 <h5
                   style={{ lineHeight: 2, color: "#fff", fontWeight: "bold" }}
@@ -118,24 +117,15 @@ class HomePage extends Component {
                       style={{ height: 180, width: 180 }}
                     />
                   </div>
-                  <div>
+                  <div style={{ marginTop: 30 }}>
                     <P>No available Report</P>
                   </div>
                 </Container>
               </div>
             </div>
-            <div className="col-lg-4 mb-3 ">
-              <div className="shadow bg-white">
-                <div className="home-user-profile">
-                  <span className="home-more-icon">
-                    <i className="material-icons">more_horiz</i>
-                  </span>
-                </div>
-              </div>
-            </div>
           </div>
-          <div className="row mt-3 mb-4">
-            <div className="col-lg-8 mb-3 ">
+          <div className="row mt-8 mb-4">
+            <div className="col-lg-12 mb-3 ">
               <div className="shadow bg-white">
                 <TableHeader>
                   <h5
@@ -158,44 +148,6 @@ class HomePage extends Component {
                     </div>
                   </Container>
                 </TableBody>
-              </div>
-            </div>
-            <div className="col-lg-4 mb-3 ">
-              <div className="shadow bg-white">
-                <div className="home-chats-count d-flex flex-column">
-                  <span className="home-more-icon">
-                    <i className="material-icons">more_horiz</i>
-                  </span>
-                  <div className="d-flex pt-5 flex-column flex-grow-1 w-100 h-100 justify-content-center align-items-center">
-                    <span className="home-chats-icon">
-                      <i className="material-icons">mark_chat_unread</i>
-                    </span>
-                    <h2
-                      style={{
-                        lineHeight: 2,
-                        color: "#fff",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      0
-                    </h2>
-                  </div>
-                  <div className="text-center text-white">
-                    <h4 className="mb-3" style={{ fontWeight: "bold" }}>
-                      Messages
-                    </h4>
-                    <h5
-                      className="mb-2"
-                      style={{
-                        fontStyle: "italic",
-                        fontSize: 10,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      Posted by Users
-                    </h5>
-                  </div>
-                </div>
               </div>
             </div>
           </div>

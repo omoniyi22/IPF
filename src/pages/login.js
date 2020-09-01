@@ -89,7 +89,9 @@ class Login extends Component {
       }
       return this.props.history.push("/user/dashboard");
     } catch (error) {
-      this.fireSnackbar(error.response.data.error, "error");
+      if (error.response && error.response.data) {
+        this.fireSnackbar(error.response.data.error, "error");
+      }
       this.props.showLoader(false);
     }
   };
@@ -175,7 +177,7 @@ class Login extends Component {
                             <div className="text-center mt-5">
                               <Link to="/forgot">
                                 <StyledColorOrange>
-                                  Forgot your password?
+                                  Reset password
                                 </StyledColorOrange>
                               </Link>
                               <br />

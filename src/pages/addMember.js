@@ -2,7 +2,7 @@ import { Grid, makeStyles, Typography } from "@material-ui/core";
 import { fade } from "@material-ui/core/styles";
 import axios from "axios";
 import clsx from "clsx";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
 import styled from "styled-components";
 import CustomTab2 from "../components/tab2";
@@ -10,6 +10,7 @@ import DashBoard from "../hoc/UserDashboard";
 import * as actions from "../redux/actions";
 import { api, attachApiToken } from "../services/api";
 import { sanitizeMember } from "../utils/memberType";
+import AppWrapper from "../components/appWrapper";
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -35,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#7f7c7c",
   },
   borderBottomGreen: {
-    borderBottom: "10px solid #46B049",
+    borderBottom: "10px solid #2D4D5D",
   },
   backgroundWhite: {
     backgroundColor: "#fff",
@@ -88,6 +89,10 @@ const Container = styled.div`
   margin-left: 200px;
   margin-right: 5px;
 `;
+
+const RenderMemberContainer = styled.div`
+  margin: 0 0.2rem;
+`;
 const AddMembers = ({
   userDetails,
   getUserDetails,
@@ -95,81 +100,128 @@ const AddMembers = ({
   isLoading,
   history,
   addMember,
+  showLoader,
 }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [members, setMembers] = useState([]);
 
+  const [snack, setSnack] = React.useState({
+    message: "",
+    type: "default",
+    open: false,
+  });
+
+  const getCompanyMembers = async () => {
+    try {
+      const authApi = await attachApiToken(api);
+      const response = await authApi.get("/auth/get-registered-members");
+      setMembers(response.data.data);
+    } catch (error) {}
+  };
+  const initState = React.useCallback(() => {
+    getCompanyMembers();
+  }, [getCompanyMembers]);
+
+  useEffect(() => {
+    initState();
+  }, [initState]);
+
   function updateAccountDetails(data) {
     isLoading(true);
     updateDetails(data);
   }
+
+  const removeUser = async (data) => {
+    try {
+      const onConfirm = window.confirm("Are you sure?");
+      if (onConfirm) {
+        showLoader(true);
+        const authApi = await attachApiToken(api);
+        await authApi.delete("/admin/remove", {
+          data: { userId: data.member_id, role: data.role },
+        });
+        showLoader(false);
+        handleFireSnackbar("Action Successful", "success");
+      }
+    } catch (error) {
+      alert(JSON.stringify(error.response));
+      showLoader();
+      handleFireSnackbar("some errors were encountered", "error");
+    }
+  };
+
+  const handleFireSnackbar = (message, type = "default") => {
+    setSnack({
+      ...snack,
+      message,
+      type,
+      open: true,
+    });
+  };
+
   const renderMemberList = () => {
     return members.map((item, i) => (
-      <Grid
-        className={clsx(
-          classes.backgroundWhite,
-          classes.padding,
-          classes.borderBottomGreen
-        )}
-        container
-        spacing={2}
-        key={i}
-      >
-        <Grid item sm={2}>
-          <Typography
-            className={clsx(classes.grey, classes.smallFont)}
-            variant="h6"
-          >
-            {`${item.firstName} ${item.lastName}`}
-          </Typography>
-        </Grid>
-        <Grid item sm={4}>
-          <Typography
-            className={clsx(classes.grey, classes.smallFont)}
-            variant="h6"
-          >
-            {item.emailAddress}
-          </Typography>
-        </Grid>
-        <Grid item sm={2}>
-          <Typography
-            className={clsx(classes.grey, classes.smallFont)}
-            variant="h6"
-          >
-            {item.phoneNumber}
-          </Typography>
-        </Grid>
-        <Grid item sm={2}>
-          <Typography
-            className={clsx(classes.grey, classes.smallFont)}
-            variant="h6"
-          >
-            {sanitizeMember(item.membershipType)}
-          </Typography>
-        </Grid>
-        <Grid item sm={2}>
-          <div className="btn-grid">
-            <div className="item1">
-              <button
-                className="btn small-padding btn-danger"
-                onClick={() => {}}
-                // disabled={item.approved ? true : false}
-              >
-                Remove
-              </button>
+      <RenderMemberContainer>
+        <Grid
+          className={clsx(
+            classes.backgroundWhite,
+            classes.padding,
+            classes.borderBottomGreen
+          )}
+          container
+          spacing={2}
+          key={i}
+        >
+          <Grid item sm={2}>
+            <Typography
+              className={clsx(classes.grey, classes.smallFont)}
+              variant="h6"
+            >
+              {`${item.firstName} ${item.lastName}`}
+            </Typography>
+          </Grid>
+          <Grid item sm={4}>
+            <Typography
+              className={clsx(classes.grey, classes.smallFont)}
+              variant="h6"
+            >
+              {item.emailAddress}
+            </Typography>
+          </Grid>
+          <Grid item sm={2}>
+            <Typography
+              className={clsx(classes.grey, classes.smallFont)}
+              variant="h6"
+            >
+              {item.phoneNumber}
+            </Typography>
+          </Grid>
+          <Grid item sm={2}>
+            <Typography
+              className={clsx(classes.grey, classes.smallFont)}
+              variant="h6"
+            >
+              {sanitizeMember(item.membershipType)}
+            </Typography>
+          </Grid>
+          <Grid item sm={2}>
+            <div className="btn-grid">
+              <div className="item1">
+                <button
+                  className="btn small-padding btn-danger"
+                  onClick={() => {
+                    removeUser(item);
+                  }}
+                  // disabled={item.approved ? true : false}
+                >
+                  Remove
+                </button>
+              </div>
             </div>
-            {/* <div className="item2">
-              <button
-                disabled={item.approved ? true : false}
-                className="btn small-padding color-white btn-danger"
-              >
-                Reject
-              </button>
-            </div> */}
-          </div>
+          </Grid>
         </Grid>
-      </Grid>
+      </RenderMemberContainer>
     ));
   };
 
@@ -191,80 +243,92 @@ const AddMembers = ({
 
   return (
     <DashBoard other>
-      <Container style={{}}>
-        <CustomTab2
-          userDetails={userDetails}
-          updateDetails={updateAccountDetails}
-          saveMember={saveMember}
-        />
+      <AppWrapper
+        onClose={() => {
+          setSnack({
+            ...snack,
+            open: false,
+          });
+        }}
+        message={snack.message}
+        type={snack.type}
+        open={snack.open}
+      >
+        <Container style={{}}>
+          <CustomTab2
+            userDetails={userDetails}
+            updateDetails={updateAccountDetails}
+            saveMember={saveMember}
+          />
 
-        {/* <SearchAppBar handleSearch={() => {}} /> */}
-        <div style={{ marginTop: 100 }}>
-          <Grid
-            className={clsx(classes.header, classes.boxShadow)}
-            container
-            spacing={2}
-          >
-            <Grid item sm={2}>
-              <Typography
-                variant="h5"
-                className={clsx(
-                  classes.white,
-                  classes.smallFont,
-                  classes.borderRight
-                )}
-              >
-                Name
-              </Typography>
+          {/* <SearchAppBar handleSearch={() => {}} /> */}
+          <RenderMemberContainer style={{ marginTop: 100 }}>
+            <Grid
+              className={clsx(classes.header, classes.boxShadow)}
+              container
+              spacing={2}
+            >
+              <Grid item sm={2}>
+                <Typography
+                  variant="h5"
+                  className={clsx(
+                    classes.white,
+                    classes.smallFont,
+                    classes.borderRight
+                  )}
+                >
+                  Name
+                </Typography>
+              </Grid>
+              <Grid item sm={4}>
+                <Typography
+                  variant="h5"
+                  className={clsx(
+                    classes.white,
+                    classes.smallFont,
+                    classes.borderRight
+                  )}
+                >
+                  Email
+                </Typography>
+              </Grid>
+              <Grid item sm={2}>
+                <Typography
+                  variant="h5"
+                  className={clsx(
+                    classes.white,
+                    classes.smallFont,
+                    classes.borderRight
+                  )}
+                >
+                  Phone Number
+                </Typography>
+              </Grid>
+              <Grid item sm={2}>
+                <Typography
+                  variant="h5"
+                  className={clsx(
+                    classes.white,
+                    classes.smallFont,
+                    classes.borderRight
+                  )}
+                >
+                  Membership
+                </Typography>
+              </Grid>
+              <Grid item sm={2}>
+                <Typography
+                  variant="h5"
+                  className={clsx(classes.white, classes.smallFont)}
+                >
+                  Actions
+                </Typography>
+              </Grid>
             </Grid>
-            <Grid item sm={4}>
-              <Typography
-                variant="h5"
-                className={clsx(
-                  classes.white,
-                  classes.smallFont,
-                  classes.borderRight
-                )}
-              >
-                Email
-              </Typography>
-            </Grid>
-            <Grid item sm={2}>
-              <Typography
-                variant="h5"
-                className={clsx(
-                  classes.white,
-                  classes.smallFont,
-                  classes.borderRight
-                )}
-              >
-                Phone Number
-              </Typography>
-            </Grid>
-            <Grid item sm={2}>
-              <Typography
-                variant="h5"
-                className={clsx(
-                  classes.white,
-                  classes.smallFont,
-                  classes.borderRight
-                )}
-              >
-                Membership
-              </Typography>
-            </Grid>
-            <Grid item sm={2}>
-              <Typography
-                variant="h5"
-                className={clsx(classes.white, classes.smallFont)}
-              >
-                Actions
-              </Typography>
-            </Grid>
-          </Grid>
-          {renderMemberList()}
-        </div>
-      </Container>
+            {renderMemberList()}
+          </RenderMemberContainer>
+        </Container>
+      </AppWrapper>
     </DashBoard>
   );
 };

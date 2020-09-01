@@ -5,6 +5,7 @@ import MemberActions from "../components/member-actions";
 import Dashboard from "../hoc/Dashboard";
 import * as actions from "../redux/actions";
 import { getMembers, getPositionCall, assignPosition } from "../services";
+import AppWrapper from "../components/appWrapper";
 
 class Designation extends Component {
   state = {
@@ -17,6 +18,9 @@ class Designation extends Component {
     lastName: "",
     name: "",
     positions: [],
+    msg: "",
+    openSnack: false,
+    type: "default",
   };
   async componentDidMount() {
     //initialize materialize modal
@@ -31,10 +35,7 @@ class Designation extends Component {
         data,
       });
       this.openModal();
-    } catch (error) {
-      console.log(error, "Assign error");
-      alert("Try again");
-    }
+    } catch (error) {}
   }
 
   getMembers = async () => {
@@ -47,11 +48,8 @@ class Designation extends Component {
       ]);
       const registeredMembers = memberRes.data.data;
       const positions = positionRes.data.data;
-
       this.setState({ registeredMembers, positions });
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error) {}
   };
 
   handleOnChange = (e) => {
@@ -69,12 +67,14 @@ class Designation extends Component {
         userId: this.state.data.member_id,
         position: this.state.designation,
       };
+      this.props.showLoader(true);
       await assignPosition(data);
-      alert("SUccessfully");
+      this.props.showLoader(false);
+      this.fireSnackbar("Successful", "success");
       this.getMembers();
     } catch (error) {
-      console.log(error.response);
-      alert("Error");
+      this.props.showLoader(false);
+      this.fireSnackbar("Unsuccessfuly. Please try again", "error");
     }
   };
 
@@ -89,12 +89,14 @@ class Designation extends Component {
         userId: data.member_id,
         position: null,
       };
+      this.props.showLoader(true);
       await assignPosition(data);
+      this.props.showLoader(false);
+      this.fireSnackbar("Successful", "success");
       this.getMembers();
-      alert("SUccessfully");
     } catch (error) {
-      console.log(error.response);
-      alert("Error");
+      this.fireSnackbar("Unsuccessfuly. Please try again", "error");
+      this.props.showLoader(false);
     }
   };
   clickActions = (action, data) => {
@@ -171,59 +173,69 @@ class Designation extends Component {
     }
   };
 
+  fireSnackbar = (msg, type = "default") => {
+    this.setState({
+      msg,
+      type,
+      openSnack: true,
+    });
+  };
+
   render() {
-    const { positions } = this.state;
+    const { positions, msg, type, openSnack } = this.state;
     return (
       <Dashboard>
-        <div className="container-fluid" style={{ width: "90%" }}>
-          <div className="row mt-5">
-            <div className="shadow rounded bg-white col-md-12 px-3 py-1">
-              <div className="d-flex justify-content-center align-items-center">
-                <div
-                  onClick={() => this.setState({ currentTab: "individual" })}
-                  style={{ position: "relative" }}
-                >
-                  <h4 className={`member-type-header mx-2`}>
-                    Manage Designations
-                  </h4>
+        <AppWrapper message={msg} type={type} open={openSnack}>
+          <div className="container-fluid" style={{ width: "90%" }}>
+            <div className="row mt-5">
+              <div className="shadow rounded bg-white col-md-12 px-3 py-1">
+                <div className="d-flex justify-content-center align-items-center">
+                  <div
+                    onClick={() => this.setState({ currentTab: "individual" })}
+                    style={{ position: "relative" }}
+                  >
+                    <h4 className={`member-type-header mx-2`}>
+                      Manage Designations
+                    </h4>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="row mt-4">{this.renderIndividualBlock()}</div>
+            <div className="row mt-4">{this.renderIndividualBlock()}</div>
 
-          <div id="modal2" class="modal modal-fixed-footer">
-            <div class="modal-content">
-              <h4>{"Assign " + this.state.name}</h4>
-              <div className="container-fluid mt-3">
-                <div className="row">
-                  <select name="designation" onChange={this.handleOnChange}>
-                    <option>Select Designation</option>
-                    {positions.map((ele) => (
-                      <option key={ele.id} value={ele.name}>
-                        {ele.name}
-                      </option>
-                    ))}
-                  </select>
+            <div id="modal2" class="modal modal-fixed-footer">
+              <div class="modal-content">
+                <h4>{"Assign " + this.state.name}</h4>
+                <div className="container-fluid mt-3">
+                  <div className="row">
+                    <select name="designation" onChange={this.handleOnChange}>
+                      <option>Select Designation</option>
+                      {positions.map((ele) => (
+                        <option key={ele.id} value={ele.name}>
+                          {ele.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="modal-footer">
-              <a
-                href="#!"
-                class="modal-close  waves-effect waves-green btn-flat"
-              >
-                Close
-              </a>
-              <button
-                onClick={this.assignDesignation}
-                className="waves-effect waves-green btn-primary btn"
-              >
-                Assign
-              </button>
+              <div class="modal-footer">
+                <a
+                  href="#!"
+                  class="modal-close  waves-effect waves-green btn-flat"
+                >
+                  Close
+                </a>
+                <button
+                  onClick={this.assignDesignation}
+                  className="waves-effect waves-green btn-primary btn"
+                >
+                  Assign
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        </AppWrapper>
       </Dashboard>
     );
   }

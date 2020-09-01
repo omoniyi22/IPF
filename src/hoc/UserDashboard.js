@@ -31,15 +31,42 @@ class UserDashboard extends Component {
     }
   }
 
-  onActive = (s = "managecompany") => {
-    this.setState({
-      active: s,
-    });
+  onActive = (link = "managecompany") => {
+    switch (link) {
+      case "managecompany":
+        this.setState({
+          active: "managecompany",
+        });
+        break;
+
+      case "home":
+        this.setState({
+          active: "home",
+        });
+        break;
+
+      case "addmember":
+        this.setState({
+          active: "addmember",
+        });
+        break;
+      default:
+        break;
+    }
   };
 
   render() {
     const { companyAdmin } = this.state;
-    const { other } = this.props;
+    const { other, location } = this.props;
+
+    const editCompany =
+      location.pathname === "/user/dashboard/managecompany" ? "active" : "";
+
+    const home = location.pathname === "/user/dashboard" ? "active" : "";
+    const addmember =
+      location.pathname === "/user/dashboard/addmember" ? "active" : "";
+    // console.log(editCompany);
+
     return (
       <div className="container-fluid">
         <div className="user-dasboard-header1"></div>
@@ -74,29 +101,17 @@ class UserDashboard extends Component {
             </h5>
           </div>
           <ul className="side-menu-list">
-            <li
-              className={`list-item  ${
-                this.state.active === "home" && "active"
-              }`}
-            >
-              <Link to="/user/dashboard" onClick={() => this.onActive("home")}>
+            <li className={`list-item ${home}`}>
+              <Link to="/user/dashboard">
                 <span>
-                  {" "}
                   <i className="material-icons">account_circle</i>
                 </span>
                 <span>Accounts</span>
               </Link>
             </li>
 
-            <li
-              className={`list-item  ${
-                this.state.active === "managecompany" && "active"
-              }`}
-            >
-              <Link
-                to="/user/dashboard/managecompany"
-                onClick={() => this.onActive("managecompany")}
-              >
+            <li className={`list-item ${editCompany}`}>
+              <Link to="/user/dashboard/managecompany">
                 <span>
                   <i className="material-icons">account_circle</i>
                 </span>
@@ -105,15 +120,8 @@ class UserDashboard extends Component {
             </li>
 
             {companyAdmin && (
-              <li
-                className={`list-item  ${
-                  this.state.active === "addmember" && "active"
-                }`}
-              >
-                <Link
-                  to="/user/dashboard/addmember"
-                  onClick={() => this.onActive("addmember")}
-                >
+              <li className={`list-item ${addmember}`}>
+                <Link to="/user/dashboard/addmember">
                   <span>
                     <i className="material-icons">account_circle</i>
                   </span>

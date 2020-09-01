@@ -1,10 +1,5 @@
 import styled from "styled-components";
 import images from "../../assets/images";
-import { device } from "../../constants/devices";
-
-{
-  /* <Image src={images.merge} alt="ipf-logo" /> */
-}
 
 //Landing Header section
 
@@ -16,7 +11,7 @@ const HeaderContainer = styled.div`
 
   background: url("${images.logo}"), url("${images.merge}");
   background-repeat: no-repeat;
-  background-size: 10rem;
+  background-size: 6rem;
   background-position: center left 5%, center right 5%;
   background-color: #2a4b5c;
 
@@ -138,17 +133,11 @@ const ContentSectionBackground = styled.div`
   height: 90%;
 `;
 
-const ContentOffset = styled.div`
-  opacity: 1;
-`;
-
-const UL = styled.ul`
-  opacity: 1;
-`;
 const LI = styled.li`
   color: #000;
-  font-weight: bold;
+  font-weight: normal;
   font-size: 1.1rem;
+  font-family: "verdana";
 `;
 
 const CarouselSection = styled.div`
@@ -175,13 +164,16 @@ const CarouselSection = styled.div`
 
 const Login = styled.a`
   color: #fff !important;
-  /* font-size: 1.4rem; */
   position: relative;
-  top: 0.4rem;
+  top: 0.1rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 0.2rem;
   cursor: pointer;
+  left: 2rem;
+  background: #f58634;
 
   &:hover {
-    color: green !important;
+    /* color: green !important; */
   }
 `;
 
@@ -194,8 +186,6 @@ export {
   FooterContainer,
   LandingContentContainer,
   ContentSectionA,
-  UL,
-  ContentOffset,
   LI,
   CarouselSection,
   Login,

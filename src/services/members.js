@@ -14,3 +14,8 @@ export async function getMembershipTypes() {
   const authApi = await attachApiToken(api);
   return authApi.get("/admin/membership-type");
 }
+
+export async function editProfileCall(data) {
+  const authApi = await attachApiToken(api);
+  return authApi.patch("/auth/edit", data);
+}

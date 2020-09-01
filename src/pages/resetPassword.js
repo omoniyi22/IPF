@@ -1,8 +1,8 @@
-import Axios from "axios";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import images from "../assets/images";
 import IpfLogo from "../assets/IPF_Logo.png";
+import AppWrapper from "../components/appWrapper";
 import BlackBackground from "../components/black_bg";
 import {
   CustomIntro,
@@ -19,7 +19,6 @@ import {
 } from "../components/login-bg";
 import * as actions from "../redux/actions";
 import { resetPasswordCall } from "../services/requests";
-import AppWrapper from "../components/appWrapper";
 class ResetPassword extends Component {
   state = {
     password: "",
