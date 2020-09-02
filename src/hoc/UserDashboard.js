@@ -15,6 +15,7 @@ class UserDashboard extends Component {
       companyAdmin: false,
       active: "home",
       openSnackbar: true,
+      memberType: "",
       company: {
         company_name: "",
         company_details: "",
@@ -27,22 +28,22 @@ class UserDashboard extends Component {
   }
   logout = (e) => {
     e.preventDefault();
-    localStorage.removeItem("x-access-token");
+    localStorage.clear();
     this.props.history.push("/login");
   };
 
   componentDidMount() {
     const ipfUser = JSON.parse(localStorage.getItem("ipf-user"));
-    if (ipfUser.nrole === "super-user") {
-      this.setState(
-        {
-          companyAdmin: true,
-        },
-        () => {
-          this.getUser();
-        }
-      );
-    }
+
+    this.setState(
+      {
+        companyAdmin: ipfUser.nrole === "super-user" ? true : false,
+        memberType: ipfUser.memberType,
+      },
+      () => {
+        this.getUser();
+      }
+    );
   }
 
   getUser = async () => {
@@ -92,7 +93,8 @@ class UserDashboard extends Component {
   };
 
   render() {
-    const { companyAdmin, openSnackbar } = this.state;
+    const { companyAdmin, openSnackbar, memberType } = this.state;
+
     const { other, location } = this.props;
 
     const editCompany =
@@ -146,14 +148,16 @@ class UserDashboard extends Component {
               </Link>
             </li>
 
-            <li className={`list-item ${editCompany}`}>
-              <Link to="/user/dashboard/managecompany">
-                <span>
-                  <i className="material-icons">account_circle</i>
-                </span>
-                <span>Company Details</span>
-              </Link>
-            </li>
+            {["AB", "AA", "LB", "LA"].includes(memberType) && (
+              <li className={`list-item ${editCompany}`}>
+                <Link to="/user/dashboard/managecompany">
+                  <span>
+                    <i className="material-icons">account_circle</i>
+                  </span>
+                  <span>Company Details</span>
+                </Link>
+              </li>
+            )}
 
             {companyAdmin && (
               <li className={`list-item ${addmember}`}>
@@ -226,9 +230,11 @@ class UserDashboard extends Component {
               onClose={this.handleClose}
               severity="warning"
             >
-              Please proceed to{" "}
-              <b style={{ fontWeight: "bold" }}>Company Details</b> to complete
-              your company details.
+              <span>
+                Please proceed to{" "}
+                <b style={{ fontWeight: "bold" }}>Company Details</b> to
+                complete your company details.
+              </span>
             </Alert>
           </Snackbar>
         )}

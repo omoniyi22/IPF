@@ -54,6 +54,7 @@ class Login extends Component {
         emailAddress,
         password,
       });
+
       const {
         data: {
           token,
@@ -66,8 +67,17 @@ class Login extends Component {
           phoneNumber,
           role,
           nrole,
+          memberType,
+          company_id,
         },
       } = response.data;
+
+      if (
+        localStorage.getItem("x-access-token") ||
+        localStorage.getItem("user")
+      ) {
+        localStorage.clear();
+      }
       localStorage.setItem("x-access-token", token);
       localStorage.setItem(
         "ipf-user",
@@ -81,6 +91,8 @@ class Login extends Component {
           phoneNumber,
           role,
           nrole,
+          memberType,
+          company_id,
         })
       );
       this.props.showLoader(false);

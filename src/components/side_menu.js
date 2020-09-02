@@ -7,8 +7,8 @@ import india from "../assets/india.png";
 class SideMenu extends Component {
   logout = (e) => {
     e.preventDefault();
-    localStorage.removeItem("x-access-token");
-    window.location.reload();
+    localStorage.clear();
+    this.props.history.push("/login");
   };
   render() {
     return (
@@ -24,7 +24,7 @@ class SideMenu extends Component {
             </Link>
           </li>
           <li className="list-item">
-            <Link to="/events">
+            <Link to="/admin/events">
               <span>
                 {" "}
                 <i className="material-icons">date_range</i>
@@ -34,7 +34,7 @@ class SideMenu extends Component {
             </Link>
           </li>
           <li className="list-item">
-            <Link to="/user/dashboard/profile-update">
+            <Link to="/admin/dashboard/profile-update">
               <span>
                 {" "}
                 <i className="material-icons">account_circle</i>
@@ -52,7 +52,7 @@ class SideMenu extends Component {
             </Link>
           </li>
           <li className="list-item">
-            <Link to="/payment">
+            <Link to="/admin/payment">
               <span>
                 {" "}
                 <i className="material-icons">payment</i>

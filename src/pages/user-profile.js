@@ -106,12 +106,14 @@ class UserProfile extends Component {
         companyDetails,
         position,
       } = this.state;
-      if (
-        !phoneNumberRegx.test(phoneNumber) ||
-        !phoneNumberRegx.test(phoneNumber2)
-      ) {
+      if (!phoneNumberRegx.test(phoneNumber)) {
         return this.openSnack("Phone Number is not valid", "error");
       }
+
+      if (phoneNumber2 && !phoneNumberRegx.test(phoneNumber)) {
+        return this.openSnack("Phone Number 2 is not valid", "error");
+      }
+
       if (!emailRegx.test(emailAddress)) {
         return this.openSnack("Email Address is not valid", "error");
       }
@@ -479,10 +481,40 @@ class UserProfile extends Component {
                       onChange={this.handleOnChange}
                       value={emailAddress}
                     />
+                    <label className="mx-3">
+                      <input
+                        type="checkbox"
+                        checked={email1_primary}
+                        onChange={() => {
+                          this.setState((prevState) => ({
+                            email1_primary: !prevState.email1_primary,
+                          }));
+                        }}
+                      />
+                      <span>Email Address(1) primary</span>
+                    </label>
                   </div>
                   <div className="col-lg-6">
-                    <label>Position</label>
-                    <TextInput name={"position"} value={position} disabled />
+                    <label>Email Address2</label>
+                    <TextInput
+                      name={"emailAddress2"}
+                      placeholder="Email Addresss(2)"
+                      onChange={this.handleOnChange}
+                      value={emailAddress2}
+                    />
+
+                    <label className="mx-3">
+                      <input
+                        type="checkbox"
+                        checked={email2_primary}
+                        onChange={() => {
+                          this.setState((prevState) => ({
+                            email2_primary: !prevState.email2_primary,
+                          }));
+                        }}
+                      />
+                      <span>Email Address(2) primary</span>
+                    </label>
                   </div>
                 </div>
                 <div className="row">
@@ -559,6 +591,7 @@ class UserProfile extends Component {
                       name="dob"
                       onChange={this.handleOnChange}
                       value={dob}
+                      placeholder="dd/mm/yyyy"
                       type="date"
                     />
                   </div>
@@ -676,6 +709,10 @@ class UserProfile extends Component {
                       ))}
                     </select>
                   </div>
+                </div>
+                <div className="col-lg-6">
+                  <label>Position</label>
+                  <TextInput name={"position"} value={position} disabled />
                 </div>
               </div>
             </div>

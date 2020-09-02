@@ -88,7 +88,7 @@ const EditMember = ({ data, showLoader, getAll }) => {
           street2: state.street2,
           company_name: state.company_name,
           company_address: state.company_address,
-          passport: "",
+          passport: state.passport,
         },
         user_id: data["member_id"],
       });
@@ -183,7 +183,7 @@ const EditMember = ({ data, showLoader, getAll }) => {
             <div className="row">
               <TextInput
                 name={"emailAddress2"}
-                placeholder="Email address"
+                placeholder="Email address(2)"
                 onChange={handleOnChange}
                 value={state.emailAddress2}
               />
@@ -226,7 +226,7 @@ const EditMember = ({ data, showLoader, getAll }) => {
             <div className="row">
               <TextInput
                 name={"street2"}
-                placeholder="Street 3"
+                placeholder="Street 2"
                 onChange={handleOnChange}
                 value={state.street2}
               />

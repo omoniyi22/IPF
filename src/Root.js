@@ -2,7 +2,7 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Login from "./pages/login";
 // import Login  from "./pages/login";
-import AuthRoute from "./components/AuthRoute";
+import AuthRoute, { AdminRoute } from "./components/AuthRoute";
 import PaymentPage from "./pages/payment";
 import ManageProfile from "./pages/profile";
 import Events from "./pages/events";
@@ -36,8 +36,8 @@ function Root() {
         path="/user/dashboard/managecompany"
         component={AddCompany}
       />
-      <AuthRoute exact path="/" component={HomePage} />
-      <AuthRoute exact path="/admin/manage-members" component={Members} />
+      <AdminRoute exact path="/" component={HomePage} />
+      <AdminRoute exact path="/admin/manage-members" component={Members} />
       <AuthRoute
         exact
         path="/platform-settings"
@@ -49,17 +49,24 @@ function Root() {
         path="/user/dashboard/profile-update"
         component={ManageProfile}
       />
-      {/* <AuthRoute exact path="/profile" component={ManageProfile} /> */}
+
+      <AdminRoute
+        exact
+        path="/admin/dashboard/profile-update"
+        component={ManageProfile}
+      />
+      <AdminRoute exact path="/admin/events" component={Events} />
+      <AdminRoute exact path="/admin/payment" component={PaymentPage} />
       <AuthRoute exact path="/payment" component={PaymentPage} />
       <Route exact path="/login" component={Login} />
       <AuthRoute exact path="/events" component={Events} />
-      <AuthRoute
+      <AdminRoute
         exact
         path="/admin/settings/membership"
         component={GeneralSettings}
       />
-      <AuthRoute exact path="/admin/settings" component={PlatformAdmin} />
-      <AuthRoute exact path="/admin/designation" component={Position} />
+      <AdminRoute exact path="/admin/settings" component={PlatformAdmin} />
+      <AdminRoute exact path="/admin/designation" component={Position} />
     </Switch>
   );
 }

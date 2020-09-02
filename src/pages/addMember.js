@@ -1,16 +1,15 @@
 import { Grid, makeStyles, Typography } from "@material-ui/core";
 import { fade } from "@material-ui/core/styles";
-import axios from "axios";
 import clsx from "clsx";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import styled from "styled-components";
+import AppWrapper from "../components/appWrapper";
 import CustomTab2 from "../components/tab2";
 import DashBoard from "../hoc/UserDashboard";
 import * as actions from "../redux/actions";
 import { api, attachApiToken } from "../services/api";
 import { sanitizeMember } from "../utils/memberType";
-import AppWrapper from "../components/appWrapper";
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -105,7 +104,7 @@ const AddMembers = ({
   const classes = useStyles();
   const dispatch = useDispatch();
   const [members, setMembers] = useState([]);
-
+  const [user, setUser] = React.useState({});
   const [snack, setSnack] = React.useState({
     message: "",
     type: "default",
@@ -132,6 +131,18 @@ const AddMembers = ({
     updateDetails(data);
   }
 
+  const initiateState = React.useCallback(() => {
+    const getUser = () => {
+      var user = JSON.parse(localStorage.getItem("ipf-user"));
+      setUser(user);
+    };
+    getUser();
+  }, [setUser]);
+
+  React.useEffect(() => {
+    initiateState();
+  }, [initiateState]);
+
   const removeUser = async (data) => {
     try {
       const onConfirm = window.confirm("Are you sure?");
@@ -139,7 +150,7 @@ const AddMembers = ({
         showLoader(true);
         const authApi = await attachApiToken(api);
         await authApi.delete("/admin/remove", {
-          data: { userId: data.member_id, role: data.role },
+          data: { userId: data.member_id, role: user.nrole },
         });
         showLoader(false);
         handleFireSnackbar("Action Successful", "success");
@@ -228,9 +239,8 @@ const AddMembers = ({
   const saveMember = async (data) => {
     try {
       const authApi = await attachApiToken(api);
-      const re = await authApi.post("/auth/add-member", {
+      const re = await authApi.post("/admin/corporate-member", {
         ...data,
-        email: data.emailAddress,
       });
       const response = await authApi.get("/auth/get-registered-members");
       setMembers(response.data.data);

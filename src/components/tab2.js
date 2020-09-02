@@ -83,10 +83,6 @@ function CustomTab2({ userDetails, saveMember, showLoader }) {
     initiateState();
   }, [initiateState]);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
   const renderGroup = (
     valueA,
     valueB,
@@ -276,11 +272,12 @@ function CustomTab2({ userDetails, saveMember, showLoader }) {
     }
 
     const updateData = {
-      email,
+      email: emailAddress,
       firstName,
       lastName,
       phoneNumber,
-      emailAddress,
+      company_id: user["company_id"],
+      role: user["nrole"],
     };
 
     showLoader(true);
