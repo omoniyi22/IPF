@@ -146,7 +146,7 @@ const CarouselSection = styled.div`
   box-shadow: 10px 10px 9px -5px rgba(117, 117, 125, 0.78);
   -webkit-box-shadow: 10px 10px 9px -5px rgba(117, 117, 125, 0.78);
   -moz-box-shadow: 10px 10px 9px -5px rgba(117, 117, 125, 0.78);
-
+  height: 100%;
   @media (max-width: 768px) {
     width: 100%;
 
