@@ -73,18 +73,18 @@ const HeaderText = styled.h1`
   word-break: normal;
   text-align: center;
   font-weight: bold;
-  font-size: 4rem;
+  font-size: 3rem;
 
   @media (max-width: 992px) {
-    font-size: 3rem;
+    font-size: 2.2rem;
   }
 
   @media (max-width: 768px) {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
   @media (max-width: 500px) {
-    font-size: 1.3rem;
+    font-size: 1rem;
   }
 `;
 

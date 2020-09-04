@@ -14,7 +14,7 @@ const LandingHeader = () => {
   return (
     <HeaderContainer>
       <HeaderContentContainer>
-        <HeaderText>Indian Professional Forum, Nigeria</HeaderText>
+        <HeaderText>Indian Professionals Forum, Nigeria</HeaderText>
 
         <LoginButton>
           <Link to="/login">

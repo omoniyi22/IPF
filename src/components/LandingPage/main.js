@@ -83,6 +83,14 @@ const LandingContent = () => {
     <LandingContentContainer>
       <ContentSectionA>
         <ContentSectionBackground />
+        <h4>Introduction</h4>
+        <span>
+          Indian professionals Forum is a body of Indian Professionals working
+          in Nigeria which operates under the guidance of Indian High
+          Commission, Nigeria. High Commissioner of India to Nigeria is the
+          Chief Patron of Indian Professionals Forum.
+        </span>
+
         <h4>IPF Aim and Purpose</h4>
         <ul style={{ marginTop: 20 }}>
           {data.map((item) => {
