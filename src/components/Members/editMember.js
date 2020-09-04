@@ -25,8 +25,10 @@ const EditMember = ({ data, showLoader, getAll }) => {
     company_name: "",
     company_address: "",
     passport: "",
+    qualifications: "",
+    membershipType: "",
   });
-
+  const [quals, setQual] = React.useState([]);
   useEffect(() => {
     setState({
       ...state,
@@ -40,6 +42,24 @@ const EditMember = ({ data, showLoader, getAll }) => {
     open: false,
   });
 
+  const initiateQualification = React.useCallback(() => {
+    const getUser = async () => {
+      try {
+        const authApi = await attachApiToken(api);
+        const response = await authApi.get("/admin/qualifications");
+        setQual(response.data.data);
+      } catch (error) {}
+    };
+    getUser();
+  }, [setQual]);
+
+  useEffect(() => {
+    setState({
+      ...state,
+      ...data,
+    });
+    initiateQualification();
+  }, [data, initiateQualification]);
   const handleOnChange = (e, phone = false) => {
     if (!phone) {
       const {
@@ -89,6 +109,7 @@ const EditMember = ({ data, showLoader, getAll }) => {
           company_name: state.company_name,
           company_address: state.company_address,
           passport: state.passport,
+          qualifications: state.qualifications,
         },
         user_id: data["member_id"],
       });
@@ -138,6 +159,7 @@ const EditMember = ({ data, showLoader, getAll }) => {
         <div className="container-fluid mt-3">
           <>
             <div className="row">
+              <label>First Name</label>
               <TextInput
                 name={"firstName"}
                 placeholder="First Name"
@@ -146,6 +168,7 @@ const EditMember = ({ data, showLoader, getAll }) => {
               />
             </div>
             <div className="row">
+              <label>Last Name</label>
               <TextInput
                 name={"lastName"}
                 placeholder="Last Name"
@@ -154,6 +177,7 @@ const EditMember = ({ data, showLoader, getAll }) => {
               />
             </div>
             <div className="row">
+              <label>Phone Number(1)</label>
               <PhoneNumber
                 name={"phoneNumber"}
                 placeholder="Phone Number"
@@ -163,6 +187,7 @@ const EditMember = ({ data, showLoader, getAll }) => {
             </div>
 
             <div className="row">
+              <label>Phone Number(2)</label>
               <PhoneNumber
                 name={"phoneNumber2"}
                 placeholder="Phone Number(2)"
@@ -172,6 +197,7 @@ const EditMember = ({ data, showLoader, getAll }) => {
             </div>
 
             <div className="row">
+              <label>Email address(1)</label>
               <TextInput
                 name={"emailAddress"}
                 placeholder="Email address"
@@ -181,6 +207,7 @@ const EditMember = ({ data, showLoader, getAll }) => {
             </div>
 
             <div className="row">
+              <label>Email address(2)</label>
               <TextInput
                 name={"emailAddress2"}
                 placeholder="Email address(2)"
@@ -190,6 +217,7 @@ const EditMember = ({ data, showLoader, getAll }) => {
             </div>
 
             <div className="row">
+              <label>Passport</label>
               <TextInput
                 name={"passport"}
                 placeholder="Passport"
@@ -198,24 +226,32 @@ const EditMember = ({ data, showLoader, getAll }) => {
               />
             </div>
 
-            <div className="row">
-              <TextInput
-                name={"company_name"}
-                placeholder="Company name"
-                onChange={handleOnChange}
-                value={state.company_name}
-              />
-            </div>
+            {["LP", "LM", "AM"].includes(state.membershipType) && (
+              <div className="row">
+                <label>Company Name</label>
+                <TextInput
+                  name={"company_name"}
+                  placeholder="Company name"
+                  onChange={handleOnChange}
+                  value={state.company_name}
+                />
+              </div>
+            )}
+
+            {["LP", "LM", "AM"].includes(state.membershipType) && (
+              <div className="row">
+                <label>Company Address</label>
+                <TextInput
+                  name={"company_address"}
+                  placeholder="Company address"
+                  onChange={handleOnChange}
+                  value={state.company_address}
+                />
+              </div>
+            )}
 
             <div className="row">
-              <TextInput
-                name={"company_address"}
-                placeholder="Company address"
-                onChange={handleOnChange}
-                value={state.company_address}
-              />
-            </div>
-            <div className="row">
+              <label>Street(1)</label>
               <TextInput
                 name={"street1"}
                 placeholder="Street 1"
@@ -224,12 +260,29 @@ const EditMember = ({ data, showLoader, getAll }) => {
               />
             </div>
             <div className="row">
+              <label>Street(2)</label>
               <TextInput
                 name={"street2"}
                 placeholder="Street 2"
                 onChange={handleOnChange}
                 value={state.street2}
               />
+            </div>
+
+            <div className="row">
+              <label>Qualification</label>
+              <select
+                name="qualifications"
+                defaultValue={state.qualifications}
+                onChange={handleOnChange}
+              >
+                <option>select</option>
+                {quals.map((ele) => (
+                  <option key={ele.id} value={ele.name}>
+                    {ele.detail}
+                  </option>
+                ))}
+              </select>
             </div>
           </>
         </div>

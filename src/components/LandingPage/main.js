@@ -8,6 +8,7 @@ import {
   ContentSectionBackground,
   LandingContentContainer,
   LI,
+  Span,
 } from "./styles";
 
 const C = [
@@ -84,12 +85,14 @@ const LandingContent = () => {
       <ContentSectionA>
         <ContentSectionBackground />
         {/* <h4>Introduction</h4> */}
-        <span>
-          Indian professionals Forum is a body of Indian Professionals working
-          in Nigeria which operates under the guidance of Indian High
-          Commission, Nigeria. High Commissioner of India to Nigeria is the
-          Chief Patron of Indian Professionals Forum.
-        </span>
+        <div style={{ marginTop: 30 }}>
+          <Span>
+            Indian professionals Forum is a body of Indian Professionals working
+            in Nigeria which operates under the guidance of Indian High
+            Commission, Nigeria. High Commissioner of India to Nigeria is the
+            Chief Patron of Indian Professionals Forum.
+          </Span>
+        </div>
 
         <h4>IPF Aim and Purpose</h4>
         <ul style={{ marginTop: 20 }}>

@@ -9,7 +9,11 @@ import { TextInput } from "../components/components";
 import PhoneNumber from "../components/General/phoneInput";
 import UserDashboard from "../hoc/UserDashboard";
 import * as actions from "../redux/actions";
-import { getClassificationCall, getIndustryCall } from "../services";
+import {
+  getClassificationCall,
+  getIndustryCall,
+  getQualificationCall,
+} from "../services";
 import { editProfileCall } from "../services/members";
 import { emailRegx, phoneNumberRegx } from "../utils/regex";
 
@@ -32,6 +36,8 @@ class UserProfile extends Component {
     avatar: "",
     indusClass: [],
     industry: [],
+    quals: [],
+    qualifications: "",
     company_designation: "",
     type: "default",
     street1: "",
@@ -41,6 +47,7 @@ class UserProfile extends Component {
     companyDetails: "",
     position: "Member",
     openSnackbar: true,
+    industryClassification: "",
   };
   componentDidMount() {
     this.getUserDetails();
@@ -62,10 +69,8 @@ class UserProfile extends Component {
       });
       this.props.showLoader();
       const data = response.data.data;
-      console.log(data);
       this.setState({ ...data });
     } catch (error) {
-      console.error(error);
       this.props.showLoader();
     }
   };
@@ -132,6 +137,42 @@ class UserProfile extends Component {
 
       if (this.state.passport.length !== 8) {
         return this.openSnack("Passport number  is invalid", "error");
+      }
+
+      if (!this.state.dob) {
+        return this.openSnack("Please add your date of birth", "error");
+      }
+
+      if (!this.state.street1) {
+        return this.openSnack("Please add your street address", "error");
+      }
+
+      if (!this.state.company_designation) {
+        return this.openSnack("Please add your company designation", "error");
+      }
+
+      if (!this.state.state) {
+        return this.openSnack(
+          "Please add the state you are residing in",
+          "error"
+        );
+      }
+      if (!this.state.industryType) {
+        return this.openSnack("Please add your industry type", "error");
+      }
+
+      if (!this.state.state) {
+        return this.openSnack(
+          "Please add the state you are residing in",
+          "error"
+        );
+      }
+
+      if (!this.state.industryClassification) {
+        return this.openSnack(
+          "Please add your industry classification",
+          "error"
+        );
       }
 
       const data = {
@@ -221,16 +262,19 @@ class UserProfile extends Component {
 
   getIndustyClassification = async () => {
     try {
-      const [classRes, indusRes] = await Promise.all([
+      const [classRes, indusRes, qual] = await Promise.all([
         getClassificationCall(),
         getIndustryCall(),
+        getQualificationCall(),
       ]);
       const industry = indusRes.data.data;
       const indusClass = classRes.data.data;
+      const quals = qual.data.data;
 
       this.setState({
         indusClass,
         industry,
+        quals,
       });
     } catch (error) {
       console.error(error);
@@ -264,6 +308,7 @@ class UserProfile extends Component {
       position,
       openSnackbar,
     } = this.state;
+
     return (
       <UserDashboard>
         <AppWrapper
@@ -304,7 +349,7 @@ class UserProfile extends Component {
                       </div>
                     </div>
                     <div className="">
-                      <div className="w-1oo">
+                      <div className="w-6o user-image-container">
                         <img
                           src={`${
                             this.state.avatar
@@ -491,7 +536,9 @@ class UserProfile extends Component {
                           }));
                         }}
                       />
-                      <span>Email Address(1) primary</span>
+                      <span className="checkbox-span">
+                        Email Address(1) primary
+                      </span>
                     </label>
                   </div>
                   <div className="col-lg-6">
@@ -513,7 +560,9 @@ class UserProfile extends Component {
                           }));
                         }}
                       />
-                      <span>Email Address(2) primary</span>
+                      <span className="checkbox-span">
+                        Email Address(2) primary
+                      </span>
                     </label>
                   </div>
                 </div>
@@ -536,7 +585,7 @@ class UserProfile extends Component {
                           }));
                         }}
                       />
-                      <span>Whatsapp number</span>
+                      <span className="checkbox-span">Whatsapp number</span>
                     </label>
                   </div>
 
@@ -559,7 +608,7 @@ class UserProfile extends Component {
                         }}
                         value={phone2_whatsapp}
                       />
-                      <span>Whatsapp number</span>
+                      <span className="checkbox-span">Whatsapp number</span>
                     </label>
                   </div>
                 </div>
@@ -589,6 +638,7 @@ class UserProfile extends Component {
                     <label>Date of Birth</label>
                     <TextInput
                       name="dob"
+                      defaultValue={dob}
                       onChange={this.handleOnChange}
                       value={dob}
                       placeholder="dd/mm/yyyy"
@@ -645,74 +695,97 @@ class UserProfile extends Component {
                   </div>
                 </div>
 
+                {["AM", "LM", "LP"].includes(this.state.membershipType) && (
+                  <div className="row">
+                    <div className="col-lg-6">
+                      <label>Company Name</label>
+                      <TextInput
+                        name={"company_name"}
+                        placeholder="Company Name"
+                        onChange={this.handleOnChange}
+                        value={this.state.company_name}
+                      />
+                    </div>
+
+                    <div className="col-lg-6">
+                      <label>Company Address</label>
+                      <TextInput
+                        name={"company_address"}
+                        placeholder="Company Addresss"
+                        onChange={this.handleOnChange}
+                        value={this.state.company_address}
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {["AM", "LM", "LP"].includes(this.state.membershipType) && (
+                  <div className="row">
+                    <div className="col-lg-6">
+                      <label>Industry Type</label>
+                      <select
+                        name="industryType"
+                        defaultValue={this.state.industryType}
+                        onChange={this.handleOnChange}
+                      >
+                        {industryType ? (
+                          <option>{industryType}</option>
+                        ) : (
+                          <option>Select Industry Type</option>
+                        )}
+                        {this.state.industry.map((ele) => (
+                          <option key={ele.id} value={ele.industry_name}>
+                            {ele.industry_name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div className="col-lg-6">
+                      <label>Industry Classifcation</label>
+
+                      <select
+                        name="industryClassification"
+                        defaultValue={this.state.industryClassification}
+                        onChange={this.handleOnChange}
+                      >
+                        {industryClassification ? (
+                          <option>{industryClassification}</option>
+                        ) : (
+                          <option>Select Industry Classification</option>
+                        )}
+
+                        {this.state.indusClass.map((ele) => (
+                          <option key={ele.id} value={ele.industry_name}>
+                            {ele.industry_name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                )}
+
                 <div className="row">
                   <div className="col-lg-6">
-                    <label>Company Name</label>
-                    <TextInput
-                      name={"company_name"}
-                      placeholder="Company Name"
-                      onChange={this.handleOnChange}
-                      value={this.state.company_name}
-                    />
+                    <label>Position</label>
+                    <TextInput name={"position"} value={position} disabled />
                   </div>
 
                   <div className="col-lg-6">
-                    <label>Company Address</label>
-                    <TextInput
-                      name={"company_address"}
-                      placeholder="Company Addresss"
-                      onChange={this.handleOnChange}
-                      value={this.state.company_address}
-                    />
-                  </div>
-                </div>
-
-                <div className="row">
-                  <div className="col-lg-6">
-                    <label>Industry Type</label>
+                    <label>Qualification</label>
                     <select
-                      name="industryType"
-                      defaultValue={this.state.industryType}
+                      name="qualifications"
+                      defaultValue={this.state.qualifications}
                       onChange={this.handleOnChange}
                     >
-                      {industryType ? (
-                        <option>{industryType}</option>
-                      ) : (
-                        <option>Select Industry Type</option>
-                      )}
-                      {this.state.industry.map((ele) => (
-                        <option key={ele.id} value={ele.industry_name}>
-                          {ele.industry_name}
+                      <option>select</option>
+                      {this.state.quals.map((ele) => (
+                        <option key={ele.id} value={ele.name}>
+                          {ele.detail}
                         </option>
                       ))}
                     </select>
                   </div>
-
-                  <div className="col-lg-6">
-                    <label>Industry Classifcation</label>
-
-                    <select
-                      name="industryClassification"
-                      defaultValue={this.state.industryClassification}
-                      onChange={this.handleOnChange}
-                    >
-                      {industryClassification ? (
-                        <option>{industryClassification}</option>
-                      ) : (
-                        <option>Select Industry Classification</option>
-                      )}
-
-                      {this.state.indusClass.map((ele) => (
-                        <option key={ele.id} value={ele.industry_name}>
-                          {ele.industry_name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-                <div className="col-lg-6">
-                  <label>Position</label>
-                  <TextInput name={"position"} value={position} disabled />
                 </div>
               </div>
             </div>

@@ -107,7 +107,12 @@ class UserDashboard extends Component {
 
     return (
       <div className="container-fluid">
-        <div className="user-dasboard-header1"></div>
+        <div className="user-dasboard-header1">
+          <div className="d-flex mt-3 justify-content-end">
+            <img src={india} alt="flag" />
+            <img src={nigeria} alt="flag" />
+          </div>
+        </div>
         <div className="user-dasboard-header2">
           <div className="d-flex flex-column justify-content-between align-items-center py-4 px-2">
             <img
@@ -125,7 +130,7 @@ class UserDashboard extends Component {
               }}
             >
               {" "}
-              India Professional Forum
+              India Professionals Forum
             </h5>
             <h5
               style={{
@@ -134,9 +139,7 @@ class UserDashboard extends Component {
                 fontSize: 14,
                 fontWeight: "bold",
               }}
-            >
-              Nigeria
-            </h5>
+            ></h5>
           </div>
           <ul className="side-menu-list">
             <li className={`list-item ${home}`}>

@@ -177,6 +177,8 @@ const Login = styled.a`
   }
 `;
 
+const Span = styled.span``;
+
 export {
   HeaderContainer,
   HeaderLogoContaienr,
@@ -191,4 +193,5 @@ export {
   Login,
   LoginButton,
   ContentSectionBackground,
+  Span,
 };

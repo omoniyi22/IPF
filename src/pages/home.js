@@ -32,7 +32,6 @@ class HomePage extends Component {
   };
 
   render() {
-    const { openSnackbar } = this.state;
     return (
       <Dashboard>
         <div className="container-fluid">
@@ -40,7 +39,6 @@ class HomePage extends Component {
             <div className="col-lg-3 mb-2">
               <div className="shadow d-flex bg-white p-3">
                 <span className="home-supervisor-icon">
-                  {" "}
                   <i className="material-icons">supervisor_account</i>
                 </span>
                 <div className="summary-report" style={{ flex: 1 }}>

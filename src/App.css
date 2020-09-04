@@ -3,6 +3,12 @@ body {
   /* font-family: "Open Sans", sans-serif; */
 }
 
+.company-logo {
+  width: 150px !important;
+  height: 150px !important;
+  border-radius: 5px !important;
+}
+
 .header-bg {
   width: 100%;
   z-index: 5;
@@ -562,9 +568,13 @@ select {
 }
 
 .user-profile-image {
-  object-fit: cover;
-  height: 250px;
+  object-fit: fill;
+  height: 100%;
   width: 100%;
+}
+
+.user-image-container {
+  height: 200px;
 }
 
 .cs-bottom {

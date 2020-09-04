@@ -56,7 +56,7 @@ export default function CustomAvatar({
         onClick={edit ? uploadWidget : () => {}}
         alt="Profile"
         src={avatar}
-        className={classes.large}
+        className={"company-logo"}
       />
       <IconContainer></IconContainer>
     </div>

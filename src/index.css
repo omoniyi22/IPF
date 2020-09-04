@@ -9,7 +9,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background: #cde8f7 !important;
+  /* background: #cde8f7 !important; */
 }
 
 code {
@@ -38,4 +38,12 @@ code {
   list-style-type: circle !important;
   margin-top: 0.9rem !important;
   margin-left: 10px !important;
+}
+
+label {
+  color: #000;
+  font-weight: bold;
+}
+.checkbox-span {
+  font-size: 12px !important;
 }

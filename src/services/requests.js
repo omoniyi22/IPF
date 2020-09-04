@@ -20,6 +20,11 @@ export async function getClassificationCall() {
   return authApi.get("/admin/industry-classification");
 }
 
+export async function getQualificationCall() {
+  const authApi = await attachApiToken(api);
+  return authApi.get("/admin/qualifications");
+}
+
 export async function getDashboardOverview() {
   const authApi = await attachApiToken(api);
   return authApi.get("/admin/dashboard-overview");
