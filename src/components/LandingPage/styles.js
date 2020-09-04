@@ -19,6 +19,7 @@ const HeaderContainer = styled.div`
   @media (max-width: 768px) {
     background-size: 50px;
     height: 20vh;
+    background-position: center left 3%, center right 5%, center right 30%;
   }
   justify-content: center;
   display: flex;
