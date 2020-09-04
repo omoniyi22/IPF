@@ -9,10 +9,11 @@ const HeaderContainer = styled.div`
 
   width: 100vw;
 
-  background: url("${images.logo}"), url("${images.merge}");
+  background: url("${images.logo}"), url("${images.naijaFlag}"),
+    url("${images.indianFlag}");
   background-repeat: no-repeat;
   background-size: 6rem;
-  background-position: center left 5%, center right 5%;
+  background-position: center left 3%, center right 2%, center right 10%;
   background-color: #2a4b5c;
 
   @media (max-width: 768px) {
