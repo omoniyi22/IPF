@@ -83,7 +83,7 @@ const LandingContent = () => {
     <LandingContentContainer>
       <ContentSectionA>
         <ContentSectionBackground />
-        <h4>Introduction</h4>
+        {/* <h4>Introduction</h4> */}
         <span>
           Indian professionals Forum is a body of Indian Professionals working
           in Nigeria which operates under the guidance of Indian High
