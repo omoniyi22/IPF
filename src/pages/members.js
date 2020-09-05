@@ -223,6 +223,10 @@ class Members extends Component {
       return this.handleFireSnackbar("Email is incorrect", "error");
     }
 
+    if (!phoneNumberRegx.test(phoneNumber)) {
+      return this.handleFireSnackbar("Phone number is incorrect", "error");
+    }
+
     try {
       const token = localStorage.getItem("x-access-token");
       const data = this.state.data;
@@ -596,6 +600,7 @@ class Members extends Component {
           ]}
           data={individualMembers}
           options={{
+            exportButton: true,
             headerStyle: {
               background: "#FA6400",
               color: "#FFF",
@@ -630,6 +635,9 @@ class Members extends Component {
     return (
       <div className="shadow rounded bg-white col-md-12 p-3">
         <MaterialTable
+          options={{
+            exportButton: true,
+          }}
           detailPanel={[
             {
               tooltip: "More",
@@ -693,6 +701,7 @@ class Members extends Component {
           ]}
           data={individualMembers}
           options={{
+            exportButton: true,
             headerStyle: {
               background: "#FA6400",
               color: "#FFF",
@@ -784,6 +793,7 @@ class Members extends Component {
           ]}
           data={_members}
           options={{
+            exportButton: true,
             headerStyle: {
               background: "#FA6400",
               color: "#FFF",
@@ -944,6 +954,7 @@ class Members extends Component {
                     ]}
                     data={this.state.companies}
                     options={{
+                      exportButton: true,
                       headerStyle: {
                         background: "#FA6400",
                         color: "#FFF",

@@ -86,13 +86,6 @@ class ManageProfile extends Component {
         );
       }
 
-      if (!passport) {
-        return this.handleFireSnackbar(
-          "Please add your passport number ",
-          "error"
-        );
-      }
-
       if (!qualifications) {
         return this.handleFireSnackbar(
           "Please add your qualification ",
@@ -476,7 +469,7 @@ class ManageProfile extends Component {
               </div>
               <div className="row">
                 <div className="col-lg-6">
-                  <label>Position</label>
+                  <label>IPF Position</label>
                   <TextInput
                     disabled
                     name={"position"}

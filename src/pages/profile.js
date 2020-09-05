@@ -108,14 +108,7 @@ class ManageProfile extends Component {
         );
       }
 
-      if (!passport) {
-        return this.handleFireSnackbar(
-          "Please add your passport number ",
-          "error"
-        );
-      }
-
-      if (this.state.passport.length !== 8) {
+      if (this.state.passport && this.state.passport.length !== 8) {
         return this.handleFireSnackbar("Passport number  is invalid", "error");
       }
 
@@ -438,7 +431,7 @@ class ManageProfile extends Component {
               </div>
               <div className="row">
                 <div className="col-lg-6">
-                  <label>Position</label>
+                  <label>IPF Position</label>
                   <TextInput
                     disabled
                     name={"position"}

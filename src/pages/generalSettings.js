@@ -336,7 +336,7 @@ function Settings() {
                 className="mt-3"
                 style={{ color: "#089242", fontWeight: "bold" }}
               >
-                Manage Position
+                Manage IPF Position
               </h5>
               <MaterialTableDemo
                 title={""}

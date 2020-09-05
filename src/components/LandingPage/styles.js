@@ -75,7 +75,7 @@ const HeaderText = styled.h1`
   word-break: normal;
   text-align: center;
   font-weight: normal;
-  font-size: 2rem;
+  font-size: 3rem;
 
   @media (max-width: 992px) {
     font-size: 2.2rem;
@@ -131,6 +131,7 @@ const ContentSectionBackground = styled.div`
   background-size: contain;
   background-position: center;
   opacity: 0.1;
+  top: 5.4rem;
   width: 90%;
   height: 90%;
 `;
@@ -167,7 +168,7 @@ const CarouselSection = styled.div`
 const Login = styled.a`
   color: #fff !important;
   position: relative;
-  top: 0.1rem;
+  top: 0.45rem;
   padding: 0.5rem 1.2rem;
   border-radius: 0.2rem;
   cursor: pointer;
