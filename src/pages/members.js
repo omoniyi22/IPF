@@ -18,6 +18,8 @@ import { getCompanies, getMembershipTypes, getMembers } from "../services";
 import EditOrganization from "../components/organization/edit";
 import EditMember from "../components/Members/editMember";
 import styled from "styled-components";
+
+const pageSizeOptions = [20, 50, 100, 200];
 class Members extends Component {
   state = {
     openSnackbar: false,
@@ -591,16 +593,18 @@ class Members extends Component {
           }}
           title=""
           columns={[
-            { title: "First Name", field: "firstName" },
+            { title: "First Name", field: "firstName", defaultSort: "asc" },
             { title: "Last Name", field: "lastName" },
             { title: "Email", field: "emailAddress" },
-            { title: "Member No", field: "memberNumber" },
+            { title: "Member No", field: "memberNumber", defaultSort: "asc" },
             { title: "Member Type", field: "membershipType" },
             { title: "Phone Number", field: "phoneNumber" },
           ]}
           data={individualMembers}
           options={{
             exportButton: true,
+            pageSizeOptions: pageSizeOptions,
+            sorting: true,
             headerStyle: {
               background: "#FA6400",
               color: "#FFF",
@@ -635,9 +639,6 @@ class Members extends Component {
     return (
       <div className="shadow rounded bg-white col-md-12 p-3">
         <MaterialTable
-          options={{
-            exportButton: true,
-          }}
           detailPanel={[
             {
               tooltip: "More",
@@ -692,16 +693,19 @@ class Members extends Component {
           }}
           title=""
           columns={[
-            { title: "First Name", field: "firstName" },
+            { title: "First Name", field: "firstName", defaultSort: "asc" },
             { title: "Last Name", field: "lastName" },
             { title: "Email", field: "emailAddress" },
-            { title: "Member No", field: "memberNumber" },
+            { title: "Member No", field: "memberNumber", defaultSort: "asc" },
             { title: "Member Type", field: "membershipType" },
             { title: "Phone Number", field: "phoneNumber" },
           ]}
           data={individualMembers}
           options={{
             exportButton: true,
+
+            sorting: true,
+            pageSizeOptions: pageSizeOptions,
             headerStyle: {
               background: "#FA6400",
               color: "#FFF",
@@ -784,16 +788,18 @@ class Members extends Component {
           }}
           title=""
           columns={[
-            { title: "First Name", field: "firstName" },
+            { title: "First Name", field: "firstName", defaultSort: "asc" },
             { title: "Last Name", field: "lastName" },
             { title: "Email", field: "emailAddress" },
-            { title: "Member No", field: "memberNumber" },
+            { title: "Member No", field: "memberNumber", defaultSort: "asc" },
             { title: "Member Type", field: "membershipType" },
             { title: "Phone Number", field: "phoneNumber" },
           ]}
           data={_members}
           options={{
             exportButton: true,
+            pageSizeOptions: pageSizeOptions,
+            sorting: true,
             headerStyle: {
               background: "#FA6400",
               color: "#FFF",
@@ -946,15 +952,25 @@ class Members extends Component {
                     }}
                     title=""
                     columns={[
-                      { title: "Name", field: "company_name" },
+                      {
+                        title: "Name",
+                        field: "company_name",
+                        defaultSort: "asc",
+                      },
                       { title: "Email", field: "email" },
-                      { title: "Member No", field: "memberNumber" },
+                      {
+                        title: "Member No",
+                        field: "memberNumber",
+                        defaultSort: "asc",
+                      },
                       { title: "Member Type", field: "company_type" },
                       { title: "Phone Number", field: "phone_number" },
                     ]}
                     data={this.state.companies}
                     options={{
+                      pageSizeOptions: [20, 50, 100, 200],
                       exportButton: true,
+                      sorting: true,
                       headerStyle: {
                         background: "#FA6400",
                         color: "#FFF",

@@ -192,6 +192,7 @@ class ManageProfile extends Component {
   };
   render() {
     const { msg, type, openSnackbar } = this.state;
+
     return (
       <Dashboard>
         <AppWrapper
@@ -375,7 +376,7 @@ class ManageProfile extends Component {
               <div className="row">
                 <div className="col-lg-6">
                   <label>Date of Birth</label>
-                  <TextInput
+                  <input
                     name="dob"
                     onChange={this.handleOnChange}
                     value={this.state.dob}

@@ -634,12 +634,12 @@ class UserProfile extends Component {
                 <div className="row">
                   <div className="col-lg-6">
                     <label>Date of Birth</label>
-                    <TextInput
+                    <input
                       name="dob"
                       defaultValue={dob}
                       onChange={this.handleOnChange}
                       value={dob}
-                      placeholder="dd/mm/yyyy"
+                      // placeholder="dd/mm/yyyy"
                       type="date"
                     />
                   </div>
