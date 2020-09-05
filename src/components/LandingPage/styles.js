@@ -4,7 +4,7 @@ import images from "../../assets/images";
 //Landing Header section
 
 const HeaderContainer = styled.div`
-  height: 30vh;
+  height: 20vh;
   display: flex;
 
   width: 100vw;
@@ -74,8 +74,8 @@ const HeaderText = styled.h1`
   color: #fff;
   word-break: normal;
   text-align: center;
-  font-weight: bold;
-  font-size: 3rem;
+  font-weight: normal;
+  font-size: 2rem;
 
   @media (max-width: 992px) {
     font-size: 2.2rem;

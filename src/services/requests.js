@@ -39,3 +39,8 @@ export async function resetPasswordCall(data) {
     password: data.password,
   });
 }
+
+export async function getMyDetails() {
+  const authApi = await attachApiToken(api);
+  return authApi.get("/auth/details");
+}

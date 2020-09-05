@@ -3,6 +3,15 @@ body {
   /* font-family: "Open Sans", sans-serif; */
 }
 
+.flags {
+  width: 70px;
+  height: 70px;
+}
+
+.container-fluid {
+  /* padding-left: 0px !important; */
+  /* padding-right: 0px !important; */
+}
 .company-logo {
   width: 150px !important;
   height: 150px !important;
@@ -287,28 +296,6 @@ ul.header-sub-menu-list .active::after {
   background-color: rgba(42, 75, 90, 0.88);
 }
 
-.user-profile-section {
-  /* padding-top: 80px; */
-  /* padding-left: 180px; */
-  width: calc(100vw - 8px);
-  position: relative;
-}
-
-.user-profile-container {
-  padding-top: 20px;
-  padding-left: 195px;
-  width: calc(100vw - 8px);
-  position: relative;
-}
-
-.user-profile-score-card {
-  /* position: absolute; */
-  margin-top: -7rem;
-
-  min-height: 25rem;
-  width: 90%;
-}
-
 .bg-blue {
   background-color: #2a4b5a;
 }
@@ -568,15 +555,17 @@ select {
 }
 
 .user-profile-image {
-  object-fit: fill;
-  height: 100%;
-  width: 100%;
+  object-fit: contain;
+  width: 180px;
+  height: 180px;
+  border-radius: 5px;
 }
 
 .user-image-container {
-  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
 .cs-bottom {
   background: #0f2f3e;
   border-radius: 5px;

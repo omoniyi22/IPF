@@ -7,6 +7,7 @@ import { isEmailValid } from "../../utils/app";
 import AppWrapper from "../appWrapper";
 import { TextInput } from "../components";
 import PhoneNumber from "../General/phoneInput";
+import { phoneNumberRegx, emailRegx } from "../../utils/regex";
 
 const EditMember = ({ data, showLoader, getAll }) => {
   const [state, setState] = useState({
@@ -89,6 +90,43 @@ const EditMember = ({ data, showLoader, getAll }) => {
         open: true,
       });
     }
+
+    if (state.emailAddress2 && !emailRegx.test(state.emailAddress2)) {
+      return setSnack({
+        ...snack,
+        msg: " Email address(2) is invalid",
+        type: "error",
+        open: true,
+      });
+    }
+
+    if (!phoneNumberRegx.test(state.phoneNumber)) {
+      return setSnack({
+        ...snack,
+        msg: "Phone number(1) is invalid",
+        type: "error",
+        open: true,
+      });
+    }
+
+    if (state.phoneNumber2 && !phoneNumberRegx.test(state.phoneNumber2)) {
+      return setSnack({
+        ...snack,
+        msg: "Phone number(2) is invalid",
+        type: "error",
+        open: true,
+      });
+    }
+
+    if (!state.passport) {
+      return setSnack({
+        ...snack,
+        msg: "Passport is invalid",
+        type: "error",
+        open: true,
+      });
+    }
+
     try {
       showLoader(true);
       const authApi = await attachApiToken(api);
@@ -279,7 +317,7 @@ const EditMember = ({ data, showLoader, getAll }) => {
                 <option>select</option>
                 {quals.map((ele) => (
                   <option key={ele.id} value={ele.name}>
-                    {ele.detail}
+                    {ele.name}
                   </option>
                 ))}
               </select>

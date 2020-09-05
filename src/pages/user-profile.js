@@ -33,7 +33,8 @@ class UserProfile extends Component {
     emailAddress2: "",
     firstName: "",
     lastName: "",
-    avatar: "",
+    avatar:
+      "https://res.cloudinary.com/ninja-dev/image/upload/v1597409650/user_cibuzv.png",
     indusClass: [],
     industry: [],
     quals: [],
@@ -328,8 +329,8 @@ class UserProfile extends Component {
             <div className="container-fluid user-profile-container">
               <div className="row">
                 <div className="col-md-6" style={{ position: "relative" }}>
-                  <div className="user-profile-score-card shadow bg-white p-1">
-                    <div className="row justify-content-between px-3 border-bottom mb-0">
+                  <div className="user-profile-score-card shadow bg-white ">
+                    <div className="row justify-content-between border-bottom">
                       <div className="d-flex">
                         <h5 style={{ fontSize: 18 }} className="fw-bold">
                           Member ID:
@@ -338,7 +339,7 @@ class UserProfile extends Component {
                           {this.state.memberNumber}
                         </h5>
                       </div>
-                      <div className="d-flex flex-grow-1 justify-content-end">
+                      {/* <div className="d-flex flex-grow-1 justify-content-end">
                         <h5
                           style={{ fontSize: 16 }}
                           onClick={this.openModal}
@@ -346,42 +347,39 @@ class UserProfile extends Component {
                         >
                           Edit Profile
                         </h5>
+                      </div> */}
+                    </div>
+                    <div className="user-image-container">
+                      <img
+                        src={this.state.avatar}
+                        alt="img"
+                        className="user-profile-image"
+                      />
+                    </div>
+                    <div className="card-content-container">
+                      <div className="row mb-0 mx-3 ">
+                        <h5>Welcome, {firstName}</h5>
                       </div>
-                    </div>
-                    <div className="">
-                      <div className="w-6o user-image-container">
-                        <img
-                          src={`${
-                            this.state.avatar
-                              ? this.state.avatar
-                              : "https://res.cloudinary.com/ninja-dev/image/upload/v1597409650/user_cibuzv.png"
-                          }`}
-                          className="user-profile-image"
-                          alt="bg"
-                        />
+                      <div>
+                        <span className="mx-3">
+                          <i className="material-icons">
+                            stay_current_portrait
+                          </i>
+                        </span>
+                        <span classNam="px-3">{phoneNumber}</span>
                       </div>
-                    </div>
-                    <div className="row mb-0">
-                      <h5 className="">Welcome, {firstName}</h5>
-                    </div>
-
-                    <div>
-                      <span className="mx-3">
-                        <i className="material-icons">stay_current_portrait</i>
-                      </span>
-                      <span classNam="px-3">{phoneNumber}</span>
-                    </div>
-                    <div className="row">
-                      <span className="mx-3">
-                        <i className="material-icons">mail</i>
-                      </span>
-                      <span classNam="px-3">{emailAddress}</span>
-                    </div>
-                    <div className="row justify-content-center">
-                      <button className="waves-effect waves-light btn ">
-                        Membership status:{" "}
-                        {this.state.approved === 1 ? "Approved" : "Pending"}
-                      </button>
+                      <div className="row">
+                        <span className="mx-3">
+                          <i className="material-icons">mail</i>
+                        </span>
+                        <span classNam="px-3">{emailAddress}</span>
+                      </div>
+                      <div className="row justify-content-center">
+                        <button className="waves-effect waves-light btn ">
+                          Membership status:{" "}
+                          {this.state.approved === 1 ? "Approved" : "Pending"}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -19,7 +19,7 @@ import AddCompany from "./pages/manageCompany";
 import AddMember from "./pages/addMember";
 import ForgotPassword from "./pages/forgotPassword";
 import ResetPassword from "./pages/resetPassword";
-
+import ManageUserProfile from "./pages/manageProfile";
 function Root() {
   return (
     <Switch>
@@ -47,7 +47,7 @@ function Root() {
       <AuthRoute
         exact
         path="/user/dashboard/profile-update"
-        component={ManageProfile}
+        component={ManageUserProfile}
       />
 
       <AdminRoute

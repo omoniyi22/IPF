@@ -5,16 +5,17 @@ import Images from "../assets/images";
 import AppWrapper from "../components/appWrapper";
 import { FormButton, TextInput } from "../components/components";
 import PhoneNumber from "../components/General/phoneInput";
-import Dashboard from "../hoc/Dashboard";
+import Dashboard from "../hoc/UserDashboard";
 import * as actions from "../redux/actions";
 import { api, attachApiToken } from "../services/api";
-import { emailRegx, phoneNumberRegx } from "../utils/regex";
 import {
   getClassificationCall,
   getQualificationCall,
   getIndustryCall,
   getMyDetails,
 } from "../services/requests";
+import { emailRegx, phoneNumberRegx } from "../utils/regex";
+
 class ManageProfile extends Component {
   state = {
     phone1_whatsapp: 0,
@@ -33,46 +34,14 @@ class ManageProfile extends Component {
     lastName: "",
     avatar: "",
     company_designation: "",
-    qualifications: "",
     quals: [],
+    qualifications: "",
+    position: "",
   };
   componentDidMount() {
     this.getIndustyClassification();
   }
 
-  getIndustyClassification = async () => {
-    try {
-      const [user, classRes, indusRes, qual] = await Promise.all([
-        getMyDetails(),
-        getClassificationCall(),
-        getIndustryCall(),
-        getQualificationCall(),
-      ]);
-      const data = user.data.data;
-      const industry = indusRes.data.data;
-      const indusClass = classRes.data.data;
-      const quals = qual.data.data;
-
-      this.setState({
-        ...data,
-        indusClass,
-        industry,
-        quals,
-      });
-    } catch (error) {}
-  };
-
-  getUserDetail = async () => {
-    try {
-      this.props.showLoader(true);
-      const authApi = await attachApiToken(api);
-      const response = await authApi.get("/auth/details");
-      const data = response.data.data;
-      this.setState({ ...data }, () => this.props.showLoader());
-    } catch (error) {
-      this.props.showLoader();
-    }
-  };
   submit = async (e) => {
     e.preventDefault();
     try {
@@ -86,19 +55,28 @@ class ManageProfile extends Component {
         avatar,
         passport,
         qualifications,
+        dob,
+        street1,
+        company_designation,
+        state,
       } = this.state;
-      if (
-        !phoneNumberRegx.test(phoneNumber) ||
-        !phoneNumberRegx.test(phoneNumber2)
-      ) {
+      if (!phoneNumberRegx.test(phoneNumber)) {
         return this.handleFireSnackbar("Phone Number is not valid", "error");
       }
-      if (!emailRegx.test(emailAddress) || !emailRegx.test(emailAddress2)) {
+      if (!emailRegx.test(emailAddress)) {
         return this.handleFireSnackbar("Email Address is not valid", "error");
       }
 
       if (phoneNumber.length < 13) {
         return this.handleFireSnackbar("Phone Number is not valid", "error");
+      }
+
+      if (
+        phoneNumber2 &&
+        !phoneNumberRegx.test(phoneNumber2) &&
+        !phoneNumber2.length < 13
+      ) {
+        return this.handleFireSnackbar("Phone Number 2 is not valid", "error");
       }
 
       if (!avatar) {
@@ -115,16 +93,50 @@ class ManageProfile extends Component {
         );
       }
 
-      if (this.state.passport.length !== 8) {
-        return this.handleFireSnackbar("Passport number  is invalid", "error");
-      }
-
       if (!qualifications) {
         return this.handleFireSnackbar(
-          "Please enter your qualification",
+          "Please add your qualification ",
           "error"
         );
       }
+
+      if (!dob) {
+        return this.handleFireSnackbar(
+          "Please add your date of birth",
+          "error"
+        );
+      }
+
+      if (!street1) {
+        return this.handleFireSnackbar(
+          "Please add your street address",
+          "error"
+        );
+      }
+
+      if (!company_designation) {
+        return this.handleFireSnackbar(
+          "Please add your company designation",
+          "error"
+        );
+      }
+
+      if (!state) {
+        return this.handleFireSnackbar(
+          "Please add the state you are residing in",
+          "error"
+        );
+      }
+      //   if (!this.state.industryType) {
+      //     return this.openSnack("Please add your industry type", "error");
+      //   }
+
+      //   if (!this.state.industryClassification) {
+      //     return this.openSnack(
+      //       "Please add your industry classification",
+      //       "error"
+      //     );
+      //   }
 
       const data = {
         ...this.state,
@@ -139,6 +151,7 @@ class ManageProfile extends Component {
       this.props.showLoader();
       this.handleFireSnackbar("Update Successful", "success");
     } catch (error) {
+      console.log(error);
       let _error = "Some errors were encountered";
       if (
         error.response &&
@@ -163,7 +176,6 @@ class ManageProfile extends Component {
   handleOnChange = (e, phone = false) => {
     if (phone) {
       const { name, value } = e;
-      console.log(e, "I AM HERE");
       this.setState({
         [name]: value,
       });
@@ -192,6 +204,28 @@ class ManageProfile extends Component {
     );
   };
 
+  getIndustyClassification = async () => {
+    try {
+      const [user, classRes, indusRes, qual] = await Promise.all([
+        getMyDetails(),
+        getClassificationCall(),
+        getIndustryCall(),
+        getQualificationCall(),
+      ]);
+      const data = user.data.data;
+      const industry = indusRes.data.data;
+      const indusClass = classRes.data.data;
+      const quals = qual.data.data;
+
+      this.setState({
+        ...data,
+        indusClass,
+        industry,
+        quals,
+      });
+    } catch (error) {}
+  };
+
   onClose = () => {
     this.setState({
       openSnackbar: false,
@@ -207,8 +241,11 @@ class ManageProfile extends Component {
           type={type}
           onClose={this.onClose}
         >
-          <div className="profile container-fluid py-3">
-            <div className="row justify-content-center my-4">
+          <div className="container-fluid py-3">
+            <div
+              className="row justify-content-center"
+              style={{ marginTop: 100 }}
+            >
               <div className="circle-avatar text-center d-flex align-items-center justify-content-center">
                 {this.state.avatar ? (
                   <img
@@ -384,6 +421,7 @@ class ManageProfile extends Component {
                   <label>Date of Birth</label>
                   <TextInput
                     name="dob"
+                    defaultValue={this.state.dob}
                     onChange={this.handleOnChange}
                     value={this.state.dob}
                     type="date"

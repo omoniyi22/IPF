@@ -7,7 +7,8 @@ import { Snackbar } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import india from "../assets/india.png";
 import { api, attachApiToken } from "../services/api";
-
+import "./dashboard2.css";
+import Header from "./UserHeader";
 class UserDashboard extends Component {
   constructor(props) {
     super(props);
@@ -103,16 +104,18 @@ class UserDashboard extends Component {
     const home = location.pathname === "/user/dashboard" ? "active" : "";
     const addmember =
       location.pathname === "/user/dashboard/addmember" ? "active" : "";
-    // console.log(editCompany);
+    const manageprofile =
+      location.pathname === "/user/dashboard/profile-update" ? "active" : "";
 
     return (
       <div className="container-fluid">
-        <div className="user-dasboard-header1">
+        <Header />
+        {/* <div className="user-dasboard-header1">
           <div className="d-flex mt-3 justify-content-end">
             <img src={india} alt="flag" />
             <img src={nigeria} alt="flag" />
           </div>
-        </div>
+        </div> */}
         <div className="user-dasboard-header2">
           <div className="d-flex flex-column justify-content-between align-items-center py-4 px-2">
             <img
@@ -148,6 +151,15 @@ class UserDashboard extends Component {
                   <i className="material-icons">account_circle</i>
                 </span>
                 <span>Accounts</span>
+              </Link>
+            </li>
+
+            <li className={`list-item ${manageprofile}`}>
+              <Link to="/user/dashboard/profile-update">
+                <span>
+                  <i className="material-icons">account_circle</i>
+                </span>
+                <span>Manage profile</span>
               </Link>
             </li>
 
@@ -205,7 +217,9 @@ class UserDashboard extends Component {
         </div>
 
         {other ? (
-          <section className="">{this.props.children}</section>
+          <section className="user-profile-container">
+            {this.props.children}
+          </section>
         ) : (
           <>
             <section className="user-profile-section">
@@ -214,8 +228,8 @@ class UserDashboard extends Component {
 
             <div className="bg-blue p-2">
               <div className="d-flex mt-3 justify-content-end">
-                <img src={india} alt="flag" />
-                <img src={nigeria} alt="flag" />
+                <img src={india} alt="flag" className="flags" />
+                <img src={nigeria} alt="flag" className="flags" />
               </div>
             </div>
           </>

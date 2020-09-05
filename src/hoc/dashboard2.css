@@ -1,0 +1,48 @@
+.user-dasboard-header2 {
+  display: none;
+}
+
+.user-profile-container {
+  /* border: 1px solid orange; */
+  padding: 0 !important;
+  /* width: 100%; */
+}
+
+.user-profile-section {
+  /* padding-top: 80px; */
+  /* padding-left: 180px; */
+  /* width: calc(100vw - 8px); */
+  /* position: relative; */
+}
+
+.user-profile-container {
+  padding-top: 20px;
+  /* padding-left: 195px; */
+  /* width: calc(100vw - 2px); */
+  /* position: relative; */
+}
+
+.user-profile-score-card {
+  /* position: absolute; */
+  /* margin-top: -7rem; */
+
+  min-height: 25rem;
+  width: 100%;
+}
+
+.card-content-container {
+  /* border: 1px solid orange; */
+}
+
+@media (min-width: 900px) {
+  .user-dasboard-header2 {
+    display: block;
+  }
+
+  .user-profile-section {
+    /* padding-top: 80px; */
+    padding-left: 180px;
+    /* width: calc(100vw - 8px); */
+    /* position: relative; */
+  }
+}

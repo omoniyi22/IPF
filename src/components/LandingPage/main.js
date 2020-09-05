@@ -85,7 +85,7 @@ const LandingContent = () => {
       <ContentSectionA>
         <ContentSectionBackground />
         {/* <h4>Introduction</h4> */}
-        <div style={{ marginTop: 30 }}>
+        <div style={{ marginTop: 10 }}>
           <Span>
             Indian professionals Forum is a body of Indian Professionals working
             in Nigeria which operates under the guidance of Indian High

@@ -16,13 +16,12 @@ import { api, attachApiToken } from "../services/api";
 import CustomAvatar from "./avatar";
 import { TextInput } from "./components";
 import PhoneNumber from "./General/phoneInput";
-
 const labels = {
-  company_name: "The name of your company",
-  industry_type: "Your company's industry type",
-  industry_class: "Your company's industry classification",
-  corporate_email: "Your company's email address",
-  company_details: "Kindly provide details of what your company deals in",
+  company_name: "Company’s Name",
+  industry_type: "Company’s Industry Type",
+  industry_class: "Company’s Industry classification",
+  corporate_email: "Company’s email I’d/Company’s Admin email I’d",
+  company_details: "Company’s Description",
   website: "Company's website",
   phone_number: "Company's official phone number",
 };
