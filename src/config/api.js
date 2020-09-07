@@ -1,2 +1,2 @@
 export const PROD_URL = "https://ipfnigeria.com";
-// export const PROD_URL = "https://b0fca995c0b8.ngrok.io";
+// export const PROD_URL = "https://18bd21d21572.ngrok.io";

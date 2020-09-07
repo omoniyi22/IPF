@@ -599,6 +599,7 @@ class Members extends Component {
             { title: "Member No", field: "memberNumber", defaultSort: "asc" },
             { title: "Member Type", field: "membershipType" },
             { title: "Phone Number", field: "phoneNumber" },
+            { title: "Company", field: "company_name" },
           ]}
           data={individualMembers}
           options={{
@@ -636,6 +637,7 @@ class Members extends Component {
         individualMembers.push(item);
       }
     });
+
     return (
       <div className="shadow rounded bg-white col-md-12 p-3">
         <MaterialTable
@@ -699,6 +701,10 @@ class Members extends Component {
             { title: "Member No", field: "memberNumber", defaultSort: "asc" },
             { title: "Member Type", field: "membershipType" },
             { title: "Phone Number", field: "phoneNumber" },
+            {
+              title: "Company",
+              field: "company_name",
+            },
           ]}
           data={individualMembers}
           options={{
