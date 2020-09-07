@@ -630,12 +630,22 @@ class Members extends Component {
 
   renderCorporateMemberBlock = () => {
     const _members = this.state.registeredMembers || [];
+    const comp = this.state.companies || [];
+
     let _list = ["AM", "P", "LM"];
     let individualMembers = [];
     _members.forEach((item) => {
       if (!_list.includes(item.membershipType)) {
         individualMembers.push(item);
       }
+    });
+
+    comp.forEach((item) => {
+      individualMembers.forEach((member) => {
+        if (item.company_id == member.company_id) {
+          member.company_name = item.company_name;
+        }
+      });
     });
 
     return (
@@ -736,6 +746,14 @@ class Members extends Component {
 
   renderAllMembersBlock = () => {
     const _members = this.state.registeredMembers || [];
+    const comp = this.state.companies || [];
+    comp.forEach((item) => {
+      _members.forEach((member) => {
+        if (item.company_id == member.company_id) {
+          member.company_name = item.company_name;
+        }
+      });
+    });
 
     return (
       <div className="shadow rounded bg-white col-md-12 p-3">
@@ -800,6 +818,7 @@ class Members extends Component {
             { title: "Member No", field: "memberNumber", defaultSort: "asc" },
             { title: "Member Type", field: "membershipType" },
             { title: "Phone Number", field: "phoneNumber" },
+            { title: "Company", field: "company_name" },
           ]}
           data={_members}
           options={{
