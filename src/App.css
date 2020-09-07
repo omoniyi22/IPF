@@ -13,9 +13,11 @@ body {
   /* padding-right: 0px !important; */
 }
 .company-logo {
-  width: 180px !important;
-  height: 180px !important;
+  width: 250px !important;
+  height: 250px !important;
   border-radius: 5px !important;
+  object-position: top;
+  object-fit: contain;
 }
 
 .header-bg {
@@ -179,8 +181,8 @@ ul.header-sub-menu-list .active::after {
 }
 
 .img-logo {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   border-radius: 50% !important;
 }
 

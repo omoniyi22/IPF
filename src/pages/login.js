@@ -201,8 +201,8 @@ class Login extends Component {
                           </LoginForm>
                         </div>
                         <FooterLogoContainer>
-                          <FooterLogo src={images.indianFlag} />
-                          <FooterLogo src={images.naijaFlag} />
+                          <FooterLogo src={images.indianFlag} alt="flag" />
+                          <FooterLogo src={images.naijaFlag} alt="flag" />
                         </FooterLogoContainer>
                       </LoginBgWhite>
                     </div>
