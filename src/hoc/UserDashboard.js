@@ -9,6 +9,9 @@ import india from "../assets/india.png";
 import { api, attachApiToken } from "../services/api";
 import "./dashboard2.css";
 import Header from "./UserHeader";
+import images from "../assets/images";
+
+const { naijaFlag, indianFlag } = images;
 class UserDashboard extends Component {
   constructor(props) {
     super(props);
@@ -228,8 +231,8 @@ class UserDashboard extends Component {
 
             <div className="bg-blue p-2">
               <div className="d-flex mt-3 justify-content-end">
-                <img src={india} alt="flag" className="flags" />
-                <img src={nigeria} alt="flag" className="flags" />
+                <img src={indianFlag} alt="flag" className="flags" />
+                <img src={naijaFlag} alt="flag" className="flags" />
               </div>
             </div>
           </>

@@ -12,7 +12,7 @@ const HeaderContainer = styled.div`
   background: url("${images.logo}"), url("${images.indianFlag}"),
     url("${images.naijaFlag}");
   background-repeat: no-repeat;
-  background-size: 75px 75px;
+  background-size: 95px 95px;
   background-position: center left 2%, center right 8.8%, center right 2%;
   background-color: #2a4b5c;
   @media (max-width: 768px) {
