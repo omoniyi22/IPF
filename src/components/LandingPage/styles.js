@@ -4,7 +4,7 @@ import images from "../../assets/images";
 //Landing Header section
 
 const HeaderContainer = styled.div`
-  height: 27vh;
+  height: 28vh;
   display: flex;
 
   width: 100vw;
@@ -12,8 +12,8 @@ const HeaderContainer = styled.div`
   background: url("${images.logo}"), url("${images.indianFlag}"),
     url("${images.naijaFlag}");
   background-repeat: no-repeat;
-  background-size: 7.2rem 7.2rem;
-  background-position: center left 2%, center right 12%, center right 2%;
+  background-size: 8rem 8rem;
+  background-position: center left 2%, center right 14%, center right 2%;
   background-color: #2a4b5c;
   @media (max-width: 768px) {
     background-size: 50px;
