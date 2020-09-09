@@ -151,7 +151,8 @@ function Settings() {
 
   async function editIndustryType(data) {
     try {
-      await axios.patch("/admin/industry-type", {
+      const authApi = await attachApiToken(api);
+      await authApi.patch("/admin/industry-type", {
         industry_name: data.industry_name,
         id: data.id,
       });
