@@ -12,8 +12,8 @@ const HeaderContainer = styled.div`
   background: url("${images.logo}"), url("${images.indianFlag}"),
     url("${images.naijaFlag}");
   background-repeat: no-repeat;
-  background-size: 8rem 8rem;
-  background-position: center left 2%, center right 14%, center right 2%;
+  background-size: 10rem;
+  background-position: center left 2%, center right 16%, center right 2%;
   background-color: #2a4b5c;
   @media (max-width: 768px) {
     background-size: 50px;
@@ -167,7 +167,7 @@ const CarouselSection = styled.div`
 const Login = styled.a`
   color: #fff !important;
   position: relative;
-  top: 0.45rem;
+  top: 0.1rem;
   padding: 0.5rem 1.2rem;
   border-radius: 0.2rem;
   cursor: pointer;
