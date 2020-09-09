@@ -259,12 +259,12 @@ class Login extends Component {
                     </Link>
                   </div>
 
-                  <div className="text-center mt-5">
+                  {/* <div className="text-center mt-5">
                     <span>Don't have an account?</span>
                     <Link to="#">
                       <StyledColorOrange>Sign up</StyledColorOrange>
                     </Link>
-                  </div>
+                  </div> */}
                 </LoginForm>
               </div>
             </section>
