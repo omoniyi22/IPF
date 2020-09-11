@@ -4,21 +4,26 @@ import images from "../../assets/images";
 //Landing Header section
 
 const HeaderContainer = styled.div`
-  height: 28vh;
+  height: 180px;
   display: flex;
-
   width: 100vw;
-
   background: url("${images.logo}"), url("${images.indianFlag}"),
     url("${images.naijaFlag}");
   background-repeat: no-repeat;
-  background-size: 10rem;
-  background-position: center left 2%, center right 16%, center right 2%;
+  background-size: 9.5rem;
+  background-position: center left 10px, center right 170px, center right 10px;
   background-color: #2a4b5c;
+
   @media (max-width: 768px) {
     background-size: 50px;
     height: 20vh;
-    background-position: center left 3%, center right 5%, center right 27%;
+    background-position: center left 3%, center right 12%, center right 2%;
+  }
+
+  @media (max-width: 480px) {
+    background-size: 50px;
+    height: 20vh;
+    background-position: center left 3%, center right 23%, center right 2%;
   }
   justify-content: center;
   display: flex;
@@ -46,20 +51,23 @@ const HeaderContentContainer = styled.div`
 
 const LoginButton = styled.div`
   position: absolute;
-  bottom: 1rem;
+  /* bottom: 0.8rem; */
   right: 7rem;
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 400;
 
   @media (max-width: 768px) {
     right: 1.5rem;
+    bottom: 1rem;
     * {
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 400;
     }
   }
 
   @media (max-width: 992px) {
+    bottom: 0.4rem;
+
     right: 3rem;
   }
 `;
@@ -167,8 +175,8 @@ const CarouselSection = styled.div`
 const Login = styled.a`
   color: #fff !important;
   position: relative;
-  top: 0.1rem;
-  padding: 0.5rem 1.2rem;
+  /* top: 0.1rem; */
+  padding: 0.4rem 1.2rem;
   border-radius: 0.2rem;
   cursor: pointer;
   left: 2rem;
@@ -176,6 +184,10 @@ const Login = styled.a`
 
   &:hover {
     /* color: green !important; */
+  }
+
+  @media (min-width: 768px) {
+    /* border: 1px solid red; */
   }
 `;
 
