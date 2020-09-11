@@ -15,8 +15,10 @@ import {
   LoginForm,
   LoginSectionOne,
   LogoContainer,
+  StyledColorOrange,
   SubmitButton,
 } from "../components/login-bg";
+import { Link } from "react-router-dom";
 import * as actions from "../redux/actions";
 import { resetPasswordCall } from "../services/requests";
 class ResetPassword extends Component {
@@ -57,6 +59,15 @@ class ResetPassword extends Component {
       this.fireSnackbar(response.data.message, "success");
     } catch (error) {
       this.props.showLoader(false);
+
+      if (
+        error &&
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        return this.fireSnackbar(error.response.data.message, "error");
+      }
       this.fireSnackbar("Unsuccessfuly. Please try again", "error");
     }
   };
@@ -132,6 +143,20 @@ class ResetPassword extends Component {
                               >
                                 Reset
                               </SubmitButton>
+                            </div>
+
+                            <div className="text-center mt-5">
+                              <Link to="/login">
+                                <StyledColorOrange>Login</StyledColorOrange>
+                              </Link>
+
+                              <br />
+
+                              <Link to="/forgot">
+                                <StyledColorOrange>
+                                  Resend password reset link
+                                </StyledColorOrange>
+                              </Link>
                             </div>
                           </LoginForm>
                         </div>

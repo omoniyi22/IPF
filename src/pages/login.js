@@ -189,14 +189,14 @@ class Login extends Component {
                             <div className="text-center mt-5">
                               <Link to="/forgot">
                                 <StyledColorOrange>
-                                  Reset password
+                                  Forgot password
                                 </StyledColorOrange>
                               </Link>
                               <br />
-                              <span>Don't have an account?</span>
-                              <Link to="#">
+                              {/* <span>Don't have an account?</span> */}
+                              {/* <Link to="#">
                                 <StyledColorOrange>Sign up</StyledColorOrange>
-                              </Link>
+                              </Link> */}
                             </div>
                           </LoginForm>
                         </div>
