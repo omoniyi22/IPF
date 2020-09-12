@@ -10,8 +10,8 @@ const HeaderContainer = styled.div`
   background: url("${images.logo}"), url("${images.indianFlag}"),
     url("${images.naijaFlag}");
   background-repeat: no-repeat;
-  background-size: 9.5rem;
-  background-position: center left 10px, center right 170px, center right 10px;
+  background-size: 8rem;
+  background-position: center left 10px, center right 138px, center right 10px;
   background-color: #2a4b5c;
 
   @media (max-width: 768px) {
@@ -51,11 +51,10 @@ const HeaderContentContainer = styled.div`
 
 const LoginButton = styled.div`
   position: absolute;
-  /* bottom: 0.8rem; */
-  right: 7rem;
+
+  right: 8.5rem;
   font-size: 15px;
   font-weight: 400;
-
   @media (max-width: 768px) {
     right: 1.5rem;
     bottom: 1rem;
@@ -82,7 +81,9 @@ const HeaderText = styled.h1`
   word-break: normal;
   text-align: center;
   font-weight: normal;
-  font-size: 3rem;
+  font-size: 3.1rem;
+  position: relative;
+  bottom: 0.8rem;
 
   @media (max-width: 992px) {
     font-size: 2.2rem;
@@ -175,7 +176,7 @@ const CarouselSection = styled.div`
 const Login = styled.a`
   color: #fff !important;
   position: relative;
-  /* top: 0.1rem; */
+  bottom: 0.3rem;
   padding: 0.4rem 1.2rem;
   border-radius: 0.2rem;
   cursor: pointer;
