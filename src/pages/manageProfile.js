@@ -47,6 +47,9 @@ class ManageProfile extends Component {
   submit = async (e) => {
     e.preventDefault();
     try {
+      const isDefaultAvatar = [
+        "https://res.cloudinary.com/ninja-dev/image/upload/v1597409650/user_cibuzv.png",
+      ];
       const userType = ["AM", "LM", "LP"];
       const {
         phoneNumber,
@@ -86,14 +89,14 @@ class ManageProfile extends Component {
         return this.handleFireSnackbar("Phone Number 2 is not valid", "error");
       }
 
-      if (!avatar) {
+      if (!avatar || isDefaultAvatar.indexOf(avatar)) {
         return this.handleFireSnackbar(
           "Please add your profile picture",
           "error"
         );
       }
 
-      if (!qualifications) {
+      if (!qualifications || qualifications === "select") {
         return this.handleFireSnackbar(
           "Please add your qualification ",
           "error"
