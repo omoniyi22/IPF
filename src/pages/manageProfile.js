@@ -89,7 +89,7 @@ class ManageProfile extends Component {
         return this.handleFireSnackbar("Phone Number 2 is not valid", "error");
       }
 
-      if (!avatar || isDefaultAvatar.indexOf(avatar)) {
+      if (!avatar || isDefaultAvatar.includes(avatar)) {
         return this.handleFireSnackbar(
           "Please add your profile picture",
           "error"
