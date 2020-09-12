@@ -445,6 +445,7 @@ class ManageProfile extends Component {
                   <label>Qualification</label>
                   <select
                     name="qualifications"
+                    className="custom-select-input"
                     defaultValue={this.state.qualifications}
                     onChange={this.handleOnChange}
                     value={this.state.qualifications}

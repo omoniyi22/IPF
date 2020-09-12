@@ -25,13 +25,11 @@ class Layout extends Component {
           <li style={{ paddingBottom: "10rem" }}>
             <div class="user-view">
               <div class="background">
-                <img src={IpfLogo} alt="ipf" />
+                {/* <img src={IpfLogo} alt="ipf" className="custom-ipf-logo" /> */}
               </div>
+              <Link>{/* <span class="white-text name">John Doe</span> */}</Link>
               <Link>
-                <span class="white-text name">John Doe</span>
-              </Link>
-              <Link>
-                <span class="white-text email">jdandturk@gmail.com</span>
+                {/* <span class="white-text email">jdandturk@gmail.com</span> */}
               </Link>
             </div>
           </li>

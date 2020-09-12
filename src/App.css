@@ -4,14 +4,21 @@ body {
 }
 
 .flags {
-  width: 70px;
-  height: 70px;
+  width: 50px;
+  height: 50px;
+  position: relative;
+  bottom: 0.5rem;
 }
 
-.container-fluid {
-  /* padding-left: 0px !important; */
-  /* padding-right: 0px !important; */
+.custom-ipf-logo {
+  height: 110px;
+  width: auto;
 }
+
+.custom-select-input {
+  background: #cadce6;
+}
+
 .company-logo {
   width: 250px !important;
   height: 250px !important;
@@ -284,9 +291,6 @@ ul.header-sub-menu-list .active::after {
 .user-dasboard-header1,
 .user-dasboard-header2 {
   position: fixed;
-}
-
-.body {
 }
 
 .user-dasboard-header1 {

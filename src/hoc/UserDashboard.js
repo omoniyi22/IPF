@@ -121,12 +121,7 @@ class UserDashboard extends Component {
         </div> */}
         <div className="user-dasboard-header2">
           <div className="d-flex flex-column justify-content-between align-items-center py-4 px-2">
-            <img
-              className="mb-3"
-              src={logo}
-              alt="ipf"
-              style={{ width: 80, height: 80 }}
-            />
+            <img className="mb-3 custom-ipf-logo" src={logo} alt="ipf" />
             <h5
               style={{
                 color: "#fff",
@@ -231,7 +226,7 @@ class UserDashboard extends Component {
 
             <div className="bg-blue p-2">
               <div className="d-flex mt-3 justify-content-end">
-                <img src={indianFlag} alt="flag" className="flags" />
+                <img src={indianFlag} alt="flag" className="flags mr-1" />
                 <img src={naijaFlag} alt="flag" className="flags" />
               </div>
             </div>

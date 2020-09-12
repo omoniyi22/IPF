@@ -351,7 +351,10 @@ class UserProfile extends Component {
                     </div>
                     <div className="user-image-container">
                       <img
-                        src={this.state.avatar}
+                        src={
+                          this.state.avatar ||
+                          "https://res.cloudinary.com/ninja-dev/image/upload/v1597409650/user_cibuzv.png"
+                        }
                         alt="img"
                         className="user-profile-image"
                       />
