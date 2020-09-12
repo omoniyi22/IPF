@@ -131,7 +131,7 @@ class UserDashboard extends Component {
               }}
             >
               {" "}
-              India Professionals Forum
+              Indian Professionals Forum
             </h5>
             <h5
               style={{

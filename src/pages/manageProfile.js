@@ -326,12 +326,14 @@ class ManageProfile extends Component {
                     name={"firstName"}
                     onChange={this.handleOnChange}
                     value={this.state.firstName}
+                    disabled
                   />
                 </div>
                 <div className="col-lg-6">
                   <label>Last Name</label>
                   <TextInput
                     name={"lastName"}
+                    disabled
                     onChange={this.handleOnChange}
                     value={this.state.lastName}
                   />
@@ -342,6 +344,7 @@ class ManageProfile extends Component {
                   <label>Email 1</label>
                   <TextInput
                     name={"emailAddress"}
+                    disabled
                     onChange={this.handleOnChange}
                     value={this.state.emailAddress}
                     type="email"
@@ -597,7 +600,7 @@ class ManageProfile extends Component {
                 </div>
 
                 <div className="col-lg-6">
-                  <label>Website</label>
+                  <label>Company Website</label>
                   <TextInput
                     name={"website"}
                     onChange={this.handleOnChange}
