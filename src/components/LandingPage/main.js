@@ -4,57 +4,106 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import images from "../../assets/images";
 import {
   CarouselSection,
-  ContentOffset,
   ContentSectionA,
+  ContentSectionBackground,
   LandingContentContainer,
   LI,
-  UL,
+  Span,
 } from "./styles";
+
+const C = [
+  {
+    imge: images.slide1,
+  },
+  {
+    imge: images.slide2,
+  },
+  {
+    imge: images.slide3,
+  },
+  {
+    imge: images.slide4,
+  },
+
+  {
+    imge: images.slide5,
+  },
+  {
+    imge: images.slide6,
+  },
+  {
+    imge: images.slide7,
+  },
+  {
+    imge: images.slide8,
+  },
+  {
+    imge: images.slide9,
+  },
+  {
+    imge: images.slide10,
+  },
+  {
+    imge: images.slide11,
+  },
+  {
+    imge: images.slide12,
+  },
+  {
+    imge: images.slide13,
+  },
+];
 
 const data = [
   {
     id: "5",
-    text: "To project a positive image of the Indian community in Nigeria.",
+    text: "Link between Indian High Commission and Industry",
   },
   {
     id: "1",
-    text:
-      "Projecting and highlighting the many important contributions made by Indian Professionals in Nigeria.",
+    text: "Linking Indian and Nigerian Professionals",
   },
 
   {
     id: "2",
-    text:
-      "Projecting a clear perspective of India, its achievements, successes, potential and stature and the relevance of this to Nigeria.",
+    text: "Highlight contributions made by Indian Professionals in Nigeria",
   },
   {
     id: "3",
     text:
-      "To encourage more frequent business and social links between opinion makers in Nigeria and Indian Professionals.",
+      "Present positive perspective of India’s role in the International Forum",
   },
 
   {
     id: "4",
-    text:
-      "To emphasise the professionalism of the average Indian expatriate working in Nigeria.",
+    text: "Enhance the role of Indian Professionals across the globe",
   },
 ];
 const LandingContent = () => {
   return (
     <LandingContentContainer>
       <ContentSectionA>
-        <h4>About IPF</h4>
-        <ContentOffset>
-          <UL>
-            {data.map((item) => {
-              return (
-                <LI key={item.id}>
-                  <p style={{ opacity: 1 }}>{item.text}</p>
-                </LI>
-              );
-            })}
-          </UL>
-        </ContentOffset>
+        <ContentSectionBackground />
+        {/* <h4>Introduction</h4> */}
+        <div style={{ marginTop: 10 }}>
+          <Span>
+            Indian professionals Forum is a body of Indian Professionals working
+            in Nigeria which operates under the guidance of Indian High
+            Commission, Nigeria. High Commissioner of India to Nigeria is the
+            Chief Patron of Indian Professionals Forum.
+          </Span>
+        </div>
+
+        <h4>IPF Aim and Purpose</h4>
+        <ul style={{ marginTop: 20 }}>
+          {data.map((item) => {
+            return (
+              <li className="li-item" key={item.id}>
+                {item.text}
+              </li>
+            );
+          })}
+        </ul>
       </ContentSectionA>
 
       <CarouselSection>
@@ -64,10 +113,15 @@ const LandingContent = () => {
           autoPlay
           showThumbs={false}
         >
-          <div>
-            <img src={images.slide1} alt="img" />
-          </div>
-          <div>
+          {C.map((item) => {
+            return (
+              <div key={item.image}>
+                <img src={item.imge} alt="img" />
+              </div>
+            );
+          })}
+
+          {/* <div>
             <img src={images.slide2} alt="ipf" />
           </div>
           <div>
@@ -76,7 +130,7 @@ const LandingContent = () => {
 
           <div>
             <img src={images.slide4} alt="img" />
-          </div>
+          </div> */}
         </Carousel>
       </CarouselSection>
     </LandingContentContainer>

@@ -1,10 +1,4 @@
-import {
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-} from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import FormGroup from "@material-ui/core/FormGroup";
 import Paper from "@material-ui/core/Paper";
 import Snackbar from "@material-ui/core/Snackbar";
@@ -21,7 +15,16 @@ import { SHOW_LOADER } from "../redux/types";
 import { api, attachApiToken } from "../services/api";
 import CustomAvatar from "./avatar";
 import { TextInput } from "./components";
-
+import PhoneNumber from "./General/phoneInput";
+const labels = {
+  company_name: "Company’s Name",
+  industry_type: "Company’s Industry Type",
+  industry_class: "Company’s Industry classification",
+  corporate_email: "Company’s email I’d/Company’s Admin email I’d",
+  company_details: "Company’s Description",
+  website: "Company's website",
+  phone_number: "Company's official phone number",
+};
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -88,6 +91,8 @@ export default function CustomTab({ userDetails, updateDetails }) {
     industryClassification: "",
     website: "",
     logo: "",
+    email: "",
+    phone_number: "",
   });
 
   const [industryType, setType] = React.useState([]);
@@ -280,6 +285,7 @@ export default function CustomTab({ userDetails, updateDetails }) {
                 }}
               >
                 <FormGroup className style={styles.formGroup}>
+                  <label>{labels.company_name}</label>
                   <TextInput
                     disabled
                     label={"Company Name"}
@@ -292,21 +298,6 @@ export default function CustomTab({ userDetails, updateDetails }) {
                       });
                     }}
                   />
-                  {/* <TextField
-                    classes={classes.input}
-                    disabled
-                    id="outlined-uncontrolled"
-                    label={"Company Name"}
-                    value={company.company_name || ""}
-                    variant="outlined"
-                    name="nameOfCompany"
-                    onChange={({ target: { value, name } }) => {
-                      setCompany({
-                        ...company,
-                        company_name: value,
-                      });
-                    }}
-                  /> */}
                 </FormGroup>
               </div>
               <div
@@ -319,82 +310,88 @@ export default function CustomTab({ userDetails, updateDetails }) {
                 }}
               >
                 <FormGroup className style={{ width: "49%" }}>
-                  <FormControl className="w-49" variant="outlined">
-                    <InputLabel id="demo-simple-select-helper">
-                      Industry Classification
-                    </InputLabel>
-                    <Select
-                      disabled={isCompanyAdmin() ? false : true}
-                      labelId="demo-simple-select-helper"
-                      id="demo-simple-select-helper"
-                      value={company.industryClassification}
-                      name="industryClassification"
-                      onChange={({ target: { value } }) => {
-                        setCompany({
-                          ...company,
-                          industryClassification: value,
-                        });
-                      }}
-                      label="Industy Classification"
-                      // className={classes.select}
-                    >
-                      {industryClass.map((item) => {
-                        return (
-                          <MenuItem key={item.id} value={item.industry_name}>
-                            {item.industry_name}
-                          </MenuItem>
-                        );
-                      })}
-                    </Select>
-                  </FormControl>
+                  <label>{labels.industry_class}</label>
+                  <select
+                    disabled={isCompanyAdmin() ? false : true}
+                    value={company.industryClassification}
+                    name="industryClassification"
+                    onChange={({ target: { value } }) => {
+                      setCompany({
+                        ...company,
+                        industryClassification: value,
+                      });
+                    }}
+                  >
+                    <option>Select Industry Classification</option>
+                    {industryClass.map((ele) => (
+                      <option key={ele.id} value={ele.industry_name}>
+                        {ele.industry_name}
+                      </option>
+                    ))}
+                  </select>
                 </FormGroup>
 
                 <FormGroup className style={{ width: "49%" }}>
-                  <FormControl className="w-49" variant="outlined">
-                    <InputLabel id="demo-simple-select-helper">
-                      Industry Type
-                    </InputLabel>
-                    <Select
-                      disabled={isCompanyAdmin() ? false : true}
-                      labelId="demo-simple-select-helper"
-                      id="demo-simple-select-helper"
-                      value={company.industry_type}
-                      name="industryClassification"
-                      onChange={({ target: { value } }) => {
-                        setCompany({
-                          ...company,
-                          industry_type: value,
-                        });
-                      }}
-                      label="Industy Classification"
-                      // className={classes.select}
-                    >
-                      {industryType.map((item) => {
-                        return (
-                          <MenuItem key={item.id} value={item.industry_name}>
-                            {item.industry_name}
-                          </MenuItem>
-                        );
-                      })}
-                    </Select>
-                  </FormControl>
+                  <label>{labels.industry_type}</label>
+
+                  <select
+                    disabled={isCompanyAdmin() ? false : true}
+                    value={company.industry_type}
+                    name="industry_type"
+                    onChange={({ target: { value } }) => {
+                      setCompany({
+                        ...company,
+                        industry_type: value,
+                      });
+                    }}
+                  >
+                    <option>Select Industry Type</option>
+                    {industryType.map((ele) => (
+                      <option key={ele.id} value={ele.industry_name}>
+                        {ele.industry_name}
+                      </option>
+                    ))}
+                  </select>
                 </FormGroup>
               </div>
 
               <FormGroup className style={styles.formGroup}>
+                <label>{labels.corporate_email}</label>
                 <TextInput
                   value={company.email || ""}
-                  name="companyDetails"
+                  name="email"
                   disabled={isCompanyAdmin() ? false : true}
+                  onChange={({ target: { value, name } }) => {
+                    setCompany({
+                      ...company,
+                      [name]: value,
+                    });
+                  }}
                 />
               </FormGroup>
 
               <FormGroup className style={styles.formGroup}>
+                <label>{labels.phone_number}</label>
+
+                <PhoneNumber
+                  value={company.phone_number || ""}
+                  name="phone_number"
+                  disabled={isCompanyAdmin() ? false : true}
+                  onChange={(e) => {
+                    const { name, value } = e;
+                    setCompany({
+                      ...company,
+                      phone_number: value,
+                    });
+                  }}
+                />
+              </FormGroup>
+
+              <FormGroup className style={styles.formGroup}>
+                <label>{labels.company_details}</label>
                 <TextInput
                   disabled={isCompanyAdmin() ? false : true}
-                  placeholder={
-                    "Kindly provide details of what your company deals in"
-                  }
+                  placeholder={labels.company_details}
                   value={company.company_details || ""}
                   name="companyDetails"
                   onChange={({ target: { value } }) => {
@@ -407,6 +404,7 @@ export default function CustomTab({ userDetails, updateDetails }) {
               </FormGroup>
 
               <FormGroup className style={styles.formGroup}>
+                <label>{labels.website}</label>
                 <TextInput
                   disabled={isCompanyAdmin() ? false : true}
                   label={"Company Website"}
@@ -483,7 +481,6 @@ export default function CustomTab({ userDetails, updateDetails }) {
 }
 
 const AvatarContainer = styled.div`
-  // border: 1px solid orange;
   display: flex;
   align-items: center;
   justify-content: center;

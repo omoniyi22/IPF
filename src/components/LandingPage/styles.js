@@ -4,10 +4,32 @@ import images from "../../assets/images";
 //Landing Header section
 
 const HeaderContainer = styled.div`
-  height: 30vh;
-  background-color: #2a4b5c;
+  height: 180px;
   display: flex;
-  padding: 0rem 1.4rem;
+  width: 100vw;
+  background: url("${images.logo}"), url("${images.indianFlag}"),
+    url("${images.naijaFlag}");
+  background-repeat: no-repeat;
+  background-size: 8rem;
+  background-position: center left 10px, center right 138px, center right 10px;
+  background-color: #2a4b5c;
+
+  @media (max-width: 768px) {
+    background-size: 50px;
+    height: 20vh;
+    background-position: center left 3%, center right 12%, center right 2%;
+  }
+
+  @media (max-width: 480px) {
+    background-size: 50px;
+    height: 20vh;
+    background-position: center left 3%, center right 23%, center right 2%;
+  }
+  justify-content: center;
+  display: flex;
+  align-items: center;
+
+  position: relative;
 `;
 
 const HeaderLogoContaienr = styled.div`
@@ -19,7 +41,34 @@ const HeaderLogoContaienr = styled.div`
 `;
 
 const HeaderContentContainer = styled.div`
-  width: 60%;
+  width: 70%;
+  margin: 0 auto;
+  padding: 0rem 3rem;
+  @media (max-width: 768px) {
+    width: 82%;
+  }
+`;
+
+const LoginButton = styled.div`
+  position: absolute;
+
+  right: 8.5rem;
+  font-size: 15px;
+  font-weight: 400;
+  @media (max-width: 768px) {
+    right: 1.5rem;
+    bottom: 1rem;
+    * {
+      font-size: 13px;
+      font-weight: 400;
+    }
+  }
+
+  @media (max-width: 992px) {
+    bottom: 0.4rem;
+
+    right: 3rem;
+  }
 `;
 
 const Image = styled.img`
@@ -31,8 +80,22 @@ const HeaderText = styled.h1`
   color: #fff;
   word-break: normal;
   text-align: center;
-  font-weight: bold;
-  font-size: 4rem;
+  font-weight: normal;
+  font-size: 3.1rem;
+  position: relative;
+  bottom: 0.8rem;
+
+  @media (max-width: 992px) {
+    font-size: 2.2rem;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.8rem;
+  }
+
+  @media (max-width: 500px) {
+    font-size: 1rem;
+  }
 `;
 
 //FOOTER
@@ -46,33 +109,46 @@ const FooterContainer = styled.div`
 
 const LandingContentContainer = styled.div`
   display: flex;
-  height: 60vh;
-  // padding: 0rem 1.4rem;
-  background: #fff;
+  width: 100%;
+  // background: #fff;
+
+  justify-content: space-between;
+  @media (max-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column-reverse;
+  }
 `;
 
 const ContentSectionA = styled.div`
-
   width: 40%;
-  padding : 0rem 0.9rem;
-  // background-image: url(${images.logo});
+  padding: 0rem 0.9rem;
+
+  filter: brightness(0.78);
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+  position: relative;
+`;
+
+const ContentSectionBackground = styled.div`
+  background-image: url(${images.logo});
+  position: absolute;
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-  filter: brightness(0.78);
+  opacity: 0.1;
+  top: 5.4rem;
+  width: 90%;
+  height: 90%;
 `;
 
-const ContentOffset = styled.div`
-  opacity: 1;
-`;
-
-const UL = styled.ul`
-  opacity: 1;
-`;
 const LI = styled.li`
   color: #000;
-  font-weight: bold;
+  font-weight: normal;
   font-size: 1.1rem;
+  font-family: "verdana";
 `;
 
 const CarouselSection = styled.div`
@@ -81,20 +157,42 @@ const CarouselSection = styled.div`
   box-shadow: 10px 10px 9px -5px rgba(117, 117, 125, 0.78);
   -webkit-box-shadow: 10px 10px 9px -5px rgba(117, 117, 125, 0.78);
   -moz-box-shadow: 10px 10px 9px -5px rgba(117, 117, 125, 0.78);
+  height: 100%;
+  @media (max-width: 768px) {
+    width: 100%;
+
+    .carousel {
+      height: 30vh;
+
+      img {
+        height: 30vh;
+        object-fit: cover;
+        width: 100%;
+      }
+    }
+  }
 `;
 
 const Login = styled.a`
   color: #fff !important;
-  font-weight: bold;
-  font-size: 1.4rem;
   position: relative;
-  top: 0.4rem;
+  bottom: 0.3rem;
+  padding: 0.4rem 1.2rem;
+  border-radius: 0.2rem;
   cursor: pointer;
+  left: 2rem;
+  background: #f58634;
 
   &:hover {
-    color: green !important;
+    /* color: green !important; */
+  }
+
+  @media (min-width: 768px) {
+    /* border: 1px solid red; */
   }
 `;
+
+const Span = styled.span``;
 
 export {
   HeaderContainer,
@@ -105,9 +203,10 @@ export {
   FooterContainer,
   LandingContentContainer,
   ContentSectionA,
-  UL,
-  ContentOffset,
   LI,
   CarouselSection,
   Login,
+  LoginButton,
+  ContentSectionBackground,
+  Span,
 };

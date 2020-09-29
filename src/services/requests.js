@@ -20,7 +20,27 @@ export async function getClassificationCall() {
   return authApi.get("/admin/industry-classification");
 }
 
+export async function getQualificationCall() {
+  const authApi = await attachApiToken(api);
+  return authApi.get("/admin/qualifications");
+}
+
 export async function getDashboardOverview() {
   const authApi = await attachApiToken(api);
   return authApi.get("/admin/dashboard-overview");
+}
+
+export async function forgotPasswordCall(data) {
+  return api.post("/auth/reset-password", data);
+}
+
+export async function resetPasswordCall(data) {
+  return api.patch(`/auth/password/reset/${data.id}/${data.token}`, {
+    password: data.password,
+  });
+}
+
+export async function getMyDetails() {
+  const authApi = await attachApiToken(api);
+  return authApi.get("/auth/details");
 }

@@ -2,7 +2,6 @@ import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 import styled from "styled-components";
-import { cloudinary } from "../config";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,7 +56,7 @@ export default function CustomAvatar({
         onClick={edit ? uploadWidget : () => {}}
         alt="Profile"
         src={avatar}
-        className={classes.large}
+        className={"company-logo"}
       />
       <IconContainer></IconContainer>
     </div>

@@ -21,7 +21,11 @@ function UserAction({ data, onClick }) {
             Block
           </span>
         </Dropdown.Item> */}
-        {/* <Dropdown.Item onClick={() => onClick('remove', data)}><span className="text-danger" style={{fontWeight:'bold'}}>Remove</span></Dropdown.Item> */}
+        <Dropdown.Item onClick={() => onClick("remove", data)}>
+          <span className="text-danger" style={{ fontWeight: "bold" }}>
+            Remove
+          </span>
+        </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
   );

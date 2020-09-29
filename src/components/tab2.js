@@ -7,10 +7,11 @@ import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import MuiAlert from "@material-ui/lab/Alert";
 import React, { Fragment } from "react";
+import { connect } from "react-redux";
+import * as actions from "../redux/actions";
 import { isEmailValid } from "../utils/app";
 import { TextInput } from "./components";
 import PhoneNumber from "./General/phoneInput";
-
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -32,8 +33,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-
-export default function CustomTab2({ userDetails, saveMember }) {
+function CustomTab2({ userDetails, saveMember, showLoader }) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [members, setMembers] = React.useState();
@@ -82,10 +82,6 @@ export default function CustomTab2({ userDetails, saveMember }) {
   React.useEffect(() => {
     initiateState();
   }, [initiateState]);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
 
   const renderGroup = (
     valueA,
@@ -276,22 +272,29 @@ export default function CustomTab2({ userDetails, saveMember }) {
     }
 
     const updateData = {
-      email,
+      email: emailAddress,
       firstName,
       lastName,
       phoneNumber,
-      emailAddress,
+      company_id: user["company_id"],
+      role: user["nrole"],
     };
+
+    showLoader(true);
     saveMember(updateData)
       .then((res) => {
+        showLoader(false);
         handleClick("Member Registration Successful", "success");
       })
       .catch((error) => {
+        showLoader(false);
         if (error.response.data.error) {
-          return handleClick(error.response.data.error, "error");
+          return handleClick(error.response.data.message, "error");
         }
 
         return handleClick("Unsuccessful. Try again", "error");
       });
   }
 }
+
+export default connect(null, actions)(CustomTab2);

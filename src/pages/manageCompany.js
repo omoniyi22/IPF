@@ -20,16 +20,6 @@ const Profile = ({
   isLoading,
   history,
 }) => {
-  //   const initiateState = React.useCallback(() => {
-  //     const getDetails = () => {
-  //       //   getUserDetails();
-  //     };
-  //     // getDetails();
-  //   }, []);
-  //   React.useEffect(() => {
-  //     initiateState();
-  //   }, [initiateState]);
-
   function updateAccountDetails(data) {
     isLoading(true);
     updateDetails(data);

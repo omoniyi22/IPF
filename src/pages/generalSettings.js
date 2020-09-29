@@ -143,7 +143,7 @@ function Settings() {
   async function addIndustryType(data) {
     try {
       const authApi = await attachApiToken(api);
-      await authApi.post("/api/v1/admin/industry-type", {
+      await authApi.post("/admin/industry-type", {
         industry_name: data.industry_name,
       });
     } catch (error) {}
@@ -151,7 +151,8 @@ function Settings() {
 
   async function editIndustryType(data) {
     try {
-      await axios.patch("/admin/industry-type", {
+      const authApi = await attachApiToken(api);
+      await authApi.patch("/admin/industry-type", {
         industry_name: data.industry_name,
         id: data.id,
       });
@@ -336,7 +337,7 @@ function Settings() {
                 className="mt-3"
                 style={{ color: "#089242", fontWeight: "bold" }}
               >
-                Manage Position
+                Manage IPF Position
               </h5>
               <MaterialTableDemo
                 title={""}

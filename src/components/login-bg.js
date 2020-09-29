@@ -11,6 +11,7 @@ const FooterLogoContainer = styled.div`
 const FooterLogo = styled.img`
   width: 46.51px;
   height: 35px;
+  margin: 0.2rem;
 `;
 const CustomIntro = styled.p`
   font-style: normal;

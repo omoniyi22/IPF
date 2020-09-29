@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
-import nigeria from "../assets/nigeria.png";
-
-import india from "../assets/india.png";
+import images from "../assets/images";
+import { FooterLogoContainer, FooterLogo } from "../components/login-bg";
 class SideMenu extends Component {
   logout = (e) => {
     e.preventDefault();
-    localStorage.removeItem("x-access-token");
-    window.location.reload();
+    localStorage.clear();
+    this.props.history.push("/login");
   };
   render() {
     return (
@@ -24,7 +23,7 @@ class SideMenu extends Component {
             </Link>
           </li>
           <li className="list-item">
-            <Link to="/events">
+            <Link to="/admin/events">
               <span>
                 {" "}
                 <i className="material-icons">date_range</i>
@@ -34,7 +33,7 @@ class SideMenu extends Component {
             </Link>
           </li>
           <li className="list-item">
-            <Link to="/user/dashboard/profile-update">
+            <Link to="/admin/dashboard/profile-update">
               <span>
                 {" "}
                 <i className="material-icons">account_circle</i>
@@ -52,7 +51,7 @@ class SideMenu extends Component {
             </Link>
           </li>
           <li className="list-item">
-            <Link to="/payment">
+            <Link to="/admin/payment">
               <span>
                 {" "}
                 <i className="material-icons">payment</i>
@@ -124,8 +123,10 @@ class SideMenu extends Component {
           </li>
         </ul>
         <div className="d-flex mt-3 justify-content-center">
-          <img src={india} alt="flag" />
-          <img src={nigeria} alt="flag" />
+          <FooterLogoContainer>
+            <FooterLogo src={images.indianFlag} alt="flag" />
+            <FooterLogo src={images.naijaFlag} alt="flag" />
+          </FooterLogoContainer>
         </div>
       </>
     );
