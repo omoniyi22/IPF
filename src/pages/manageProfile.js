@@ -620,16 +620,6 @@ class ManageProfile extends Component {
                 </div>
               )}
 
-              <div className="col-lg-6">
-                <label>IPF Position</label>
-                <TextInput
-                  disabled
-                  name={"position"}
-                  onChange={this.handleOnChange}
-                  value={this.state.position || "Member"}
-                />
-              </div>
-
               <div className="row">
                 <div className="col-lg-6">
                   <label>Company Website</label>
@@ -639,6 +629,24 @@ class ManageProfile extends Component {
                     value={this.state.website}
                   />
                 </div>
+                <div className="col-lg-6">
+                  <label>Company Designation</label>
+                  <TextInput
+                    name={"company_designation"}
+                    onChange={this.handleOnChange}
+                    value={this.state.company_designation}
+                  />
+                </div>
+              </div>
+
+              <div className="col-lg-6">
+                <label>IPF Position</label>
+                <TextInput
+                  disabled
+                  name={"position"}
+                  onChange={this.handleOnChange}
+                  value={this.state.position || "Member"}
+                />
               </div>
 
               <div className="my-4 text-center w-100">
