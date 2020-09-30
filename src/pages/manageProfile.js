@@ -83,6 +83,7 @@ class ManageProfile extends Component {
         state,
         industryType,
         industryClassification,
+        gender,
       } = this.state;
       if (!phoneNumberRegx.test(phoneNumber)) {
         return this.handleFireSnackbar("Phone Number is not valid", "error");
@@ -122,6 +123,10 @@ class ManageProfile extends Component {
           "Please add your date of birth",
           "error"
         );
+      }
+
+      if (!gender) {
+        return this.handleFireSnackbar("Please add your gender", "error");
       }
 
       if (!street1) {

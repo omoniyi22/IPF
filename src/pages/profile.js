@@ -100,6 +100,7 @@ class ManageProfile extends Component {
         avatar,
         passport,
         qualifications,
+        gender,
       } = this.state;
       if (
         !phoneNumberRegx.test(phoneNumber) ||
@@ -120,6 +121,10 @@ class ManageProfile extends Component {
           "Please add your profile picture",
           "error"
         );
+      }
+
+      if (!gender) {
+        return this.handleFireSnackbar("Please add your gender", "error");
       }
 
       if (this.state.passport && this.state.passport.length !== 8) {
