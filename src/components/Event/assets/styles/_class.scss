@@ -1,0 +1,52 @@
+.pointer {
+  cursor: pointer;
+}
+.heart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.my-col-2 {
+  font-family: metro !important;
+  width: 12%;
+  min-width: 144px;
+}
+.sm-hide {
+  display: block;
+}
+.sm-show {
+  display: none !important;
+}
+.flex {
+  display: flex;
+}
+.fit {
+  width: fit-content;
+}
+.flex-2 {
+  flex: 2;
+}
+.font-light {
+  font-family: rali;
+}
+.sm-show-flex {
+  display: none;
+}
+.hide_over {
+  overflow: hidden;
+}
+@media (max-width: 1000px) {
+  .sm-show-flex {
+    display: flex !important;
+  }
+  .sm-flex {
+    display: flex;
+  }
+  .sm-hide {
+    display: none !important;
+  }
+  .sm-show {
+    display: block !important;
+  }
+}

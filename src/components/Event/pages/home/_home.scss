@@ -1,0 +1,118 @@
+.upcoming_text {
+  margin-bottom: 10px;
+}
+.my_events_card {
+  max-width: 660px;
+}
+
+.home_3 {
+  margin-top: 40px;
+  display: flex;
+  .home_header {
+    width: fit-content;
+    margin-right: 4px;
+    margin-left: 4px;
+    margin-left: auto;
+    .awls {
+      padding-bottom: 7px;
+      .view_all,
+      .other_Events {
+        font-size: 14px;
+      }
+      .true {
+        transition-duration: 300ms;
+        color: #fa6400;
+      }
+    }
+    .lines {
+      background: #e4dcd773;
+      .lines_move {
+        transition-duration: 300ms;
+        margin-right: auto;
+        padding: 1.3px;
+      }
+      .true {
+        background: #fa6400;
+      }
+      .false {
+        background: #fa6400;
+        margin-left: 50%;
+      }
+    }
+  }
+  .download {
+    margin-top: -18px;
+    font-size: 14px;
+    margin-left: 10px;
+    .download_icon {
+      background-repeat: no-repeat;
+      height: 20px;
+      width: 20px;
+      background-image: url("./../../assets/medias/download_icon.png");
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  .home_2,
+  .home_3 {
+    display: block !important;
+    .upcoming_text {
+      font-size: 19px;
+      margin-bottom: 10px;
+    }
+  }
+  .home_3 {
+    .home_header {
+      width: fit-content;
+      margin-right: 4px;
+      margin-left: 4px;
+      .awls {
+        padding-bottom: 7px;
+        .view_all,
+        .other_Events {
+          font-size: 12.5px;
+        }
+        .true {
+          transition-duration: 300ms;
+          color: #fa6400;
+        }
+      }
+      .lines {
+        background: #e4dcd773;
+        .lines_move {
+          transition-duration: 300ms;
+          margin-right: auto;
+          padding: 0.76px;
+        }
+        .true {
+          background: #fa6400;
+        }
+        .false {
+          background: #fa6400;
+          margin-left: 50%;
+        }
+      }
+    }
+    .download {
+      margin-left: auto;
+
+      margin-top: -20px;
+      font-size: 12px;
+      .download_icon {
+        background-repeat: no-repeat;
+        height: 20px;
+        width: 20px;
+        background-image: url("./../../assets/medias/download_icon.png");
+      }
+      .drop {
+        bottom: -530px !important;
+        height: 10px;
+        position: absolue !important;
+        left: -50px !important;
+        width: 200px;
+        // left: 0;
+      }
+    }
+  }
+}
