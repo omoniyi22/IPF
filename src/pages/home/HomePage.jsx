@@ -11,10 +11,16 @@ class HomePage extends Component {
       position: true
     }
     this.move = this.move.bind(this)
+    this.moveOut = this.moveOut.bind(this)
   }
   move() {
     this.setState({
-      position: !this.state.position
+      position: true
+    })
+  }
+  moveOut() {
+    this.setState({
+      position: false
     })
   }
   render() {
@@ -36,16 +42,16 @@ class HomePage extends Component {
             </div>
           </div>
           <div className=" home_3 mx- pt-5 pb-3">
-            <div className="upcoming_text mb-4 ml-1">
+            <div className="upcoming_text mb-4 ml-2">
               Events
             </div>
-            <div className="home_3b flex-2 flex mt-1">
+            <div className="home_3b flex-2 flex mt-1 mb-2">
               <div className=" home_header ">
                 <div className="flex awls small font-weight-light">
-                  <div className={`other_Events px-2  ${this.state.position}`} onClick={this.move}>
+                  <div className={`other_Events px-2 pnt ${this.state.position}`} onClick={this.move}>
                     Other Events
                   </div>
-                  <div className={`view_all px-3 ${!this.state.position}`} onClick={this.move}>
+                  <div className={`view_all px-3 pnt ${!this.state.position}`} onClick={this.moveOut}>
                     All Events
                 </div>
                 </div>

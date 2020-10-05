@@ -34,17 +34,17 @@ class App extends Component {
                 DASHBOARD
               </div>
               <div className="flex-2 down_ed  pr-md-5 mr-md-5">
-                <span className="font-light">Membership Status:</span><span className="smaller"> ACTIVE</span>
+                <span className="font-light">Membership Status:</span><span className="smaller pl-1"> ACTIVE</span>
               </div>
             </div>
-            <div className="blacko h-100 sticky">
-              <div className={`sort_nav mt-0 p-0 pb-1 mx-0 over_hide  sticker text-center ${show}`}>
-                <div className="falo">
+            <div className="blacko h-100 sticky z-depth-1">
+              <div className={`sort_nav mt-0 p-0 pb-1 mx-0 over_hide sticker text-center ${show}`}>
+                <div className="falo ">
                   <NavOptions />
                 </div>
               </ div>
             </div>
-            <div className="heart   show-more sm-show py-3  pointer" onClick={this.onShow}>
+            <div className="heart  z-depth-1 show-more sm-show py-3   pointer" onClick={this.onShow}>
               <div className="rali mr-1 ralo"> Show More</div> <div className="fa fa-angle-down" />
             </div>
           </div>

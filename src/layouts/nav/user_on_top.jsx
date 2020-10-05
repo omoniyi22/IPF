@@ -7,12 +7,12 @@ class Nav_Options extends Component {
       <>
         <div>
           <div className="user_on_top">
-            <div className="logo_img">
-              <div className="LOGO" />
+            <div className="logo_img z-depth-1 p-1">
+              <div className="LOGO mt-2" />
             </div>
             <div className="user_brief   flex">
               <div className="brief  ml-auto">
-                <div className="user_pix  rounded-pill p-4 ml-auto sm-hide my-auto" style={{ backgroundImage: `url(${require('./../../assets/medias/user.png')})` }} />
+                <div className="user_pix z-depth-2  rounded-pill p-4 ml-auto sm-hide my-auto" style={{ backgroundImage: `url(${require('./../../assets/medias/user.png')})` }} />
                 <div className="data  my-auto text-white mx-2 mr-md-5">
                   <div className="name font-weight-bold">
                     Andrew John
@@ -21,7 +21,7 @@ class Nav_Options extends Component {
                     andrewjohn@gmail.com
                 </div>
                 </div>
-                <div className="user_pix   rounded-pill p-4 sm-show" style={{ backgroundImage: `url(${require('./../../assets/medias/user.png')})` }} />
+                <div className="user_pix z-depth-2   rounded-pill p-4 sm-show" style={{ backgroundImage: `url(${require('./../../assets/medias/user.png')})` }} />
               </div>
               <div className="user_buttons  p-2 flex fit  text-center text-white">
                 <div className="alarms  my-auto">
@@ -46,7 +46,7 @@ class Nav_Options extends Component {
             </div>
           </div>
         </div>
-        <div className="flex text-center sm-hide  member_status text-white py-3 sticky">
+        <div className="flex text-center sm-hide z-depth-1  member_status text-white py-3 sticky">
           <div className="my-col-2 mt-1   tone m-0">
             DASHBOARD
             </div>

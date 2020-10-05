@@ -26,13 +26,16 @@ body {
 .text_inherit {
   color: inherit !important;
 }
-
+.ri{
+  border-right: 1px solid #08A85D;
+}
 .sort_app {
   display: flex;
   .blacko {
     height: 100% !important;
     width: 170px;
     background: #46616e;
+    
   }
   .sort_nav {
     .falo {
@@ -61,6 +64,10 @@ body {
   }
 }
 @media (max-width: 1000px) {
+  .ri{
+  border-right: 0px solid #08A85D;
+  border-left: 0px solid #08A85D;
+}
   .sort_page {
     padding-left: 0% !important;
     padding-right: 0% !important;
@@ -70,6 +77,8 @@ body {
   .sort_app {
     display: block;
     .blacko {
+    border-right: none;
+
       width: fit-content;
       background: #446162;
     }
@@ -96,6 +105,19 @@ body {
         visibility: visible;
       }
     }
+    .member_status{
+      padding-top: 10px !important;
+      padding-bottom: 10px !important;
+      .tone{
+        font-size: 11px !important;
+      }
+      .down_ed{
+        font-size: 13px !important;
+      }
+      .smaller{
+        font-size: 12px;
+      }
+    }
     .true {
       max-height: 260px !important;
       overflow: hidden;
@@ -105,9 +127,11 @@ body {
     }
     .show-more {
       display: flex !important;
+      padding-top: 10px !important;
+      padding-bottom: 10px !important;
       color: white;
       .rali {
-        font-size: 13px;
+        font-size: 12px;
       }
       .fa {
         margin-top: 2px;

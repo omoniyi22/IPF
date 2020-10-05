@@ -16,7 +16,7 @@ class Event_Table extends Component {
               12th Semptember, 2020
           </div>
           </div>
-          <div className="numn flex ">
+          <div className="numn border-top flex ">
             <div className="members">
               20 Members
             </div>
@@ -25,7 +25,7 @@ class Event_Table extends Component {
             </div>
           </div>
         </div>
-        <div className="manage my-auto mr-3 border text-white rounded-pill">
+        <div className="manage my-auto mr-3 border text-white rounded-pill z-depth-1 btn text-capitalize">
           Manage
         </div>
       </div>
