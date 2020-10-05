@@ -23,7 +23,7 @@ import ManageUserProfile from "./pages/manageProfile";
 
 
 //New Route
-import MyRoute from './New_App'
+import MyRoute from './new_App'
 
 
 function Root() {
