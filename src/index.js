@@ -1,14 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from "./components/Event/App";
-import store from './components/Event/store/store'
+// import App from "./components/Event/App";
+import { Switch } from 'react-router-dom'
+import RootApp from "./App";
+// import store from './components/Event/store/store'
+import store from './redux/store'
 import { Provider } from 'react-redux'
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+        <RootApp />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

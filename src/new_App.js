@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import './assets/styles/app.scss'
-import Home from './pages/home/index'
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { connect } from 'react-redux'
+
+
 
 // NAVS
 import UserOnTop from './layouts/nav/user_on_top'
@@ -24,7 +25,7 @@ class App extends Component {
   render() {
     let { show } = this.state
     return (
-      <Router>
+      <>
         <UserOnTop />
         <div className="sort_app ">
           <div className="sticker over_hide ">
@@ -48,16 +49,19 @@ class App extends Component {
             </div>
           </div>
           <div className="sort_page flex-2 mx-auto mt-md-5 mt-4">
-            <Switch>
-              <Route path="/" component={Home} />
-            </Switch>
+            {this.props.component}
           </div>
         </div>
         {/* {this.props.nav && <Footer />} */}
-      </Router>
+      </>
     );
   }
 }
+
+
+const MyRoute = ({ component: Component,  path }) => (
+  <Route path={path} render={(props) => (<App component={<Component/>} />)} />
+);
 
 const mapStateToProps = (state) => ({
   // auth: state.auth.isAuthenticated,
@@ -66,4 +70,4 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps
-)(App);
+)(MyRoute);

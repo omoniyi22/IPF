@@ -21,16 +21,7 @@ const isAdmin = () => {
 };
 
 const AuthRoute = ({ component: Component, authenticated, ...rest }) => (
-  <Route
-    {...rest}
-    render={(props) =>
-      isAuthenticated() ? (
-        <Component {...props} />
-      ) : (
-        <Redirect to="/landing" {...props} />
-      )
-    }
-  />
+  <Route {...rest} render={(props) => isAuthenticated() ? ( <Component {...props} />) : (<Redirect to="/landing" {...props} /> ) }/>
 );
 
 export const AdminRoute = ({

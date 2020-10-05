@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import EventCard from '../../components/Cards/EventCard'
 import LandingCard from '../../components/Cards/LandingCard'
-import EventTable from './../../components/Tables/Event/Event'
+import EventTable from '../../components/Tables/Event/Event'
 
 class HomePage extends Component {
   constructor(props) {
