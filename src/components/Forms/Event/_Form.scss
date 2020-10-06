@@ -1,0 +1,369 @@
+.lso {
+  label {
+    margin-top: 1px !important;
+  }
+}
+.eppe {
+  background: #fb8a30;
+  color: white !important;
+}
+.form_1 {
+  input,
+  textarea,
+  select {
+    background-color: #f5f3f3;
+    padding: 0 !important;
+    border-radius: 2px !important;
+    font-size: 13px !important;
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+  }
+  .form_title {
+    font-size: 18px;
+    text-align: left;
+    margin-bottom: 10px;
+  }
+  .real_form {
+    font-size: 13px;
+    .tex {
+      margin-bottom: 6px;
+    }
+    input {
+      flex: 2;
+      max-width: 100%;
+    }
+    .first_form_row {
+      width: 100%;
+      display: flex;
+      .input {
+        display: flex;
+      }
+      .col_1 {
+        min-width: 50%;
+        padding-right: 10px;
+      }
+      .col_3 {
+        max-width: 50%;
+      }
+    }
+  }
+  .first_form_row:nth-of-type(2) {
+    margin-top: 15px;
+
+    display: flex;
+    .col_1 {
+      width: 50%;
+      textarea {
+        height: 100px;
+      }
+    }
+    .col_2 {
+      flex: 1;
+      .attacher {
+        .attach {
+          height: 50px;
+          flex: 2;
+          margin-right: 10px;
+        }
+        .attached {
+          width: 110px;
+          margin-top: auto;
+          height: 36px;
+        }
+      }
+    }
+  }
+  .tir_form_row {
+    margin-top: 13px;
+    margin-bottom: 19px;
+    input {
+      margin-top: 4px;
+      margin-right: 8px;
+    }
+    .col_1 {
+      display: flex;
+    }
+  }
+  .for_form_row {
+    .col_1 {
+      textarea {
+        height: 110px;
+        padding-top: 7px !important;
+      }
+      input {
+        margin-left: auto !important;
+      }
+    }
+  }
+  .fiv_form_row {
+    margin-top: 13px;
+    padding-bottom: 10px;
+    .col_1 {
+      .two_input {
+        display: flex;
+        height: 42px;
+        justify-content: space-between;
+
+        .cag {
+          background-color: #f5f3f3;
+          width: 48px;
+          height: 39px;
+          margin-left: -57px;
+          margin-top: 1px;
+          font-size: 18px;
+          color: rgb(138, 137, 137);
+        }
+      }
+      .btn {
+        margin: 0 !important;
+        padding: 0 !important;
+        .gac {
+          font-size: 17px;
+          padding: 0 20px;
+        }
+      }
+    }
+  }
+  .six_form_row {
+    width: 100% !important;
+    max-width: 250px;
+    margin-top: 20px;
+    display: flex;
+    .inner {
+      color: #000 !important;
+      height: 34px;
+      width: 100%;
+      button {
+        .fa-eye,
+        .fa-times {
+          padding-left: 14px;
+          height: 29px !important;
+        }
+        .fa-times {
+          color: #fb8a30;
+        }
+        .text.f {
+          color: #fb8a30;
+        }
+        .text {
+          height: 29px !important;
+          font-size: 12px;
+          margin-top: 1px;
+          margin-right: 10px !important;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  .lso {
+    label {
+      margin-top: 1px !important;
+    }
+  }
+  .eppe {
+    background: #fb8a30;
+    color: white !important;
+  }
+  input {
+    height: 40px !important;
+  }
+  .form_1 {
+    input,
+    textarea,
+    select {
+      background-color: #f5f3f3;
+      padding: 0 !important;
+      border-radius: 2px !important;
+      font-size: 12px !important;
+      padding-left: 6px !important;
+      padding-right: 6px !important;
+    }
+    .form_title {
+      font-size: 19px;
+      margin-top: -10px;
+      text-align: left;
+      margin-bottom: 10px;
+    }
+    .real_form {
+      font-size: 13px;
+      .tex {
+        margin-bottom: 6px;
+      }
+      input {
+        flex: 2;
+        max-width: 100%;
+      }
+      .first_form_row {
+        width: 100%;
+        display: block;
+        .input {
+          display: flex;
+        }
+        .col_1 {
+          min-width: 50%;
+          padding-right: 0px;
+        }
+        .flex {
+          display: block;
+        }
+        .col_2 {
+          margin-top: 3px;
+          padding: 12px 0 !important;
+        }
+        .col_3 {
+          margin-right: auto;
+          margin-left: 0 !important;
+          padding: 4px 0 !important;
+          select {
+            min-width: 100px;
+          }
+          select:nth-of-type(2) {
+            min-width: 70px;
+          }
+        }
+      }
+    }
+    .first_form_row:nth-of-type(2) {
+      margin-top: 15px;
+
+      display: block;
+      .col_1 {
+        width: 100%;
+        textarea {
+          height: 110px;
+        }
+      }
+      .col_2 {
+        max-width: 210px;
+        flex: 1;
+        margin-top: 4px;
+        .attacher {
+          .attach {
+            height: 50px;
+            flex: 2;
+            margin-right: 10px;
+            margin-bottom: 10px;
+          }
+          .attached {
+            width: 110px;
+            margin-top: auto;
+            display: flex;
+            height: 36px;
+            border: none !important;
+          }
+          .flex-2 {
+            border-style: dashed !important;
+          }
+          .fa {
+          }
+        }
+      }
+    }
+    .tir_form_row {
+      margin-top: 10px;
+      margin-bottom: 19px;
+      input {
+        margin-top: 4px;
+        margin-right: 8px;
+      }
+      .col_1 {
+        display: flex;
+      }
+    }
+    .for_form_row {
+      .col_1 {
+        textarea {
+          padding-top: 5px !important;
+          height: 110px;
+        }
+        input {
+          margin-left: auto !important;
+        }
+      }
+    }
+    .fiv_form_row {
+      margin-top: 13px;
+      padding-bottom: 10px;
+      .col_1 {
+        margin-top: 10px;
+        .two_input {
+          .w-50{
+            padding-right: 0 !important;
+          }
+          input {
+            padding-top: 9px !important;
+          }
+          display: flex;
+          height: 42px;
+          flex-direction: column;
+          .w-50 {
+            width: 100% !important;
+            margin-bottom: 12px;
+          }
+          justify-content: space-between;
+          .allss {
+            width: 100% !important;
+            margin-bottom: 12px;
+            height: 46px;
+            padding-left: 0 !important;
+          }
+          input {
+          }
+          .cag {
+            background-color: #f5f3f3;
+            width: 48px;
+            height: 38px;
+            margin-left: -57px;
+            margin-top: 1px;
+            margin-bottom: 1px;
+            font-size: 18px;
+            color: rgb(138, 137, 137);
+          }
+        }
+        .btn {
+          margin: 0 !important;
+          padding: 0 !important;
+          .gac {
+            font-size: 17px;
+            padding: 0 20px;
+            .text {
+              font-size: 10px !important;
+            }
+          }
+        }
+      }
+    }
+    .six_form_row {
+      .eppes {
+        margin-left: 10px !important;
+      }
+      width: 100% !important;
+      max-width: 250px;
+      margin-top: 74px;
+      display: flex;
+      flex-direction: row-reverse;
+      margin-left: 0 !important;
+      .inner.text-eh .inner {
+        color: #000 !important;
+        height: 34px;
+        width: 100%;
+
+        button {
+          .fa-eye,
+          .fa-times {
+            padding-left: 14px;
+            height: 29px !important;
+          }
+          .text {
+            height: 29px !important;
+            font-size: 12px;
+            margin-top: 1px;
+            margin-right: 10px !important;
+          }
+        }
+      }
+    }
+  }
+}

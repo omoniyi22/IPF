@@ -59,8 +59,8 @@ class App extends Component {
 }
 
 
-const MyRoute = ({ component: Component,  path }) => (
-  <Route path={path} render={(props) => (<App component={<Component/>} />)} />
+const MyRoute = ({ component: Component, path, exact }) => (
+  <Route exact={exact} path={path} render={(props) => (<App component={<Component />} />)} />
 );
 
 const mapStateToProps = (state) => ({

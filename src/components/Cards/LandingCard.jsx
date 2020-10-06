@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {Link} from 'react-router-dom'
 class LandingCard extends Component {
   render() {
     return (
@@ -11,9 +12,9 @@ class LandingCard extends Component {
             <div className="msg">
               To get started, start by creating your first event
           </div>
-            <div className="btn m-0 sm-btn mt-1 text-capitalize">
+            <Link to="/create-event" className="btn m-0 sm-btn mt-1 text-capitalize">
               <span className="fa fa-plus mr-1" />  Create Event
-            </div>
+            </Link>
           </div>
         </div>
         <div className="svg ">
