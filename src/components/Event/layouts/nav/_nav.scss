@@ -1,0 +1,188 @@
+.user_on_top {
+  font-family: metro;
+  padding: 4px 22px 4px 22px;
+  background: #0f2f3edf;
+  display: flex;
+  .logo_img {
+    .LOGO {
+      height: 90px;
+      width: 87px;
+      background-size: 100% 100%;
+      background-image: url("./../../assets/medias/IPF_Logo.png");
+    }
+  }
+  .user_brief {
+    flex: 2;
+    .brief {
+      display: flex;
+      .data {
+        div {
+          font-size: 13px;
+          font-family: metro;
+        }
+        .email {
+          font-size: 12px;
+          font-weight: light;
+          color: rgba(255, 255, 255, 0.726);
+        }
+      }
+      .user_pix {
+        height: 50px;
+        width: 54px;
+        background-size: 100% 100% !important;
+      }
+      .pix {
+        background-size: 100% 100% !important;
+      }
+    }
+    .user_buttons {
+      .user_buttons_img {
+        filter: brightness(120%);
+        margin-left: auto;
+        margin-right: auto;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 24px;
+        width: 24px;
+        font-size: 12px;
+      }
+      .alarms,
+      .settings,
+      .powers {
+        margin: 0 9px;
+      }
+      .alarms {
+        .user_buttons_img {
+          background-size: 115% 115%;
+        }
+      }
+      .user_buttons_text {
+        margin-top: 4px;
+        font-family: metro;
+        font-size: 10.4px;
+      }
+    }
+  }
+}
+.member_status {
+  background-color: rgb(8, 168, 93);
+  div {
+    font-family: metro !important;
+  }
+  .my-col-2 {
+    font-family: metro !important;
+    width: 10%;
+    min-width: 127px;
+  }
+}
+.sticky {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 5 !important;
+}
+.sticker {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 56px !important;
+  z-index: 2;
+}
+.nav_options {
+
+  .nav_button {
+    width: 100%;
+    transition-duration: 0.2s;
+    font-size: 13px !important;
+    font-family: metro !important;
+    div {
+      font-family: metro !important;
+    }
+    padding: 18px 9px;
+    background: rgb(68, 97, 110);
+    padding-left: 20px;
+    cursor: pointer;
+  }
+  .nav_button:first-of-type {
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+  .changed_nav {
+    background: rgba(255, 255, 255, 0.493);
+    color: rgba(0, 109, 58, 0.842);
+  }
+}
+.tone {
+  font-size: 12px;
+  text-align: left;
+  padding-left: 18px;
+  font-weight: bold;
+}
+.smaller {
+  font-size: 14px;
+}
+.sticky {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 0 !important;
+}
+@media (max-width: 1000px) {
+  .sticker {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 0px !important;
+}
+  .data {
+    margin-left: auto !important;
+  }
+  .user_brief {
+    margin-left: auto !important;
+    display: block !important;
+    .brief {
+      margin-top: 10px;
+      margin-bottom: 10px !important;
+    }
+  }
+  .user_buttons {
+    margin-left: auto !important;
+    justify-content: center;
+  }
+  .powers {
+    margin-right: 0 !important;
+  }
+  .user_buttons_img {
+    height: 22px !important;
+    width: 22px !important;
+  }
+  .tone {
+    font-size: 12px;
+    margin-right: 10px;
+    font-weight: bold;
+  }
+  .down_ed {
+    font-size: 15px !important;
+    padding-right: 10px !important;
+    margin-right: 10px !important;
+  }
+  .nav_options {
+    padding: 10px;
+    position: relative !important;
+    .nav_button:first-of-type {
+      padding-bottom: 12px;
+      padding-top: 12px;
+    }
+    .nav_button {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      display: inline-flex;
+      margin: 0.5%;
+      margin-top: 2px;
+      margin-bottom: 2px;
+      width: 49%;
+      .rounded_point {
+        justify-content: center;
+        margin-top: 4px !important;
+        margin-right: 9px;
+      }
+    }
+  }
+}

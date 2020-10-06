@@ -1,0 +1,166 @@
+.EventCard {
+  max-width: 310px;
+  border-radius: 6px;
+}
+.EventCard {
+  overflow: hidden;
+  border-radius: 13px;
+  box-shadow: 7px 16px 30px rgba(0, 0, 0, 0.1);
+  margin-left: 0 !important;
+  .card_pix {
+    height: 150px;
+    background-position: center;
+    background-size: 110% 100%;
+    background-repeat: no-repeat;
+  }
+  .EC_content {
+    padding: 15px;
+    margin-top: 4px;
+    .EC_title {
+      font-weight: bold;
+      font-size: 18px;
+    }
+    .EC_date {
+      margin: 4px 0;
+      font-weight: lighter;
+      font-size: 15px;
+    }
+    .EC_members {
+      font-weight: lighter;
+      font-size: 16px;
+      margin: 4px 0;
+    }
+    .EC_down {
+      margin: 5px 0;
+      button {
+        margin-top: 8px;
+        border: 0 !important;
+        width: 50% !important;
+        padding: 12px !important;
+        font-size: 12px;
+        width: 40%;
+        background: #2a4b5a;
+        color: white;
+      }
+      .circum:nth-of-type(3) {
+        margin-right: 0;
+        background-size: 156% 166%;
+        background-repeat: no-repeat;
+        background-position-x: -7px;
+        background-repeat: no-repeat;
+      }
+      .circum:nth-of-type(1) {
+        background: url("./../../assets/medias/circum_2.png");
+        background-size: 169% 170%;
+        background-repeat: no-repeat;
+        background-position-x: -12px;
+        background-repeat: no-repeat;
+      }
+      .circum:nth-of-type(2) {
+        background: url("./../../assets/medias/circum_1.png");
+        background-size: 167% 176%;
+        background-repeat: no-repeat;
+        background-position-x: -9px;
+        background-repeat: no-repeat;
+      }
+      .circum {
+        // background-size: 167% 176%;
+        background-repeat: no-repeat;
+        background-position-x: -9px;
+        background-repeat: no-repeat;
+
+        margin-right: -12px;
+        height: 99%;
+        width: 38.6px;
+        .fa-angle-right {
+          font-size: 15px;
+          color: rgb(55, 77, 85);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  .EventCard {
+    max-width: 310px;
+    border-radius: 6px;
+  }
+  .EventCard {
+    overflow: hidden;
+    border-radius: 13px;
+    box-shadow: 7px 16px 30px rgba(0, 0, 0, 0.1);
+    margin-left: 0 !important;
+    .card_pix {
+      height: 110px;
+    }
+    .EC_content {
+      padding: 7px;
+      .EC_title {
+        font-size: 15px;
+        color: rgba(0, 0, 0, 0.602);
+      }
+      .EC_date {
+        margin: 1px 0;
+        font-size: 12px;
+        font-weight: lighter;
+      }
+      .EC_members {
+        margin-top: 1px;
+        margin-bottom: 3px;
+        font-weight: lighter;
+        font-size: 13px;
+      }
+      .EC_down {
+        margin-bottom: 4px;
+        button {
+          padding: 8px 7px 8px 7px !important;
+          font-weight: lighter !important;
+          padding: 6px;
+          background: #2a4b5a;
+          color: white;
+          font-weight: lighter;
+          font-size: 11px;
+          border: 1px white solid;
+        }
+        .circle-box {
+          .circum:nth-of-type(3) {
+            margin-right: 0;
+            background-size: 156% 166%;
+            background-repeat: no-repeat;
+            background-position-x: -7px;
+            background-repeat: no-repeat;
+          }
+          .circum:nth-of-type(1) {
+        background: url("./../../assets/medias/circum_2.png");
+            background-size: 156% 166%;
+            background-repeat: no-repeat;
+            background-position-x: -7px;
+            background-repeat: no-repeat;
+          }
+          .circum:nth-of-type(2) {
+            background: url("./../../assets/medias/circum_1.png");
+            background-size: 156% 166%;
+            background-repeat: no-repeat;
+            background-position-x: -7px;
+            background-repeat: no-repeat;
+          }
+          .circum {
+            background-size: 156% 166%;
+            background-repeat: no-repeat;
+            background-position-x: -7px;
+            background-repeat: no-repeat;
+
+            margin-right: -12px;
+            height: 99%;
+            width: 29px;
+            .fa-angle-right {
+              font-size: 15px;
+              color: rgb(55, 77, 85);
+            }
+          }
+        }
+      }
+    }
+  }
+}

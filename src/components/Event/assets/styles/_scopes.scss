@@ -1,0 +1,17 @@
+//Layouts
+@import "./../../layouts/nav/nav";
+
+
+
+//components
+//_Cards_
+@import "./../../components/Cards/landingCard";
+@import "./../../components/Cards/eventCard";
+
+//_Tables_
+@import "./../../components/Tables/Event/event";
+
+
+//pages
+//_Home_
+@import "./../../pages/home/home";
