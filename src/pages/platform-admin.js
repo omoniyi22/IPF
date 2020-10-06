@@ -107,13 +107,13 @@ function PlatformAdmin() {
   }, [initiateMember]);
 
   async function addMemberType(data) {
-    const confirm = window.confirm("Remove as Platform Admin?");
+    const confirm = window.confirm("Add member as Platform Admin?");
     if (!confirm) return;
 
     try {
       dispatch(actions.showLoader(true));
       await addPlatformAdmin(data);
-      firesnackbar("Make user platform admin successfully", "success");
+      firesnackbar("Successfully made member platform admin", "success");
       dispatch(actions.showLoader(false));
       getUser();
     } catch (error) {
@@ -131,12 +131,12 @@ function PlatformAdmin() {
   }
 
   async function removeMemberType(data) {
-    const confirm = window.confirm("Remove as Platform Admin?");
+    const confirm = window.confirm("Remove member as Platform Admin?");
     if (!confirm) return;
     try {
       dispatch(actions.showLoader(true));
       await removeMemberPlatformAdmin(data);
-      firesnackbar("Removed user as platform admin successfully", "success");
+      firesnackbar("Successfully removed member as Platform Admin", "success");
       dispatch(actions.showLoader(false));
       getUser();
     } catch (error) {
