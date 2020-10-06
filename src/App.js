@@ -8,7 +8,7 @@ import { PROD_URL } from "./config/api";
 
 function App() {
   axios.defaults.baseURL = PROD_URL;
-  // axios.defaults.baseURL = "https://08ed948356fe.ngrok.io";
+
   return (
     <div className="App">
       <Provider store={store}>

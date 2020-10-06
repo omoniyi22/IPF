@@ -1,13 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import MaterialTable from "material-table";
 import Dashboard from "../hoc/Dashboard";
 import { api, attachApiToken } from "../services/api";
 import { addPlatformAdmin, removeMemberPlatformAdmin } from "../services";
 import AppWrapper from "../components/appWrapper";
+import { useDispatch, useSelector } from "react-redux";
+import * as actions from "../redux/actions";
 
 const memberColumn = [
   {
-    title: "First Name",
+    title: "Name",
     field: "firstName",
     render: (rowData) => (
       <span>
@@ -29,11 +31,6 @@ const memberColumn = [
     title: "Phone No",
     field: "phoneNumber",
   },
-
-  {
-    title: "Designation",
-    field: "role",
-  },
 ];
 
 const AdminTable = ({ title, columns, data, add, remove }) => {
@@ -50,8 +47,23 @@ const AdminTable = ({ title, columns, data, add, remove }) => {
     });
   }, [data]);
 
+  const removeUserAsPlatformAdmin = (event, rowData) => {
+    remove(rowData);
+  };
+
+  const makeUserAsPlatformAdmin = (event, rowData) => {
+    add(rowData);
+  };
+
   return (
     <MaterialTable
+      actions={[
+        {
+          icon: add ? "add" : "delete",
+          tooltip: add ? "Make platform admin " : "Remove as platform admin",
+          onClick: add ? makeUserAsPlatformAdmin : removeUserAsPlatformAdmin,
+        },
+      ]}
       title={title}
       columns={state.columns}
       data={state.data}
@@ -65,66 +77,47 @@ const AdminTable = ({ title, columns, data, add, remove }) => {
         },
         searchFieldStyle: {},
       }}
-      editable={{
-        onRowAdd: (newData) =>
-          new Promise((resolve) => {
-            setTimeout(() => {
-              resolve();
-              setState((prevState) => {
-                const data = [...prevState.data];
-                data.push(newData);
-                return { ...prevState, data };
-              });
-              // Add Herea
-              add(newData);
-            }, 600);
-          }),
-        onRowDelete: (oldData) =>
-          new Promise((resolve) => {
-            setTimeout(() => {
-              resolve();
-              setState((prevState) => {
-                const data = [...prevState.data];
-                data.splice(data.indexOf(oldData), 1);
-                return { ...prevState, data };
-              });
-              remove(oldData);
-            }, 600);
-          }),
-      }}
     />
   );
 };
 
 function PlatformAdmin() {
-  const [memberState, setMember] = React.useState([]);
-
-  const [snackbar, setSnack] = React.useState({
+  const [memberState, setMember] = useState([]);
+  const [active, setActive] = useState(0);
+  const [snackbar, setSnack] = useState({
     msg: "",
     type: "default",
     open: false,
   });
-
-  const initiateMember = React.useCallback(() => {
-    const getUser = async () => {
-      try {
-        const authApi = await attachApiToken(api);
-        const response = await authApi.get("/admin/get-members");
-        setMember(response.data.data);
-      } catch (error) {}
-    };
+  const dispatch = useDispatch();
+  const initiateMember = useCallback(() => {
     getUser();
   }, [setMember]);
+
+  const getUser = async () => {
+    try {
+      const authApi = await attachApiToken(api);
+      const response = await authApi.get("/admin/get-members");
+      setMember(response.data.data);
+    } catch (error) {}
+  };
 
   useEffect(() => {
     initiateMember();
   }, [initiateMember]);
 
   async function addMemberType(data) {
+    const confirm = window.confirm("Remove as Platform Admin?");
+    if (!confirm) return;
+
     try {
+      dispatch(actions.showLoader(true));
       await addPlatformAdmin(data);
-      firesnackbar("Remove successfully", "success");
+      firesnackbar("Make user platform admin successfully", "success");
+      dispatch(actions.showLoader(false));
+      getUser();
     } catch (error) {
+      dispatch(actions.showLoader(false));
       let _error = "Unsuccessful, Try again";
       if (
         error.response &&
@@ -138,10 +131,16 @@ function PlatformAdmin() {
   }
 
   async function removeMemberType(data) {
+    const confirm = window.confirm("Remove as Platform Admin?");
+    if (!confirm) return;
     try {
+      dispatch(actions.showLoader(true));
       await removeMemberPlatformAdmin(data);
-      firesnackbar("Remove successfully", "success");
+      firesnackbar("Removed user as platform admin successfully", "success");
+      dispatch(actions.showLoader(false));
+      getUser();
     } catch (error) {
+      dispatch(actions.showLoader(false));
       let _error = "Unsuccessful, Try again";
       if (
         error.response &&
@@ -171,6 +170,57 @@ function PlatformAdmin() {
     });
   }
 
+  const TabView = () => {
+    return (
+      <div className="row mt-5">
+        <div className="shadow rounded bg-white col-md-12 px-3 py-1">
+          <div className="d-flex justify-content-center align-items-center">
+            <div style={{ position: "relative" }} onClick={() => setActive(0)}>
+              <h4 className={`member-type-header ${!active && "active"}`}>
+                Platform Admins
+              </h4>
+            </div>
+            <div style={{ position: "relative" }} onClick={() => setActive(1)}>
+              <h4 className={`member-type-header ${active && "active"}`}>
+                All Members
+              </h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const AllMembersView = () => {
+    return (
+      <div className="row">
+        <div className="col-md-12" style={{ minHeight: "60vh" }}>
+          <AdminTable
+            title={""}
+            columns={memberColumn}
+            data={memberState}
+            add={addMemberType}
+          />
+        </div>
+      </div>
+    );
+  };
+
+  const PlatformAdminsView = () => {
+    return (
+      <div className="row">
+        <div className="col-md-12" style={{ minHeight: "60vh" }}>
+          <AdminTable
+            title={""}
+            columns={memberColumn}
+            data={admins}
+            remove={removeMemberType}
+          />
+        </div>
+      </div>
+    );
+  };
+
   return (
     <Dashboard>
       <AppWrapper
@@ -179,25 +229,17 @@ function PlatformAdmin() {
         message={snackbar.msg}
         onClose={onClose}
       >
+        <TabView />
         <div className="container" style={{ width: "90%" }}>
           <div className="row">
             <div className="col-md-12">
               <h5 className="mt-3" style={{ color: "#089242" }}>
-                Platform Admins
+                {active ? "All Members" : "Platform Admins"}
               </h5>
             </div>
           </div>
-          <div className="row">
-            <div className="col-md-12" style={{ minHeight: "60vh" }}>
-              <AdminTable
-                title={""}
-                columns={memberColumn}
-                data={admins}
-                add={addMemberType}
-                remove={removeMemberType}
-              />
-            </div>
-          </div>
+          {!active && <PlatformAdminsView />}
+          {active && <AllMembersView />}
         </div>
       </AppWrapper>
     </Dashboard>
