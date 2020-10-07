@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 class Layout extends Component {
   componentDidMount() {
-    window.$(".sidenav").sidenav();
+    // window.$(".sidenav").sidenav();
   }
   render() {
     return (

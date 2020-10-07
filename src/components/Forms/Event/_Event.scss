@@ -1,0 +1,40 @@
+@import "./Form";
+@import "./Preview";
+
+.event-form {
+  width: 100%;
+  max-width: 50%;
+  max-width: 700px;
+  padding: 20px 40px;
+  padding-bottom: 8px;
+  border-radius: 10px;
+}
+
+.form_1 {
+  overflow: hidden !important;
+  .going {
+    transition-duration: 0.4s;
+    min-width: 100%;
+  }
+  .move {
+    margin-left: -100%;
+  }
+  .go {
+    min-width: 100%;
+  }
+}
+@media (max-width: 1000px) {
+  .backup {
+    display: none;
+  }
+  .event-form {
+    animation: none !important;
+    box-shadow: none !important;
+    width: 100%;
+    max-width: 50%;
+    max-width: 800px;
+    padding: 20px 10px;
+    padding-bottom: 8px;
+    border-radius: 10px;
+  }
+}

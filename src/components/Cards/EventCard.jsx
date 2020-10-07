@@ -20,7 +20,7 @@ class EventCard extends Component {
             26 members
           </div>
           <div className="EC_down flex ">
-            <button className="rounded-pill text-center ">
+            <button className="rounded-pill text-center z-depth-1 ovin">
               Register
           </button>
             <div className=" circle-box flex flex-2 mt-2">

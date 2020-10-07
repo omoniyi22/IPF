@@ -96,7 +96,7 @@ class Nav_Options extends Component {
 
   render() {
     return (
-      <div className="h-100">
+      <div className="h-100 ri">
         <div className="nav_options text-left  ">
           <div className={`nav_button text-white sm-flex  ${this.state.overview === true && "changed_nav"}`} onClick={this.onOverview}>
             <div className="p-1  rounded-pill white rounded_point sm-show" />

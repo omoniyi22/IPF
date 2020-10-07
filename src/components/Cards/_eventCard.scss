@@ -5,7 +5,7 @@
 .EventCard {
   overflow: hidden;
   border-radius: 13px;
-  box-shadow: 7px 16px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 1px 19px rgba(0, 0, 0, 0.1);
   margin-left: 0 !important;
   .card_pix {
     height: 150px;
@@ -33,7 +33,7 @@
     .EC_down {
       margin: 5px 0;
       button {
-        margin-top: 8px;
+        margin-top: 8px !important;
         border: 0 !important;
         width: 50% !important;
         padding: 12px !important;

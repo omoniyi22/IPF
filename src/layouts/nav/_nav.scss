@@ -1,6 +1,6 @@
 .user_on_top {
   font-family: metro;
-  padding: 4px 22px 4px 22px;
+  padding: 4px 22px 4px 15px;
   background: #0f2f3edf;
   display: flex;
   .logo_img {
@@ -88,7 +88,6 @@
   z-index: 2;
 }
 .nav_options {
-
   .nav_button {
     width: 100%;
     transition-duration: 0.2s;
@@ -127,10 +126,10 @@
 }
 @media (max-width: 1000px) {
   .sticker {
-  position: -webkit-sticky !important;
-  position: sticky !important;
-  top: 0px !important;
-}
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 0px !important;
+  }
   .data {
     margin-left: auto !important;
   }
@@ -150,8 +149,11 @@
     margin-right: 0 !important;
   }
   .user_buttons_img {
-    height: 22px !important;
-    width: 22px !important;
+    height: 21px !important;
+    width: 21px !important;
+  }
+  .user_buttons{
+    margin-top: 0;
   }
   .tone {
     font-size: 12px;
