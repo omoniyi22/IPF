@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-
+import { Link } from 'react-router-dom'
 class Event_Table extends Component {
   render() {
     return (
-      <div className="event_table  py-3 flex w-100 mb-4">
+      <Link to="/event_page" className=" text-init event_table  py-3 flex w-100 mb-4">
         <div className="numb rounded-pill text-center  heart border">
           1
         </div>
@@ -28,7 +28,7 @@ class Event_Table extends Component {
         <div className="manage my-auto mr-3 border text-white rounded-pill z-depth-1 btn text-capitalize">
           Manage
         </div>
-      </div>
+      </Link>
     )
   }
 }
