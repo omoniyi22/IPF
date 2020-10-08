@@ -1,4 +1,32 @@
 .EventScreen {
+  .upcoming_text {
+    font-size: 24px;
+  }
+  .bread {
+    padding-bottom: 0 !important;
+    padding-top: 0 !important;
+    margin-top: -5px !important;
+    height: 40.2px !important;
+    margin-right: 30px !important;
+    .form-control {
+      border-width: 2.3px !important;
+      border-color: rgba(56, 55, 55, 0.404);
+      margin-bottom: 0 !important;
+      background: rgb(255, 255, 255);
+      width: 220px;
+      padding-left: 15px !important;
+      padding-right: 37px !important;
+      color: rgb(128, 123, 123) !important ;
+      font-size: 14px;
+    }
+    .fa-search {
+      margin-left: -32px;
+      font-size: 16px;
+      color: rgb(153, 150, 150);
+
+      // text-shadow: 22px 20px 25px rgb(0, 0, 0) !important;
+    }
+  }
   .inner {
     margin-top: 34px !important;
     margin-bottom: 34px !important;
@@ -73,6 +101,34 @@
 
 @media (max-width: 920px) {
   .EventScreen {
+    .wq {
+      margin-top: 30px !important;
+      margin-bottom: 20px !important;
+    }
+    .bread {
+      padding-bottom: 0 !important;
+      padding-top: 0 !important;
+      margin-top: -13px !important;
+      height: 40.2px !important;
+      margin-right: 30px !important;
+      .form-control {
+        border-width: 2.3px !important;
+        border-color: rgba(56, 55, 55, 0.404);
+        margin-bottom: 0 !important;
+        background: rgb(255, 255, 255);
+        width: 200px;
+        padding-left: 15px !important;
+        padding-right: 37px !important;
+        color: rgb(128, 123, 123) !important ;
+        font-size: 12.7px;
+      }
+      .fa-search {
+        margin-left: -32px;
+        font-size: 15px;
+        color: rgb(153, 150, 150);
+        // text-shadow: 22px 20px 25px rgb(0, 0, 0) !important;
+      }
+    }
     .inner {
       justify-content: space-between;
       flex-wrap: wrap;
@@ -88,8 +144,8 @@
         }
       }
       .oner.g {
-      margin-left: auto !important;
-      margin-right: auto !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
       }
       .text {
         .text_1 {

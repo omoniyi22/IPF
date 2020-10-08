@@ -1,0 +1,50 @@
+.grand {
+  height: 300px;
+  width: 120px;
+  // display: none !important;
+}
+.member_table {
+  display: flex;
+  .lom {
+    width: 100%;
+  }
+}
+.member_table {
+  padding-top: 10px !important;
+  padding-left: 34px !important;
+  padding-bottom: 12px !important;
+  padding-right: 0px !important;
+  display: flex;
+  .lom {
+    font-family: rali;
+    width: 100% !important;
+    padding-right: 1.6%;
+    // font-size: 11.5px;
+    height: 52px;
+    font-weight: bold !important;
+  }
+  .col_1 {
+    font-family: ralo;
+  }
+}
+
+@media (max-width: 1000px) {
+  .member_table {
+    padding-top: 10px !important;
+    padding-left: 14px !important;
+    padding-bottom: 12px !important;
+    padding-right: 0px !important;
+    display: flex;
+    .lom {
+      font-family: rali;
+      width: 100% !important;
+      padding-right: 1.6%;
+      font-size: 11.5px;
+      height: 52px;
+      font-weight: bold !important;
+    }
+    .col_1 {
+      font-family: ralo;
+    }
+  }
+}

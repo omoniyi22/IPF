@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import Header from './../../Headers/Header'
+import MemberTable from './../../Tables/Member/Member'
 
 class EventScreen extends Component {
   constructor(props) {
@@ -95,18 +97,13 @@ class EventScreen extends Component {
           <div className="upcoming_text mb-4 ml-2">
             Invitation Sent
             </div>
-          <div className="home_3b flex-2 flex mt-1 mb-2">
-            <div className=" home_header ">
-              <div className="flex awls small font-weight-light">
-                <div className={`other_Events px-2 pnt ${this.state.position}`} onClick={this.move}>
-                  Other Events
-                  </div>
-                <div className={`view_all px-3 pnt ${!this.state.position}`} onClick={this.moveOut}>
-                  All Events
-                </div>
-              </div>
-              <div className="lines  rounded-pill">
-                <div className={`rounded-pill lines_move w-50  ${this.state.position}`} />
+          <div className="home_3b wq flex-2 flex mt-1 mb-2">
+            <div className=" home_header  bread ">
+              <div className="flex awls small h-fit w-fit font-weight-light">
+                <input className={`form-control z-balm rounded-pill m-0 px-2 pnt ${this.state.position}`} onClick={this.move}
+                  placeholder="Search..."
+                />
+                <div className="fa fa-search my-auto" />
               </div>
             </div>
             <div class="download active   px-2 py-1 small dropdown">
@@ -126,6 +123,14 @@ class EventScreen extends Component {
               </div>
             </div>
           </div>
+        </div>
+        <div className="home_4 ">
+          <Header first="Name" second="Email" third="Date" fourth="Role" />
+          <MemberTable />
+          <MemberTable />
+          <MemberTable />
+          <MemberTable />
+          <MemberTable />
         </div>
       </div>
     )

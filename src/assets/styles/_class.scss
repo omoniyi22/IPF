@@ -1,4 +1,33 @@
-.h-fit{
+.break_1 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.break_2 {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+}
+.break_3 {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 3 !important;
+  -webkit-box-orient: vertical !important;
+}
+.hide {
+  visibility: hidden !important;
+}
+.word-break {
+  word-break: break-all;
+}
+
+.h-fit {
   height: fit-content;
 }
 .pointer {
@@ -54,7 +83,7 @@
 .hide_over {
   overflow: hidden;
 }
-.bou{
+.bou {
   border-color: #1c5169 !important;
 }
 @media (max-width: 1000px) {
