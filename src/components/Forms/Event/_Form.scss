@@ -54,7 +54,7 @@
     .col_1 {
       width: 50%;
       textarea {
-        height: 100px;
+        height: 70px;
       }
     }
     .col_2 {
@@ -74,8 +74,8 @@
     }
   }
   .tir_form_row {
-    margin-top: 13px;
-    margin-bottom: 19px;
+    margin-top: 8px;
+    margin-bottom: 5px;
     input {
       margin-top: 4px;
       margin-right: 8px;
@@ -87,7 +87,7 @@
   .for_form_row {
     .col_1 {
       textarea {
-        height: 110px;
+        height: 100px;
         padding-top: 7px !important;
       }
       input {
@@ -135,11 +135,13 @@
       width: 100%;
       button {
         .fa-eye,
-        .fa-times {
+        .fa-times,
+        .fa-arrow-left,
+        .fa-plus {
           padding-left: 14px;
           height: 29px !important;
         }
-        .fa-times {
+        .fa-times,.fa-arrow-left {
           color: #fb8a30;
         }
         .text.f {
@@ -289,7 +291,7 @@
       .col_1 {
         margin-top: 10px;
         .two_input {
-          .w-50{
+          .w-50 {
             padding-right: 0 !important;
           }
           input {
@@ -352,7 +354,9 @@
 
         button {
           .fa-eye,
-          .fa-times {
+          .fa-times,
+          .fa-arrow-left,
+          .fa-plus {
             padding-left: 14px;
             height: 29px !important;
           }

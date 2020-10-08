@@ -31,7 +31,7 @@ class HomePage extends Component {
     let swit = Switch(EventForm)
     return (
       <div className={`${swit[2]} `}>
-        <div className="home1">
+        <div className="home1 ">
           <LandingCard />
           <div className=" my-4 mt-5 mb-4 h4 metro font-weight-bold">
             <div className="  home_2 mx-0">

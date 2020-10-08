@@ -11,7 +11,7 @@ class Form extends Component {
   render() {
     return (
       <div className=" text-left  form_1">
-        <div className="form_title">
+        <div className="form_title py-1">
           Create Event
         </div>
         <div className="  real_form">

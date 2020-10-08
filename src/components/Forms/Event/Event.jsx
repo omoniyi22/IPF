@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Form from './Form'
+import Preview from './Preview'
 import { Link, withRouter } from 'react-router-dom'
 
 class EventForm extends Component {
@@ -7,7 +8,7 @@ class EventForm extends Component {
     super(props)
     this.state = {
       close: "zoomIn",
-      move: ""
+      move: "move"
     }
     this.onMove = this.onMove.bind(this)
     this.unMove = this.unMove.bind(this)
@@ -45,7 +46,7 @@ class EventForm extends Component {
               <Form move={this.onMove} />
             </div>
             <div className="pincher go px-1">
-              <Form unmove={this.unMove} />
+              <Preview unmove={this.unMove} />
             </div>
           </div>
         </div>

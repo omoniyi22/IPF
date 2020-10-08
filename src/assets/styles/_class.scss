@@ -1,4 +1,6 @@
-
+.h-fit{
+  height: fit-content;
+}
 .pointer {
   cursor: pointer;
 }
@@ -51,6 +53,9 @@
 }
 .hide_over {
   overflow: hidden;
+}
+.bou{
+  border-color: #1c5169 !important;
 }
 @media (max-width: 1000px) {
   .sm-show-flex {

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import './assets/styles/app.scss'
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { connect } from 'react-redux'
+import HomePage from "./pages/home/index";
+import EventPage from './pages/event'
 
 
 
@@ -49,7 +51,15 @@ class App extends Component {
             </div>
           </div>
           <div className="sort_page flex-2 mx-auto mt-md-5 mt-4">
-            {this.props.component}
+            <>
+              <Router>
+                <Switch>
+                  <Route path="/create-event" component={HomePage} />
+                  <Route path="/event_page" component={EventPage} />
+                  <Route path="/" component={HomePage} />
+                </Switch>
+              </Router>
+            </>
           </div>
         </div>
         {/* {this.props.nav && <Footer />} */}
@@ -59,9 +69,9 @@ class App extends Component {
 }
 
 
-const MyRoute = ({ component: Component, path, exact }) => (
-  <Route exact={exact} path={path} render={(props) => (<App component={<Component />} />)} />
-);
+// const MyRoute = ({ component: Component, path, exact }) => (
+//   <Route exact={exact} path={path} render={(props) => (<App component={<Component />} />)} />
+// );
 
 const mapStateToProps = (state) => ({
   // auth: state.auth.isAuthenticated,
@@ -70,4 +80,4 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps
-)(MyRoute);
+)(App);

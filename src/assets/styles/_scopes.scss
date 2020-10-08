@@ -5,13 +5,22 @@
 //     _Cards_
 @import "./../../components/Cards/landingCard";
 @import "./../../components/Cards/eventCard";
+@import "./../../components/Cards/CardTwo";
 
 //     _Tables_
 @import "./../../components/Tables/Event/event";
+@import "./../../components/Tables/Member/member";
 
 //     _Forms_
 @import "./../../components/Forms/Event/Event";
+@import "./../../components/Forms/Event/Preview";
 
-//      PAGES
+//     SCREENS
+//     _Events_
+@import "./../../components/Screens/EventScreen/EventScreen";
+@import "./../../components/Screens/Q&A_Screen/Q&A_Screen";
+
+//     PAGES
 //     _Home_
 @import "./../../pages/home/home";
+@import "./../../pages/event/event";
