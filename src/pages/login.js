@@ -18,6 +18,7 @@ import { Link } from "react-router-dom";
 import Axios from "axios";
 import * as actions from "../redux/actions";
 import { connect } from "react-redux";
+
 import IpfLogo from "../assets/IPF_Logo.png";
 import images from "../assets/images";
 import AppWrapper from "../components/appWrapper";
@@ -69,6 +70,7 @@ class Login extends Component {
           nrole,
           memberType,
           company_id,
+          default_password,
         },
       } = response.data;
 
@@ -93,8 +95,14 @@ class Login extends Component {
           nrole,
           memberType,
           company_id,
+          default_password,
         })
       );
+
+      this.props.loginSuccess({
+        default_password,
+      });
+
       this.props.showLoader(false);
       if (isAdmin) {
         return this.props.history.push("/");
@@ -275,4 +283,11 @@ class Login extends Component {
   }
 }
 
-export default connect(null, actions)(Login);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    showLoader: (type = false) => dispatch(actions.showLoader(type)),
+    loginSuccess: (payload) => dispatch(actions.loginSuccessAction(payload)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Login);

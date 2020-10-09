@@ -1,16 +1,14 @@
-import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
-import { Link } from "react-router-dom";
-import logo from "../assets/IPF_Logo.png";
-import nigeria from "../assets/nigeria.png";
 import { Snackbar } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
-import india from "../assets/india.png";
+import React, { Component } from "react";
+import { Link, withRouter } from "react-router-dom";
+import images from "../assets/images";
+import logo from "../assets/IPF_Logo.png";
+import * as actions from "../redux/actions";
 import { api, attachApiToken } from "../services/api";
 import "./dashboard2.css";
+import { connect } from "react-redux";
 import Header from "./UserHeader";
-import images from "../assets/images";
-
 const { naijaFlag, indianFlag } = images;
 class UserDashboard extends Component {
   constructor(props) {
@@ -263,9 +261,31 @@ class UserDashboard extends Component {
             </Alert>
           </Snackbar>
         )}
+
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          open={this.props.isDefaultPassword}
+        >
+          <Alert style={{ marginTop: "8%" }} severity="warning">
+            <span>
+              <b>
+                For your security, please click{" "}
+                <Link to="/user/dashboard/change-password">
+                  <b>here </b>
+                </Link>
+                to change your <b>default password</b>
+              </b>
+            </span>
+          </Alert>
+        </Snackbar>
       </div>
     );
   }
 }
 
-export default withRouter(UserDashboard);
+const mapStateToProps = (state) => {
+  return {
+    isDefaultPassword: state.user.isDefaultPassword,
+  };
+};
+export default connect(mapStateToProps, actions)(withRouter(UserDashboard));

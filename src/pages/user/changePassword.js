@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import AppWrapper from "../../components/appWrapper";
 import { FormButton, TextInput } from "../../components/components";
 import Dashboard from "../../hoc/UserDashboard";
@@ -7,6 +7,8 @@ import * as actions from "../../redux/actions";
 import { api, attachApiToken } from "../../services/api";
 
 const ChangePassword = ({ showLoader }) => {
+  const dispatch = useDispatch();
+
   const [state, setState] = useState({
     current_password: "",
     new_password: "",
@@ -38,6 +40,7 @@ const ChangePassword = ({ showLoader }) => {
       showLoader(true);
       const authApi = await attachApiToken(api);
       await authApi.put("/auth/password", state);
+      dispatch(actions.isDefaultPasswordAction(false));
       showLoader();
       onOpen("Password update Successful", "success");
     } catch (error) {
