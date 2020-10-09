@@ -113,6 +113,15 @@ class SideMenu extends Component {
             </ul>
           </li>
           <li className="list-item">
+            <Link to="/admin/change-password">
+              <span className="">
+                <i className="material-icons">security</i>
+              </span>
+              <span>Change Password</span>
+            </Link>
+          </li>
+
+          <li className="list-item">
             <Link onClick={this.logout} to="#">
               <span className="rotate-90-deg">
                 {" "}

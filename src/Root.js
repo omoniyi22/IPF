@@ -20,6 +20,8 @@ import AddMember from "./pages/addMember";
 import ForgotPassword from "./pages/forgotPassword";
 import ResetPassword from "./pages/resetPassword";
 import ManageUserProfile from "./pages/manageProfile";
+import ChangePassword from "./pages/changePassword";
+import UserChangePassword from "./pages/user/changePassword";
 function Root() {
   return (
     <Switch>
@@ -67,6 +69,16 @@ function Root() {
       />
       <AdminRoute exact path="/admin/settings" component={PlatformAdmin} />
       <AdminRoute exact path="/admin/designation" component={Position} />
+      <AuthRoute
+        exact
+        path="/user/dashboard/change-password"
+        component={UserChangePassword}
+      />
+      <AdminRoute
+        exact
+        path="/admin/change-password"
+        component={ChangePassword}
+      />
     </Switch>
   );
 }

@@ -202,6 +202,16 @@ class UserDashboard extends Component {
                 <span>Events</span>
               </Link>
             </li>
+
+            <li className="list-item">
+              <Link to="/user/dashboard/change-password">
+                <span className="">
+                  <i className="material-icons">security</i>
+                </span>
+                <span>Change Password</span>
+              </Link>
+            </li>
+
             <li onClick={this.logout} className="list-item">
               <Link>
                 <span className="rotate-90-deg">
