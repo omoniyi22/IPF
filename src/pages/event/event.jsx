@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import CardTwo from './../../components/Cards/CardTwo'
 import EventScreen from './../../components/Screens/EventScreen/EventScreeen'
+import QandA from './../../components/Screens/Q&A_Screen/Q&A_Screen'
 
 class Event extends Component {
   render() {
@@ -28,7 +29,8 @@ class Event extends Component {
           </div>
           <div className="screens">
             <div className="ones">
-              <EventScreen />
+              {/* <EventScreen /> */}
+              <QandA />
             </div>
             <div className="twon"></div>
           </div>

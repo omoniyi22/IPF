@@ -13,7 +13,7 @@ const Header = ({ first, second, third, fourth }) => (
     <div className="head">
       {third}
     </div>
-    <div className="head">
+    <div className="head toon">
       {fourth}
     </div>
   </div>
