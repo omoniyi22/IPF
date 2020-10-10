@@ -8,7 +8,7 @@ class EventForm extends Component {
     super(props)
     this.state = {
       close: "zoomIn",
-      move: "move"
+      move: ""
     }
     this.onMove = this.onMove.bind(this)
     this.unMove = this.unMove.bind(this)
@@ -35,7 +35,7 @@ class EventForm extends Component {
               move: ""
             })
             setTimeout(() => {
-              this.props.history.push("/")
+              this.props.history.goBack()
             }, 290);
           }}
         />
@@ -43,7 +43,7 @@ class EventForm extends Component {
         >
           <div className="form_1  flex  white w-100 ">
             <div className={`pincher going ${this.state.move} px-1`}>
-              <Form move={this.onMove} />
+              <Form move={this.onMove} title={this.props.title} />
             </div>
             <div className="pincher go px-1">
               <Preview unmove={this.unMove} />

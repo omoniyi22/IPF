@@ -6,7 +6,6 @@ import EventForm from '../../components/Forms/Event'
 import Switch from './../../utils/Switch'
 import { Link } from 'react-router-dom'
 
-
 class HomePage extends Component {
   constructor(props) {
     super(props)

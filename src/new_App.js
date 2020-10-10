@@ -56,6 +56,8 @@ class App extends Component {
                 <Switch>
                   <Route path="/create-event" component={HomePage} />
                   <Route path="/event_page" component={EventPage} />
+                  <Route path="/invite" component={EventPage} />
+                  <Route path="/edit_event" component={EventPage} />
                   <Route path="/" component={HomePage} />
                 </Switch>
               </Router>

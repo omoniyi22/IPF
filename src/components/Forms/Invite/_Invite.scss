@@ -1,0 +1,107 @@
+.invitation_form {
+  border-radius: 13px;
+  width: 100%;
+  max-width: 700px;
+  padding: 5% 4%;
+  display: block !important;
+  .title {
+    margin-right: auto;
+    font-size: 26px;
+    font-family: sand_small;
+    font-weight: bold;
+    color: rgb(83, 82, 82);
+  }
+  .form {
+    margin-top: 20px;
+    .form_iti {
+      font-family: sand_small;
+      font-family: metro;
+      font-size: 15.3px;
+      font-weight: bold;
+      color: rgb(112, 111, 112);
+    }
+    .form-control {
+      margin-top: 3.7px;
+      background: #f5f3f3;
+    }
+  }
+  .six_form_row {
+    padding-bottom: 10px;
+    width: 100% !important;
+    max-width: 250px;
+    margin-top: 20px;
+    display: flex;
+    .inner {
+      color: #000 !important;
+      height: 34px;
+      width: 100%;
+      button {
+        .fa-eye,
+        .fa-times,
+        .fa-arrow-left,
+        .fa-plus {
+          padding-left: 14px;
+          height: 29px !important;
+        }
+        .fa-times,
+        .fa-arrow-left {
+          color: #fb8a30;
+        }
+        .text.f {
+          color: #fb8a30;
+        }
+        .text {
+          height: 29px !important;
+          font-size: 12px;
+          margin-top: 1px;
+          margin-right: 10px !important;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 1000px) {
+  .invitation_form{
+    animation: none !important;
+  }
+  .form {
+    margin-top: 20px;
+    .form_iti {
+      font-family: sand_small;
+      font-size: 15.3px;
+      font-weight: normal !important;
+      color: rgb(112, 111, 112);
+    }
+    .form-control {
+      margin-top: 3.7px;
+    }
+  }
+  .six_form_row {
+    .eppes {
+    }
+    max-width: 230px !important;
+    margin-top: 74px;
+    display: flex;
+    .inner.text-eh .inner {
+      color: #000 !important;
+      height: 34px;
+      width: 100%;
+
+      button {
+        .fa-eye,
+        .fa-times,
+        .fa-arrow-left,
+        .fa-plus {
+          padding-left: 14px;
+          height: 29px !important;
+        }
+        .text {
+          height: 29px !important;
+          font-size: 12px;
+          margin-top: 1px;
+          margin-right: 10px !important;
+        }
+      }
+    }
+  }
+}

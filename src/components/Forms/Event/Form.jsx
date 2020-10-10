@@ -12,7 +12,7 @@ class Form extends Component {
     return (
       <div className=" text-left  form_1">
         <div className="form_title py-1">
-          Create Event
+          {this.props.title !== true ? "Create Event" : "Edit Event"}
         </div>
         <div className="  real_form">
           <div className="   first_form_row">

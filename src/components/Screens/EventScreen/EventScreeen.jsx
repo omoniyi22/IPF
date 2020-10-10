@@ -23,9 +23,8 @@ class EventScreen extends Component {
     })
   }
   render() {
-
     return (
-      <div className="EventScreen">
+      <div className="EventScreen opacy">
         <div className="inner flex ">
           <div className="oner  heart z-depth-1">
             <div className="icon s border heart rounded-pill z-depth-1">
