@@ -25,7 +25,7 @@ class Payment extends Component {
         <div className="payment_select  flex">
           <div
             onClick={() => this.setState({ chose: false })}
-            className={`annual_sub aal border heart ${!this.state.chose} pnt `}>
+            className={`rounded annual_sub aal border heart ${!this.state.chose} pnt `}>
             {/* <div className="tipt border z-depth-1" >f;d;f'</div> */}
             <div className="rounded-pill  pill heart  border ">
               <div className="innet border w-100 h-100 rounded-pill" />
@@ -34,7 +34,7 @@ class Payment extends Component {
           </div>
           <div
             onClick={() => this.setState({ chose: true })}
-            className={`for_member aal  heart border ${this.state.chose} pnt`}>
+            className={` rounded for_member aal  heart border ${this.state.chose} pnt`}>
             <div className="rounded-pill  pill   border ">
               <div className="innet border w-100 h-100 rounded-pill" />
             </div>

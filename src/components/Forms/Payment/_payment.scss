@@ -1,0 +1,190 @@
+.payment_form {
+  .tide {
+    padding: 15px 4.4%;
+    font-size: 15px;
+    font-family: sand_small;
+    font-weight: bold;
+  }
+  .body {
+    background: #f2f1f1;
+    padding: 14px 4.4%;
+    .title {
+      font-weight: bold;
+      padding-left: 1%;
+      font-size: 14px;
+      margin-bottom: 3px;
+    }
+    .card_num {
+      margin-bottom: 15px;
+    }
+    .plate {
+      display: flex;
+      justify-content: space-between;
+      .card_num {
+        width: 49%;
+      }
+    }
+    .custom-checkbox {
+      font-size: 15.5px !important;
+      font-weight: bold;
+      margin-left: 1%;
+    }
+    .che:checked {
+      border-color: #ff6f61;
+      background-color: #ff6f61;
+    }
+    .btn {
+      padding: 9px 10px !important;
+      font-size: 16px;
+      text-transform: capitalize !important;
+      font-weight: bold;
+      font-family: sand_small;
+    }
+    .bottum {
+      margin-top: 8px;
+      margin-bottom: 5px;
+      display: flex !important;
+      .strait {
+        flex: 2;
+        border-width: 1.5px !important;
+      }
+      .or {
+        font-size: 15px;
+        opacity: 0.7;
+        padding: 0 13px;
+        font-weight: bold;
+        font-family: sand_small;
+      }
+    }
+    .saved_cards {
+      .apay {
+        display: flex;
+        height: 168px;
+        justify-content: space-between;
+        .fpay,
+        .spay {
+          color: white;
+          font-size: 15px;
+          width: 49%;
+          .faf {
+            margin-right: 10%;
+            margin-top: 6.4%;
+            width: 19px;
+            padding: 2px 3px;
+            opacity: 0.4;
+            background-color: white;
+          }
+          .clean {
+            margin-top: auto;
+            margin-left: 5%;
+            margin-top: 1.5%;
+          }
+        }
+        .fpay {
+          background-image: url("./../../../assets/medias/payment/pay_1.png");
+          background-size: 100% 100%;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-color: #2a4b5a;
+          border-radius: 9px;
+        }
+        .spay {
+          background-image: url("./../../../assets/medias/payment/pay_2.png");
+          background-size: 100% 100%;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-color: #93349f;
+          border-radius: 9px;
+        }
+        .clean {
+          height: 100%;
+          max-height: 90px;
+        }
+        .date {
+          font-family: metro !important;
+          margin-top: 7%;
+        }
+      }
+    }
+  }
+  .aps {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1000px) {
+  .tide {
+    padding: 15px 4.4%;
+    font-size: 13px !important;
+    font-family: sand_small;
+    font-weight: bold;
+    opacity: 0.7;
+  }
+  .body {
+    padding: 14px 4.4%;
+    .title {
+      font-weight: bold;
+      opacity: 0.8;
+      padding-left: 1%;
+      font-size: 13px !important;
+      margin-bottom: 3px;
+    }
+    .plate {
+      display: block !important;
+      .card_num {
+        width: 100% !important;
+      }
+    }
+    .custom-checkbox {
+      font-size: 11px !important;
+      font-weight: bold;
+      margin-left: 1%;
+      opacity: 0.8;
+      label {
+        font-size: 14px !important;
+      }
+    }
+    .btn {
+      padding: 8px 10px !important;
+      font-size: 13px !important;
+      opacity: 0.7;
+      text-transform: capitalize !important;
+      font-weight: bold;
+      font-family: sand_small;
+    }
+    .bottum {
+      margin-top: 8px;
+      margin-bottom: 5px;
+      display: flex !important;
+      .strait {
+        flex: 2;
+        border-width: 0.5px !important;
+      }
+      .or {
+        font-size: 13px !important;
+        opacity: 0.7;
+        padding: 0 13px;
+        font-family: rali !important;
+      }
+    }
+    .opa {
+      display: none !important;
+    }
+    .aps {
+      display: block !important;
+
+      .fpay,
+      .spay {
+        width: 100% !important;
+        padding-left: 10px !important;
+        margin-bottom: 8px;
+        padding-right: 10px !important;
+        margin-top: 4px;
+        .tux {
+          margin-bottom: 5px;
+          margin-top: 3px;
+        }
+      }
+    }
+  }
+}

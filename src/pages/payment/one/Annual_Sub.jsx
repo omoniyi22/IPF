@@ -4,7 +4,7 @@ class Annual_Sub extends Component {
   render() {
     return (
       <div className="Annual_Sub ">
-        <div className="cad flex border rounded-lg border-success">
+        <div className=" z-depth-1 cad flex border rounded-lg border-success">
           <div className="left flex-2 ">
             <div className="headr ">
               Annual Subscription

@@ -62,5 +62,19 @@
 @media (max-width: 1000px) {
   .Annual_Sub {
     margin-top: 5px;
+    .cad {
+      display: flex !important;
+      flex-direction: column-reverse !important;
+    }
+    .right {
+      max-width: 100% !important;
+      height: 170px !important;
+      margin-top: 10px !important;
+    }
+    .left {
+      max-width: 100% !important;
+      width: 100% !important;
+      padding: 10px 2.6% !important;
+    }
   }
 }
