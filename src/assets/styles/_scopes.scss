@@ -20,15 +20,20 @@
 @import "./../../components/Question/Question";
 
 //     SCREENS
-//     _Events_Q&A_
+//     _Events___And___Q&A_
 @import "./../../components/Screens/EventScreen/EventScreen";
 @import "./../../components/Screens/Q&A_Screen/Q&A_Screen";
 
 //     _Header_
 @import "./../../components/Headers/Header";
 
+//     _Details_
+//     _member_details___and____
+@import "./../../components/Details/Member/Member";
 
 //     PAGES
 //     _Home_
+@import "./../../pages/members/member";
 @import "./../../pages/home/home";
 @import "./../../pages/event/event";
+@import "./../../pages/payment/payment";

@@ -1,0 +1,66 @@
+.Annual_Sub {
+  margin-top: 7px;
+  * {
+    font-family: sand_reg;
+  }
+  .cad {
+    .right {
+      height: 228px;
+      min-width: 48%;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-image: url("./../../../assets/medias/payment.png");
+    }
+    .left {
+      margin-top: 9px !important;
+      max-width: 48%;
+      margin-left: auto;
+      select {
+        margin-top: 18px !important;
+        margin-bottom: 10px !important;
+        font-size: 16px;
+        color: rgb(243, 156, 17);
+        font-family: sand_small;
+        font-weight: bold;
+        padding-right: 22px !important;
+        option {
+          font-size: 16px;
+          color: rgb(243, 156, 17);
+          font-family: sand_small;
+          font-weight: bold;
+          padding-right: 22px !important;
+        }
+      }
+
+      .plan {
+        font-size: 12px !important;
+        font-family: sand_small;
+        font-style: italic;
+        opacity: 0.8;
+        font-weight: bold;
+      }
+      .date {
+        margin-top: 14px;
+        font-weight: bold;
+        font-size: 13px;
+      }
+      .data {
+        font-size: 13px;
+        font-weight: bold;
+        opacity: 0.8;
+        font-family: sand_small;
+      }
+      .headr {
+        font-size: 20px;
+        font-weight: bold;
+        margin-top: 10px;
+      }
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  .Annual_Sub {
+    margin-top: 5px;
+  }
+}

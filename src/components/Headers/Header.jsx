@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { useState } from 'react'
 
-const Header = ({ first, second, third, fourth }) => (
+const Header = ({ first, second, third, fourth , action}) => (
 
   <div className="header p-4 z-depth-1">
     <div className="head">

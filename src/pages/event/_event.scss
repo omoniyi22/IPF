@@ -6,7 +6,7 @@
       max-width: 300px;
       margin-left: auto;
       .edit_b {
-        max-width: 130px;
+        max-width: 150px;
         height: 35px;
         padding: 6px 16px !important;
         border-color: rgba(0, 0, 0, 0.349) !important;
@@ -73,9 +73,9 @@
         max-width: 300px;
         margin-left: auto;
         .edit_b {
-          max-width: 130px;
+          max-width: 150px;
           height: 35px;
-          padding: 6px 12px !important;
+          padding: 5px 8px !important;
           border-color: rgba(0, 0, 0, 0.349) !important;
           border-width: 3px !important;
           .text {
@@ -90,13 +90,13 @@
           }
         }
         .edit_b.a {
-          padding: 6px 12px !important;
+          padding: 0px 8px !important;
           color: rgb(255, 255, 255);
           background: #ff9d4d !important;
         }
       }
       .switch_button {
-        margin-top: 30px;
+        // margin-top: 30px;
         display: block;
         margin-bottom: 10px;
         .one,

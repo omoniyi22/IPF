@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { connect } from 'react-redux'
 import HomePage from "./pages/home/index";
 import EventPage from './pages/event'
+import MemberPage from './pages/members/index'
+import Payment from './pages/payment/payment'
 
 
 
@@ -27,7 +29,7 @@ class App extends Component {
   render() {
     let { show } = this.state
     return (
-      <>
+      <Router>
         <UserOnTop />
         <div className="sort_app ">
           <div className="sticker over_hide ">
@@ -52,20 +54,20 @@ class App extends Component {
           </div>
           <div className="sort_page flex-2 mx-auto mt-md-5 mt-4">
             <>
-              <Router>
-                <Switch>
-                  <Route path="/create-event" component={HomePage} />
-                  <Route path="/event_page" component={EventPage} />
-                  <Route path="/invite" component={EventPage} />
-                  <Route path="/edit_event" component={EventPage} />
-                  <Route path="/" component={HomePage} />
-                </Switch>
-              </Router>
+              <Switch>
+                <Route path="/create-event" component={HomePage} />
+                <Route path="/event_page" component={EventPage} />
+                <Route path="/invite" component={EventPage} />
+                <Route path="/edit_event" component={EventPage} />
+                <Route path="/members" component={MemberPage} />
+                <Route path="/payment" component={Payment} />
+                <Route path="/" component={HomePage} />
+              </Switch>
             </>
           </div>
         </div>
         {/* {this.props.nav && <Footer />} */}
-      </>
+      </Router>
     );
   }
 }

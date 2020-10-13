@@ -1,0 +1,27 @@
+.member_page {
+  .titled {
+    opacity: 0.6;
+    font-size: 18px;
+    font-family: sand_reg;
+    font-weight: bold;
+  }
+}
+@media (max-width: 1000px) {
+  .titled {
+    opacity: 0.6;
+    font-size: 17px !important;
+    font-family: sand_reg;
+    font-weight: bold;
+  }
+  .home_3 {
+    display: flex !important;
+  }
+  .doen {
+    width: fit-content !important;
+  }
+  .sellon {
+    border: solid;
+    margin-top: -100px !important;
+    width: fit-content !important;
+  }
+}

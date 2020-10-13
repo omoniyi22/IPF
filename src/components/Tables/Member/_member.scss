@@ -7,6 +7,7 @@
   display: flex;
   .lom {
     width: 100%;
+    overflow: visible !important;
   }
 }
 .baew {
@@ -34,12 +35,26 @@
   .col_1 {
     font-family: ralo;
   }
+  .edit_b.m-0 {
+    margin-top: -5px !important;
+  }
+  .main_button {
+    margin-left: 0 !important;
+  }
 }
 .col_4 {
-  max-width: 19% !important;
+  max-width: 19.5% !important;
   margin-left: auto !important;
 }
 @media (max-width: 1000px) {
+  .edit_b.s {
+    padding: 0px !important;
+    height: 30px !important;
+    width: 63px !important;
+    .text {
+      font-size: 11px !important;
+    }
+  }
   .member_table {
     padding-top: 10px !important;
     padding-left: 14px !important;
