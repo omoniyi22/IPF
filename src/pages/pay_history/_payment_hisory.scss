@@ -3,7 +3,7 @@
   display: flex;
   .titled {
     font-size: 24px !important ;
-    color: rgb(78, 78, 76);
+    color: rgb(37, 37, 36);
   }
   .payment_histories {
     flex: 2;
@@ -27,6 +27,7 @@
     }
     .plate {
       font-size: 14.3px;
+      opacity: 0.7;
       .numbers {
         font-family: sand_reg;
         max-width: fit-content;
@@ -52,7 +53,7 @@
     }
     .tav {
       background: #f2f1f1;
-      padding: 2.7% 4.4% !important;
+      padding: 2.7% 3% !important;
     }
     .payment_histories {
       .pay_history_header {

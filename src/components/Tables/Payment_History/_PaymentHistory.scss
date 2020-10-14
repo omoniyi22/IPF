@@ -1,6 +1,6 @@
 .payment_history_table {
   padding: 19px 9px 10px 9px;
-  &:last-of-type{
+  &:last-of-type {
     border-bottom: none !important;
   }
   .put {
@@ -35,9 +35,28 @@
   }
 }
 
-@media (max-width : 1000px){
-  .PH{
+@media (max-width: 1000px) {
+  .PH {
+    .payment_history_table {
+      padding: 19px 5px 10px 5px !important;
+    }
     display: block !important;
-    
+    .date {
+      font-size: 10.6px;
+      .time{
+        font-size: 12px;
+        font-weight: lighter !important;
+      }
+    }
+    .type {
+      font-size: 12px;
+    }
+    .price {
+      font-size: 12px;
+    }
+    .car {
+      font-size: 12px;
+      color: rgb(107, 107, 107);
+    }
   }
 }
