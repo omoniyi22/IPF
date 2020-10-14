@@ -9,6 +9,7 @@
 
 //     _Tables_
 @import "./../../components/Tables/Event/event";
+@import "./../../components/Tables/Payment_History/PaymentHistory";
 @import "./../../components/Tables/Member/member";
 
 //     _Forms_
@@ -35,6 +36,7 @@
 //     PAGES
 //     _Home_
 @import "./../../pages/members/member";
+@import "./../../pages/pay_history/payment_hisory";
 @import "./../../pages/home/home";
 @import "./../../pages/event/event";
 @import "./../../pages/payment/payment";

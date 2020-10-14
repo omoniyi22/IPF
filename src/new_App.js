@@ -6,6 +6,7 @@ import HomePage from "./pages/home/index";
 import EventPage from './pages/event'
 import MemberPage from './pages/members/index'
 import Payment from './pages/payment/payment'
+import Payment_History from './pages/pay_history'
 
 
 
@@ -59,6 +60,7 @@ class App extends Component {
                 <Route path="/event_page" component={EventPage} />
                 <Route path="/invite" component={EventPage} />
                 <Route path="/edit_event" component={EventPage} />
+                <Route path="/payment_history" component={Payment_History} />
                 <Route path="/members" component={MemberPage} />
                 <Route path="/payment" component={Payment} />
                 <Route path="/" component={HomePage} />
