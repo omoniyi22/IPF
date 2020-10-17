@@ -49,8 +49,7 @@ function Root() {
       <AdminRoute exact path="/admin/settings/membership" component={GeneralSettings} />
       <AdminRoute exact path="/admin/settings" component={PlatformAdmin} />
       <AdminRoute exact path="/admin/designation" component={Position} />
-      <MyRoute  path="/create-event" component={HomePage} />
-      <MyRoute  exact={true} path="/" component={HomePage} />
+
     </>
   );
 }

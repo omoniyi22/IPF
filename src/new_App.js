@@ -1,7 +1,14 @@
 import React, { Component } from "react";
 import "./assets/styles/app.scss";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { connect } from "react-redux";
+import { connect } from 'react-redux'
+import HomePage from "./pages/home/index";
+import EventPage from './pages/event'
+import MemberPage from './pages/members/index'
+import Payment from './pages/payment/payment'
+import Payment_History from './pages/pay_history'
+
+
 
 // NAVS
 import UserOnTop from "./layouts/nav/user_on_top";
@@ -23,7 +30,7 @@ class App extends Component {
   render() {
     let { show } = this.state;
     return (
-      <>
+      <Router>
         <UserOnTop />
         <div className="sort_app ">
           <div className="sticker over_hide ">
@@ -52,26 +59,31 @@ class App extends Component {
             </div>
           </div>
           <div className="sort_page flex-2 mx-auto mt-md-5 mt-4">
-            {this.props.component}
+            <>
+              <Switch>
+                <Route path="/create-event" component={HomePage} />
+                <Route path="/event_page" component={EventPage} />
+                <Route path="/invite" component={EventPage} />
+                <Route path="/edit_event" component={EventPage} />
+                <Route path="/payment_history" component={Payment_History} />
+                <Route path="/members" component={MemberPage} />
+                <Route path="/payment" component={Payment} />
+                <Route path="/" component={HomePage} />
+              </Switch>
+            </>
           </div>
         </div>
         {/* {this.props.nav && <Footer />} */}
-      </>
+      </Router>
     );
   }
 }
 
-const MyRoute = ({ component: Component, path, exact }) => (
-  <Route
-    exact={exact}
-    path={path}
-    render={(props) => <App component={<Component />} />}
-  />
-);
 
 const mapStateToProps = (state) => ({
-  // auth: state.auth.isAuthenticated,
-  // nav: state.nav.nav
+
 });
 
-export default connect(mapStateToProps)(MyRoute);
+export default connect(
+  mapStateToProps
+)(App);

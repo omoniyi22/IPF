@@ -1,0 +1,163 @@
+.EventScreen {
+  .upcoming_text {
+    font-size: 24px;
+  }
+  .bread {
+    padding-bottom: 0 !important;
+    padding-top: 0 !important;
+    margin-top: -5px !important;
+    height: 40.2px !important;
+    margin-right: 30px !important;
+    .form-control {
+      border-width: 2.3px !important;
+      border-color: rgba(56, 55, 55, 0.404);
+      margin-bottom: 0 !important;
+      background: rgb(255, 255, 255);
+      width: 220px;
+      padding-left: 15px !important;
+      padding-right: 37px !important;
+      color: rgb(128, 123, 123) !important ;
+      font-size: 14px;
+    }
+    .fa-search {
+      margin-left: -32px;
+      font-size: 16px;
+      color: rgb(153, 150, 150);
+
+      // text-shadow: 22px 20px 25px rgb(0, 0, 0) !important;
+    }
+  }
+  .inner {
+    margin-top: 34px !important;
+    margin-bottom: 34px !important;
+    justify-content: space-between;
+    .oner {
+      border-radius: 12px;
+      display: flex;
+      padding: 9px 8px;
+      max-height: 67px !important;
+      background: #a8e2c7;
+      width: 19%;
+      .icon {
+        background: #3db37c;
+        height: 48px;
+        width: 48px;
+        .icon_1 {
+          height: 37px;
+          width: 37px;
+          background-size: 63%;
+          background-position: center;
+          background-position-y: 8px;
+          background-repeat: no-repeat;
+          background-image: url("./../../../assets/medias/svg/ico_1.png");
+        }
+      }
+      .text {
+        .text_1 {
+          font-size: 18px;
+          font-weight: bold;
+        }
+        .text_2 {
+          font-size: 13px;
+          padding: 0 4px;
+        }
+      }
+    }
+    .oner.t {
+      background: #f3eeee;
+      .icon {
+        background: #c4c4c4;
+        .icon1 {
+          font-size: 18px;
+        }
+      }
+    }
+    .oner.h {
+      background: #edd6c6;
+      .icon {
+        background: #fb8a30;
+        .icon_1 {
+          background-image: url("./../../../assets/medias/svg/ico_2.png") !important;
+          font-size: 18px;
+          background-position-x: 8px;
+          background-position-y: 6.8px;
+        }
+      }
+    }
+    .oner.f {
+      background: #faf7bc;
+      .icon {
+        background: #928d16;
+        .icon_1 {
+          background-position-x: 7px;
+          background-position-y: 6.8px;
+          background-image: url("./../../../assets/medias/svg/ico_3.png") !important;
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 920px) {
+  .EventScreen {
+    .wq {
+      margin-top: 30px !important;
+      margin-bottom: 20px !important;
+    }
+    .bread {
+      padding-bottom: 0 !important;
+      padding-top: 0 !important;
+      margin-top: -13px !important;
+      height: 40.2px !important;
+      margin-right: 30px !important;
+      .form-control {
+        border-width: 2.3px !important;
+        border-color: rgba(56, 55, 55, 0.404);
+        margin-bottom: 0 !important;
+        background: rgb(255, 255, 255);
+        width: 200px;
+        padding-left: 15px !important;
+        padding-right: 37px !important;
+        color: rgb(128, 123, 123) !important ;
+        font-size: 12.7px;
+      }
+      .fa-search {
+        margin-left: -32px;
+        font-size: 15px;
+        color: rgb(153, 150, 150);
+        // text-shadow: 22px 20px 25px rgb(0, 0, 0) !important;
+      }
+    }
+    .inner {
+      justify-content: space-between;
+      flex-wrap: wrap;
+      .oner {
+        border-radius: 12px;
+        display: flex;
+        padding: 9px 8px;
+        max-height: 67px !important;
+        background: #a8e2c7;
+        min-width: 48% !important;
+        margin-bottom: 14px;
+        .icon {
+        }
+      }
+      .oner.g {
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+      .text {
+        .text_1 {
+          font-size: 14px !important;
+          font-weight: bold;
+        }
+        .text_2 {
+          font-size: 12px !important;
+          padding: 0 4px;
+          font-family: sand_small;
+        }
+      }
+    }
+  }
+}

@@ -1,4 +1,37 @@
+.break_1 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+.z-balmer {
+  box-shadow: 0px 4px 15px 2px rgba(0, 0, 0, 0.1);
+}
+.break_2 {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+}
+.break_3 {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 3 !important;
+  -webkit-box-orient: vertical !important;
+}
+.hide {
+  visibility: hidden !important;
+}
+.word-break {
+  word-break: break-all;
+}
 
+.h-fit {
+  height: fit-content;
+}
 .pointer {
   cursor: pointer;
 }
@@ -52,7 +85,13 @@
 .hide_over {
   overflow: hidden;
 }
+.bou {
+  border-color: #1c5169 !important;
+}
 @media (max-width: 1000px) {
+  .sm-hidden {
+    display: none;
+  }
   .sm-show-flex {
     display: flex !important;
   }
@@ -65,4 +104,28 @@
   .sm-show {
     display: block !important;
   }
+}
+
+@keyframes opacy {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.opacy {
+  animation-name: opacy;
+  animation-duration: 0.3s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
 }

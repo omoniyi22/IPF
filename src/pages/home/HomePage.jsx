@@ -1,9 +1,10 @@
-import React, { Component } from "react";
-import EventCard from "../../components/Cards/EventCard";
-import LandingCard from "../../components/Cards/LandingCard";
-import EventForm from "../../components/Forms/Event";
-import EventTable from "../../components/Tables/Event/Event";
-import Switch from "./../../utils/Switch";
+import React, { Component } from 'react'
+import EventCard from '../../components/Cards/EventCard'
+import LandingCard from '../../components/Cards/LandingCard'
+import EventTable from '../../components/Tables/Event/Event'
+import EventForm from '../../components/Forms/Event'
+import Switch from './../../utils/Switch'
+import { Link } from 'react-router-dom'
 
 class HomePage extends Component {
   constructor(props) {
@@ -29,7 +30,7 @@ class HomePage extends Component {
     let swit = Switch(EventForm);
     return (
       <div className={`${swit[2]} `}>
-        <div className="home1">
+        <div className="home1 ">
           <LandingCard />
           <div className=" my-4 mt-5 mb-4 h4 metro font-weight-bold">
             <div className="  home_2 mx-0">

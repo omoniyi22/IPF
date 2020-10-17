@@ -1,7 +1,7 @@
 import React from "react";
 import { Provider } from "react-redux";
 import store from "./redux/store";
-import Root from "./Root";
+import Root from "./new_App";
 import { Switch, BrowserRouter } from "react-router-dom"
 import "./App.css";
 import axios from "axios";
@@ -13,11 +13,7 @@ function App() {
   return (
     <div className="App">
       <Provider store={store}>
-        <BrowserRouter>
-          <Switch>
-            <Root />
-          </Switch>
-        </BrowserRouter>
+        <Root />
       </Provider>
     </div>
   );

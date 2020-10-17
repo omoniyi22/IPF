@@ -1,0 +1,68 @@
+.PH {
+  margin-top: 14px;
+  display: flex;
+  .titled {
+    font-size: 24px !important ;
+    color: rgb(37, 37, 36);
+  }
+  .payment_histories {
+    flex: 2;
+    .pay_history_header {
+    }
+    .tav {
+      background: #f2f1f1;
+      padding: 2% 4.4%;
+    }
+  }
+  .pay_history_aggregate {
+    font-family: sand_reg;
+    font-weight: bold;
+    width: 37%;
+    margin-left: 19px;
+    margin-top: 3%;
+    .title {
+      color: #31b476;
+      font-weight: bold;
+      font-family: sand_small;
+    }
+    .plate {
+      font-size: 14.3px;
+      opacity: 0.7;
+      .numbers {
+        font-family: sand_reg;
+        max-width: fit-content;
+      }
+      .total {
+        font-family: sand_reg;
+      }
+    }
+    .de {
+      margin-top: 10px !important;
+    }
+    .dsd {
+      margin-top: 3px;
+    }
+  }
+}
+@media (max-width: 1000px) {
+  .PH {
+    margin-top: 14%;
+    display: flex;
+    .titled {
+      font-size: 18px !important ;
+    }
+    .tav {
+      background: #f2f1f1;
+      padding: 2.7% 3% !important;
+    }
+    .payment_histories {
+      .pay_history_header {
+      }
+    }
+    .pay_history_aggregate {
+      width: 100%;
+      margin-left: 0;
+      padding-left: 14px;
+    }
+  }
+}

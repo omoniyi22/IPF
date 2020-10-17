@@ -11,8 +11,8 @@ class Form extends Component {
   render() {
     return (
       <div className=" text-left  form_1">
-        <div className="form_title">
-          Create Event
+        <div className="form_title py-1">
+          {this.props.title !== true ? "Create Event" : "Edit Event"}
         </div>
         <div className="  real_form">
           <div className="   first_form_row">

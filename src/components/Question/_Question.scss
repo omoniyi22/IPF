@@ -1,0 +1,198 @@
+  .real_question:last-of-type {
+      border-bottom: none !important;
+    }
+.real_question {
+  .my_que {
+    transition-duration: 0.2s;
+    &:hover {
+      background: #b5e9d0d7;
+      .fa-star {
+        background: #c3c0c0 !important;
+      }
+    }
+    .head {
+      height: 44px;
+      font-size: 14px;
+      .hir {
+        // font-family: rali;
+        font-weight: bold;
+        height: 41px;
+        overflow: hidden;
+        color: rgb(83, 80, 80);
+        font-size: 13.4px;
+      }
+      .set_up {
+        .fa-star {
+          color: white;
+          padding: 3px 3px 5px 3px;
+          font-size: 11.4px;
+          background: #ccca9a;
+        }
+        .fa-lightbulb {
+          color: white;
+          padding: 3px 5px 3px 5px;
+          background: #31b476;
+          font-size: 11.2px;
+        }
+        .fa-check-double {
+          border-color: #fb8a30 !important;
+          color: #fb8a30 !important;
+          color: white;
+          padding: 3.3px 3.2px 3px 3.2px;
+          font-size: 10.7px;
+        }
+      }
+    }
+    .bottom {
+      text-align: left;
+      .the_img {
+        background-position: center;
+        background-size: 100% 100%;
+        height: 40px;
+        width: 41px;
+        margin-right: 6px;
+      }
+
+      .content {
+        margin-right: auto;
+
+        .name {
+          font-size: 13.4px;
+          font-weight: bold;
+          font-family: sand_small;
+        }
+        .time {
+          color: #7a7677;
+          font-family: metro;
+          font-size: 10px;
+        }
+      }
+    }
+    .commentary {
+      color: rgb(126, 122, 122);
+      font-size: 11.5px;
+      .likes {
+        padding: 1.4px 8px;
+        border-radius: 6px;
+        background: white;
+      }
+      .menus {
+        margin-left: 6px;
+        margin-right: 5px;
+        span {
+          padding: 3px !important;
+          margin-left: 1.4px;
+          background: #a8acb1;
+          margin-right: 1.4px;
+        }
+      }
+    }
+  }
+}
+.dl {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  .real_question {
+    .my_que {
+      padding: 3.4px !important;
+      padding-left: 9px !important;
+      padding-right: 7px !important;
+      padding-top: 6px !important;
+      padding-bottom: 6px !important;
+      transition-duration: 0.2s;
+      &:hover {
+        background: #b5e9d0d7;
+        .fa-star {
+          background: #c3c0c0 !important;
+        }
+      }
+      .head {
+        height: 41px;
+        font-size: 14px;
+        .hir {
+          // font-family: rali;
+          height: 41px;
+          overflow: hidden;
+          color: rgb(83, 80, 80);
+          font-size: 13px;
+          font-family: metro;
+          font-weight: lighter;
+        }
+        .set_up {
+          .fa-star {
+            color: white;
+            padding: 3px 3px 5px 3px;
+            font-size: 11.4px;
+            background: #ccca9a;
+          }
+          .fa-lightbulb {
+            color: white;
+            padding: 3px 5px 3px 5px;
+            background: #31b476;
+            font-size: 11.2px;
+          }
+          .fa-check-double {
+            border-color: #fb8a30 !important;
+            color: #fb8a30 !important;
+            color: white;
+            padding: 3.3px 3.2px 3px 3.2px;
+            font-size: 10.7px;
+          }
+        }
+      }
+      .bottom {
+        text-align: left;
+        .the_img {
+          background-position: center;
+          background-size: 100% 100%;
+          height: 40px;
+          min-width: 40px;
+          margin-right: 4px;
+        }
+
+        .content {
+          margin-right: auto;
+
+          .name {
+            font-size: 13.4px;
+            font-weight: bold;
+            font-family: sand_small;
+            opacity: 0.7;
+          }
+          .time {
+            color: #7a7677;
+            font-family: metro;
+            font-size: 10px;
+          }
+        }
+      }
+      .commentary {
+        color: rgb(126, 122, 122);
+        font-size: 11.5px;
+        .likes {
+          padding: 1.4px 8px;
+          border-radius: 6px;
+          background: white;
+        }
+        .dl {
+          display: block;
+        }
+        .ld {
+          display: none;
+        }
+        .menus {
+          margin-left: 3px !important;
+          margin-right: 2px;
+          span {
+            padding: 3px !important;
+            margin-left: 1.4px;
+            background: #a8acb1;
+            margin-right: 1.4px;
+          }
+        }
+      }
+    }
+  }
+}

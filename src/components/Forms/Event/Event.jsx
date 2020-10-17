@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Form from './Form'
+import Preview from './Preview'
 import { Link, withRouter } from 'react-router-dom'
 
 class EventForm extends Component {
@@ -34,7 +35,7 @@ class EventForm extends Component {
               move: ""
             })
             setTimeout(() => {
-              this.props.history.push("/")
+              this.props.history.goBack()
             }, 290);
           }}
         />
@@ -42,10 +43,10 @@ class EventForm extends Component {
         >
           <div className="form_1  flex  white w-100 ">
             <div className={`pincher going ${this.state.move} px-1`}>
-              <Form move={this.onMove} />
+              <Form move={this.onMove} title={this.props.title} />
             </div>
             <div className="pincher go px-1">
-              <Form unmove={this.unMove} />
+              <Preview unmove={this.unMove} />
             </div>
           </div>
         </div>
