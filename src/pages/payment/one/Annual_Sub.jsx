@@ -12,14 +12,21 @@ class Annual_Sub extends Component {
             <div className="data ">
               Payment Data
             </div>
-            <select class="mdb-select md-form form-control ">
-              <option value="">Choose your country</option>
-              <option value="1">USA</option>
-              <option value="2">Germany</option>
-              <option value="3">France</option>
-              <option value="4">Poland</option>
-              <option value="5">Japan</option>
-            </select>
+            <div className="flex">
+              <select class="mdb-select md-form form-control ">
+                <option value="">Choose your country</option>
+                <option value="1">USA</option>
+                <option value="2">Germany</option>
+                <option value="3">France</option>
+                <option value="4">Poland</option>
+                <option value="5">Japan</option>
+              </select>
+              <div className="place  w-fit">
+                <div className="eew  h-100 ">
+
+                </div>
+              </div>
+            </div>
             <div className="plan ">
               Select membership plan
           </div>

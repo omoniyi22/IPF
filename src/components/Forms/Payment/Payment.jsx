@@ -1,5 +1,6 @@
 import React from 'react'
-const solid = require('./../../../assets/medias/payment/solid.svg')
+const solid = require('./../../../assets/medias/svg/zame.png')
+const zame = require('./../../../assets/medias/svg/zaem.png')
 const Payment_Form = () => {
   return (
     <div className="payment_form border mt-4 rounded-lg z-depth-1">
@@ -50,7 +51,10 @@ const Payment_Form = () => {
           <div className="apay opa ">
             <div className="fpay z-depth-1 ">
               <div className="slit  text-right  w-100">
-                <img src={solid} width="12px" className=" rounded-sm faf" />
+                <img
+                  src={solid}
+                  // style={{ backgroundImage: `url(${solid})` }}
+                  width="12px" className=" rounded-sm faf" />
               </div>
               <div className="clean  h-100">
                 <div className="ttitl">
@@ -64,7 +68,7 @@ const Payment_Form = () => {
             </div>
             <div className="spay  z-depth-1">
               <div className="slit  text-right  w-100">
-                <img src={solid} width="12px" className=" rounded-sm faf" />
+                <img src={zame} width="12px" className=" rounded-sm faf" />
               </div>
               <div className="clean  h-100">
                 <div className="ttitl">
@@ -88,7 +92,7 @@ const Payment_Form = () => {
               </div>
             </div>
             <div className="spay  h-fit z-depth-1 flex">
-                <div className="code tux">xxxx - xxxx - xxxx - 2345</div>
+              <div className="code tux">xxxx - xxxx - xxxx - 2345</div>
               <div className="slit text-right  ml-auto w-fit">
                 <img src={solid} width="12px" className=" rounded-sm faf" />
               </div>

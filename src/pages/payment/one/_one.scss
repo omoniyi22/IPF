@@ -15,7 +15,35 @@
       margin-top: 9px !important;
       max-width: 48%;
       margin-left: auto;
+      .form-control {
+        color: #495057 !important;
+        background-color: #fff !important;
+        border-color: #ffd5ae !important;
+        outline: 0 !important;
+        color: rgb(243, 156, 17) !important;
+        box-shadow: 0 0 0 0.2rem #ffd5ae !important;
+      }
+      .place {
+        width: 40px !important;
+        padding-right: 10px;
+        height: 36px;
+        margin-left: -42px;
+        margin-top: 19px;
+        margin-bottom: auto;
+        background-color: white;
+        z-index: 1;
+
+        .eew {
+          background-size: 60% 40% !important;
+          background-image: url("./../../../../src/assets/medias/svg/Poli.png");
+          background-position: center;
+          background-repeat: no-repeat;
+        }
+      }
       select {
+        &::-ms-expand {
+          display: none !important;
+        }
         margin-top: 18px !important;
         margin-bottom: 10px !important;
         font-size: 16px;

@@ -15,7 +15,15 @@
       margin-bottom: 3px;
     }
     .card_num {
+   
       margin-bottom: 15px;
+      .form-control:focus {
+        color: #495057;
+        background-color: #fff;
+        border-color: #ffd5ae;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem #ffd5ae;
+      }
     }
     .plate {
       display: flex;
@@ -42,7 +50,7 @@
     }
     .bottum {
       margin-top: 8px;
-      margin-bottom: 5px;
+      margin-bottom: 1px;
       display: flex !important;
       .strait {
         flex: 2;
@@ -58,6 +66,7 @@
     }
     .saved_cards {
       .apay {
+        margin-top: 11px;
         display: flex;
         height: 168px;
         justify-content: space-between;
@@ -69,10 +78,10 @@
           .faf {
             margin-right: 10%;
             margin-top: 6.4%;
-            width: 19px;
-            padding: 2px 3px;
-            opacity: 0.4;
-            background-color: white;
+            width: 20px;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            background-color: white !important;
           }
           .clean {
             margin-top: auto;

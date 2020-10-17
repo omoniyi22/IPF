@@ -379,7 +379,7 @@ Here are the variables we include (note that the `:root` is required). They're l
 
 {% highlight css %}
 :root {
-  --blue: #007bff;
+  --blue: #ffac5d;
   --indigo: #6610f2;
   --purple: #6f42c1;
   --pink: #e83e8c;
@@ -392,7 +392,7 @@ Here are the variables we include (note that the `:root` is required). They're l
   --white: #fff;
   --gray: #6c757d;
   --gray-dark: #343a40;
-  --primary: #007bff;
+  --primary: #ffac5d;
   --secondary: #6c757d;
   --success: #28a745;
   --info: #17a2b8;
