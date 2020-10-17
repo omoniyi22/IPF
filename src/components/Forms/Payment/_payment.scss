@@ -15,7 +15,6 @@
       margin-bottom: 3px;
     }
     .card_num {
-   
       margin-bottom: 15px;
       .form-control:focus {
         color: #495057;
@@ -75,13 +74,20 @@
           color: white;
           font-size: 15px;
           width: 49%;
+          .slit {
+            width: 20px;
+            overflow: hidden;
+          }
           .faf {
             margin-right: 10%;
+            width: 22px !important;
+            height: 22px !important;
             margin-top: 6.4%;
-            width: 20px;
             background-repeat: no-repeat;
-            background-size: 100% 100%;
+            background-position: center;
+            background-size: 116% 108%;
             background-color: white !important;
+          filter: brightness(1);
           }
           .clean {
             margin-top: auto;

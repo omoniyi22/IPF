@@ -51,10 +51,9 @@ const Payment_Form = () => {
           <div className="apay opa ">
             <div className="fpay z-depth-1 ">
               <div className="slit  text-right  w-100">
-                <img
-                  src={solid}
-                  // style={{ backgroundImage: `url(${solid})` }}
-                  width="12px" className=" rounded-sm faf" />
+                <div src={""} alt=""
+                  style={{ backgroundImage: `url(${solid})` }}
+                  width="12px" className="ml-auto rounded-sm faf" />
               </div>
               <div className="clean  h-100">
                 <div className="ttitl">
@@ -68,7 +67,10 @@ const Payment_Form = () => {
             </div>
             <div className="spay  z-depth-1">
               <div className="slit  text-right  w-100">
-                <img src={zame} width="12px" className=" rounded-sm faf" />
+                <div src={""} alt=""
+                  style={{ backgroundImage: `url(${zame})` }}
+                  className="  ml-auto rounded-sm faf"
+                />
               </div>
               <div className="clean  h-100">
                 <div className="ttitl">

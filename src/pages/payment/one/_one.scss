@@ -35,9 +35,10 @@
         z-index: 1;
 
         .eew {
-          background-size: 60% 40% !important;
+          background-size: 60% 33% !important;
           background-image: url("./../../../../src/assets/medias/svg/Poli.png");
           background-position: center;
+          filter: brightness(1.49);
           background-repeat: no-repeat;
         }
       }
