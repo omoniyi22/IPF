@@ -11,7 +11,7 @@ const logger = createLogger();
 let middlewares = [];
 
 if (process.env.NODE_ENV === "development") {
-  middlewares = [...middlewares, thunk];
+  middlewares = [...middlewares, thunk, logger];
 } else {
   middlewares = [...middlewares, thunk];
 }

@@ -434,7 +434,7 @@ class Members extends Component {
       this.props.showLoader(true);
       const token = localStorage.getItem("x-access-token");
       const response = await Axios.get(
-        `/api/v1/admin/company-members?company_id=${data.company_id}`,
+        `/api/v1/admin/company-members?company_id=${data.memberNumber}`,
         { headers: { "x-access-token": token } }
       );
 
@@ -642,7 +642,8 @@ class Members extends Component {
 
     comp.forEach((item) => {
       individualMembers.forEach((member) => {
-        if (item.company_id == member.company_id) {
+        console.log(member.company_id, item.memberNumber)
+        if (item.memberNumber === member.company_id) {
           member.company_name = item.company_name;
         }
       });
@@ -749,7 +750,7 @@ class Members extends Component {
     const comp = this.state.companies || [];
     comp.forEach((item) => {
       _members.forEach((member) => {
-        if (item.company_id == member.company_id) {
+        if (item.memberNumber == member.company_id) {
           member.company_name = item.company_name;
         }
       });
@@ -849,9 +850,11 @@ class Members extends Component {
 
   openAddMemberModal = async (e) => {
     try {
-      window.$("#modal3").modal("open");
+     
+        window.$("#modal7").modal("open");
+   
     } catch (error) {
-      // alert("some errors were encountered");
+     
     }
   };
 
@@ -1161,18 +1164,22 @@ class Members extends Component {
               </div>
             </div>
             <div id="modal3" class="modal modal-fixed-footer">
-              {this.state.editCompany && (
+          
                 <EditOrganization
                   data={this.state.companyData}
-                  onEdit={() => {
+                  onClose={() => {
                     this.setState({
                       editCompany: false,
                     });
                   }}
                 />
-              )}
+         
 
-              {!this.state.editCompany && (
+             
+            </div>
+
+
+            <div id="modal7" class="modal modal-fixed-footer">
                 <>
                   <div class="modal-content">
                     <h4>{"Add members"}</h4>
@@ -1309,7 +1316,8 @@ class Members extends Component {
                     </button>
                   </div>
                 </>
-              )}
+            
+
             </div>
             <div id="modal6" class="modal modal-fixed-footer">
               <EditMember

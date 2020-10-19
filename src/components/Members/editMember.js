@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../redux/actions";
 import { api, attachApiToken } from "../../services/api";
-import { getMembers } from "../../services/members";
 import { isEmailValid } from "../../utils/app";
+import { emailRegx, phoneNumberRegx } from "../../utils/regex";
 import AppWrapper from "../appWrapper";
 import { TextInput } from "../components";
 import PhoneNumber from "../General/phoneInput";
-import { phoneNumberRegx, emailRegx } from "../../utils/regex";
 
 const EditMember = ({ data, showLoader, getAll }) => {
   const [state, setState] = useState({

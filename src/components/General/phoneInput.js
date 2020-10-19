@@ -7,6 +7,7 @@ export default function PhoneNumber({
   value,
   placeholder = "Enter phone number",
   name,
+  disabled
 }) {
   const [state, setValue] = useState(value);
   useEffect(() => {
@@ -20,8 +21,9 @@ export default function PhoneNumber({
       defaultValue={state}
       value={state}
       name={name}
+      disabled={disabled}
       onChange={(value) => {
-        console.log(value);
+     
         setValue(value);
         onChange({ name, value }, true);
       }}

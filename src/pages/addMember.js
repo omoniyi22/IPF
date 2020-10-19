@@ -139,7 +139,7 @@ const AddMembers = ({
     getUser();
   }, [setUser]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     initiateState();
   }, [initiateState]);
 
@@ -156,7 +156,6 @@ const AddMembers = ({
         handleFireSnackbar("Action Successful", "success");
       }
     } catch (error) {
-      alert(JSON.stringify(error.response));
       showLoader();
       handleFireSnackbar("some errors were encountered", "error");
     }
