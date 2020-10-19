@@ -39,9 +39,16 @@ const ChangePassword = ({ showLoader }) => {
       showLoader(true);
       const authApi = await attachApiToken(api);
       await authApi.put("/auth/password", state);
+
       dispatch(actions.isDefaultPasswordAction(false));
       showLoader();
+    
       onOpen("Password update Successful", "success");
+      setState({
+        current_password: "",
+        new_password: "",
+        confirm_password: "",
+      })
     } catch (error) {
       let _error = "Some errors were encountered";
       if (

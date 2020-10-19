@@ -57,6 +57,11 @@ class ResetPassword extends Component {
       const response = await resetPasswordCall({ password, id, token });
       this.props.showLoader(false);
       this.fireSnackbar(response.data.message, "success");
+
+      this.setState({
+        password: "",
+        cPassword: "",
+      })
     } catch (error) {
       this.props.showLoader(false);
 
