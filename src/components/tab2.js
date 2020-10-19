@@ -285,10 +285,17 @@ function CustomTab2({ userDetails, saveMember, showLoader }) {
       .then((res) => {
         showLoader(false);
         handleClick("Member Registration Successful", "success");
+        setState({
+          firstName :'',
+          lastName:'',
+          phoneNumber:'',
+          emailAddress:""
+        })
       })
       .catch((error) => {
+        console.log(error.response)
         showLoader(false);
-        if (error.response.data.error) {
+        if (error.response && error.response.data.error) {
           return handleClick(error.response.data.message, "error");
         }
 
