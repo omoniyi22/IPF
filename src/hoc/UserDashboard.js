@@ -95,7 +95,7 @@ class UserDashboard extends Component {
   };
 
   render() {
-    const {  companyAdmin, openSnackbar, memberType } = this.state;
+    const { companyAdmin, openSnackbar, memberType } = this.state;
 
     const { other, location } = this.props;
 
@@ -111,8 +111,8 @@ class UserDashboard extends Component {
     return (
       <div className="container-fluid">
         <Header />
-      
-        <div style={{overflowY : "auto"}} className="user-dasboard-header2">
+
+        <div style={{ overflowY: "auto" }} className="user-dasboard-header2">
           <div className="d-flex flex-column justify-content-between align-items-center py-4 px-2">
             <img className="mb-3 custom-ipf-logo" src={logo} alt="ipf" />
             <h5
@@ -236,7 +236,7 @@ class UserDashboard extends Component {
           </>
         )}
 
-        {companyAdmin && this.state.company.company_details === "" && (
+        {companyAdmin && !this.props.companyData.company_details && (
           <Snackbar
             anchorOrigin={{ vertical: "top", horizontal: "right" }}
             open={openSnackbar}
@@ -281,6 +281,7 @@ class UserDashboard extends Component {
 const mapStateToProps = (state) => {
   return {
     isDefaultPassword: state.user.isDefaultPassword,
+    companyData: state.company.companyData,
   };
 };
 export default connect(mapStateToProps, actions)(withRouter(UserDashboard));

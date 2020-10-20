@@ -128,6 +128,10 @@ class UserProfile extends Component {
         return this.openSnack("Phone Number is not valid", "error");
       }
 
+      if (phoneNumber2 && phoneNumber2.length < 14) {
+        return this.openSnack("Phone Number(2) is not valid", "error");
+      }
+
       if (!avatar) {
         return this.openSnack("Please add your profile picture", "error");
       }

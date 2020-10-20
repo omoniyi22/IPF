@@ -3,14 +3,16 @@ import thunk from "redux-thunk";
 import { createLogger } from "redux-logger";
 import userReducer from "./reducers/userReducer";
 import dataReducer from "./reducers/dataReducer";
+import companyReducer from "./reducers/companyReducer";
 import uiReducer from "./reducers/uiReducer";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
+const NODE_ENV = "production";
 const logger = createLogger();
 let middlewares = [];
 
-if (process.env.NODE_ENV === "development") {
+if (NODE_ENV === "development") {
   middlewares = [...middlewares, thunk, logger];
 } else {
   middlewares = [...middlewares, thunk];
@@ -25,6 +27,7 @@ const reducers = combineReducers({
   user: userReducer,
   data: dataReducer,
   UI: uiReducer,
+  company: companyReducer,
 });
 
 const rootReducer = persistReducer(persistConfig, reducers);

@@ -99,13 +99,13 @@ class Login extends Component {
         })
       );
 
-
-
-     
-
       this.props.loginSuccess({
         default_password,
       });
+
+      if (!isAdmin) {
+        this.props.getCompanyDetails();
+      }
 
       this.props.showLoader(false);
       if (isAdmin) {
@@ -291,6 +291,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     showLoader: (type = false) => dispatch(actions.showLoader(type)),
     loginSuccess: (payload) => dispatch(actions.loginSuccessAction(payload)),
+    getCompanyDetails: () => dispatch(actions.getCompanyDetailsRequest()),
   };
 };
 
