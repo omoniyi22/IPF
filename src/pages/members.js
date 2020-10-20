@@ -255,7 +255,7 @@ class Members extends Component {
         () => this.handleFireSnackbar("Operation successful", "success")
       );
     } catch (error) {
-      console.error(error.response);
+    
       if (error.response) {
         this.handleFireSnackbar(error.response.data.message, "error");
         return this.props.showLoader();

@@ -29,8 +29,30 @@ class ResetPassword extends Component {
     openSnack: false,
     type: "default",
   };
+
+  ref = React.createRef()
   handleOnChange = (e) => {
     const { name, value } = e.target;
+
+    var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+    var mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
+
+    if(strongRegex.test(value)) {
+      this.ref.current.style.color = "green";
+      this.ref.current.style.display = "inline-block";
+      this.ref.current.innerText = "Strength : Strong";
+    } else if(mediumRegex.test(value)) {
+      this.ref.current.style.display = "inline-block";
+    this.ref.current.style.color = "orange";
+    this.ref.current.innerText = "Strength : Medium";
+    
+  } else {
+    this.ref.current.style.display = "inline-block";
+    this.ref.current.style.color = "red";
+    this.ref.current.innerText = "Strength : Weak";
+
+  }
+
     this.setState({
       [name]: value,
     });
@@ -38,6 +60,10 @@ class ResetPassword extends Component {
   submit = async (e) => {
     e.preventDefault();
     const { password, cPassword } = this.state;
+
+    if(password.length < 6) {
+      return this.fireSnackbar("Password must be 6 characters and above ", "error");
+    }
     if (password !== cPassword) {
       return this.fireSnackbar("Password mismatch", "error");
     }
@@ -133,6 +159,8 @@ class ResetPassword extends Component {
                               name="password"
                               placeholder="New Password"
                             />
+                            
+                            <span style={{position :"relative", fontWeight : 'bold', display : "none",  bottom : "10px"}} ref={this.ref}>Strength : weak</span>
 
                             <Input
                               type="password"

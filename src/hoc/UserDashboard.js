@@ -111,13 +111,8 @@ class UserDashboard extends Component {
     return (
       <div className="container-fluid">
         <Header />
-        {/* <div className="user-dasboard-header1">
-          <div className="d-flex mt-3 justify-content-end">
-            <img src={india} alt="flag" />
-            <img src={nigeria} alt="flag" />
-          </div>
-        </div> */}
-        <div className="user-dasboard-header2">
+      
+        <div style={{overflowY : "auto"}} className="user-dasboard-header2">
           <div className="d-flex flex-column justify-content-between align-items-center py-4 px-2">
             <img className="mb-3 custom-ipf-logo" src={logo} alt="ipf" />
             <h5

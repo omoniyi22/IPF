@@ -10,8 +10,10 @@ import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import * as actions from "../redux/actions";
 import { isEmailValid } from "../utils/app";
+import { phoneNumberRegx } from "../utils/regex";
 import { TextInput } from "./components";
 import PhoneNumber from "./General/phoneInput";
+
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -260,9 +262,14 @@ function CustomTab2({ userDetails, saveMember, showLoader }) {
       return handleClick("Phone number is required", "error");
     }
 
-    // if (phoneNumber.trim().length !== 13) {
-    //   return handleClick("Phone number is invalid", "error");
-    // }
+    if (!phoneNumberRegx.test(phoneNumber)) {
+      return handleClick("Phone number is invalid", "error");
+    }
+
+    if ((phoneNumber.trim().length !== 14)) {
+      return handleClick("Phone number is invalid", "error");
+    }
+
     if (emailAddress.trim() === "") {
       return handleClick("Email address is required", "error");
     }

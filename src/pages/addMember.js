@@ -183,6 +183,17 @@ const AddMembers = ({
           spacing={2}
           key={i}
         >
+
+          <Grid item sm={2}>
+            <Typography
+              className={clsx(classes.grey, classes.smallFont)}
+              variant="h6"
+            >
+              {(item.memberNumber)}
+            </Typography>
+          </Grid>
+
+
           <Grid item sm={2}>
             <Typography
               className={clsx(classes.grey, classes.smallFont)}
@@ -191,7 +202,7 @@ const AddMembers = ({
               {`${item.firstName} ${item.lastName}`}
             </Typography>
           </Grid>
-          <Grid item sm={4}>
+          <Grid item sm={3}>
             <Typography
               className={clsx(classes.grey, classes.smallFont)}
               variant="h6"
@@ -212,10 +223,12 @@ const AddMembers = ({
               className={clsx(classes.grey, classes.smallFont)}
               variant="h6"
             >
-              {sanitizeMember(item.membershipType)}
+              {(item.membershipType)}
             </Typography>
           </Grid>
-          <Grid item sm={2}>
+          
+
+          <Grid item sm={1}>
             <div className="btn-grid">
               <div className="item1">
                 <button
@@ -223,7 +236,7 @@ const AddMembers = ({
                   onClick={() => {
                     removeUser(item);
                   }}
-                  // disabled={item.approved ? true : false}
+              
                 >
                   Remove
                 </button>
@@ -277,6 +290,19 @@ const AddMembers = ({
               container
               spacing={2}
             >
+
+          <Grid item sm={2}>
+                <Typography
+                  variant="h5"
+                  className={clsx(
+                    classes.white,
+                    classes.smallFont,
+                    classes.borderRight
+                  )}
+                >
+                  Member no
+                </Typography>
+              </Grid>
               <Grid item sm={2}>
                 <Typography
                   variant="h5"
@@ -289,7 +315,7 @@ const AddMembers = ({
                   Name
                 </Typography>
               </Grid>
-              <Grid item sm={4}>
+              <Grid item sm={3}>
                 <Typography
                   variant="h5"
                   className={clsx(
@@ -330,7 +356,7 @@ const AddMembers = ({
                   variant="h5"
                   className={clsx(classes.white, classes.smallFont)}
                 >
-                  Actions
+                  {/* Actions */}
                 </Typography>
               </Grid>
             </Grid>
