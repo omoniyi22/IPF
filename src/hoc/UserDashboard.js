@@ -95,7 +95,7 @@ class UserDashboard extends Component {
   };
 
   render() {
-    const { companyAdmin, openSnackbar, memberType } = this.state;
+    const {  companyAdmin, openSnackbar, memberType } = this.state;
 
     const { other, location } = this.props;
 

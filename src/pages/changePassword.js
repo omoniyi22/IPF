@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { connect, useDispatch } from "react-redux";
 import AppWrapper from "../components/appWrapper";
 import { FormButton, TextInput } from "../components/components";
@@ -8,6 +8,8 @@ import { api, attachApiToken } from "../services/api";
 
 const ChangePassword = ({ showLoader }) => {
   const dispatch = useDispatch();
+
+  const ref = useRef(null)
   const [state, setState] = useState({
     current_password: "",
     new_password: "",
@@ -43,12 +45,14 @@ const ChangePassword = ({ showLoader }) => {
       dispatch(actions.isDefaultPasswordAction(false));
       showLoader();
     
-      onOpen("Password update Successful", "success");
       setState({
+        ...state,
         current_password: "",
         new_password: "",
         confirm_password: "",
       })
+      onOpen("Password update Successful", "success");
+      ref.current.style.display = "none"
     } catch (error) {
       let _error = "Some errors were encountered";
       if (
@@ -63,7 +67,37 @@ const ChangePassword = ({ showLoader }) => {
     }
   };
 
+
+
+  const changePwd = ({ target: { name, value } }) => {
+    setState({
+      ...state,
+      [name]: value,
+    });
+  }
   const onChange = ({ target: { name, value } }) => {
+
+    var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+    var mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
+
+
+    if(strongRegex.test(value)) {
+      ref.current.style.color = "green";
+      ref.current.style.display = "inline-block";
+      ref.current.innerText = "Strength : Strong";
+    } else if(mediumRegex.test(value)) {
+      ref.current.style.display = "inline-block";
+    ref.current.style.color = "orange";
+    ref.current.innerText = "Strength : Medium";
+    
+  } else {
+    ref.current.style.display = "inline-block";
+    ref.current.style.color = "red";
+    ref.current.innerText = "Strength : Weak";
+
+  }
+
+
     setState({
       ...state,
       [name]: value,
@@ -108,7 +142,7 @@ const ChangePassword = ({ showLoader }) => {
               <TextInput
                 type="password"
                 name={"current_password"}
-                onChange={onChange}
+                onChange={changePwd}
                 value={state.current_password}
               />
             </div>
@@ -120,14 +154,14 @@ const ChangePassword = ({ showLoader }) => {
                 onChange={onChange}
                 value={state.new_password}
               />
+                          <span style={{position :"relative", fontWeight : 'bold', display : "none",  bottom : "10px"}} ref={ref}>Strength : weak</span>
             </div>
-
             <div className="">
               <label>Confirm Password</label>
               <TextInput
                 type="password"
                 name={"confirm_password"}
-                onChange={onChange}
+                onChange={changePwd}
                 value={state.confirm_password}
               />
             </div>

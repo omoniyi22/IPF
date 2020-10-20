@@ -99,7 +99,7 @@ const EditMember = ({ data, showLoader, getAll }) => {
       });
     }
 
-    if (!phoneNumberRegx.test(state.phoneNumber)) {
+    if (!phoneNumberRegx.test(state.phoneNumber) || state.phoneNumber.trim().length < 14) {
       return setSnack({
         ...snack,
         msg: "Phone number(1) is invalid",
@@ -117,14 +117,16 @@ const EditMember = ({ data, showLoader, getAll }) => {
       });
     }
 
-    if (!state.passport) {
+    if (state.phoneNumber2 && state.phoneNumber2.trim().length < 14) {
       return setSnack({
         ...snack,
-        msg: "Passport is invalid",
+        msg: "Phone number(2) is invalid",
         type: "error",
         open: true,
       });
     }
+
+    
 
     try {
       showLoader(true);

@@ -55,8 +55,6 @@ class Members extends Component {
   async componentDidMount() {
     //initialize materialize modal
     window.$(".modal").modal();
-    //initialize select field
-    // window.$('select').formSelect();
     this.getDataAtOnce();
   }
 
@@ -66,12 +64,11 @@ class Members extends Component {
         this.assignAdmin(data);
         break;
       case "block":
-        this.blockUser(data);
+        // this.blockUser(data);
         break;
       case "remove":
         this.removeUser(data);
         break;
-
       default:
         break;
     }
@@ -89,9 +86,23 @@ class Members extends Component {
   };
   assignAdmin = async (data) => {
     try {
+      this.props.showLoader(true);
+      const authApi = await attachApiToken(api);
+      await authApi.patch("/admin/assign-role", {
+        userId: data["member_id"],
+        role: "super-user",
+        type:"role"
+      });
+      this.props.showLoader(false);
+      this.handleFireSnackbar("Operation Successful", "success");
     } catch (error) {
-      this.props.showLoader();
+      this.props.showLoader(false);
+      if(error.response && error.response.data&& error.response.data.message) {
+        return  this.handleFireSnackbar(error.response.data.message, "error");
+      }
+      this.handleFireSnackbar("some errors were encountered", "error");
     }
+    
   };
 
   removeUser = async (data) => {
@@ -105,10 +116,14 @@ class Members extends Component {
         });
         this.props.showLoader();
         this.handleFireSnackbar("Action Successful", "success");
+      this.getDataAtOnce()
+
       }
     } catch (error) {
       this.props.showLoader();
-
+      if(error.response && error.response.data&& error.response.data.message) {
+        return  this.handleFireSnackbar(error.response.data.message, "error");
+      }
       this.handleFireSnackbar("some errors were encountered", "error");
     }
   };
@@ -175,10 +190,8 @@ class Members extends Component {
       "You are about to remove a Company. This action is irreversible! Proceed with action?"
     );
     if (response) {
-      // remove(item.memberId);
       try {
         this.props.showLoader(true);
-
         const authApi = await attachApiToken(api);
         await authApi.delete("/admin/corporate-member", {
           data: {
@@ -189,9 +202,11 @@ class Members extends Component {
         this.props.showLoader(false);
         this.getDataAtOnce();
       } catch (error) {
-        console.log(error);
-        this.handleFireSnackbar("some errors where encountered", "error");
         this.props.showLoader(false);
+        if(error.response && error.response.data&& error.response.data.message) {
+          return  this.handleFireSnackbar(error.response.data.message, "error");
+        }       
+         this.handleFireSnackbar("some errors where encountered", "error");
       }
     }
   };
@@ -229,6 +244,10 @@ class Members extends Component {
       return this.handleFireSnackbar("Phone number is incorrect", "error");
     }
 
+    if ((phoneNumber.trim().length < 14)) {
+      return this.handleFireSnackbar("Phone number is incorrect", "error");
+    }
+
     try {
       const token = localStorage.getItem("x-access-token");
       const data = this.state.data;
@@ -236,7 +255,7 @@ class Members extends Component {
       await Axios.post(
         "/api/v1/admin/corporate-member",
         {
-          company_id: data.company_id,
+          company_id: data.memberNumber,
           firstName,
           lastName,
           email,
@@ -254,14 +273,17 @@ class Members extends Component {
         },
         () => this.handleFireSnackbar("Operation successful", "success")
       );
+
+      this.getDataAtOnce()
     } catch (error) {
     
-      if (error.response) {
-        this.handleFireSnackbar(error.response.data.message, "error");
-        return this.props.showLoader();
-      }
 
-      this.props.showLoader();
+      this.props.showLoader(false);
+
+      if(error.response && error.response.data&& error.response.data.message) {
+        return  this.handleFireSnackbar(error.response.data.message, "error");
+      }  
+    
       return this.handleFireSnackbar(
         "some errors were encountered, please contact admin",
         "error"
@@ -316,7 +338,7 @@ class Members extends Component {
         return this.handleFireSnackbar("Phone Number is invalid", "error");
       }
 
-      if (phone_number.length < 13 || adminPhoneNumber.length < 13) {
+      if (phone_number.length < 14 || adminPhoneNumber.length < 14) {
         return this.handleFireSnackbar("Phone Number is invalid", "error");
       }
 
@@ -350,7 +372,12 @@ class Members extends Component {
     } catch (error) {
       this.props.showLoader(false);
 
-      throw error;
+      if(error.response && error.response.data&& error.response.data.message) {
+        return  this.handleFireSnackbar(error.response.data.message, "error");
+      }  
+
+
+      this.handleFireSnackbar("some errors were encountered", "error");
     }
   };
 
@@ -379,7 +406,7 @@ class Members extends Component {
         if (!emailRegx.test(email)) {
           return this.handleFireSnackbar("Email is invalid", "error");
         }
-        if (phoneNumber.length < 13) {
+        if (phoneNumber.length < 14) {
           return this.handleFireSnackbar("Phone Number is invalid", "error");
         }
         const token = localStorage.getItem("x-access-token");
@@ -497,6 +524,10 @@ class Members extends Component {
       }
     } catch (error) {
       this.props.showLoader(false);
+
+      if(error.response && error.response.data&& error.response.data.message) {
+        return  this.handleFireSnackbar(error.response.data.message, "error");
+      }  
       this.handleFireSnackbar("some errors were encountered", "error");
     }
   };
@@ -516,6 +547,12 @@ class Members extends Component {
       }
     } catch (error) {
       this.props.showLoader(false);
+
+      if(error.response && error.response.data&& error.response.data.message) {
+        return  this.handleFireSnackbar(error.response.data.message, "error");
+      }  
+
+
       this.handleFireSnackbar("some errors were encountered", "error");
     }
   };
@@ -642,7 +679,6 @@ class Members extends Component {
 
     comp.forEach((item) => {
       individualMembers.forEach((member) => {
-        console.log(member.company_id, item.memberNumber)
         if (item.memberNumber === member.company_id) {
           member.company_name = item.company_name;
         }
@@ -1338,10 +1374,6 @@ const SpanContainer = styled.div`
   border: 1px solid orage;
   display: flex;
   margin: 5px 5px;
-`;
-
-const CustomText = styled.p`
-  margin: 0px 2px;
 `;
 
 const Item = styled.p`

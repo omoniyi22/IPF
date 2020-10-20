@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
 function CustomTab2({ userDetails, saveMember, showLoader }) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-  const [members, setMembers] = React.useState();
   const [state, setState] = React.useState({
     firstName: "",
     lastName: "",
