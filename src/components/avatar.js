@@ -58,7 +58,6 @@ export default function CustomAvatar({
         src={avatar}
         className={"company-logo"}
       />
-      <IconContainer></IconContainer>
     </div>
   );
 }
