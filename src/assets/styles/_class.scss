@@ -129,3 +129,11 @@
   animation-iteration-count: 1;
   animation-timing-function: ease-in;
 }
+
+.form-control:focus {
+  color: #495057 !important;
+  background-color: #fff !important;
+  border-color: #ffd5ae !important;
+  outline: 0 !important;
+  box-shadow: 0 0 0 0.2rem #ffd5ae !important;
+}
