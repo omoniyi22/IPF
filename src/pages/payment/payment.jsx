@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 //payment methods
 import AnnualPayment from './one'
 import For_Member from './two'
-//payment methods
 
 
 function Payment() {
