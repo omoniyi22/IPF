@@ -35,6 +35,20 @@ class ManageProfile extends Component {
     company_designation: "",
     qualifications: "",
     quals: [],
+    gender: "",
+    genders: [
+      {
+        id: "1",
+        name: "Male",
+        code: "m",
+      },
+
+      {
+        id: "2",
+        name: "Female",
+        code: "f",
+      },
+    ],
   };
   componentDidMount() {
     this.getIndustyClassification();
@@ -86,18 +100,31 @@ class ManageProfile extends Component {
         avatar,
         passport,
         qualifications,
+        gender,
       } = this.state;
-      if (
-        !phoneNumberRegx.test(phoneNumber) ||
-        !phoneNumberRegx.test(phoneNumber2)
-      ) {
+      if (!phoneNumberRegx.test(phoneNumber)) {
         return this.handleFireSnackbar("Phone Number is not valid", "error");
       }
-      if (!emailRegx.test(emailAddress) || !emailRegx.test(emailAddress2)) {
+
+      if (phoneNumber2 && !phoneNumberRegx.test(phoneNumber2)) {
+        return this.handleFireSnackbar("Phone Number(2) is not valid", "error");
+      }
+      if (phoneNumber2 && phoneNumber2.trim().length < 14) {
+        return this.handleFireSnackbar("Phone Number(2) is not valid", "error");
+      }
+
+      if (!emailRegx.test(emailAddress)) {
         return this.handleFireSnackbar("Email Address is not valid", "error");
       }
 
-      if (phoneNumber.length < 13) {
+      if (emailAddress2 && !emailRegx.test(emailAddress2)) {
+        return this.handleFireSnackbar(
+          "Email Address(2) is not valid",
+          "error"
+        );
+      }
+
+      if (phoneNumber.length < 14) {
         return this.handleFireSnackbar("Phone Number is not valid", "error");
       }
 
@@ -106,6 +133,10 @@ class ManageProfile extends Component {
           "Please add your profile picture",
           "error"
         );
+      }
+
+      if (!gender) {
+        return this.handleFireSnackbar("Please add your gender", "error");
       }
 
       if (this.state.passport && this.state.passport.length !== 8) {
@@ -383,6 +414,26 @@ class ManageProfile extends Component {
                     type="date"
                   />
                 </div>
+
+                <div className="col-lg-6">
+                  <label>Gender</label>
+                  <select
+                    name="gender"
+                    className="custom-select-input"
+                    defaultValue={this.state.gender}
+                    onChange={this.handleOnChange}
+                    value={this.state.gender}
+                  >
+                    <option>select</option>
+                    {this.state.genders.map((ele) => (
+                      <option key={ele.id} value={ele.code}>
+                        {ele.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <div className="row">
                 <div className="col-lg-6">
                   <label>Street 1</label>
                   <TextInput
@@ -391,8 +442,7 @@ class ManageProfile extends Component {
                     value={this.state.street1}
                   />
                 </div>
-              </div>
-              <div className="row">
+
                 <div className="col-lg-6">
                   <label>Street 2</label>
                   <TextInput
@@ -401,7 +451,8 @@ class ManageProfile extends Component {
                     value={this.state.street2}
                   />
                 </div>
-
+              </div>
+              <div className="row">
                 <div className="col-lg-6">
                   <label>City</label>
                   <TextInput
@@ -410,8 +461,7 @@ class ManageProfile extends Component {
                     value={this.state.city}
                   />
                 </div>
-              </div>
-              <div className="row">
+
                 <div className="col-lg-6">
                   <label>State</label>
                   <TextInput
@@ -420,7 +470,8 @@ class ManageProfile extends Component {
                     value={this.state.state}
                   />
                 </div>
-
+              </div>
+              <div className="row">
                 <div className="col-lg-6">
                   <label>Website</label>
                   <TextInput
@@ -429,8 +480,7 @@ class ManageProfile extends Component {
                     value={this.state.website}
                   />
                 </div>
-              </div>
-              <div className="row">
+
                 <div className="col-lg-6">
                   <label>IPF Position</label>
                   <TextInput
@@ -440,24 +490,24 @@ class ManageProfile extends Component {
                     value={this.state.position || "Member"}
                   />
                 </div>
+              </div>
 
-                <div className="col-lg-6">
-                  <label>Qualification</label>
-                  <select
-                    name="qualifications"
-                    className="custom-select-input"
-                    defaultValue={this.state.qualifications}
-                    onChange={this.handleOnChange}
-                    value={this.state.qualifications}
-                  >
-                    <option>select</option>
-                    {this.state.quals.map((ele) => (
-                      <option key={ele.id} value={ele.name}>
-                        {ele.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+              <div className="col-lg-6">
+                <label>Qualification</label>
+                <select
+                  name="qualifications"
+                  className="custom-select-input"
+                  defaultValue={this.state.qualifications}
+                  onChange={this.handleOnChange}
+                  value={this.state.qualifications}
+                >
+                  <option>select</option>
+                  {this.state.quals.map((ele) => (
+                    <option key={ele.id} value={ele.name}>
+                      {ele.name}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div className="my-4 text-center w-100">

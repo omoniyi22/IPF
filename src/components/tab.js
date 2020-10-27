@@ -16,6 +16,9 @@ import { api, attachApiToken } from "../services/api";
 import CustomAvatar from "./avatar";
 import { TextInput } from "./components";
 import PhoneNumber from "./General/phoneInput";
+import { phoneNumberRegx } from "../utils/regex";
+import { getCompanyDetailsRequest } from "../redux/actions";
+
 const labels = {
   company_name: "Company’s Name",
   industry_type: "Company’s Industry Type",
@@ -452,6 +455,17 @@ export default function CustomTab({ userDetails, updateDetails }) {
       return handleClick("Please provide your company logo", "error");
     }
 
+    if (
+      !company.phone_number ||
+      !phoneNumberRegx.test(company.phone_number) ||
+      company.phone_number.trim().length < 14
+    ) {
+      return handleClick(
+        "Please provide a valid company phone number",
+        "error"
+      );
+    }
+
     dispatch({ type: SHOW_LOADER, payload: true });
     try {
       const authApi = await attachApiToken(api);
@@ -461,7 +475,7 @@ export default function CustomTab({ userDetails, updateDetails }) {
 
       dispatch({ type: SHOW_LOADER, payload: false });
 
-      //   getMembers();
+      dispatch(getCompanyDetailsRequest());
       return handleClick("Company details updated successfully", "success");
     } catch (error) {
       dispatch({ type: SHOW_LOADER, payload: false });

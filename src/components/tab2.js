@@ -10,8 +10,10 @@ import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import * as actions from "../redux/actions";
 import { isEmailValid } from "../utils/app";
+import { phoneNumberRegx } from "../utils/regex";
 import { TextInput } from "./components";
 import PhoneNumber from "./General/phoneInput";
+
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -36,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
 function CustomTab2({ userDetails, saveMember, showLoader }) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-  const [members, setMembers] = React.useState();
   const [state, setState] = React.useState({
     firstName: "",
     lastName: "",
@@ -106,18 +107,9 @@ function CustomTab2({ userDetails, saveMember, showLoader }) {
           <PhoneNumber
             onChange={onChangeText}
             name={name1}
-            value={name1}
+            value={valueA}
             placeholder={labelOne}
           />
-          {/* <TextField
-            // classes={classes.input}
-            id="outlined-controlled"
-            label={labelOne}
-            name={name1}
-            variant="outlined"
-            onChange={onChangeText}
-            name={name1}
-          /> */}
         </FormGroup>
         <FormGroup style={{ width: "49%" }}>
           <TextInput
@@ -260,9 +252,14 @@ function CustomTab2({ userDetails, saveMember, showLoader }) {
       return handleClick("Phone number is required", "error");
     }
 
-    // if (phoneNumber.trim().length !== 13) {
-    //   return handleClick("Phone number is invalid", "error");
-    // }
+    if (!phoneNumberRegx.test(phoneNumber)) {
+      return handleClick("Phone number is invalid", "error");
+    }
+
+    if (phoneNumber.trim().length !== 14) {
+      return handleClick("Phone number is invalid", "error");
+    }
+
     if (emailAddress.trim() === "") {
       return handleClick("Email address is required", "error");
     }
@@ -285,10 +282,16 @@ function CustomTab2({ userDetails, saveMember, showLoader }) {
       .then((res) => {
         showLoader(false);
         handleClick("Member Registration Successful", "success");
+        setState({
+          firstName: "",
+          lastName: "",
+          phoneNumber: "",
+          emailAddress: "",
+        });
       })
       .catch((error) => {
         showLoader(false);
-        if (error.response.data.error) {
+        if (error.response && error.response.data.error) {
           return handleClick(error.response.data.message, "error");
         }
 

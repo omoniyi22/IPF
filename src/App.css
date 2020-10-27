@@ -24,9 +24,6 @@ body {
 .company-logo {
   width: 250px !important;
   height: 250px !important;
-  border-radius: 5px !important;
-  object-position: top;
-  object-fit: contain;
 }
 
 .header-bg {

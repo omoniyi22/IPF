@@ -1,16 +1,14 @@
-import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
-import { Link } from "react-router-dom";
-import logo from "../assets/IPF_Logo.png";
-import nigeria from "../assets/nigeria.png";
 import { Snackbar } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
-import india from "../assets/india.png";
+import React, { Component } from "react";
+import { Link, withRouter } from "react-router-dom";
+import images from "../assets/images";
+import logo from "../assets/IPF_Logo.png";
+import * as actions from "../redux/actions";
 import { api, attachApiToken } from "../services/api";
 import "./dashboard2.css";
+import { connect } from "react-redux";
 import Header from "./UserHeader";
-import images from "../assets/images";
-
 const { naijaFlag, indianFlag } = images;
 class UserDashboard extends Component {
   constructor(props) {
@@ -113,13 +111,8 @@ class UserDashboard extends Component {
     return (
       <div className="container-fluid">
         <Header />
-        {/* <div className="user-dasboard-header1">
-          <div className="d-flex mt-3 justify-content-end">
-            <img src={india} alt="flag" />
-            <img src={nigeria} alt="flag" />
-          </div>
-        </div> */}
-        <div className="user-dasboard-header2">
+
+        <div style={{ overflowY: "auto" }} className="user-dasboard-header2">
           <div className="d-flex flex-column justify-content-between align-items-center py-4 px-2">
             <img className="mb-3 custom-ipf-logo" src={logo} alt="ipf" />
             <h5
@@ -202,6 +195,16 @@ class UserDashboard extends Component {
                 <span>Events</span>
               </Link>
             </li>
+
+            <li className="list-item">
+              <Link to="/user/dashboard/change-password">
+                <span className="">
+                  <i className="material-icons">security</i>
+                </span>
+                <span>Change Password</span>
+              </Link>
+            </li>
+
             <li onClick={this.logout} className="list-item">
               <Link>
                 <span className="rotate-90-deg">
@@ -233,7 +236,7 @@ class UserDashboard extends Component {
           </>
         )}
 
-        {companyAdmin && this.state.company.company_details === "" && (
+        {companyAdmin && !this.props.companyData.company_details && (
           <Snackbar
             anchorOrigin={{ vertical: "top", horizontal: "right" }}
             open={openSnackbar}
@@ -253,9 +256,32 @@ class UserDashboard extends Component {
             </Alert>
           </Snackbar>
         )}
+
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          open={this.props.isDefaultPassword}
+        >
+          <Alert style={{ marginTop: "8%" }} severity="warning">
+            <span>
+              <b>
+                For your security, please click{" "}
+                <Link to="/user/dashboard/change-password">
+                  <b>here </b>
+                </Link>
+                to change your <b>default password</b>
+              </b>
+            </span>
+          </Alert>
+        </Snackbar>
       </div>
     );
   }
 }
 
-export default withRouter(UserDashboard);
+const mapStateToProps = (state) => {
+  return {
+    isDefaultPassword: state.user.isDefaultPassword,
+    companyData: state.company.companyData,
+  };
+};
+export default connect(mapStateToProps, actions)(withRouter(UserDashboard));

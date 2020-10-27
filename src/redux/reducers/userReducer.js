@@ -1,10 +1,26 @@
+import {
+  LOGIN_REQUEST_SUCCESS,
+  DEFAULT_PASSWORD_CHANGED_SUCCESS,
+} from "../types";
+const INITIAL_STATE = {
+  isDefaultPassword: false,
+};
 
-  const INITIAL_STATE = {}
-  
-  export default (state = INITIAL_STATE, action) => {
-    switch (action.type) {
-      
-      default:
-        return { ...state };
-    }
-  };
+export default (state = INITIAL_STATE, action) => {
+  switch (action.type) {
+    case LOGIN_REQUEST_SUCCESS:
+      return {
+        ...state,
+        isDefaultPassword: action.payload.default_password,
+      };
+
+    case DEFAULT_PASSWORD_CHANGED_SUCCESS:
+      return {
+        ...state,
+        isDefaultPassword: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};
