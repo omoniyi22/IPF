@@ -1,19 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-import ReactDOM from 'react-dom';
-// import App from "./components/Event/App";
-import { Switch } from 'react-router-dom'
-import RootApp from "./App";
-// import store from './components/Event/store/store'
-import store from './redux/store'
-import { Provider } from 'react-redux'
-import * as serviceWorker from './serviceWorker';
-
-ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-        <RootApp />
-=======
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
@@ -31,7 +15,6 @@ ReactDOM.render(
           <App />
         </PersistGate>
       </BrowserRouter>
->>>>>>> 318e51e2744e3564d9526fe56f6f489a9fc561a8
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

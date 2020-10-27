@@ -20,20 +20,11 @@ import AddMember from "./pages/addMember";
 import ForgotPassword from "./pages/forgotPassword";
 import ResetPassword from "./pages/resetPassword";
 import ManageUserProfile from "./pages/manageProfile";
-<<<<<<< HEAD
-
-
-//New Route
-import MyRoute from './new_App'
-
-
-=======
 import ChangePassword from "./pages/changePassword";
 import UserChangePassword from "./pages/user/changePassword";
->>>>>>> 318e51e2744e3564d9526fe56f6f489a9fc561a8
 function Root() {
   return (
-    <>
+    <Switch>
       <Route exact path="/landing" component={LandingPage} />
       <Route exact path="/forgot" component={ForgotPassword} />
       <Route exact path="/password/reset/:id/:token" component={ResetPassword} />
@@ -54,10 +45,6 @@ function Root() {
       <AdminRoute exact path="/admin/settings/membership" component={GeneralSettings} />
       <AdminRoute exact path="/admin/settings" component={PlatformAdmin} />
       <AdminRoute exact path="/admin/designation" component={Position} />
-<<<<<<< HEAD
-
-    </>
-=======
       <AuthRoute
         exact
         path="/user/dashboard/change-password"
@@ -69,7 +56,6 @@ function Root() {
         component={ChangePassword}
       />
     </Switch>
->>>>>>> 318e51e2744e3564d9526fe56f6f489a9fc561a8
   );
 }
 

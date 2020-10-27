@@ -55,6 +55,7 @@ class App extends Component {
           </div>
           <div className="sort_page flex-2 mx-auto mt-md-5 mt-4">
             <>
+
               <Switch>
                 <Route path="/create-event" component={HomePage} />
                 <Route path="/event_page" component={EventPage} />
@@ -65,6 +66,7 @@ class App extends Component {
                 <Route path="/payment" component={Payment} />
                 <Route path="/" component={HomePage} />
               </Switch>
+              
             </>
           </div>
         </div>
