@@ -10,7 +10,7 @@ import MembershipSettings from "./pages/membershipSettings";
 import UserProfile from "./pages/user-profile";
 import PlatformAdmin from "./pages/platform-admin";
 // import MembershipStatus from './components/membershipStatus';
-import HomePage from "./pages/home/index";
+import HomePage from "./pages/home";
 import GeneralSettings from "./pages/generalSettings";
 import Members from "./pages/members";
 import Position from "./pages/designation";
@@ -38,7 +38,7 @@ function Root() {
         path="/user/dashboard/managecompany"
         component={AddCompany}
       />
-      {/* <AdminRoute exact path="/" component={HomePage} /> */}
+      <AdminRoute exact path="/" component={HomePage} />
       <AdminRoute exact path="/admin/manage-members" component={Members} />
       <AuthRoute
         exact

@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 import "./App.css";
-import AppRoot from "./Root";
+import AppRoot from "./AppRoot";
 import { PROD_URL } from "./config/api";
 
 function App() {
