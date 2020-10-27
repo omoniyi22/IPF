@@ -124,8 +124,12 @@ class UserProfile extends Component {
         return this.openSnack("Email Address is not valid", "error");
       }
 
-      if (phoneNumber.length < 13) {
+      if (phoneNumber.length < 14) {
         return this.openSnack("Phone Number is not valid", "error");
+      }
+
+      if (phoneNumber2 && phoneNumber2.length < 14) {
+        return this.openSnack("Phone Number(2) is not valid", "error");
       }
 
       if (!avatar) {

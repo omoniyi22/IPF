@@ -55,8 +55,6 @@ class Members extends Component {
   async componentDidMount() {
     //initialize materialize modal
     window.$(".modal").modal();
-    //initialize select field
-    // window.$('select').formSelect();
     this.getDataAtOnce();
   }
 
@@ -66,12 +64,11 @@ class Members extends Component {
         this.assignAdmin(data);
         break;
       case "block":
-        this.blockUser(data);
+        // this.blockUser(data);
         break;
       case "remove":
         this.removeUser(data);
         break;
-
       default:
         break;
     }
@@ -89,8 +86,25 @@ class Members extends Component {
   };
   assignAdmin = async (data) => {
     try {
+      this.props.showLoader(true);
+      const authApi = await attachApiToken(api);
+      await authApi.patch("/admin/assign-role", {
+        userId: data["member_id"],
+        role: "super-user",
+        type: "role",
+      });
+      this.props.showLoader(false);
+      this.handleFireSnackbar("Operation Successful", "success");
     } catch (error) {
-      this.props.showLoader();
+      this.props.showLoader(false);
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        return this.handleFireSnackbar(error.response.data.message, "error");
+      }
+      this.handleFireSnackbar("some errors were encountered", "error");
     }
   };
 
@@ -105,10 +119,17 @@ class Members extends Component {
         });
         this.props.showLoader();
         this.handleFireSnackbar("Action Successful", "success");
+        this.getDataAtOnce();
       }
     } catch (error) {
       this.props.showLoader();
-
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        return this.handleFireSnackbar(error.response.data.message, "error");
+      }
       this.handleFireSnackbar("some errors were encountered", "error");
     }
   };
@@ -175,10 +196,8 @@ class Members extends Component {
       "You are about to remove a Company. This action is irreversible! Proceed with action?"
     );
     if (response) {
-      // remove(item.memberId);
       try {
         this.props.showLoader(true);
-
         const authApi = await attachApiToken(api);
         await authApi.delete("/admin/corporate-member", {
           data: {
@@ -189,9 +208,15 @@ class Members extends Component {
         this.props.showLoader(false);
         this.getDataAtOnce();
       } catch (error) {
-        console.log(error);
-        this.handleFireSnackbar("some errors where encountered", "error");
         this.props.showLoader(false);
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.message
+        ) {
+          return this.handleFireSnackbar(error.response.data.message, "error");
+        }
+        this.handleFireSnackbar("some errors where encountered", "error");
       }
     }
   };
@@ -229,6 +254,10 @@ class Members extends Component {
       return this.handleFireSnackbar("Phone number is incorrect", "error");
     }
 
+    if (phoneNumber.trim().length < 14) {
+      return this.handleFireSnackbar("Phone number is incorrect", "error");
+    }
+
     try {
       const token = localStorage.getItem("x-access-token");
       const data = this.state.data;
@@ -236,7 +265,7 @@ class Members extends Component {
       await Axios.post(
         "/api/v1/admin/corporate-member",
         {
-          company_id: data.company_id,
+          company_id: data.memberNumber,
           firstName,
           lastName,
           email,
@@ -254,14 +283,19 @@ class Members extends Component {
         },
         () => this.handleFireSnackbar("Operation successful", "success")
       );
+
+      this.getDataAtOnce();
     } catch (error) {
-      console.error(error.response);
-      if (error.response) {
-        this.handleFireSnackbar(error.response.data.message, "error");
-        return this.props.showLoader();
+      this.props.showLoader(false);
+
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        return this.handleFireSnackbar(error.response.data.message, "error");
       }
 
-      this.props.showLoader();
       return this.handleFireSnackbar(
         "some errors were encountered, please contact admin",
         "error"
@@ -316,7 +350,7 @@ class Members extends Component {
         return this.handleFireSnackbar("Phone Number is invalid", "error");
       }
 
-      if (phone_number.length < 13 || adminPhoneNumber.length < 13) {
+      if (phone_number.length < 14 || adminPhoneNumber.length < 14) {
         return this.handleFireSnackbar("Phone Number is invalid", "error");
       }
 
@@ -350,7 +384,15 @@ class Members extends Component {
     } catch (error) {
       this.props.showLoader(false);
 
-      throw error;
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        return this.handleFireSnackbar(error.response.data.message, "error");
+      }
+
+      this.handleFireSnackbar("some errors were encountered", "error");
     }
   };
 
@@ -379,7 +421,7 @@ class Members extends Component {
         if (!emailRegx.test(email)) {
           return this.handleFireSnackbar("Email is invalid", "error");
         }
-        if (phoneNumber.length < 13) {
+        if (phoneNumber.length < 14) {
           return this.handleFireSnackbar("Phone Number is invalid", "error");
         }
         const token = localStorage.getItem("x-access-token");
@@ -434,7 +476,7 @@ class Members extends Component {
       this.props.showLoader(true);
       const token = localStorage.getItem("x-access-token");
       const response = await Axios.get(
-        `/api/v1/admin/company-members?company_id=${data.company_id}`,
+        `/api/v1/admin/company-members?company_id=${data.memberNumber}`,
         { headers: { "x-access-token": token } }
       );
 
@@ -497,6 +539,14 @@ class Members extends Component {
       }
     } catch (error) {
       this.props.showLoader(false);
+
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        return this.handleFireSnackbar(error.response.data.message, "error");
+      }
       this.handleFireSnackbar("some errors were encountered", "error");
     }
   };
@@ -516,6 +566,15 @@ class Members extends Component {
       }
     } catch (error) {
       this.props.showLoader(false);
+
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        return this.handleFireSnackbar(error.response.data.message, "error");
+      }
+
       this.handleFireSnackbar("some errors were encountered", "error");
     }
   };
@@ -642,7 +701,7 @@ class Members extends Component {
 
     comp.forEach((item) => {
       individualMembers.forEach((member) => {
-        if (item.company_id == member.company_id) {
+        if (item.memberNumber === member.company_id) {
           member.company_name = item.company_name;
         }
       });
@@ -719,7 +778,7 @@ class Members extends Component {
           data={individualMembers}
           options={{
             exportButton: true,
-
+            exportAllData: true,
             sorting: true,
             pageSizeOptions: pageSizeOptions,
             headerStyle: {
@@ -749,7 +808,7 @@ class Members extends Component {
     const comp = this.state.companies || [];
     comp.forEach((item) => {
       _members.forEach((member) => {
-        if (item.company_id == member.company_id) {
+        if (item.memberNumber == member.company_id) {
           member.company_name = item.company_name;
         }
       });
@@ -819,10 +878,54 @@ class Members extends Component {
             { title: "Member Type", field: "membershipType" },
             { title: "Phone Number", field: "phoneNumber" },
             { title: "Company", field: "company_name" },
+            { title: "Company designation", field: "company_designation" },
+            {
+              title: "Email Address(2)",
+              field: "emailAddress2",
+            },
+            {
+              title: "Phone Number(2)",
+              field: "phoneNumber2",
+            },
+
+            {
+              title: "State",
+              field: "state",
+            },
+            {
+              title: "Street",
+              field: "street1",
+            },
+            {
+              title: "City",
+              field: "city",
+            },
+
+            {
+              title: "Passport",
+              field: "passport",
+            },
+            {
+              title: "Qualifications",
+              field: "qualifications",
+            },
+            {
+              title: "Genger",
+              field: "gender",
+            },
+            {
+              title: "Industry Type",
+              field: "industryType",
+            },
+            {
+              title: "Industry Classification",
+              field: "industryClassification",
+            },
           ]}
           data={_members}
           options={{
             exportButton: true,
+            exportAllData: true,
             pageSizeOptions: pageSizeOptions,
             sorting: true,
             headerStyle: {
@@ -849,10 +952,8 @@ class Members extends Component {
 
   openAddMemberModal = async (e) => {
     try {
-      window.$("#modal3").modal("open");
-    } catch (error) {
-      // alert("some errors were encountered");
-    }
+      window.$("#modal7").modal("open");
+    } catch (error) {}
   };
 
   handleFireSnackbar = (msg, type = "default") => {
@@ -995,6 +1096,7 @@ class Members extends Component {
                     options={{
                       pageSizeOptions: [20, 50, 100, 200],
                       exportButton: true,
+                      exportAllData: true,
                       sorting: true,
                       headerStyle: {
                         background: "#FA6400",
@@ -1161,155 +1263,150 @@ class Members extends Component {
               </div>
             </div>
             <div id="modal3" class="modal modal-fixed-footer">
-              {this.state.editCompany && (
-                <EditOrganization
-                  data={this.state.companyData}
-                  onEdit={() => {
-                    this.setState({
-                      editCompany: false,
-                    });
-                  }}
-                />
-              )}
+              <EditOrganization
+                data={this.state.companyData}
+                onClose={() => {
+                  this.setState({
+                    editCompany: false,
+                  });
+                }}
+              />
+            </div>
 
-              {!this.state.editCompany && (
-                <>
-                  <div class="modal-content">
-                    <h4>{"Add members"}</h4>
-                    <div className="container-fluid mt-3">
-                      <div className="row input-field">
-                        <select
-                          name="companyCode"
-                          onChange={this.handleOnChange}
-                        >
-                          <option>Select membership type</option>
+            <div id="modal7" class="modal modal-fixed-footer">
+              <>
+                <div class="modal-content">
+                  <h4>{"Add members"}</h4>
+                  <div className="container-fluid mt-3">
+                    <div className="row input-field">
+                      <select name="companyCode" onChange={this.handleOnChange}>
+                        <option>Select membership type</option>
 
-                          {this.state.types.map((ele) => (
-                            <option value={ele.code}>{ele.name}</option>
-                          ))}
-                        </select>
-                      </div>
-                      {!this.state.codes.includes(this.state.companyCode) ? (
-                        <>
-                          <div className="row">
-                            <TextInput
-                              name={"firstName"}
-                              placeholder="First Name"
-                              onChange={this.handleOnChange}
-                              value={this.state.firstName}
-                            />
-                          </div>
-                          <div className="row">
-                            <TextInput
-                              name={"lastName"}
-                              placeholder="Last Name"
-                              onChange={this.handleOnChange}
-                              value={this.state.lastName}
-                            />
-                          </div>
-                          <div className="row">
-                            <TextInput
-                              name={"email"}
-                              placeholder="Email Addresss"
-                              onChange={this.handleOnChange}
-                              value={this.state.email}
-                            />
-                          </div>
-                          <div className="row">
-                            <PhoneNumber
-                              name={"phoneNumber"}
-                              placeholder="Phone Number"
-                              onChange={this.handleOnChange}
-                              value={this.state.phoneNumber}
-                            />
-                          </div>
-                        </>
-                      ) : null}
-                      {this.state.codes.includes(this.state.companyCode) ? (
-                        <>
-                          <div className="row">
-                            <TextInput
-                              name={"company_name"}
-                              placeholder="Company Name"
-                              onChange={this.handleOnChange}
-                              value={this.state.company_name}
-                            />
-                          </div>
-                          <div className="row">
-                            <TextInput
-                              name={"email"}
-                              placeholder="Email"
-                              onChange={this.handleOnChange}
-                              value={this.state.email}
-                            />
-                          </div>
-                          <div className="row">
-                            <PhoneNumber
-                              name={"phone_number"}
-                              placeholder="Phone Number"
-                              onChange={this.handleOnChange}
-                              value={this.state.phone_number}
-                            />
-                            {/* <TextInput
+                        {this.state.types.map((ele) => (
+                          <option value={ele.code}>{ele.name}</option>
+                        ))}
+                      </select>
+                    </div>
+                    {!this.state.codes.includes(this.state.companyCode) ? (
+                      <>
+                        <div className="row">
+                          <TextInput
+                            name={"firstName"}
+                            placeholder="First Name"
+                            onChange={this.handleOnChange}
+                            value={this.state.firstName}
+                          />
+                        </div>
+                        <div className="row">
+                          <TextInput
+                            name={"lastName"}
+                            placeholder="Last Name"
+                            onChange={this.handleOnChange}
+                            value={this.state.lastName}
+                          />
+                        </div>
+                        <div className="row">
+                          <TextInput
+                            name={"email"}
+                            placeholder="Email Addresss"
+                            onChange={this.handleOnChange}
+                            value={this.state.email}
+                          />
+                        </div>
+                        <div className="row">
+                          <PhoneNumber
+                            name={"phoneNumber"}
+                            placeholder="Phone Number"
+                            onChange={this.handleOnChange}
+                            value={this.state.phoneNumber}
+                          />
+                        </div>
+                      </>
+                    ) : null}
+                    {this.state.codes.includes(this.state.companyCode) ? (
+                      <>
+                        <div className="row">
+                          <TextInput
+                            name={"company_name"}
+                            placeholder="Company Name"
+                            onChange={this.handleOnChange}
+                            value={this.state.company_name}
+                          />
+                        </div>
+                        <div className="row">
+                          <TextInput
+                            name={"email"}
+                            placeholder="Email"
+                            onChange={this.handleOnChange}
+                            value={this.state.email}
+                          />
+                        </div>
+                        <div className="row">
+                          <PhoneNumber
+                            name={"phone_number"}
+                            placeholder="Phone Number"
+                            onChange={this.handleOnChange}
+                            value={this.state.phone_number}
+                          />
+                          {/* <TextInput
                         name={"phone_number"}
                         placeholder="Phone Number"
                         onChange={this.handleOnChange}
                         value={this.state.phone_number}
                       /> */}
-                            {/* <span>format: 2348070706069</span> */}
-                          </div>
-                          <div className="row">
-                            <TextInput
-                              name={"adminFirstName"}
-                              placeholder="Company Admin First Name"
-                              onChange={this.handleOnChange}
-                              value={this.state.adminFirstName}
-                            />
-                          </div>
-                          <div className="row">
-                            <TextInput
-                              name={"adminLastName"}
-                              placeholder="Company Admin Last Name"
-                              onChange={this.handleOnChange}
-                              value={this.state.adminLastName}
-                            />
-                          </div>
-                          <div className="row">
-                            <TextInput
-                              name={"adminEmail"}
-                              placeholder="Company Admin Email Addresss"
-                              onChange={this.handleOnChange}
-                              value={this.state.adminEmail}
-                            />
-                          </div>
-                          <div className="row">
-                            <PhoneNumber
-                              name={"adminPhoneNumber"}
-                              placeholder="Company Admin Phone Number"
-                              onChange={this.handleOnChange}
-                              value={this.state.adminPhoneNumber}
-                            />
-                          </div>
-                        </>
-                      ) : null}
-                    </div>
+                          {/* <span>format: 2348070706069</span> */}
+                        </div>
+                        <div className="row">
+                          <TextInput
+                            name={"adminFirstName"}
+                            placeholder="Company Admin First Name"
+                            onChange={this.handleOnChange}
+                            value={this.state.adminFirstName}
+                          />
+                        </div>
+                        <div className="row">
+                          <TextInput
+                            name={"adminLastName"}
+                            placeholder="Company Admin Last Name"
+                            onChange={this.handleOnChange}
+                            value={this.state.adminLastName}
+                          />
+                        </div>
+                        <div className="row">
+                          <TextInput
+                            name={"adminEmail"}
+                            placeholder="Company Admin Email Addresss"
+                            onChange={this.handleOnChange}
+                            value={this.state.adminEmail}
+                          />
+                        </div>
+                        <div className="row">
+                          <PhoneNumber
+                            name={"adminPhoneNumber"}
+                            placeholder="Company Admin Phone Number"
+                            onChange={this.handleOnChange}
+                            value={this.state.adminPhoneNumber}
+                          />
+                        </div>
+                      </>
+                    ) : null}
                   </div>
-                  <div class="modal-footer">
-                    <a
-                      href="#!"
-                      class="modal-close  waves-effect waves-green btn-flat"
-                    >
-                      Close
-                    </a>
-                    <button
-                      onClick={this.addIndividualMember}
-                      className="waves-effect waves-green btn-primary btn"
-                    >
-                      Add
-                    </button>
-                  </div>
-                </>
-              )}
+                </div>
+                <div class="modal-footer">
+                  <a
+                    href="#!"
+                    class="modal-close  waves-effect waves-green btn-flat"
+                  >
+                    Close
+                  </a>
+                  <button
+                    onClick={this.addIndividualMember}
+                    className="waves-effect waves-green btn-primary btn"
+                  >
+                    Add
+                  </button>
+                </div>
+              </>
             </div>
             <div id="modal6" class="modal modal-fixed-footer">
               <EditMember
@@ -1330,10 +1427,6 @@ const SpanContainer = styled.div`
   border: 1px solid orage;
   display: flex;
   margin: 5px 5px;
-`;
-
-const CustomText = styled.p`
-  margin: 0px 2px;
 `;
 
 const Item = styled.p`

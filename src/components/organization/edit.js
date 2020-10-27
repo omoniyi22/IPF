@@ -7,7 +7,9 @@ import * as actions from "../../redux/actions";
 import { connect } from "react-redux";
 import AppWrapper from "../appWrapper";
 import { isEmailValid } from "../../utils/app";
-const EditOrganization = ({ data, showLoader, onEdit }) => {
+import { phoneNumberRegx } from "../../utils/regex";
+
+const EditOrganization = ({ data, showLoader, onClose }) => {
   const [state, setState] = React.useState({
     email: "",
     company_name: "",
@@ -52,7 +54,7 @@ const EditOrganization = ({ data, showLoader, onEdit }) => {
           indusClass: _a,
         });
       } catch (error) {
-        console.error(error);
+        
         // console.log(error);
       }
     };
@@ -92,6 +94,25 @@ const EditOrganization = ({ data, showLoader, onEdit }) => {
         open: true,
       });
     }
+
+
+    if (!phoneNumberRegx.test(state.phone_number)) {
+      return setSnack({
+        ...snack,
+        msg: "Phone number is invalid",
+        type: "error",
+        open: true,
+      });
+    }
+
+    if(!state.company_address) {
+      return setSnack({
+        ...snack,
+        msg: "Provide company address",
+        type: "error",
+        open: true,
+      });
+    }
     try {
       showLoader(true);
       const authApi = await attachApiToken(api);
@@ -100,6 +121,13 @@ const EditOrganization = ({ data, showLoader, onEdit }) => {
         company_id: state["company_id"],
       });
 
+
+
+      onClose();
+
+
+
+      
       setSnack({
         ...snack,
         msg: "Company Updated Successfully",
@@ -107,10 +135,10 @@ const EditOrganization = ({ data, showLoader, onEdit }) => {
         open: true,
       });
       showLoader(false);
-      onEdit();
+    
     } catch (error) {
       showLoader(false);
-      onEdit();
+      onClose();
 
       let _error = "Unsuccessful, Try again";
       if (
@@ -128,6 +156,10 @@ const EditOrganization = ({ data, showLoader, onEdit }) => {
       });
     }
   };
+
+  const handlClose = ()=> {
+    onClose()
+  }
   return (
     <AppWrapper
       message={snack.msg}
@@ -154,6 +186,7 @@ const EditOrganization = ({ data, showLoader, onEdit }) => {
           <>
             <div className="row">
               <TextInput
+                    disabled
                 name={"company_name"}
                 placeholder="Company Name"
                 onChange={handleOnChange}
@@ -162,6 +195,7 @@ const EditOrganization = ({ data, showLoader, onEdit }) => {
             </div>
             <div className="row">
               <TextInput
+                    disabled
                 name={"email"}
                 placeholder="Company Email"
                 onChange={handleOnChange}
@@ -170,6 +204,7 @@ const EditOrganization = ({ data, showLoader, onEdit }) => {
             </div>
             <div className="row">
               <PhoneNumber
+                disabled
                 name={"phone_number"}
                 placeholder="Phone Number"
                 onChange={handleOnChange}
@@ -219,7 +254,7 @@ const EditOrganization = ({ data, showLoader, onEdit }) => {
 
       <div class="modal-footer">
         <a
-          onClick={() => onEdit()}
+          onClick={handlClose}
           href="#!"
           class="modal-close  waves-effect waves-green btn-flat"
         >

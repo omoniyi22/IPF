@@ -102,17 +102,29 @@ class ManageProfile extends Component {
         qualifications,
         gender,
       } = this.state;
-      if (
-        !phoneNumberRegx.test(phoneNumber) ||
-        !phoneNumberRegx.test(phoneNumber2)
-      ) {
+      if (!phoneNumberRegx.test(phoneNumber)) {
         return this.handleFireSnackbar("Phone Number is not valid", "error");
       }
-      if (!emailRegx.test(emailAddress) || !emailRegx.test(emailAddress2)) {
+
+      if (phoneNumber2 && !phoneNumberRegx.test(phoneNumber2)) {
+        return this.handleFireSnackbar("Phone Number(2) is not valid", "error");
+      }
+      if (phoneNumber2 && phoneNumber2.trim().length < 14) {
+        return this.handleFireSnackbar("Phone Number(2) is not valid", "error");
+      }
+
+      if (!emailRegx.test(emailAddress)) {
         return this.handleFireSnackbar("Email Address is not valid", "error");
       }
 
-      if (phoneNumber.length < 13) {
+      if (emailAddress2 && !emailRegx.test(emailAddress2)) {
+        return this.handleFireSnackbar(
+          "Email Address(2) is not valid",
+          "error"
+        );
+      }
+
+      if (phoneNumber.length < 14) {
         return this.handleFireSnackbar("Phone Number is not valid", "error");
       }
 

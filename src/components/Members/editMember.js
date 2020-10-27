@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../redux/actions";
 import { api, attachApiToken } from "../../services/api";
-import { getMembers } from "../../services/members";
 import { isEmailValid } from "../../utils/app";
+import { emailRegx, phoneNumberRegx } from "../../utils/regex";
 import AppWrapper from "../appWrapper";
 import { TextInput } from "../components";
 import PhoneNumber from "../General/phoneInput";
-import { phoneNumberRegx, emailRegx } from "../../utils/regex";
 
 const EditMember = ({ data, showLoader, getAll }) => {
   const [state, setState] = useState({
@@ -100,7 +99,7 @@ const EditMember = ({ data, showLoader, getAll }) => {
       });
     }
 
-    if (!phoneNumberRegx.test(state.phoneNumber)) {
+    if (!phoneNumberRegx.test(state.phoneNumber) || state.phoneNumber.trim().length < 14) {
       return setSnack({
         ...snack,
         msg: "Phone number(1) is invalid",
@@ -118,14 +117,16 @@ const EditMember = ({ data, showLoader, getAll }) => {
       });
     }
 
-    if (!state.passport) {
+    if (state.phoneNumber2 && state.phoneNumber2.trim().length < 14) {
       return setSnack({
         ...snack,
-        msg: "Passport is invalid",
+        msg: "Phone number(2) is invalid",
         type: "error",
         open: true,
       });
     }
+
+    
 
     try {
       showLoader(true);

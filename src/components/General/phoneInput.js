@@ -7,22 +7,19 @@ export default function PhoneNumber({
   value,
   placeholder = "Enter phone number",
   name,
+  disabled,
 }) {
-  const [state, setValue] = useState(value);
-  useEffect(() => {
-    setValue(value);
-  }, [value]);
   return (
     <PhoneInput
       style={{ width: "100%" }}
       defaultCountry="NG"
       placeholder={placeholder}
-      defaultValue={state}
-      value={state}
+      defaultValue={value}
+      value={value}
       name={name}
+      disabled={disabled}
       onChange={(value) => {
-        console.log(value);
-        setValue(value);
+        // setValue(value);
         onChange({ name, value }, true);
       }}
     />
