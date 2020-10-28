@@ -10,11 +10,11 @@ import { Provider } from "react-redux";
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <PersistGate persistor={persistor} loading={null}>
-          <App />
-        </PersistGate>
-      </BrowserRouter>
+
+      <PersistGate persistor={persistor} loading={null}>
+        <App />
+      </PersistGate>
+
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

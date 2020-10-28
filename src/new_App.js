@@ -7,7 +7,7 @@ import EventPage from './pages/event'
 import MemberPage from './pages/members/index'
 import Payment from './pages/payment/payment'
 import Payment_History from './pages/pay_history'
-
+import Root from "./Root"
 
 
 // NAVS
@@ -30,7 +30,7 @@ class App extends Component {
   render() {
     let { show } = this.state;
     return (
-      <Router>
+      <>
         <UserOnTop />
         <div className="sort_app ">
           <div className="sticker over_hide ">
@@ -59,9 +59,10 @@ class App extends Component {
             </div>
           </div>
           <div className="sort_page flex-2 mx-auto mt-md-5 mt-4">
-            <>
-
+            {this.props.children}
+            {/* <>
               <Switch>
+                <Root />
                 <Route path="/create-event" component={HomePage} />
                 <Route path="/event_page" component={EventPage} />
                 <Route path="/invite" component={EventPage} />
@@ -71,12 +72,13 @@ class App extends Component {
                 <Route path="/payment" component={Payment} />
                 <Route path="/" component={HomePage} />
               </Switch>
-              
-            </>
+            </> */}
+
+
           </div>
         </div>
         {/* {this.props.nav && <Footer />} */}
-      </Router>
+      </>
     );
   }
 }
