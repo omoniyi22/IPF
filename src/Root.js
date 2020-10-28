@@ -1,9 +1,24 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "./pages/login";
 
+import HomePage from "./pages/home/index";
+import EventPage from './pages/event'
+import Payment_History from './pages/pay_history'
 
+// import Payment from './pages/payment/payment'
+// import HomePage from "./pages/home/index";
+// import EventPage from './pages/event'
 // import Login  from "./pages/login";
+// import Payment_History from './pages/pay_history'
+// import MembershipStatus from './components/membershipStatus';
+// import HomePage from "./pages/home";
+// import EventPage from './pages/event'
+// import HomePage from "./pages/home/index";
+
+import MemberPage from './pages/members/index'
+import Payment from './pages/payment/payment'
+
 import AuthRoute, { AdminRoute } from "./components/AuthRoute";
 import PaymentPage from "./pages/payment";
 import ManageProfile from "./pages/profile";
@@ -11,13 +26,10 @@ import Events from "./pages/events";
 import MembershipSettings from "./pages/membershipSettings";
 import UserProfile from "./pages/user-profile";
 import PlatformAdmin from "./pages/platform-admin";
-// import MembershipStatus from './components/membershipStatus';
-// import HomePage from "./pages/home";
-
-import EventPage from './pages/event'
 
 
-import HomePage from "./pages/home/index";
+import Dashboard from './hoc/Dashboard'
+
 import GeneralSettings from "./pages/generalSettings";
 import Members from "./pages/members";
 import Position from "./pages/designation";
@@ -35,11 +47,20 @@ function Root() {
     <Router>
       <Switch>
 
-        <Route path="/landing" component={LandingPage} />
+
+        {/* <Route path="/landing" component={LandingPage} /> */}
+
         <Route path="/forgot" component={ForgotPassword} />
         <Route path="/password/reset/:id/:token" component={ResetPassword} />
         <Route path="/login" component={Login} />
-        <Route path="/edit_event" component={EventPage} />
+
+        <Route path="/event_page" component={() => <Dashboard>< EventPage /></Dashboard>} />
+        <Route path="/create-event" component={() => <Dashboard> <HomePage /></Dashboard>} />
+        <Route path="/invite" component={() => <Dashboard><EventPage /></Dashboard>} />
+        <Route path="/edit_event" render={() => <Dashboard>< EventPage /></Dashboard>} />
+        <Route path="/payment_history" component={() => <Dashboard>< Payment_History /></Dashboard>} />
+        <Route path="/members" component={() => <Dashboard>< MemberPage /></Dashboard>} />
+        <Route path="/payment" component={() => <Dashboard>< Payment /></Dashboard>} />
 
 
         <AuthRoute path="/user/dashboard/addmember" component={AddMember} />
@@ -60,7 +81,8 @@ function Root() {
         <AdminRoute path="/admin/settings" component={PlatformAdmin} />
         <AdminRoute path="/admin/designation" component={Position} />
         <AdminRoute path="/admin/change-password" component={ChangePassword} />
-        <AdminRoute path="/" component={HomePage} />
+        <Route path="/" render={() => <Dashboard>< HomePage /></Dashboard>} />
+
 
       </Switch>
     </Router>
