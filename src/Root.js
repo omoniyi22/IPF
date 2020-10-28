@@ -63,7 +63,7 @@ function Root() {
         <Route path="/payment" component={() => <Dashboard>< Payment /></Dashboard>} />
 
 
-        <AuthRoute path="/user/dashboard/addmember" component={AddMember} />
+        <AuthRoute path="/user/dashboard/addmember" component={() => <Dashboard>< AddMember /></Dashboard>} />
         <AuthRoute path="/user/dashboard/managecompany" component={AddCompany} />
         <AuthRoute path="/platform-settings" component={MembershipSettings} />
         <AuthRoute path="/user/dashboard" component={UserProfile} />
