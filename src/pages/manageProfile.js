@@ -278,7 +278,7 @@ class ManageProfile extends Component {
         industry,
         quals,
       });
-    } catch (error) {}
+    } catch (error) { }
   };
 
   onClose = () => {
@@ -295,367 +295,370 @@ class ManageProfile extends Component {
       industryType,
     } = this.state;
     return (
-      <Dashboard>
-        <AppWrapper
-          open={openSnackbar}
-          message={msg}
-          type={type}
-          onClose={this.onClose}
-        >
-          <div className="container-fluid py-3">
-            <div
-              className="row justify-content-center"
-              style={{ marginTop: 100 }}
-            >
-              <div className="circle-avatar text-center d-flex align-items-center justify-content-center">
-                {this.state.avatar ? (
-                  <img
-                    className="img-avatar"
-                    src={this.state.avatar}
-                    alt="profile"
-                  />
-                ) : (
-                  <span>
-                    <i
-                      style={{ fontSize: 200, color: "#bdbdbd" }}
-                      className="material-icons"
-                    >
-                      account_circle
+      <div className="">
+        <Dashboard>
+          <AppWrapper
+            open={openSnackbar}
+            message={msg}
+            type={type}
+            onClose={this.onClose}
+          >
+            <div className="container-fluid py-3 material">
+              <div
+                className="row justify-content-center"
+                style={{ marginTop: 100 }}
+              >
+                <div className="circle-avatar text-center d-flex align-items-center justify-content-center">
+                  {this.state.avatar ? (
+                    <img
+                      className="img-avatar"
+                      src={this.state.avatar}
+                      alt="profile"
+                    />
+                  ) : (
+                      <span>
+                        <i
+                          style={{ fontSize: 200, color: "#bdbdbd" }}
+                          className="material-icons"
+                        >
+                          account_circle
                     </i>
+                      </span>
+                    )}
+                  <span onClick={this.uploadWidget} className="camera-button">
+                    <i className="material-icons">camera_enhance</i>
                   </span>
+                </div>
+              </div>
+              <BadgeContainer>
+                {this.state.position && (
+                  <>
+                    <CustomBadge />
+                    {this.state.position && (
+                      <Position className="mr-2">{this.state.position}</Position>
+                    )}
+                    <Position>{this.state.position_duration || "null"}</Position>
+                  </>
                 )}
-                <span onClick={this.uploadWidget} className="camera-button">
-                  <i className="material-icons">camera_enhance</i>
-                </span>
-              </div>
-            </div>
-            <BadgeContainer>
-              {this.state.position && (
-                <>
-                  <CustomBadge />
-                  {this.state.position && (
-                    <Position className="mr-2">{this.state.position}</Position>
-                  )}
-                  <Position>{this.state.position_duration || "null"}</Position>
-                </>
-              )}
-            </BadgeContainer>
-            <form onSubmit={this.submit} className="mt-3 px-3">
-              <div className="row">
-                <div className="col-lg-6">
-                  <label>First Name</label>
-                  <TextInput
-                    name={"firstName"}
-                    onChange={this.handleOnChange}
-                    value={this.state.firstName}
-                    disabled
-                  />
-                </div>
-                <div className="col-lg-6">
-                  <label>Last Name</label>
-                  <TextInput
-                    name={"lastName"}
-                    disabled
-                    onChange={this.handleOnChange}
-                    value={this.state.lastName}
-                  />
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-lg-6">
-                  <label>Email 1</label>
-                  <TextInput
-                    name={"emailAddress"}
-                    disabled
-                    onChange={this.handleOnChange}
-                    value={this.state.emailAddress}
-                    type="email"
-                  />
-
-                  <label className="">
-                    <input
-                      type="checkbox"
-                      checked={this.state.email1_primary}
-                      onChange={() => {
-                        this.setState((prevState) => ({
-                          email1_primary: !prevState.email1_primary,
-                        }));
-                      }}
+              </BadgeContainer>
+              <form onSubmit={this.submit} className="mt-3 px-3">
+                <div className="row">
+                  <div className="col-lg-6">
+                    <label>First Name</label>
+                    <TextInput
+                      name={"firstName"}
+                      onChange={this.handleOnChange}
+                      value={this.state.firstName}
+                      disabled
                     />
-                    <span>Primary Email?</span>
-                  </label>
-                </div>
-                <div className="col-lg-6">
-                  <label>Email 2</label>
-                  <TextInput
-                    name={"emailAddress2"}
-                    onChange={this.handleOnChange}
-                    value={this.state.emailAddress2}
-                    type="email"
-                  />
-
-                  <label className="">
-                    <input
-                      type="checkbox"
-                      checked={this.state.email2_primary}
-                      onChange={() => {
-                        this.setState((prevState) => ({
-                          email2_primary: !prevState.email2_primary,
-                        }));
-                      }}
+                  </div>
+                  <div className="col-lg-6">
+                    <label>Last Name</label>
+                    <TextInput
+                      name={"lastName"}
+                      disabled
+                      onChange={this.handleOnChange}
+                      value={this.state.lastName}
                     />
-                    <span>Primary Email?</span>
-                  </label>
+                  </div>
                 </div>
-              </div>
-              <div className="row">
-                <div className="col-lg-6">
-                  <label>Phone number 1</label>
-
-                  <PhoneNumber
-                    name={"phoneNumber"}
-                    onChange={this.handleOnChange}
-                    value={this.state.phoneNumber}
-                  />
-                  <label className="">
-                    <input
-                      type="checkbox"
-                      checked={this.state.phone1_whatsapp}
-                      onChange={() => {
-                        this.setState({
-                          phone1_whatsapp:
-                            this.state.phone1_whatsapp === 0 ? 1 : 0,
-                        });
-                      }}
+                <div className="row">
+                  <div className="col-lg-6">
+                    <label>Email 1</label>
+                    <TextInput
+                      name={"emailAddress"}
+                      disabled
+                      onChange={this.handleOnChange}
+                      value={this.state.emailAddress}
+                      type="email"
                     />
-                    <span>Whatsapp number?</span>
-                  </label>
+
+                    <label className="">
+                      <input
+                        type="checkbox"
+                        checked={this.state.email1_primary}
+                        onChange={() => {
+                          this.setState((prevState) => ({
+                            email1_primary: !prevState.email1_primary,
+                          }));
+                        }}
+                      />
+                      <span>Primary Email?</span>
+                    </label>
+                  </div>
+                  <div className="col-lg-6">
+                    <label>Email 2</label>
+                    <TextInput
+                      name={"emailAddress2"}
+                      onChange={this.handleOnChange}
+                      value={this.state.emailAddress2}
+                      type="email"
+                    />
+
+                    <label className="">
+                      <input
+                        type="checkbox"
+                        checked={this.state.email2_primary}
+                        onChange={() => {
+                          this.setState((prevState) => ({
+                            email2_primary: !prevState.email2_primary,
+                          }));
+                        }}
+                      />
+                      <span>Primary Email?</span>
+                    </label>
+                  </div>
                 </div>
-                <div className="col-lg-6">
-                  <label>Phone number 2</label>
+                <div className="row">
+                  <div className="col-lg-6">
+                    <label>Phone number 1</label>
 
-                  <PhoneNumber
-                    name="phoneNumber2"
-                    onChange={this.handleOnChange}
-                    value={this.state.phoneNumber2}
-                  />
-
-                  <label className="">
-                    <input
-                      type="checkbox"
-                      checked={this.state.phone2_whatsapp}
-                      onChange={() =>
-                        this.setState({
-                          phone2_whatsapp:
-                            this.state.phone2_whatsapp === 0 ? 1 : 0,
-                        })
-                      }
+                    <PhoneNumber
+                      name={"phoneNumber"}
+                      onChange={this.handleOnChange}
+                      value={this.state.phoneNumber}
                     />
-                    <span>Whatsapp number?</span>
-                  </label>
-                  {/* <TextInput
+                    <label className="">
+                      <input
+                        type="checkbox"
+                        checked={this.state.phone1_whatsapp}
+                        onChange={() => {
+                          this.setState({
+                            phone1_whatsapp:
+                              this.state.phone1_whatsapp === 0 ? 1 : 0,
+                          });
+                        }}
+                      />
+                      <span>Whatsapp number?</span>
+                    </label>
+                  </div>
+                  <div className="col-lg-6">
+                    <label>Phone number 2</label>
+
+                    <PhoneNumber
+                      name="phoneNumber2"
+                      onChange={this.handleOnChange}
+                      value={this.state.phoneNumber2}
+                    />
+
+                    <label className="">
+                      <input
+                        type="checkbox"
+                        checked={this.state.phone2_whatsapp}
+                        onChange={() =>
+                          this.setState({
+                            phone2_whatsapp:
+                              this.state.phone2_whatsapp === 0 ? 1 : 0,
+                          })
+                        }
+                      />
+                      <span>Whatsapp number?</span>
+                    </label>
+                    {/* <TextInput
                   name={"phoneNumber2"}
                   onChange={this.handleOnChange}
                   value={this.state.phoneNumber2}
                 /> */}
-                  {/* <span>format: 2348070706069</span> */}
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-lg-6">
-                  <label>Qualification</label>
-                  <select
-                    className="custom-select-input"
-                    name="qualifications"
-                    defaultValue={this.state.qualifications}
-                    onChange={this.handleOnChange}
-                    value={this.state.qualifications}
-                  >
-                    <option>select</option>
-                    {this.state.quals.map((ele) => (
-                      <option key={ele.id} value={ele.name}>
-                        {ele.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="col-lg-6">
-                  <label>Passport No</label>
-                  <TextInput
-                    name={"passport"}
-                    onChange={this.handleOnChange}
-                    value={this.state.passport}
-                  />
-                </div>
-              </div>
-
-              <div className="row">
-                <div className="col-lg-6">
-                  <label>Date of Birth</label>
-                  <TextInput
-                    name="dob"
-                    defaultValue={this.state.dob}
-                    onChange={this.handleOnChange}
-                    value={this.state.dob}
-                    type="date"
-                  />
-                </div>
-
-                <div className="col-lg-6">
-                  <label>Gender</label>
-                  <select
-                    name="gender"
-                    className="custom-select-input"
-                    defaultValue={this.state.gender}
-                    onChange={this.handleOnChange}
-                    value={this.state.gender}
-                  >
-                    <option>select</option>
-                    {this.state.genders.map((ele) => (
-                      <option key={ele.id} value={ele.code}>
-                        {ele.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-lg-6">
-                  <label>Street 1</label>
-                  <TextInput
-                    name={"street1"}
-                    onChange={this.handleOnChange}
-                    value={this.state.street1}
-                  />
-                </div>
-
-                <div className="col-lg-6">
-                  <label>Street 2</label>
-                  <TextInput
-                    name={"street2"}
-                    onChange={this.handleOnChange}
-                    value={this.state.street2}
-                  />
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-lg-6">
-                  <label>City</label>
-                  <TextInput
-                    name={"city"}
-                    onChange={this.handleOnChange}
-                    value={this.state.city}
-                  />
-                </div>
-
-                <div className="col-lg-6">
-                  <label>State</label>
-                  <TextInput
-                    name={"state"}
-                    onChange={this.handleOnChange}
-                    value={this.state.state}
-                  />
-                </div>
-              </div>
-              {["AM", "LM", "LP"].includes(this.state.membershipType) && (
-                <div className="row">
-                  <div className="col-lg-6">
-                    <label>Company Name</label>
-                    <TextInput
-                      name={"company_name"}
-                      placeholder="Company Name"
-                      onChange={this.handleOnChange}
-                      value={this.state.company_name}
-                    />
-                  </div>
-
-                  <div className="col-lg-6">
-                    <label>Company Address</label>
-                    <TextInput
-                      name={"company_address"}
-                      placeholder="Company Addresss"
-                      onChange={this.handleOnChange}
-                      value={this.state.company_address}
-                    />
+                    {/* <span>format: 2348070706069</span> */}
                   </div>
                 </div>
-              )}
-
-              {["AM", "LM", "LP"].includes(this.state.membershipType) && (
                 <div className="row">
                   <div className="col-lg-6">
-                    <label>Industry Type</label>
+                    <label>Qualification</label>
                     <select
                       className="custom-select-input"
-                      name="industryType"
-                      defaultValue={this.state.industryType}
+                      name="qualifications"
+                      defaultValue={this.state.qualifications}
                       onChange={this.handleOnChange}
+                      value={this.state.qualifications}
                     >
-                      <option>Select Industry Type</option>
-                      {this.state.industry.map((ele) => (
-                        <option key={ele.id} value={ele.industry_name}>
-                          {ele.industry_name}
+                      <option>select</option>
+                      {this.state.quals.map((ele) => (
+                        <option key={ele.id} value={ele.name}>
+                          {ele.name}
                         </option>
                       ))}
                     </select>
                   </div>
+                  <div className="col-lg-6">
+                    <label>Passport No</label>
+                    <TextInput
+                      name={"passport"}
+                      onChange={this.handleOnChange}
+                      value={this.state.passport}
+                    />
+                  </div>
+                </div>
+
+                <div className="row">
+                  <div className="col-lg-6">
+                    <label>Date of Birth</label>
+                    <TextInput
+                      name="dob"
+                      defaultValue={this.state.dob}
+                      onChange={this.handleOnChange}
+                      value={this.state.dob}
+                      type="date"
+                    />
+                  </div>
 
                   <div className="col-lg-6">
-                    <label>Industry Classifcation</label>
-
+                    <label>Gender</label>
                     <select
+                      name="gender"
                       className="custom-select-input"
-                      name="industryClassification"
-                      defaultValue={this.state.industryClassification}
+                      defaultValue={this.state.gender}
                       onChange={this.handleOnChange}
+                      value={this.state.gender}
                     >
-                      <option>Select Industry Classification</option>
-                      {this.state.indusClass.map((ele) => (
-                        <option key={ele.id} value={ele.industry_name}>
-                          {ele.industry_name}
+                      <option>select</option>
+                      {this.state.genders.map((ele) => (
+                        <option key={ele.id} value={ele.code}>
+                          {ele.name}
                         </option>
                       ))}
                     </select>
                   </div>
                 </div>
-              )}
+                <div className="row">
+                  <div className="col-lg-6">
+                    <label>Street 1</label>
+                    <TextInput
+                      name={"street1"}
+                      onChange={this.handleOnChange}
+                      value={this.state.street1}
+                    />
+                  </div>
 
-              <div className="row">
+                  <div className="col-lg-6">
+                    <label>Street 2</label>
+                    <TextInput
+                      name={"street2"}
+                      onChange={this.handleOnChange}
+                      value={this.state.street2}
+                    />
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-lg-6">
+                    <label>City</label>
+                    <TextInput
+                      name={"city"}
+                      onChange={this.handleOnChange}
+                      value={this.state.city}
+                    />
+                  </div>
+
+                  <div className="col-lg-6">
+                    <label>State</label>
+                    <TextInput
+                      name={"state"}
+                      onChange={this.handleOnChange}
+                      value={this.state.state}
+                    />
+                  </div>
+                </div>
+                {["AM", "LM", "LP"].includes(this.state.membershipType) && (
+                  <div className="row">
+                    <div className="col-lg-6">
+                      <label>Company Name</label>
+                      <TextInput
+                        name={"company_name"}
+                        placeholder="Company Name"
+                        onChange={this.handleOnChange}
+                        value={this.state.company_name}
+                      />
+                    </div>
+
+                    <div className="col-lg-6">
+                      <label>Company Address</label>
+                      <TextInput
+                        name={"company_address"}
+                        placeholder="Company Addresss"
+                        onChange={this.handleOnChange}
+                        value={this.state.company_address}
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {["AM", "LM", "LP"].includes(this.state.membershipType) && (
+                  <div className="row">
+                    <div className="col-lg-6">
+                      <label>Industry Type</label>
+                      <select
+                        className="custom-select-input"
+                        name="industryType"
+                        defaultValue={this.state.industryType}
+                        onChange={this.handleOnChange}
+                      >
+                        <option>Select Industry Type</option>
+                        {this.state.industry.map((ele) => (
+                          <option key={ele.id} value={ele.industry_name}>
+                            {ele.industry_name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div className="col-lg-6">
+                      <label>Industry Classifcation</label>
+
+                      <select
+                        className="custom-select-input"
+                        name="industryClassification"
+                        defaultValue={this.state.industryClassification}
+                        onChange={this.handleOnChange}
+                      >
+                        <option>Select Industry Classification</option>
+                        {this.state.indusClass.map((ele) => (
+                          <option key={ele.id} value={ele.industry_name}>
+                            {ele.industry_name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                )}
+
+                <div className="row">
+                  <div className="col-lg-6">
+                    <label>Company Website</label>
+                    <TextInput
+                      name={"website"}
+                      onChange={this.handleOnChange}
+                      value={this.state.website}
+                    />
+                  </div>
+                  <div className="col-lg-6">
+                    <label>Company Designation</label>
+                    <TextInput
+                      name={"company_designation"}
+                      onChange={this.handleOnChange}
+                      value={this.state.company_designation}
+                    />
+                  </div>
+                </div>
+
                 <div className="col-lg-6">
-                  <label>Company Website</label>
+                  <label>IPF Position</label>
                   <TextInput
-                    name={"website"}
+                    disabled
+                    name={"position"}
                     onChange={this.handleOnChange}
-                    value={this.state.website}
+                    value={this.state.position || "Member"}
                   />
                 </div>
-                <div className="col-lg-6">
-                  <label>Company Designation</label>
-                  <TextInput
-                    name={"company_designation"}
-                    onChange={this.handleOnChange}
-                    value={this.state.company_designation}
-                  />
+
+                <div className="my-4 text-center w-100">
+                  <FormButton type="submit">Update</FormButton>
                 </div>
-              </div>
+              </form>
+            </div>
+          </AppWrapper>
+        </Dashboard>
+      </div>
 
-              <div className="col-lg-6">
-                <label>IPF Position</label>
-                <TextInput
-                  disabled
-                  name={"position"}
-                  onChange={this.handleOnChange}
-                  value={this.state.position || "Member"}
-                />
-              </div>
-
-              <div className="my-4 text-center w-100">
-                <FormButton type="submit">Update</FormButton>
-              </div>
-            </form>
-          </div>
-        </AppWrapper>
-      </Dashboard>
     );
   }
 }

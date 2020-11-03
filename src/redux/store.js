@@ -1,12 +1,10 @@
-import { createStore, combineReducers, applyMiddleware, compose } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
+import reducers from "./reducers/index";
 import thunk from "redux-thunk";
 import { createLogger } from "redux-logger";
-import userReducer from "./reducers/userReducer";
-import dataReducer from "./reducers/dataReducer";
-import companyReducer from "./reducers/companyReducer";
-import uiReducer from "./reducers/uiReducer";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+
 
 const NODE_ENV = "production";
 const logger = createLogger();
@@ -23,12 +21,7 @@ const persistConfig = {
   storage,
 };
 
-const reducers = combineReducers({
-  user: userReducer,
-  data: dataReducer,
-  UI: uiReducer,
-  company: companyReducer,
-});
+
 
 const rootReducer = persistReducer(persistConfig, reducers);
 const composeEnhancers =

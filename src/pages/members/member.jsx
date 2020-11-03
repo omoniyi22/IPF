@@ -5,7 +5,11 @@ import MemberDetails from './../../components/Details/Member/Member'
 import Header from './../../components/Headers/Header'
 import Form from '../../components/Forms/Event/Form'
 class Members extends Component {
+  constructor(props) {
+    super(props)
+  }
   render() {
+    let { firstName, lastName, memberType, memberNumber } = this.props.user
     return (
       <div className="member_page home_port ">
         <div className="Event_Page">
@@ -19,7 +23,7 @@ class Members extends Component {
               </Link>
             </div>
 
-            <MemberDetails />
+            <MemberDetails memberNumber={memberNumber} lastName={lastName} firstName={firstName} memberType={memberType} />
             <div className="EventScreen opacy">
               <div className=" home_3 mx- pt-5 pb-3">
                 <div className="titled mb-4 ml-2 sm-hide">

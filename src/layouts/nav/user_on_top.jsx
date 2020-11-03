@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
+import { withRouter } from "react-router-dom"
 import { connect } from 'react-redux'
+import { logout } from './../../redux/actions/authActions';
 
 class Nav_Options extends Component {
   render() {
+    let { email, firstName, lastName, logout } = this.props
     return (
       <>
         <div>
@@ -15,11 +18,11 @@ class Nav_Options extends Component {
                 <div className="user_pix border bou z-depth-2  rounded-pill p-4 ml-auto sm-hide my-auto" style={{ backgroundImage: `url(${require('./../../assets/medias/user.png')})` }} />
                 <div className="data  my-auto text-white mx-2 mr-md-5">
                   <div className="name font-weight-bold">
-                    Andrew John
-                </div>
+                    {firstName} {lastName}
+                  </div>
                   <div className="email">
-                    andrewjohn@gmail.com
-                </div>
+                    {email}
+                  </div>
                 </div>
                 <div className="user_pix border bou z-depth-2   rounded-pill p-4 sm-show" style={{ backgroundImage: `url(${require('./../../assets/medias/user.png')})` }} />
               </div>
@@ -36,7 +39,7 @@ class Nav_Options extends Component {
                     Settings
                 </div>
                 </div>
-                <div className="powers  my-auto">
+                <div className="powers  my-auto" onClick={() => logout(this.props.history)}>
                   <div className="user_buttons_img" style={{ backgroundImage: `url(${require('./../../assets/medias/power.png')})` }} />
                   <div className="user_buttons_text sm-hide">
                     Sign Out
@@ -60,6 +63,9 @@ class Nav_Options extends Component {
 }
 
 const mapStateToProps = state => ({
-
+  firstName: state.user.currentUser.firstName,
+  lastName: state.user.currentUser.lastName,
+  email: state.user.currentUser.email
 })
-export default connect(mapStateToProps)(Nav_Options)
+
+export default connect(mapStateToProps, { logout })(withRouter(Nav_Options))

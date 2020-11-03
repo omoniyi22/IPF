@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom"
 import BlackBackground from "../components/black_bg";
 import {
   LoginBg,
@@ -12,7 +13,7 @@ import {
   LogoContainer,
   CustomIntro,
   FooterLogoContainer,
-  FooterLogo,
+  FooterLogo
 } from "../components/login-bg";
 import { Link } from "react-router-dom";
 import Axios from "axios";
@@ -56,6 +57,8 @@ class Login extends Component {
         password,
       });
 
+
+      this.props.setCurrentUser(response.data.data)
       const {
         data: {
           token,
@@ -80,6 +83,7 @@ class Login extends Component {
       ) {
         localStorage.clear();
       }
+
       localStorage.setItem("x-access-token", token);
       localStorage.setItem(
         "ipf-user",
@@ -103,6 +107,20 @@ class Login extends Component {
         default_password,
       });
 
+      await this.props.setCurrentUser({
+        firstName,
+        lastName,
+        email,
+        isAdmin,
+        approved,
+        position,
+        phoneNumber,
+        role,
+        nrole,
+        memberType,
+        company_id,
+        default_password,
+      })
       if (!isAdmin) {
         this.props.getCompanyDetails();
       }
@@ -111,13 +129,15 @@ class Login extends Component {
       if (isAdmin) {
         return this.props.history.push("/");
       }
-      return this.props.history.push("/user/dashboard");
     } catch (error) {
+      console.log(error.response)
       if (error.response && error.response.data) {
         this.fireSnackbar(error.response.data.error, "error");
       }
       this.props.showLoader(false);
     }
+    console.log("i dey here")
+    this.props.history.push("/");
   };
 
   componentDidMount() {
@@ -153,7 +173,7 @@ class Login extends Component {
           });
         }}
       >
-        <div className="container-fluid" style={{ padding: 0 }}>
+        <div className="container-fluid material" style={{ padding: 0 }}>
           <div className="desktop">
             <BlackBackground>
               <div className="py-4 px-4">
@@ -291,8 +311,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     showLoader: (type = false) => dispatch(actions.showLoader(type)),
     loginSuccess: (payload) => dispatch(actions.loginSuccessAction(payload)),
+    setCurrentUser: (payload) => dispatch(actions.setCurrentUser(payload)),
     getCompanyDetails: () => dispatch(actions.getCompanyDetailsRequest()),
   };
 };
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(withRouter(Login));

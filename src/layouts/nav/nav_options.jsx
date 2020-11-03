@@ -96,6 +96,8 @@ class Nav_Options extends Component {
   }
 
   render() {
+    // /admin/change-password
+    // /admin/dashboard/profile-update
     return (
       <div className="h-100 ri">
         <div className="nav_options text-left  ">
@@ -111,7 +113,7 @@ class Nav_Options extends Component {
               Events
           </div>
           </Link>
-          <Link to="/manage_profile">
+          <Link to="/profile-update">
             <div className={`nav_button sm-flex text-white sm-flex  ${this.state.manage_profile === true && "changed_nav"}`} onClick={this.onManage}>
               <div className="p-1   rounded-pill white rounded_point sm-show" />
               <div> Manage Profile</div>

@@ -596,7 +596,7 @@ class Members extends Component {
       }
     });
     return (
-      <div className="shadow rounded bg-white col-md-12 p-3">
+      <div className="shadow rounded bg-white col-md-12 p-3 material">
         <MaterialTable
           detailPanel={[
             {

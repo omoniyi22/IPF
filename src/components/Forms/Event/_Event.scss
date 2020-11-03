@@ -8,10 +8,13 @@
   padding: 20px 40px;
   padding-bottom: 8px;
   border-radius: 10px;
+  
 }
 
-.form_1 {
+.form_1.flex{
   overflow: hidden !important;
+  overflow-y: scroll  !important;
+  height: 450px;
   .going {
     transition-duration: 0.4s;
     min-width: 100%;

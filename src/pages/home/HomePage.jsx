@@ -3,8 +3,21 @@ import EventCard from '../../components/Cards/EventCard'
 import LandingCard from '../../components/Cards/LandingCard'
 import EventTable from '../../components/Tables/Event/Event'
 import EventForm from '../../components/Forms/Event'
-import Switch from './../../utils/Switch'
 import { Link } from 'react-router-dom'
+import Switch from './../../utils/Switch'
+
+// import { CSVLink, CSVDownload } from "react-csv";
+
+// data = [
+//   { firstname: "Ahmed", lastname: "Tomi", email: "ah@smthing.co.com" },
+//   { firstname: "Raed", lastname: "Labes", email: "rl@smthing.co.com" },
+//   { firstname: "Yezzi", lastname: "Min l3b", email: "ymin@cocococo.com" }
+// ];
+
+// <CSVLink data={data} headers={headers}>
+//   Download me
+// </CSVLink>;
+
 
 class HomePage extends Component {
   constructor(props) {
@@ -16,6 +29,12 @@ class HomePage extends Component {
     this.move = this.move.bind(this);
     this.moveOut = this.moveOut.bind(this);
   }
+  componentDidMount() {
+    if (window.location.href.search("create-event") === -1) {
+      this.props.Get_All_Event()
+    }
+  }
+
   move() {
     this.setState({
       position: true,
@@ -28,6 +47,7 @@ class HomePage extends Component {
   }
   render() {
     let swit = Switch(EventForm);
+    let { Get_All_Event, allEvents, Select_Event } = this.props
     return (
       <div className={`${swit[2]} `}>
         <div className="home1 ">
@@ -90,9 +110,11 @@ class HomePage extends Component {
             </div>
             <div>
               <div>
-                <EventTable />
-                <EventTable />
-                <EventTable />
+                {
+                  allEvents.map(event => (
+                    <EventTable event={event} click={() => { Select_Event(event) }} />
+                  ))
+                }
               </div>
             </div>
           </div>

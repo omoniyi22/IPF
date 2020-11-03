@@ -40,3 +40,8 @@
 @import "./../../pages/home/home";
 @import "./../../pages/event/event";
 @import "./../../pages/payment/payment";
+
+//    UTILS
+@import "./../utiils/page_loader";
+//   _modal_
+@import "./../../components/Modal/vetModal/vetModal";

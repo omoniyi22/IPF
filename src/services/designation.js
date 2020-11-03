@@ -5,6 +5,9 @@ export async function assignPosition(data) {
   return authApi.patch("/admin/assign-role", data);
 }
 
+
+
+
 // export async function removePosition(data) {
 //   const authApi = await attachApiToken(api);
 //   return authApi.patch("/admin/assign-role", {

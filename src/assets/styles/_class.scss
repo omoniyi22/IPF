@@ -5,6 +5,10 @@
   text-align: center;
 }
 
+.material{
+  @import "./material";
+}
+
 .break_1 {
   overflow: hidden;
   text-overflow: ellipsis;

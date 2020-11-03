@@ -6,15 +6,28 @@ import Switch from './../../utils/Switch_2'
 import EditForm from './../../components/Forms/Event'
 import InviteForm from './../../components/Forms/Invite/Invite'
 import { Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 
 class Event extends Component {
+
   constructor(props) {
     super(props)
+
     this.state = {
       switch: false
     }
   }
+  
+  componentDidMount() {
+    if (this.props.event_id === undefined) {
+      this.props.history.goBack()
+    }
+    if (window.location.href.search("event_page") === 22) {
+      this.props.Fetch_Event(this.props.event_id)
+    }
+  }
+
   render() {
     let swit = Switch(EditForm, InviteForm)
     return (
@@ -65,4 +78,4 @@ class Event extends Component {
     )
   }
 }
-export default Event
+export default withRouter(Event)

@@ -1,6 +1,23 @@
 import React, { Component } from 'react'
 class Preview extends Component {
   render() {
+    let {
+      event,
+      data: {
+        event_name,
+        event_details,
+        event_date,
+        event_time,
+        reminder,
+        reminders,
+        banner_image,
+        set_reminder,
+        meridiem,
+        file,
+        reminder_date,
+        reminder_body },
+      edit,
+      create } = this.props
     return (
       <div className="Preview  text-left  ">
         <div className="preview_title mt-3 text-left">
@@ -10,17 +27,17 @@ class Preview extends Component {
           <div className="w-50  first">
             <div className="w-1 border-bottom">
               <div className="name">Event Name</div>
-              <div className="r_name">Global Leader Summit</div>
+              <div className="r_name">{event_name}</div>
             </div>
           </div>
           <div className="flue  w-50  ">
             <div className="w-1 border-bottom one w-50">
               <div className="date">Event date</div>
-              <div className="r_date">September 20, 2020</div>
+              <div className="r_date">{event_date}</div>
             </div>
             <div className="w-1 border-bottom w-50">
               <div className="time">Time</div>
-              <div className="r_time">10:00 AM</div>
+              <div className="r_time">{event_time}</div>
             </div>
           </div>
         </div>
@@ -28,45 +45,46 @@ class Preview extends Component {
         <div className="row_2 ">
           <div className="w-50  first">
             <div className="w-1 border-bottom">
-              <div className="name">Event Name</div>
-              <div className="r_name">Event Name</div>
+              <div className="name">Event Details</div>
+              <div className="r_name">{event_details}</div>
             </div>
           </div>
           <div className="flue  w-50">
             <div className="flex-2 border-bottom">
-              <div className="date">Event date</div>
-              <div className="r_date">Event date</div>
+              <div className="date">Attachment</div>
+              <div className="r_date">{file && file.original_filename}</div>
             </div>
           </div>
         </div>
-        <div className="row_3 ">
+        {reminder_body && <div className="row_3 ">
           <div className="border-bottom pb-2 flex-2">
             <div className="w-1 ">
               <div className="name">Reminder Body</div>
               <div className="r_name">
-                This is to remind you of the upcoming Global Leader Summit
-               event happening on September 20. If you have not
-                confirmed your attendance. Please Kindly do.
+                {reminder_body}
               </div>
             </div>
           </div>
+        </div>}
+
+
+        <div className="row_2 awow">
+          {reminder &&
+            reminder.map(time =>
+              <div className="w-50 borde first  bpp">
+                <div className="w-1 border-bottom">
+                  <div className="name">Reminder Date</div>
+                  <div className="r_name">{time}</div>
+                </div>
+              </div>
+            )}
         </div>
-
-
-        <div className="row_2">
-          <div className="w-50 borde first">
-            <div className="w-1 border-bottom">
-              <div className="name">Reminder Date</div>
-              <div className="r_name">12/10/2020</div>
-            </div>
-          </div>
-          <div className="flue  w-50">
+        {/* <div className="flue  w-50">
             <div className="flex-2 border-bottom">
               <div className="date">Other Reminder</div>
               <div className="r_date">2 weeks</div>
             </div>
-          </div>
-        </div>
+          </div> */}
         <div className="  six_form_row sdle col_2 flex ml-auto w-fit">
           <div className="inner   text-white text-left  mr-2">
             <button
@@ -80,12 +98,34 @@ class Preview extends Component {
           </div>
           <div className="inner  text-white text-left ">
             <button
-              onClick={this.props.move}
+              onClick={() => {
+                set_reminder === true
+                  ? create({
+                    event_name,
+                    event_details,
+                    event_date,
+                    event_time,
+                    banner_image,
+                    reminder,
+                    reminder_body
+                  },
+                    event && event.event_id
+                  ) :
+                  create({
+                    event_name,
+                    event_details,
+                    event_date,
+                    event_time,
+                    banner_image
+                  },
+                    event && event.event_id
+                  )
+              }}
               className="btn eppe btn-sm m-0 h-100 w-100 flex p-0">
               <div className="fa  fa-plus heart " />
               <div className="text  ml-1 heart lens h-100">
-                Create Event
-                  </div>
+                {edit ? "Edit Event" : "Create Event"}
+              </div>
             </button>
           </div>
         </div>

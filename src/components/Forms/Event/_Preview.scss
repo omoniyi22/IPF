@@ -1,4 +1,17 @@
 .Preview {
+  .awow {
+    justify-content: space-between !important;
+    align-content: space-between;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+    flex-wrap: wrap;
+    .first {
+      margin-right: 0 !important;
+      min-width: 49% !important;
+      width: 49% !important;
+    }
+  }
   .preview_title {
     // background: rgba(128, 128, 128, 0.691);
     // color: white;
@@ -15,6 +28,7 @@
   .r_time {
     margin-top: 4px;
     font-size: 14.4px;
+    min-height: 9px;
   }
   .row_1,
   .row_2,
@@ -23,6 +37,9 @@
     margin-top: 20px;
     .first {
       margin-right: 12px;
+    }
+    .bpp {
+      min-width: 49% !important;
     }
     .w-50 {
       // padding-right: 12px;
@@ -101,7 +118,7 @@
     }
     .row_2 {
       display: block;
-      .r_date{
+      .r_date {
         padding-bottom: 8px !important;
       }
     }

@@ -17,7 +17,7 @@ const SwitchEffect = (
 
   switch (UrlSwitch()) {
     case 'create-event':
-      return [<FormEvent />, "form1", "home_port"]
+      return [<FormEvent create={true} />, "form1", "home_port"]
       break;
     case 'Homi':
       return [null]

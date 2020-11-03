@@ -12,9 +12,10 @@ const getCompanyDetailsRequest = () => {
       if (!response.data && !response.data.data) {
         return;
       }
-
       dispatch(companyDetailsSuccessAction(response.data.data));
-    } catch (error) {}
+    } catch (error) {
+      console.log("an occour don occur")
+    }
   };
 };
 

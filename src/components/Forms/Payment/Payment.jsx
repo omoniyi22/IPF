@@ -12,6 +12,7 @@ const Payment_Form = () => {
             <input type="text" className="form-control" />
           </div>
         </div>
+        
         <div className=" card_num">
           <div className="title">Phone Number</div>
           <div className="input ">
@@ -19,6 +20,7 @@ const Payment_Form = () => {
           </div>
         </div>
         <div className="plate">
+
           <div className=" card_num">
             <div className="title">Expiring Date</div>
             <div className="input ">

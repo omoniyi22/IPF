@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Details = ({ }) => {
+const Details = ({ firstName, lastName, memberType, memberNumber }) => {
   return (
     <div className="member_details px-2">
       <div className="org">
@@ -8,7 +8,7 @@ const Details = ({ }) => {
           Organisation Name
         </div>
         <div className="content">
-          Andrew Johnson
+          {lastName} {firstName}
         </div>
       </div>
       <div className="mem_plan">
@@ -16,7 +16,7 @@ const Details = ({ }) => {
           Membership Plan
         </div>
         <div className="content">
-          Coperate A
+          {memberType} {memberNumber}
         </div>
       </div>
       <div className="exipire">

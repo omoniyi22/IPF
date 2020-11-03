@@ -17,7 +17,7 @@ const SwitchEffect = (
       return [<FormInvite />, "form1", "home_port"]
       break;
     case 'edit_event':
-      return [<EditForm title={true} />, "form1", "home_port"]
+      return [<EditForm edit={true} title={true} />, "form1", "home_port"]
       break;
     default:
       return [null]

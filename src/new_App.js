@@ -42,9 +42,7 @@ class App extends Component {
               </div>
             </div>
             <div className="blacko h-100 sticky z-depth-1">
-              <div
-                className={`sort_nav mt-0 p-0 pb-1 mx-0 over_hide sticker text-center ${show}`}
-              >
+              <div className={`sort_nav mt-0 p-0 pb-1 mx-0 over_hide sticker text-center ${show}`}>
                 <div className="falo ">
                   <NavOptions />
                 </div>
