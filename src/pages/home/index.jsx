@@ -3,7 +3,9 @@ import { connect } from 'react-redux'
 import { Get_All_Event, Select_Event } from './../../redux/actions/eventsActions'
 
 const mapStateToProps = state => ({
-  allEvents: state.event.allEvent
+  allEvents: state.event.allEvent,
+  closed: state.event.closed,
+  active: state.event.active
 })
 
 

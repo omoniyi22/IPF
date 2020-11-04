@@ -1,5 +1,4 @@
 import { api, attachApiToken } from "./api";
-const authApi = attachApiToken(api);
 
 //Events Service
 export const getEventByMember = async (id) => {
@@ -33,4 +32,21 @@ export const createEvent = async (data) => {
 export const EditEvent = async (data, id) => {
   const authApi = await attachApiToken(api);
   return authApi.patch(`/admin/events/${id}`, { ...data })
+}
+
+
+//Invite Services
+export const AcceptReject = async (data, id) => {
+  const authApi = await attachApiToken(api)
+  return authApi.patch(`/events/invites/${id}`, { ...data })
+}
+
+export const getInvites = async () => {
+  const authApi = await attachApiToken(api)
+  return authApi.patch(`/events/invites`)
+}
+
+export const sendInvites = async (data) => {
+  const authApi = await attachApiToken(api)
+  return authApi.patch(`/events/invites`, { ...data })
 }

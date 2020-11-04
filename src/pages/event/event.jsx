@@ -18,11 +18,13 @@ class Event extends Component {
       switch: false
     }
   }
-  
+
+
+
   componentDidMount() {
-    if (this.props.event_id === undefined) {
-      this.props.history.goBack()
-    }
+    // if (this.props.event_id === undefined) {
+    //   this.props.history.goBack()
+    // }
     if (window.location.href.search("event_page") === 22) {
       this.props.Fetch_Event(this.props.event_id)
     }
@@ -30,6 +32,9 @@ class Event extends Component {
 
   render() {
     let swit = Switch(EditForm, InviteForm)
+
+    let { event } = this.props
+
     return (
       <div className={`${swit[2]}`}>
         <div className="home1">
@@ -49,7 +54,7 @@ class Event extends Component {
                   </div>
                 </Link>
               </div>
-              <CardTwo />
+              <CardTwo event={event} />
               <div className="switch_button mb-4  ">
                 <div className={`one border btn ${this.state.switch === false && "bem"}`}
                   onClick={() => this.setState({ switch: false })}

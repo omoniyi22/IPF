@@ -5,18 +5,12 @@ import EventTable from '../../components/Tables/Event/Event'
 import EventForm from '../../components/Forms/Event'
 import { Link } from 'react-router-dom'
 import Switch from './../../utils/Switch'
+import { CSVLink, CSVDownload } from "react-csv";
 
-// import { CSVLink, CSVDownload } from "react-csv";
-
-// data = [
-//   { firstname: "Ahmed", lastname: "Tomi", email: "ah@smthing.co.com" },
-//   { firstname: "Raed", lastname: "Labes", email: "rl@smthing.co.com" },
-//   { firstname: "Yezzi", lastname: "Min l3b", email: "ymin@cocococo.com" }
-// ];
 
 // <CSVLink data={data} headers={headers}>
 //   Download me
-// </CSVLink>;
+// </CSVLink>
 
 
 class HomePage extends Component {
@@ -25,16 +19,24 @@ class HomePage extends Component {
     this.state = {
       matter: "",
       position: true,
+      download: ""
     };
     this.move = this.move.bind(this);
     this.moveOut = this.moveOut.bind(this);
+    this.onDownload = this.onDownload.bind(this);
   }
   componentDidMount() {
     if (window.location.href.search("create-event") === -1) {
       this.props.Get_All_Event()
     }
   }
-
+  onDownload(e) {
+    this.setState({
+      download: e.target.value
+    })
+    if (e.target.value === "CSV")
+      return <CSVLink data={this.state.position ? this.props.allEvents : this.props.closed} headers={this.state.position ? this.props.allEvents : this.props.closed} />
+  }
   move() {
     this.setState({
       position: true,
@@ -47,7 +49,7 @@ class HomePage extends Component {
   }
   render() {
     let swit = Switch(EventForm);
-    let { Get_All_Event, allEvents, Select_Event } = this.props
+    let { Get_All_Event, allEvents, Select_Event, active, closed } = this.props
     return (
       <div className={`${swit[2]} `}>
         <div className="home1 ">
@@ -95,14 +97,15 @@ class HomePage extends Component {
                     data-toggle="dropdown"
                   />
                   <div className="flex">
-                    <select className="border-0 text-center mx-auto">
+                    <select className="border-0 text-center mx-auto"
+                      name="download" value={this.state.download}
+                      onChange={this.onDownload}
+                    >
                       <option className="text-center w-100 mx-auto">
                         Download As
                       </option>
                       <option className="text-center w-100 mx-auto">PDF</option>
-                      <option className="text-center w-100 mx-auto">
-                        DOCX
-                      </option>
+                      <option className="text-center w-100 mx-auto"> CSV</option>
                     </select>
                   </div>
                 </div>

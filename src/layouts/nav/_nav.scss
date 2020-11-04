@@ -50,6 +50,10 @@
       .settings,
       .powers {
         margin: 0 9px;
+        &:hover{
+          filter: brightness(1.7);
+          cursor: pointer;
+        }
       }
       .alarms {
         .user_buttons_img {
