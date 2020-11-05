@@ -12,7 +12,7 @@ const MemberTable = ({ button }) => {
     </div>
   )
   return (
-    <div className="member_table p-4  border-bottom">
+    <div className="member_table p-4  border-bottom opacy">
       <div className="col_1 lom   break_2">
         <span className="sm-hidden baew rounded-pill border" >RS</span> Rahman Shabahsk <span className="hide">.</span>
       </div>

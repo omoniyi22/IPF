@@ -13,6 +13,15 @@
     font-family: metro;
   }
 }
+.accepted {
+  background: #b9b4b4;
+}
+.rejected {
+  background: #fb8a30;
+}
+.pending {
+  background: #9d992e;
+}
 .header {
   padding-left: 34px !important;
   padding-right: 0px !important;

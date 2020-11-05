@@ -4,7 +4,9 @@
 .my_events_card {
   max-width: 660px;
 }
-
+.seol {
+  padding: 4px !important;
+}
 .home_3 {
   margin-top: 40px;
   display: flex;
@@ -75,6 +77,21 @@
 
 .home1 {
   background: white !important;
+  .event_pak {
+    width: 100%;
+    overflow-x: hidden;
+    transition-duration: 300ms;
+    .event_p1 {
+      transition-duration: 300ms;
+      // min-width: 100%;
+    }
+    .event_p2 {
+      min-width: 100%;
+    }
+    .event_p1.false {
+      margin-left: -100%;
+    }
+  }
 }
 @media (max-width: 1000px) {
   .home_port {

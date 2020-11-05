@@ -38,6 +38,10 @@
       max-height: 67px !important;
       background: #a8e2c7;
       width: 19%;
+      &:hover {
+        cursor: pointer;
+        opacity: 0.9;
+      }
       .icon {
         background: #3db37c;
         height: 48px;

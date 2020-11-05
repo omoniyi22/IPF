@@ -1,17 +1,45 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-
+import { EmailVet } from "./../../../assets/utiils/vet";
+import VetModal from './../../../components/Modal/vetModal/vetModal'
 
 class InviteForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
       close: "zoomIn",
-      move: "move"
+      move: "move",
+      error: "",
+      email: ""
     }
     this.onMove = this.onMove.bind(this)
     this.unMove = this.unMove.bind(this)
+    this.closeError = this.closeError.bind(this)
+    this.onChange = this.onChange.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
+  }
+
+  onChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
+
+  onSubmit() {
+    if (EmailVet(this.state.email) === false)
+      this.setState({
+        error: "Please enter a valid address"
+      })
+    else {
+      this.props.Send_Invite(this.state.email)
+    }
+  }
+
+  closeError() {
+    this.setState({
+      error: ""
+    })
   }
 
   onMove() {
@@ -19,15 +47,31 @@ class InviteForm extends Component {
       move: "move"
     })
   }
+
   unMove() {
     this.setState({
       move: "mov"
     })
   }
-  render() {
 
+  render() {
+    let { error } = this.state
+    let { pop, pop_data, Clear_Error, loader, edit, event } = this.props
     return (
       <>
+        {error &&
+          <VetModal closeError={this.closeError} error={pop === true ? pop_data.data : error} />
+        }
+
+        {pop &&
+          <VetModal closeError={Clear_Error} error={pop_data.data} classx={pop_data.status} />
+        }
+
+        {loader &&
+          <VetModal closeError={() => console.log("hola")} error={pop_data.data} loading={loader} classx={pop_data.status} />
+        }
+
+
         <div className="backup h-100 w-100 text-init "
           onClick={() => {
             this.setState({
@@ -45,12 +89,19 @@ class InviteForm extends Component {
           </div>
           <div className="form ">
             <div className="form_iti">Member E-mail</div>
-            <input type="text" className="form-control rounded-sm" />
+            <input type="text" className="form-control rounded-sm" onChange={this.onChange} value={this.state.email} name="email" />
             <div className="  six_form_row sdle col_2 flex ml-auto w-fit">
               <div className="inner   text-white text-left  mr-2">
                 <button
-                  onClick={this.props.unmove}
-                  className="btn eppes btn-sm m-0 h-100 w-100 flex p-0">
+                  onClick={() => {
+                    this.setState({
+                      close: "zoomOut",
+                      move: ""
+                    })
+                    setTimeout(() => {
+                      this.props.history.goBack()
+                    }, 290);
+                  }} className="btn eppes btn-sm m-0 h-100 w-100 flex p-0">
                   <div className="fa fa-times heart " />
                   <div className="text f ml-2 heart  h-100">
                     Close
@@ -59,7 +110,7 @@ class InviteForm extends Component {
               </div>
               <div className="inner  text-white text-left ">
                 <button
-                  onClick={this.props.move}
+                  onClick={this.onSubmit}
                   className="btn eppe btn-sm m-0 h-100 w-100 flex p-0">
                   <div className="fa  fa-plus heart " />
                   <div className="text  ml-1 heart lens h-100">

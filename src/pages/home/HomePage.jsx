@@ -6,12 +6,19 @@ import EventForm from '../../components/Forms/Event'
 import { Link } from 'react-router-dom'
 import Switch from './../../utils/Switch'
 import { CSVLink, CSVDownload } from "react-csv";
+import { Dropdown, Icon, Menu } from 'semantic-ui-react'
 
-
-// <CSVLink data={data} headers={headers}>
-//   Download me
-// </CSVLink>
-
+const headers = [
+  { label: "Event ID", key: "event_id" },
+  { label: "Event Name", key: "event_name" },
+  { label: "Event Details", key: "event_details" },
+  { label: "Event Date", key: "event_date" },
+  { label: "Event Time", key: "event_time" },
+  { label: "Set Reminder", key: "set_reminder" },
+  { label: "Reminder", key: "reminder" },
+  { label: "Status", key: "status" },
+  { label: "Banner Image", key: "banner_image" }
+]
 
 class HomePage extends Component {
   constructor(props) {
@@ -23,20 +30,13 @@ class HomePage extends Component {
     };
     this.move = this.move.bind(this);
     this.moveOut = this.moveOut.bind(this);
-    this.onDownload = this.onDownload.bind(this);
   }
   componentDidMount() {
     if (window.location.href.search("create-event") === -1) {
       this.props.Get_All_Event()
     }
   }
-  onDownload(e) {
-    this.setState({
-      download: e.target.value
-    })
-    if (e.target.value === "CSV")
-      return <CSVLink data={this.state.position ? this.props.allEvents : this.props.closed} headers={this.state.position ? this.props.allEvents : this.props.closed} />
-  }
+
   move() {
     this.setState({
       position: true,
@@ -47,8 +47,11 @@ class HomePage extends Component {
       position: false,
     });
   }
+
+
   render() {
     let swit = Switch(EventForm);
+    let { position } = this.state
     let { Get_All_Event, allEvents, Select_Event, active, closed } = this.props
     return (
       <div className={`${swit[2]} `}>
@@ -75,13 +78,13 @@ class HomePage extends Component {
                       className={`other_Events px-2 pnt ${this.state.position}`}
                       onClick={this.move}
                     >
-                      Other Events
+                      Passed Events
                     </div>
                     <div
                       className={`view_all px-3 pnt ${!this.state.position}`}
                       onClick={this.moveOut}
                     >
-                      All Events
+                      Active Events
                     </div>
                   </div>
                   <div className="lines  rounded-pill">
@@ -94,29 +97,49 @@ class HomePage extends Component {
                   <div
                     id="dropdownMenu1"
                     className="download_icon mx-auto pr-3"
-                    data-toggle="dropdown"
                   />
-                  <div className="flex">
-                    <select className="border-0 text-center mx-auto"
-                      name="download" value={this.state.download}
-                      onChange={this.onDownload}
+                  <div className="flex sema">
+                    <Dropdown
+                      text={(<span>Download As <span className="fa fa-angle-down" /></span>)}
                     >
-                      <option className="text-center w-100 mx-auto">
-                        Download As
-                      </option>
-                      <option className="text-center w-100 mx-auto">PDF</option>
-                      <option className="text-center w-100 mx-auto"> CSV</option>
-                    </select>
+                      <Dropdown.Menu>
+                        <Dropdown.Item text='Download As' disabled className="text-center" />
+                        <Dropdown.Item text='CSV' className="text-center">
+                          <CSVLink data={position === true ? closed : active} headers={headers} >
+                            CSV
+                          </CSVLink>
+                        </Dropdown.Item>
+                        <Dropdown.Item text='PDF' className="text-center" />
+                      </Dropdown.Menu>
+                    </Dropdown>
+
+
+
                   </div>
                 </div>
               </div>
             </div>
             <div>
               <div>
-                {
-                  allEvents.map(event => (
-                    <EventTable event={event} click={() => { Select_Event(event) }} />
-                  ))
+                {`${position}`}
+                {<>
+                  {this.state.position === true &&
+                    <div className={` ${position === true && "opacy"}`}>
+                      {
+                        closed.map(event => (
+                          <EventTable event={event} click={() => { Select_Event(event) }} />
+                        ))}
+                    </div>
+                  }
+                  {this.state.position === false &&
+                    <div className={` ${position === false && "opacy"}`}>
+                      {
+                        active.map(event => (
+                          <EventTable event={event} click={() => { Select_Event(event) }} />
+                        ))}
+                    </div>
+                  }
+                </>
                 }
               </div>
             </div>

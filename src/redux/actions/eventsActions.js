@@ -1,5 +1,5 @@
 import {
-  PAGE_ERROR, PAGE_LOADER, POPUP, POPIN,
+  PAGE_ERROR, PAGE_LOADER, POPUP, POPIN, 
 } from "./../types";
 
 import {
@@ -55,7 +55,6 @@ export const Get_All_Event = () => async (dispatch) => {
       })
       console.log("errored", error.response)
     })
-
 }
 
 

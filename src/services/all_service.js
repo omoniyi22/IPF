@@ -41,12 +41,12 @@ export const AcceptReject = async (data, id) => {
   return authApi.patch(`/events/invites/${id}`, { ...data })
 }
 
-export const getInvites = async () => {
+export const getInvites = async (id) => {
   const authApi = await attachApiToken(api)
-  return authApi.patch(`/events/invites`)
+  return authApi.get(`/events/${id}/invites`)
 }
 
 export const sendInvites = async (data) => {
   const authApi = await attachApiToken(api)
-  return authApi.patch(`/events/invites`, { ...data })
+  return authApi.post(`/admin/events/invites`, { ...data})
 }

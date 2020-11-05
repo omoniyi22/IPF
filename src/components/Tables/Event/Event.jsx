@@ -4,7 +4,7 @@ class Event_Table extends Component {
   render() {
     let { event: { event_name, event_date }, click } = this.props
     return (
-      <Link to="/event_page" className=" text-init event_table  py-3 flex w-100 mb-4" onClick={click}>
+      <Link to="/event_page" className="opacy text-init event_table  py-3 flex w-100 mb-4" onClick={click}>
         <div className="numb rounded-pill text-center  heart border">
           1
         </div>

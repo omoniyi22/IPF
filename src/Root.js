@@ -99,7 +99,7 @@ class Root extends Component {
             <AdminRoute path="/admin/designation" component={Position} />
             <AdminRoute path="/admin/change-password" component={ChangePassword} />
 
-            <Route path="/" render={() => isAuth === false ? <Dashboard><HomePage /></Dashboard> : <LandingPage />} />
+            <Route path="/" render={() => isAuth === true ? <Dashboard><HomePage /></Dashboard> : <LandingPage />} />
           </Switch>
         </Router >
 

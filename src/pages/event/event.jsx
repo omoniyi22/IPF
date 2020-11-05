@@ -4,7 +4,7 @@ import EventScreen from './../../components/Screens/EventScreen/EventScreeen'
 import QandA from './../../components/Screens/Q&A_Screen/Q&A_Screen'
 import Switch from './../../utils/Switch_2'
 import EditForm from './../../components/Forms/Event'
-import InviteForm from './../../components/Forms/Invite/Invite'
+import InviteForm from './../../components/Forms/Invite/index'
 import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router-dom'
 
@@ -13,13 +13,10 @@ class Event extends Component {
 
   constructor(props) {
     super(props)
-
     this.state = {
       switch: false
     }
   }
-
-
 
   componentDidMount() {
     // if (this.props.event_id === undefined) {
@@ -27,13 +24,18 @@ class Event extends Component {
     // }
     if (window.location.href.search("event_page") === 22) {
       this.props.Fetch_Event(this.props.event_id)
+      this.props.Get_Sent_Invite(this.props.event_id)
     }
   }
 
   render() {
     let swit = Switch(EditForm, InviteForm)
 
-    let { event } = this.props
+    let {
+      event,
+      rejected_invite, accepted_invite,
+      pending_invite, invite_error, invite_loading
+    } = this.props
 
     return (
       <div className={`${swit[2]}`}>
@@ -69,7 +71,14 @@ class Event extends Component {
               </div>
               <div className="screens">
                 <div className="ones">
-                  {this.state.switch === false ? <EventScreen /> : <QandA />}
+                  {this.state.switch === false ?
+                    <EventScreen
+                      rejected_invite={rejected_invite} accepted_invite={accepted_invite}
+                      pending_invite={pending_invite} invite_error={invite_error}
+                      rejected_invite={rejected_invite} accepted_invite={accepted_invite}
+                      invite_loading={invite_loading} pending_invite={pending_invite}
+                    />
+                    : <QandA />}
                 </div>
                 <div className="twon"></div>
               </div>
