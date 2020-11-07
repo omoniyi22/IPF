@@ -73,6 +73,7 @@ class Event extends Component {
                 <div className="ones">
                   {this.state.switch === false ?
                     <EventScreen
+                      invitatio={true}
                       rejected_invite={rejected_invite} accepted_invite={accepted_invite}
                       pending_invite={pending_invite} invite_error={invite_error}
                       rejected_invite={rejected_invite} accepted_invite={accepted_invite}

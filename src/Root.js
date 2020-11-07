@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
 import PageLoader from './assets/utiils/page_loader'
 import PageError from './assets/utiils/page_error'
 
@@ -9,6 +8,7 @@ import Login from "./pages/login";
 import HomePage from "./pages/home/index";
 import EventPage from './pages/event'
 import Payment_History from './pages/pay_history'
+import Invitation from './pages/invitation'
 
 // import Payment from './pages/payment/payment'
 // import HomePage from "./pages/home/index";
@@ -71,6 +71,7 @@ class Root extends Component {
             <Route path="/password/reset/:id/:token" component={ResetPassword} />
             <Route path="/login" component={Login} />
 
+            <Route path="/invitations" component={() => <Dashboard> <Invitation /></Dashboard>} />
             <Route path="/event_page" component={() => <Dashboard>< EventPage /></Dashboard>} />
             <Route path="/create-event" component={() => <Dashboard> <HomePage /></Dashboard>} />
             <Route path="/invite" component={() => <Dashboard><EventPage /></Dashboard>} />
@@ -116,5 +117,4 @@ const mapStateToProps = state => ({
   isAdmin: state.user.currentUser.isAdmin,
   nrole: state.user.currentUser.nrole
 })
-
 export default connect(mapStateToProps)(Root);

@@ -119,10 +119,10 @@ class Nav_Options extends Component {
               <div> Manage Profile</div>
             </div>
           </Link>
-          <Link to="/notification">
+          <Link to="/invitations">
             <div className={`nav_button text-white sm-flex  ${this.state.notify === true && "changed_nav"}`} onClick={this.Notify}>
               <div className="p-1   rounded-pill white rounded_point sm-show" />
-              Notification
+              Invitations
         </div>
           </Link>
           <Link to="/payment">

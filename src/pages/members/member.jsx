@@ -7,8 +7,21 @@ import Form from '../../components/Forms/Event/Form'
 class Members extends Component {
   constructor(props) {
     super(props)
+    this.openDropdown = this.openDropdown.bind(this)
+  }
+
+  openDropdown() {
+
   }
   render() {
+    // window.onclick = function (event) {
+    //   if (!event.target.matches('#dropas')) {
+    //     document.querySelector("#dropa").style.background = "blue";
+    //     console.log("Hooola")
+    //   } else {
+    //     document.querySelector("#dropa").style.background = "green";
+    //   }
+    // }
     let { firstName, lastName, memberType, memberNumber } = this.props.user
     return (
       <div className="member_page home_port ">
@@ -38,10 +51,13 @@ class Members extends Component {
                   <div class="download active   px-2 py-1 small dropdown">
                     <div id="dropdownMenu1" className="download_icon mx-auto pr-3" data-toggle="dropdown" />
                     <div className="flex">
+                      {/* <div className="dropas p-5 red" id="dropas">
+                        <div id="dropa" className="p-4"></div>
+                      </div> */}
                       <select className="border-0 text-center mx-auto">
                         <option className="text-center w-100 mx-auto">
                           Download As
-                      </option>
+                        </option>
                         <option className="text-center w-100 mx-auto">
                           PDF
                       </option>

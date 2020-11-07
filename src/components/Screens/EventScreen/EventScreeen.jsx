@@ -10,7 +10,7 @@ class EventScreen extends Component {
       opacy: "",
       search: "",
       position: true,
-      invites: [],
+      invites: [...this.props.accepted_invite, ...this.props.rejected_invite, ...this.props.pending_invite],
       searches: []
     }
     this.move = this.move.bind(this)
@@ -92,16 +92,15 @@ class EventScreen extends Component {
       searches: this.state.invites.filter(invite => invite.member_name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1)
     })
   }
-  componentDidMount() {
-    this.chose_All()
-  }
+
   render() {
     let {
-      rejected_invite, accepted_invite,
+      rejected_invite, accepted_invite, invitatio,
       pending_invite, invite_error, invite_loading
     } = this.props
+    console.log({ invitatio })
     let {
-      type, invites, opacy, searches
+      type, invites, opacy, searches, search
     } = this.state
 
     const error = (
@@ -111,7 +110,9 @@ class EventScreen extends Component {
     )
     let filter = this.state.invites.filter(invite => invite.member_name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1)
     return (
+
       <>
+
         {invite_loading === true ? <div>Invite is Loading</div> :
           <>{
             invite_error === true ? <div>Invite Error</div> :
@@ -198,7 +199,7 @@ class EventScreen extends Component {
                   </div>
                   <div className=" home_3 mx- pt-5 pb-3">
                     <div className="upcoming_text mb-4 ml-2">
-                      Invitation Sent
+                      {invitatio ? "Invitation Recieved" : "Invitation Sent"}
                     </div>
                     <div className="home_3b wq flex-2 flex mt-1 mb-2">
                       <div className=" home_header  bread ">
@@ -210,7 +211,7 @@ class EventScreen extends Component {
                         </div>
                       </div>
                       <div class="download active   px-2 py-1 small dropdown">
-                        <div id="dropdownMenu1" className="download_icon mx-auto pr-3" data-toggle="dropdown" />
+                        <div id="dropdownMenu1" className="download_icon mx-auto pr-3" />
                         <div className="flex">
                           <select className="border-0 text-center mx-auto">
                             <option className="text-center w-100 mx-auto">
@@ -228,11 +229,22 @@ class EventScreen extends Component {
                     </div>
                   </div>
                   <div className="home_4 ">
-                    <Header first="Name" second="Email" third="Date" fourth="Role" classx={`${opacy + " " + type}`} />
-                    {type === "all" && filter.map(dat => <MemberTable />)}
-                    {type === "rejected" && filter.map(dat => <MemberTable />)}
-                    {type === "accepted" && filter.map(dat => <MemberTable />)}
-                    {type === "pending" && filter.map(dat => <MemberTable />)}
+                    {!invitatio ?
+                      <Header first="Name" second="Email" third="Date" fourth="Role" classx={`${opacy + " " + type}`} /> :
+                      <Header first="Event Name" second="My Role" third="Date" fourth="Status" classx={`${opacy + " " + type}`} />
+                    }
+                    <>
+                      {type === "" && search === "" ?
+                        [...this.props.accepted_invite, ...this.props.rejected_invite, ...this.props.pending_invite].map(dat => <MemberTable dat={dat} invitatio={invitatio}  changeStatus={this.props.changeStatus}/>)
+                        :
+                        <>
+                          {type === "all" && filter.map(dat => <MemberTable dat={dat} invitatio={invitatio}  changeStatus={this.props.changeStatus}/>)}
+                          {type === "rejected" && filter.map(dat => <MemberTable dat={dat} invitatio={invitatio}  changeStatus={this.props.changeStatus} />)}
+                          {type === "accepted" && filter.map(dat => <MemberTable dat={dat} invitatio={invitatio}  changeStatus={this.props.changeStatus}/>)}
+                          {type === "pending" && filter.map(dat => <MemberTable dat={dat} invitatio={invitatio}  changeStatus={this.props.changeStatus}/>)}
+                        </>
+                      }
+                    </>
                   </div>
                 </div>
               </div >

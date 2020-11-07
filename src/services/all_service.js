@@ -36,9 +36,9 @@ export const EditEvent = async (data, id) => {
 
 
 //Invite Services
-export const AcceptReject = async (data, id) => {
+export const AcceptReject = async (type, id) => {
   const authApi = await attachApiToken(api)
-  return authApi.patch(`/events/invites/${id}`, { ...data })
+  return authApi.patch(`/events/invites/${id}`, { ...type })
 }
 
 export const getInvites = async (id) => {
@@ -48,5 +48,10 @@ export const getInvites = async (id) => {
 
 export const sendInvites = async (data) => {
   const authApi = await attachApiToken(api)
-  return authApi.post(`/admin/events/invites`, { ...data})
+  return authApi.post(`/admin/events/invites`, { ...data })
+}
+
+export const invitations = async () => {
+  const authApi = await attachApiToken(api)
+  return authApi.get(`/events/member/invites`)
 }

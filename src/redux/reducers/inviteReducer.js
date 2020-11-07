@@ -1,11 +1,22 @@
-import { GET_SENT_INVITATION, SEND_INVITATION, GET_INCOMING_INVITE, INVITE_LOADING, INVITE_ERROR } from './../types'
+import {
+  GET_SENT_INVITATION, SEND_INVITATION, INVITE_LOADING, INVITE_ERROR,
+  GOT_INVITATIONS, SELECT_INVITAION, I_LOAD, I_ERROR
+} from './../types'
 
 const initialState = {
   invite_error: false,
   invite_loading: false,
   accepted: [],
   rejected: [],
-  pending: []
+  pending: [],
+
+  invitations: [],
+  accepted_invitation: [],
+  rejected_invitation: [],
+  pending_invitation: [],
+  loading: "",
+  error: "",
+  selectedInvitation: {}
 }
 
 export default (state = initialState, action) => {
@@ -37,11 +48,23 @@ export default (state = initialState, action) => {
         pending: action.payload.filter((data) => data.status === "PENDING")
       }
 
-    case GET_INCOMING_INVITE:
+    case GOT_INVITATIONS:
       return {
-
+        ...state,
+        accepted_invitation: action.payload.filter((data) => data.status === "ACCEPTED"),
+        rejected_invitation: action.payload.filter((data) => data.status === "REJECTED"),
+        pending_invitation: action.payload.filter((data) => data.status === "PENDING")
       }
-
+    case I_LOAD:
+      return {
+        ...state,
+        loading: action.payload
+      }
+    case I_ERROR:
+      return {
+        ...state,
+        error: action.payload
+      }
     default:
       return {
         ...state

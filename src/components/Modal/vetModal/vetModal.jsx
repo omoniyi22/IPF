@@ -4,16 +4,16 @@ import Loader from 'react-loader-spinner'
 
 class vetModal extends Component {
   render() {
-    let { closeError, error, classx, loading } = this.props
+    let { closeError, error, classx, loading, clas, clos } = this.props
     return (
       <>
-        <div className="vetModal opas" onClick={() => {
+        <div className={`vetModal  ${clas} opas`} onClick={() => {
           closeError()
           classx === "success" && this.props.history.goBack()
         }}>
 
         </div>
-        <div className={`vetModal sos rounded-pill white heart z-depth-1 ${classx} `}>
+        <div className={`vetModal sos rounded-pill white   ${clos} heart z-depth-1 ${classx} `}>
           {loading ?
             <Loader
               type="Oval"

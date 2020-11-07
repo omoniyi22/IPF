@@ -121,7 +121,7 @@ class HomePage extends Component {
             </div>
             <div>
               <div>
-                {`${position}`}
+                {/* {`${position}`} */}
                 {<>
                   {this.state.position === true &&
                     <div className={` ${position === true && "opacy"}`}>

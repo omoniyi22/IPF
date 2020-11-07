@@ -1,8 +1,9 @@
 import {
-  GET_SENT_INVITATION, SEND_INVITATION, GET_INCOMING_INVITE,
-  POPIN, POPUP, POP_LOADER, PAGE_LOADER, PAGE_ERROR, INVITE_LOADING, INVITE_ERROR
+  GET_SENT_INVITATION, POPIN, POPUP, POP_LOADER, INVITE_LOADING, INVITE_ERROR,
+  GOT_INVITATIONS, SELECT_INVITAION, I_LOAD, I_ERROR
+
 } from './../types'
-import { getInvites, sendInvites, AcceptReject } from './../../services/all_service'
+import { getInvites, sendInvites, AcceptReject, invitations } from './../../services/all_service'
 
 
 export const Get_Sent_Invite = () => async (dispatch, state) => {
@@ -31,7 +32,7 @@ export const Get_Sent_Invite = () => async (dispatch, state) => {
     let errored = await error.response ? await error.response.data.error : "An error occured, Try Again"
     dispatch({
       type: INVITE_ERROR,
-      payload: true
+      payload: false
     })
   } finally {
     dispatch({
@@ -86,3 +87,54 @@ export const Clear_Error = () => async (dispatch) => {
     }
   })
 }
+
+export const Invitations = () => async (dispatch) => {
+  try {
+    dispatch({ type: I_LOAD, payload: true })
+    let invitation = await invitations()
+    invitation = await invitation.data
+    invitation = await invitation.data
+    console.log({ invitation })
+    dispatch({
+      type: GOT_INVITATIONS,
+      payload: invitation
+    })
+  } catch (error) {
+    dispatch({
+      type: I_ERROR,
+      payload: true
+    })
+  } finally {
+    dispatch({ type: I_LOAD, payload: false })
+  }
+}
+
+export const changeStatus = (type, id) => async (dispatch) => {
+  dispatch({ type: POP_LOADER })
+  try {
+    let sent_invite = await AcceptReject(type, id)
+    sent_invite = await sent_invite.data
+    sent_invite = await sent_invite.message
+    console.log({ sent_invite })
+    await dispatch({
+      type: POPUP,
+      payload: {
+        status: "success",
+        data: type !== "PENDING" ?
+          `You have successfully  ${type.toLowerCase()} the invite` :
+          `This invite is successfully ${type.toLowerCase()}`
+      }
+    })
+  } catch (error) {
+    console.log(error.response)
+    let errored = await error.response ? await error.response.data.error : "An error occured, Try Again"
+    dispatch({
+      type: POPUP,
+      payload: {
+        status: "error",
+        data: await errored
+      }
+    })
+  }
+}
+
