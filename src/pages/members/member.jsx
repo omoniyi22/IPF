@@ -14,14 +14,23 @@ class Members extends Component {
 
   }
   render() {
-    // window.onclick = function (event) {
-    //   if (!event.target.matches('#dropas')) {
-    //     document.querySelector("#dropa").style.background = "blue";
-    //     console.log("Hooola")
-    //   } else {
-    //     document.querySelector("#dropa").style.background = "green";
-    //   }
-    // }
+    window.onclick = function (event) {
+      if (!event.target.matches('#dropas')
+        && !event.target.matches('#dropa')
+        && !event.target.matches('#drope')
+        // && !event.target.matches('#toe')
+      ) {
+        if (document.querySelector("#dropa"))
+          document.querySelector("#dropa").style.display = "none"
+        console.log("Hooola")
+      } else {
+        if (document.querySelector("#dropa"))
+          if (document.querySelector("#dropa").style.display === "none")
+            document.querySelector("#dropa").style.display = "block"
+          else
+            document.querySelector("#dropa").style.display = "none"
+      }
+    }
     let { firstName, lastName, memberType, memberNumber } = this.props.user
     return (
       <div className="member_page home_port ">
@@ -51,20 +60,17 @@ class Members extends Component {
                   <div class="download active   px-2 py-1 small dropdown">
                     <div id="dropdownMenu1" className="download_icon mx-auto pr-3" data-toggle="dropdown" />
                     <div className="flex">
-                      {/* <div className="dropas p-5 red" id="dropas">
-                        <div id="dropa" className="p-4"></div>
-                      </div> */}
-                      <select className="border-0 text-center mx-auto">
-                        <option className="text-center w-100 mx-auto">
-                          Download As
-                        </option>
-                        <option className="text-center w-100 mx-auto">
-                          PDF
-                      </option>
-                        <option className="text-center w-100 mx-auto">
-                          DOCX
-                      </option>
-                      </select>
+                      <div className="dropas " id="dropas">
+                        <div id="drope" className="border">Download As</div>
+                        <div id="dropa" className="z-depth-1 mt-1">
+                          <div className="toe" id={"toe"}>
+                            PDF
+                          </div>
+                          <div className="toe" id={"toe"}>
+                            CSV
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

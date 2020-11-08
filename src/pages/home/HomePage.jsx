@@ -5,8 +5,67 @@ import EventTable from '../../components/Tables/Event/Event'
 import EventForm from '../../components/Forms/Event'
 import { Link } from 'react-router-dom'
 import Switch from './../../utils/Switch'
-import { CSVLink, CSVDownload } from "react-csv";
+import { CSVDownload, CSVLink } from "react-csv";
 import { Dropdown, Icon, Menu } from 'semantic-ui-react'
+import { PDFDownloadLink, Document, View, Page, Text, StyleSheet } from "@react-pdf/renderer";
+
+const style = StyleSheet.create({
+  flex: {
+    display: "flex",
+    flexDirection: "row"
+  },
+  view: {
+    marginBottom: 10
+  },
+  text: {
+    paddingHorizontal: 3,
+    paddingVertical: 3,
+    borderStyle: "solid",
+    borderWidth: 1,
+    fontSize: 12
+  },
+
+  ve: {
+    marginBottom: "4"
+  },
+  size: {
+    width: "100%"
+    // width: "fitContent",
+    // maxWidth: "fit-content",
+  }
+
+})
+
+const Melo = ({ headers, data }) =>
+  <Document>
+    <Page size="A3" style={style.size}>
+      <View style={style.view}>
+        <View style={style.flex}>
+          {headers.map((data) =>
+            <Text break style={style.text}>
+              {data.label}
+            </Text>
+          )}
+        </View>
+        <View style={style.ve}>
+          {data.map((data) =>
+            <View style={style.flex}>
+              {Object.values(data).map((data) =>
+                <Text break style={style.text}>
+                  {data}
+                </Text>
+              )}
+            </View>
+          )}
+        </View>
+        <View>
+          <Text break>
+          </Text>
+        </View>
+      </View>
+    </Page>
+  </Document>
+
 
 const headers = [
   { label: "Event ID", key: "event_id" },
@@ -53,6 +112,7 @@ class HomePage extends Component {
     let swit = Switch(EventForm);
     let { position } = this.state
     let { Get_All_Event, allEvents, Select_Event, active, closed } = this.props
+
     return (
       <div className={`${swit[2]} `}>
         <div className="home1 ">
@@ -99,22 +159,41 @@ class HomePage extends Component {
                     className="download_icon mx-auto pr-3"
                   />
                   <div className="flex sema">
-                    <Dropdown
+
+                    <div className="dropas " id="dropas">
+                      <div id="drope" className="">Download As</div>
+                      <div id="dropa" className="z-depth-1 mt-1">
+                        <div className="toe" id={"toe"}>
+                          <PDFDownloadLink
+                            document={<Melo data={position === true ? closed : active} headers={headers} />}
+                            fileName="ipf_events.pdf">
+                            PDF
+                          </PDFDownloadLink>
+                        </div>
+                        <div className="toe" id={"toe"}>
+                          <CSVLink data={position === true ? closed : active} headers={headers} >
+                            CSV
+                          </CSVLink>
+                        </div>
+                      </div>
+                    </div>
+
+
+
+
+
+                    {/* <Dropdown
                       text={(<span>Download As <span className="fa fa-angle-down" /></span>)}
                     >
                       <Dropdown.Menu>
                         <Dropdown.Item text='Download As' disabled className="text-center" />
                         <Dropdown.Item text='CSV' className="text-center">
-                          <CSVLink data={position === true ? closed : active} headers={headers} >
                             CSV
-                          </CSVLink>
                         </Dropdown.Item>
                         <Dropdown.Item text='PDF' className="text-center" />
                       </Dropdown.Menu>
                     </Dropdown>
-
-
-
+ */}
                   </div>
                 </div>
               </div>
@@ -146,7 +225,7 @@ class HomePage extends Component {
           </div>
         </div>
         <div className={`${swit[1]} heart`}>{swit[0]}</div>
-      </div>
+      </div >
     );
   }
 }

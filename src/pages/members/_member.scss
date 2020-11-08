@@ -25,3 +25,30 @@
     width: fit-content !important;
   }
 }
+
+#dropas {
+  font-size: 13.6px;
+  #drope {
+    padding: 2px 4px;
+    cursor: pointer;
+    border-radius: 3px;
+  }
+  #dropa {
+    position: absolute;
+    width: 95px;
+    border-radius: 1.3px;
+    flex-direction: column;
+    background: white;
+  }
+  .toe {
+    cursor: pointer;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    text-align: center;
+    color: rgb(73, 72, 72);
+    &:hover {
+      color: rgb(114, 111, 111);
+      background: rgb(228, 227, 227);
+    }
+  }
+}

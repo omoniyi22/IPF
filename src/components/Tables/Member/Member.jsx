@@ -44,29 +44,31 @@ class MemberTable extends Component {
             </div>
             <div className="col_4 lom  break_2 ">
               {button !== undefined ? <RemoveButton title={button} /> :
-                <select name="" className="font-weight-bold small" id="" name="status" onChange={this.onChange}>
-                  {dat.status === "ACCEPTED" &&
-                    <>
-                      <option>ACCEPTED</option>
-                      <option>REJECTED</option>
-                      <option>PENDING</option>
-                    </>
-                  }
-                  {dat.status === "REJECTED" &&
-                    <>
-                      <option>REJECTED</option>
-                      <option>ACCEPTED</option>
-                      <option>PENDING</option>
-                    </>
-                  }
-                  {dat.status === "PENDING" &&
-                    <>
-                      <option>PENDING</option>
-                      <option>ACCEPTED</option>
-                      <option>REJECTED</option>
-                    </>
-                  }
-                </select>
+                <>
+                  <select name="" className="font-weight-bold small" id="" name="status" onChange={this.onChange}>
+                    {dat.status === "ACCEPTED" &&
+                      <>
+                        <option>ACCEPTED</option>
+                        <option>REJECTED</option>
+                        <option>PENDING</option>
+                      </>
+                    }
+                    {dat.status === "REJECTED" &&
+                      <>
+                        <option>REJECTED</option>
+                        <option>ACCEPTED</option>
+                        <option>PENDING</option>
+                      </>
+                    }
+                    {dat.status === "PENDING" &&
+                      <>
+                        <option>PENDING</option>
+                        <option>ACCEPTED</option>
+                        <option>REJECTED</option>
+                      </>
+                    }
+                  </select>
+                </>
               }
             </div>
           </div>

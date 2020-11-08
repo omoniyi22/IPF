@@ -72,7 +72,7 @@ class Root extends Component {
             <Route path="/login" component={Login} />
 
             <Route path="/invitations" component={() => <Dashboard> <Invitation /></Dashboard>} />
-            <Route path="/event_page" component={() => <Dashboard>< EventPage /></Dashboard>} />
+            <Route path="/event_page" component={() => <Dashboard><EventPage /></Dashboard>} />
             <Route path="/create-event" component={() => <Dashboard> <HomePage /></Dashboard>} />
             <Route path="/invite" component={() => <Dashboard><EventPage /></Dashboard>} />
             <Route path="/edit_event" render={() => <Dashboard><EventPage /></Dashboard>} />
@@ -100,7 +100,7 @@ class Root extends Component {
             <AdminRoute path="/admin/designation" component={Position} />
             <AdminRoute path="/admin/change-password" component={ChangePassword} />
 
-            <Route path="/" render={() => isAuth === true ? <Dashboard><HomePage /></Dashboard> : <LandingPage />} />
+            <Route path="/" render={() => isAuth === false ? <Dashboard><HomePage /></Dashboard> : <LandingPage />} />
           </Switch>
         </Router >
 

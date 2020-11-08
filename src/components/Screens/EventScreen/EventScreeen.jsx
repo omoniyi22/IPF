@@ -1,6 +1,81 @@
 import React, { Component } from 'react'
 import Header from './../../Headers/Header'
 import MemberTable from './../../Tables/Member/Member'
+import { CSVDownload, CSVLink } from "react-csv";
+import { Dropdown, Icon, Menu } from 'semantic-ui-react'
+import { PDFDownloadLink, Document, View, Page, Text, StyleSheet } from "@react-pdf/renderer";
+import TableLoader from './../../../components/Loaders/table_loader'
+import { ErrorPage } from './../../../assets/utiils/page_error.jsx'
+const headers = [
+  { label: "Invite ID", key: "id" },
+  { label: "Member Name", key: "member_name" },
+  { label: "Member Role", key: "member_role" },
+  { label: "Email Address", key: "email_address" },
+  { label: "Event ID", key: "event_id" },
+  { label: "Date Sent", key: "date_sent" },
+  { label: "Date Rejected", key: "date_rejected" },
+  { label: "Date Accepted", key: "date_accepted" },
+  { label: "Updated At", key: "updated_at" }
+]
+
+
+const style = StyleSheet.create({
+  flex: {
+    display: "flex",
+    flexDirection: "row"
+  },
+  view: {
+    marginBottom: 10
+  },
+  text: {
+    paddingHorizontal: 3,
+    paddingVertical: 3,
+    borderStyle: "solid",
+    borderWidth: 1,
+    fontSize: 12
+  },
+
+  ve: {
+    marginBottom: "4"
+  },
+  size: {
+    width: "100%"
+    // width: "fitContent",
+    // maxWidth: "fit-content",
+  }
+
+})
+
+
+const Melo = ({ headers, data }) =>
+  <Document>
+    <Page size="A3" style={style.size}>
+      <View style={style.view}>
+        <View style={style.flex}>
+          {headers.map((data) =>
+            <Text break style={style.text}>
+              {data.label}
+            </Text>
+          )}
+        </View>
+        <View style={style.ve}>
+          {data.map((data) =>
+            <View style={style.flex}>
+              {Object.values(data).map((data) =>
+                <Text break style={style.text}>
+                  {data}
+                </Text>
+              )}
+            </View>
+          )}
+        </View>
+        <View>
+          <Text break>
+          </Text>
+        </View>
+      </View>
+    </Page>
+  </Document>
 
 class EventScreen extends Component {
   constructor(props) {
@@ -113,9 +188,13 @@ class EventScreen extends Component {
 
       <>
 
-        {invite_loading === true ? <div>Invite is Loading</div> :
+        {invite_loading === true ?
+          <div style={{ marginTop: "-110px" }}>
+            <TableLoader />
+          </div>
+          :
           <>{
-            invite_error === true ? <div>Invite Error</div> :
+            invite_error === true ? <div><ErrorPage /></div> :
 
               < div className="member_page" >
                 <div className="invite_button"></div>
@@ -199,7 +278,7 @@ class EventScreen extends Component {
                   </div>
                   <div className=" home_3 mx- pt-5 pb-3">
                     <div className="upcoming_text mb-4 ml-2">
-                      {invitatio ? "Invitation Recieved" : "Invitation Sent"}
+                      {invitatio === true ? "Invitation Recieved" : "Invitation Sent"}
                     </div>
                     <div className="home_3b wq flex-2 flex mt-1 mb-2">
                       <div className=" home_header  bread ">
@@ -213,35 +292,46 @@ class EventScreen extends Component {
                       <div class="download active   px-2 py-1 small dropdown">
                         <div id="dropdownMenu1" className="download_icon mx-auto pr-3" />
                         <div className="flex">
-                          <select className="border-0 text-center mx-auto">
-                            <option className="text-center w-100 mx-auto">
-                              Download As
-                            </option>
-                            <option className="text-center w-100 mx-auto">
-                              PDF
-                            </option>
-                            <option className="text-center w-100 mx-auto">
-                              DOCX
-                            </option>
-                          </select>
+                          <div className="dropas " id="dropas">
+                            <div id="drope" className="">Download As</div>
+                            <div id="dropa" className="z-depth-1 mt-1">
+                              <div className="toe" id={"toe"}>
+
+                                <PDFDownloadLink
+                                  document={<Melo data={invite_loading === false ? [
+                                    ...rejected_invite, ...accepted_invite, ...pending_invite
+                                  ] : []} headers={headers} />}
+                                  fileName="ipf_events.pdf">
+                                  PDF
+                          </PDFDownloadLink>
+                              </div>
+                              <div className="toe" id={"toe"}>
+                                <CSVLink data={invite_loading === false ? [
+                                  ...rejected_invite, ...accepted_invite, ...pending_invite
+                                ] : []} headers={headers} >
+                                  CSV
+                          </CSVLink>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div className="home_4 ">
-                    {!invitatio ?
-                      <Header first="Name" second="Email" third="Date" fourth="Role" classx={`${opacy + " " + type}`} /> :
-                      <Header first="Event Name" second="My Role" third="Date" fourth="Status" classx={`${opacy + " " + type}`} />
+                    {invitatio === true ?
+                      <Header first="Event Name" second="My Role" third="Date" fourth="Status" classx={`${opacy + " " + type}`} /> :
+                      <Header first="Member Name" second="Email" third="Date" fourth="Role" classx={`${opacy + " " + type}`} />
                     }
                     <>
                       {type === "" && search === "" ?
-                        [...this.props.accepted_invite, ...this.props.rejected_invite, ...this.props.pending_invite].map(dat => <MemberTable dat={dat} invitatio={invitatio}  changeStatus={this.props.changeStatus}/>)
+                        [...this.props.accepted_invite, ...this.props.rejected_invite, ...this.props.pending_invite].map(dat => <MemberTable dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)
                         :
                         <>
-                          {type === "all" && filter.map(dat => <MemberTable dat={dat} invitatio={invitatio}  changeStatus={this.props.changeStatus}/>)}
-                          {type === "rejected" && filter.map(dat => <MemberTable dat={dat} invitatio={invitatio}  changeStatus={this.props.changeStatus} />)}
-                          {type === "accepted" && filter.map(dat => <MemberTable dat={dat} invitatio={invitatio}  changeStatus={this.props.changeStatus}/>)}
-                          {type === "pending" && filter.map(dat => <MemberTable dat={dat} invitatio={invitatio}  changeStatus={this.props.changeStatus}/>)}
+                          {type === "all" && filter.map(dat => <MemberTable dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)}
+                          {type === "rejected" && filter.map(dat => <MemberTable dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)}
+                          {type === "accepted" && filter.map(dat => <MemberTable dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)}
+                          {type === "pending" && filter.map(dat => <MemberTable dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)}
                         </>
                       }
                     </>
