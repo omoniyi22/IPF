@@ -44,7 +44,7 @@ const CardTwo = ({ event }) => {
             {event ? event.event_details : "Unable to fetch event details"}
           </div>
           <div className="button btn m-0 text-capitalize metro text-center">
-            <a href={event && `blob:${event.banner_image}`}>  Download Attachment</a>
+            <a href={event && `${event.banner_image}`}>  Download Attachment</a>
           </div>
         </div>
         <div className="right  w-50">
