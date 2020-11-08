@@ -111,21 +111,21 @@ class HomePage extends Component {
   render() {
     let swit = Switch(EventForm);
     let { position } = this.state
-    let { Get_All_Event, allEvents, Select_Event, active, closed } = this.props
+    let { isAdmin, nrole, Get_All_Event, allEvents, Select_Event, active, closed } = this.props
 
     return (
       <div className={`${swit[2]} `}>
         <div className="home1 ">
-          <LandingCard />
+          {isAdmin === 1 && <LandingCard />}
           <div className=" my-4 mt-5 mb-4 h4 metro font-weight-bold">
             <div className="  home_2 mx-0">
               <div className="upcoming_text mb-4 ml-1">Upcoming Events</div>
               <div className="flex my_events_card">
                 <div className="seprate w-50 pr-1 ">
-                  <EventCard />
+                  {active[0] && <EventCard event={active[0]} />}
                 </div>
                 <div className="seprate w-50 pl-1 ">
-                  <EventCard />
+                  {active[1] && <EventCard event={active[1]} />}
                 </div>
               </div>
             </div>

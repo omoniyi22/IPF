@@ -10,6 +10,8 @@ const mapStateToProps = state => ({
   rejected_invite: state.invite.rejected,
   pending_invite: state.invite.pending,
   invite_error: state.invite.invite_error,
-  invite_loading: state.invite.invite_loading
+  invite_loading: state.invite.invite_loading,
+  isAdmin: state.user.currentUser.isAdmin
+
 })
 export default connect(mapStateToProps, { Fetch_Event, Get_Sent_Invite })(EventPage)

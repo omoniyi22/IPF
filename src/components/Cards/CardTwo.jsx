@@ -6,12 +6,12 @@ const CardTwo = ({ event }) => {
     let difference = +new Date(event ? event.event_date.slice(0, 10) : "2020-11-07T00:00:00.000Z".slice(0, 10)) - +new Date();
     let timeLeft = {};
     // if (difference > 0) {
-      timeLeft = {
-          days: Number(Math.floor(difference / (1000 * 60 * 60 * 24))) > 1 ? Number(Math.floor(difference / (1000 * 60 * 60 * 24))) : 0,
-        hours: Number(Math.floor((difference / (1000 * 60 * 60)) % 24)) > 1 ? Number(Math.floor((difference / (1000 * 60 * 60)) % 24)) : 0,
-        minutes: Number(Math.floor((difference / 1000 / 60) % 60)) > 1 ? Number(Math.floor((difference / 1000 / 60) % 60)) : 0,
-        seconds: Number(Math.floor((difference / 1000) % 60)) > 1 ? Number(Math.floor((difference / 1000) % 60)) : 0
-      };
+    timeLeft = {
+      days: Number(Math.floor(difference / (1000 * 60 * 60 * 24))) > 1 ? Number(Math.floor(difference / (1000 * 60 * 60 * 24))) : 0,
+      hours: Number(Math.floor((difference / (1000 * 60 * 60)) % 24)) > 1 ? Number(Math.floor((difference / (1000 * 60 * 60)) % 24)) : 0,
+      minutes: Number(Math.floor((difference / 1000 / 60) % 60)) > 1 ? Number(Math.floor((difference / 1000 / 60) % 60)) : 0,
+      seconds: Number(Math.floor((difference / 1000) % 60)) > 1 ? Number(Math.floor((difference / 1000) % 60)) : 0
+    };
     // }
     return timeLeft;
   }
@@ -44,8 +44,8 @@ const CardTwo = ({ event }) => {
             {event ? event.event_details : "Unable to fetch event details"}
           </div>
           <div className="button btn m-0 text-capitalize metro text-center">
-            Download Attachment
-            </div>
+            <a href={event && `blob:${event.banner_image}`}>  Download Attachment</a>
+          </div>
         </div>
         <div className="right  w-50">
           <div className="circles  h-fit mt-auto mb-4 w-100">

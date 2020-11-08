@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 
 class EventCard extends Component {
   render() {
+    let { event } = this.props
     return (
       <div className="EventCard mx-0 ">
         <div className="card_pix"
@@ -11,18 +12,18 @@ class EventCard extends Component {
         />
         <div className="EC_content  metro">
           <div className="EC_title metro">
-            Event 1
+            {event.event_name}
           </div>
-          <div className="EC_date metro py-1">
-            25th September, 2020
+          <div className="EC_date metro py-1 small">
+            {event.event_date.substr(0, 10)} {event.event_time}
           </div>
           <div className="EC_members metro">
-            26 members
+            {event.event_members | "event_members"}
           </div>
           <div className="EC_down flex ">
             <button className="rounded-pill text-center z-depth-1 ovin">
               Register
-          </button>
+            </button>
             <div className=" circle-box flex flex-2 mt-2">
               <div className="circum  rounded-pill  ml-auto " />
               <div className="circum border rounded-pill  " />

@@ -19,9 +19,9 @@ class Event extends Component {
   }
 
   componentDidMount() {
-    // if (this.props.event_id === undefined) {
-    //   this.props.history.goBack()
-    // }
+    if (this.props.event_id === undefined) {
+      this.props.history.goBack()
+    }
     if (window.location.href.search("event_page") === 22) {
       this.props.Fetch_Event(this.props.event_id)
       this.props.Get_Sent_Invite(this.props.event_id)
@@ -34,7 +34,7 @@ class Event extends Component {
     let {
       event,
       rejected_invite, accepted_invite,
-      pending_invite, invite_error, invite_loading
+      pending_invite, invite_error, invite_loading, isAdmin
     } = this.props
 
     return (
@@ -42,7 +42,7 @@ class Event extends Component {
         <div className="home1">
           <div className="Event_Page">
             <div className="main_page">
-              <div className="main_button    flex ">
+              {isAdmin === 1 && <div className="main_button    flex ">
                 <Link className="text-init ml-auto " to="/edit_event">
                   <div className="edit_b heart  text-center btn border flex   rounded-pill">
                     <div className="fa fa-edit" />
@@ -55,7 +55,7 @@ class Event extends Component {
                     <div className="text pr-1 ">Invite</div>
                   </div>
                 </Link>
-              </div>
+              </div>}
               <CardTwo event={event} />
               <div className="switch_button mb-4  ">
                 <div className={`one border btn ${this.state.switch === false && "bem"}`}
