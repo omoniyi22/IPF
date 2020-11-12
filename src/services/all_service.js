@@ -20,6 +20,7 @@ export const getClosedEvents = async () => {
   return authApi.get("/events/get?status=closed")
 }
 export const getAllEvents = async () => {
+  console.log("knsd;ns")
   const authApi = await attachApiToken(api);
   return authApi.get("/admin/events")
 }

@@ -325,13 +325,51 @@ class EventScreen extends Component {
                     }
                     <>
                       {type === "" && search === "" ?
-                        [...this.props.accepted_invite, ...this.props.rejected_invite, ...this.props.pending_invite].map(dat => <MemberTable dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)
+                        <>
+                          {[...this.props.accepted_invite, ...this.props.rejected_invite, ...this.props.pending_invite].length < 1 ?
+                            <div className="mx-auto text-center my-3 py-2 opacy">No Record Found</div> :
+                            [...this.props.accepted_invite, ...this.props.rejected_invite, ...this.props.pending_invite].map(dat => <MemberTable dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)
+                          }
+                        </>
                         :
                         <>
-                          {type === "all" && filter.map(dat => <MemberTable dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)}
-                          {type === "rejected" && filter.map(dat => <MemberTable dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)}
-                          {type === "accepted" && filter.map(dat => <MemberTable dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)}
-                          {type === "pending" && filter.map(dat => <MemberTable dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)}
+                          {type === "all" &&
+                            <>
+                              {
+                                filter.length < 1 ?
+                                  <div className="mx-auto text-center my-3 py-2 opacy">No Record Found</div> :
+                                  filter.map(dat => <MemberTable dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)
+                              }
+                            </>
+                          }
+                          {type === "rejected" &&
+                            <>
+                              {
+                                filter.length < 1 ?
+                                  <div className="mx-auto text-center my-3 py-2 opacy">No Record Found</div> :
+                                  filter.map(dat => <MemberTable dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)
+                              }
+                            </>
+                          }
+                          {type === "accepted" &&
+                            <>
+                              {
+                                filter.length < 1 ?
+                                  <div className="mx-auto text-center my-3 py-2 opacy">No Record Found</div> :
+                                  filter.map(dat => <MemberTable dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)
+                              }
+                            </>
+                          }
+
+                          {type === "pending" &&
+                            <>
+                              {
+                                filter.length < 1 ?
+                                  <div className="mx-auto text-center my-3 py-2 opacy">No Record Found</div> :
+                                  filter.map(dat => <MemberTable dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)
+                              }
+                            </>
+                          }
                         </>
                       }
                     </>

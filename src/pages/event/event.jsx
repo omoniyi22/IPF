@@ -19,9 +19,9 @@ class Event extends Component {
   }
 
   componentDidMount() {
-    if (this.props.event_id === undefined) {
-      this.props.history.goBack()
-    }
+    // if (this.props.event_id === undefined) {
+    //   this.props.history.goBack()
+    // }
     if (window.location.href.search("event_page") === 22) {
       this.props.Fetch_Event(this.props.event_id)
       this.props.Get_Sent_Invite(this.props.event_id)

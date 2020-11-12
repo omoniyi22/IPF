@@ -9,6 +9,7 @@ import { CSVDownload, CSVLink } from "react-csv";
 import { Dropdown, Icon, Menu } from 'semantic-ui-react'
 import { PDFDownloadLink, Document, View, Page, Text, StyleSheet } from "@react-pdf/renderer";
 
+
 const style = StyleSheet.create({
   flex: {
     display: "flex",
@@ -111,12 +112,12 @@ class HomePage extends Component {
   render() {
     let swit = Switch(EventForm);
     let { position } = this.state
-    let { isAdmin, nrole, Get_All_Event, allEvents, Select_Event, active, closed } = this.props
+    let { user, isAdmin, nrole, Get_All_Event, allEvents, Select_Event, active, closed } = this.props
 
     return (
       <div className={`${swit[2]} `}>
         <div className="home1 ">
-          {isAdmin === 1 && <LandingCard />}
+          {isAdmin === 1 && <LandingCard user={user} />}
           <div className=" my-4 mt-5 mb-4 h4 metro font-weight-bold">
             <div className="  home_2 mx-0">
               <div className="upcoming_text mb-4 ml-1">Upcoming Events</div>
@@ -138,13 +139,13 @@ class HomePage extends Component {
                       className={`other_Events px-2 pnt ${this.state.position}`}
                       onClick={this.move}
                     >
-                      Passed Events
+                      Active Events
                     </div>
                     <div
                       className={`view_all px-3 pnt ${!this.state.position}`}
                       onClick={this.moveOut}
                     >
-                      Active Events
+                      Passed Events
                     </div>
                   </div>
                   <div className="lines  rounded-pill">
@@ -176,10 +177,8 @@ class HomePage extends Component {
                           </CSVLink>
                         </div>
                       </div>
+
                     </div>
-
-
-
 
 
                     {/* <Dropdown
@@ -202,19 +201,22 @@ class HomePage extends Component {
               <div>
                 {/* {`${position}`} */}
                 {<>
-                  {this.state.position === true &&
+                  {this.state.position === false &&
                     <div className={` ${position === true && "opacy"}`}>
-                      {
-                        closed.map(event => (
-                          <EventTable event={event} click={() => { Select_Event(event) }} />
-                        ))}
+                      {closed.length < 1 ?
+                        <div className="my-3 mx-auto text-center py-2">No record found</div> :
+                        closed.map((event, key) => (
+                          <EventTable kin={key} isAdmin={user && user.isAdmin} event={event} click={() => { Select_Event(event) }} />
+                        ))
+                      }
                     </div>
                   }
-                  {this.state.position === false &&
+                  {this.state.position === true &&
                     <div className={` ${position === false && "opacy"}`}>
-                      {
-                        active.map(event => (
-                          <EventTable event={event} click={() => { Select_Event(event) }} />
+                      {active.length < 1 ?
+                        <div className="my-3 mx-auto text-center py-2">No record found</div> :
+                        active.map((event, key) => (
+                          <EventTable kin={key} isAdmin={user && user.isAdmin} event={event} click={() => { Select_Event(event) }} />
                         ))}
                     </div>
                   }

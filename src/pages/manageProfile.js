@@ -5,7 +5,7 @@ import Images from "../assets/images";
 import AppWrapper from "../components/appWrapper";
 import { FormButton, TextInput } from "../components/components";
 import PhoneNumber from "../components/General/phoneInput";
-import Dashboard from "../hoc/UserDashboard";
+import Dashboard from "../hoc/Dashboard";
 import * as actions from "../redux/actions";
 import { api, attachApiToken } from "../services/api";
 import {

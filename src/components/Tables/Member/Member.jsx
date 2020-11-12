@@ -48,24 +48,17 @@ class MemberTable extends Component {
                   <select name="" className="font-weight-bold small" id="" name="status" onChange={this.onChange}>
                     {dat.status === "ACCEPTED" &&
                       <>
-                        <option>ACCEPTED</option>
-                        <option>REJECTED</option>
-                        <option>PENDING</option>
+                        <option>ACCEPT</option>
+                        <option>REJECT</option>
                       </>
                     }
                     {dat.status === "REJECTED" &&
                       <>
-                        <option>REJECTED</option>
-                        <option>ACCEPTED</option>
-                        <option>PENDING</option>
+                        <option>REJECT</option>
+                        <option>ACCEPT</option>
                       </>
                     }
-                    {dat.status === "PENDING" &&
-                      <>
-                        <option>PENDING</option>
-                        <option>ACCEPTED</option>
-                        <option>REJECTED</option>
-                      </>
+              
                     }
                   </select>
                 </>

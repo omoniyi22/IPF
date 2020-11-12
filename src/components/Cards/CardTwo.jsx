@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-
+import Download from './../../assets/utiils/download'
+import { DateForm, TimeForm } from './../../assets/utiils/date'
 const CardTwo = ({ event }) => {
 
   const calculateTimeLeft = () => {
@@ -32,19 +33,28 @@ const CardTwo = ({ event }) => {
 
 
 
-
   return (
-    <div className="CardTwo  z-depth-1 rounded-lg z-balm">
+    <div
+      style={{ backgroundImage: `url("${event.banner_image}")` }}
+      className="CardTwo  z-depth-1 rounded-lg z-balm">
       <div className="inner flex   metro">
-        <div className="left   w-50">
+        <div className="left    w-50">
           <div className="title metro ">
             {event ? event.event_name : "Please try again"}
           </div>
           <div className="sub_title  metro ">
             {event ? event.event_details : "Unable to fetch event details"}
           </div>
-          <div className="button btn m-0 text-capitalize metro text-center">
-            <a href={event && `${event.banner_image}`}>  Download Attachment</a>
+          <div
+            onClick={
+              event ?
+                () => {
+                  Download(event.banner_image, event.banner_image)
+                } :
+                () =>
+                  console.log("ks;d")
+            } className="button btn m-0 text-capitalize metro text-center">
+            {event ? "Download Attachment" : "No attachment for donwload"}
           </div>
         </div>
         <div className="right  w-50">
@@ -78,6 +88,7 @@ const CardTwo = ({ event }) => {
           </div>
         </div>
       </div>
+      <div className="kopiu">{DateForm(event.event_date)} {TimeForm(event.event_time)}</div>
     </div>
   )
 }

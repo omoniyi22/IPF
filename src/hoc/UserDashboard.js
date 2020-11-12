@@ -100,13 +100,13 @@ class UserDashboard extends Component {
     const { other, location } = this.props;
 
     const editCompany =
-      location.pathname === "/user/dashboard/managecompany" ? "active" : "";
+      location.pathname === "/user_dashboard_managecompany" ? "active" : "";
 
-    const home = location.pathname === "/user/dashboard" ? "active" : "";
+    const home = location.pathname === "/user_dashboard" ? "active" : "";
     const addmember =
-      location.pathname === "/user/dashboard/addmember" ? "active" : "";
+      location.pathname === "/user_dashboard_addmember" ? "active" : "";
     const manageprofile =
-      location.pathname === "/user/dashboard/profile-update" ? "active" : "";
+      location.pathname === "/user_dashboard/profile-update" ? "active" : "";
 
     return (
       <div className="container-fluid">
@@ -137,7 +137,7 @@ class UserDashboard extends Component {
           </div>
           <ul className="side-menu-list">
             <li className={`list-item ${home}`}>
-              <Link to="/user/dashboard">
+              <Link to="/user_dashboard">
                 <span>
                   <i className="material-icons">account_circle</i>
                 </span>
@@ -146,7 +146,7 @@ class UserDashboard extends Component {
             </li>
 
             <li className={`list-item ${manageprofile}`}>
-              <Link to="/user/dashboard/profile-update">
+              <Link to="/user_dashboard/profile-update">
                 <span>
                   <i className="material-icons">account_circle</i>
                 </span>
@@ -156,7 +156,7 @@ class UserDashboard extends Component {
 
             {["AB", "AA", "LB", "LA"].includes(memberType) && (
               <li className={`list-item ${editCompany}`}>
-                <Link to="/user/dashboard/managecompany">
+                <Link to="/user_dashboard_managecompany">
                   <span>
                     <i className="material-icons">account_circle</i>
                   </span>
@@ -167,7 +167,7 @@ class UserDashboard extends Component {
 
             {companyAdmin && (
               <li className={`list-item ${addmember}`}>
-                <Link to="/user/dashboard/addmember">
+                <Link to="/user_dashboard_addmember">
                   <span>
                     <i className="material-icons">account_circle</i>
                   </span>
@@ -197,7 +197,7 @@ class UserDashboard extends Component {
             </li>
 
             <li className="list-item">
-              <Link to="/user/dashboard/change-password">
+              <Link to="/user_dashboard/change-password">
                 <span className="">
                   <i className="material-icons">security</i>
                 </span>
@@ -265,7 +265,7 @@ class UserDashboard extends Component {
             <span>
               <b>
                 For your security, please click{" "}
-                <Link to="/user/dashboard/change-password">
+                <Link to="/user_dashboard/change-password">
                   <b>here </b>
                 </Link>
                 to change your <b>default password</b>

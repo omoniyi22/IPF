@@ -7,7 +7,8 @@ const mapStateToProps = state => ({
   isAdmin: state.user.currentUser.isAdmin,
   nrole: state.user.currentUser.nrole,
   closed: state.event.closed,
-  active: state.event.active
+  active: state.event.active,
+  user: state.user.currentUser
 })
 
 
