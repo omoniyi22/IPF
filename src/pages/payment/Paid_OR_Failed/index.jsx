@@ -1,6 +1,6 @@
 import { withRouter } from 'react-router-dom'
 import { Okay } from "./../../../redux/actions/payment"
-import { Result } from './Result'
+import Result from './Result'
 import { connect } from 'react-redux'
 const mapStateToProps = state => ({
   error: state.payment.error,

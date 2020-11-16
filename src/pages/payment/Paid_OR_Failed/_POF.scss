@@ -58,6 +58,7 @@
   
   .end_btn{
     margin-top: 40px;
+    @include heart();
     button{
 
       font-size: 10px;

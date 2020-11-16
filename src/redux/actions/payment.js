@@ -1,6 +1,6 @@
-import { PAY, PAY_REF, GOT_PAID_DETAILS, PAID, FAILED, GOT_PAIDMENT_NEEDS, LIST_FAILED } from './../types'
+import { PAY, PAY_REF, GOT_PAID_DETAILS, PAID, FAILED, CLEARO,GOT_PAIDMENT_NEEDS, LIST_FAILED } from './../types'
 import { Pay as Pae, getFees, listcard, PaidDetails } from './../../services/all_service'
-import Paystack from './../../config/PayStack'
+import paystack from './../../config/PayStack'
 
 
 
@@ -17,8 +17,8 @@ export const PayNeeds = () => async (dispatch) => {
     })
 }
 
-export const Okay = () => dispatch => {
-
+export const Okay = () => async dispatch => {
+  dispatch({ type: CLEARO })
 }
 
 

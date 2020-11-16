@@ -5,6 +5,7 @@ class CustomPaystack {
   public_key;
   constructor(key) { this.public_key = key; }
   pay(data, onSuccess, onClose) {
+    console.log({ "ode_o": data })
     if (!data.email) {
       throw new Error("Email is required");
     } else if (!data.amount) {
@@ -20,7 +21,7 @@ class CustomPaystack {
         // Replace with your public key
         email: data.email,
         amount: data.amount,
-        ref: data.reference,
+        reference: data.reference,
         callback: onSuccess,
         onClose: onClose,
         channels: ["card"],

@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import Loader from 'react-loader-spinner'
-import { createBrowserHistory } from 'history'
+import { withRouter } from 'react-router-dom'
 import "./_POF.scss"
 
 class Result extends Component {
   componentDidMount() {
     if (this.props.error === false && this.props.loading === false && this.props.response === "") {
-      createBrowserHistory().back()
+      this.props.history.back()
     }
   }
   render() {
-    let { okay,  error, loading, response } = this.props
+    let { okay, error, loading, response } = this.props
 
     return (
       <div className="POF w-100">
@@ -37,11 +37,11 @@ class Result extends Component {
                   <div className="font-weight-bold  empty_text mt-4">
                     <span className="onr">{response}</span> <br />
                   </div>
-                  <div className="end_btn">
+                  <div className="mx-auto end_btn text-center">
                     <button
                       onClick={() => {
                         okay()
-                        createBrowserHistory().back()
+                        this.props.history.back()
                       }}
                       className="btn btn-sm rounded-pill" >
                       Okay
@@ -49,7 +49,7 @@ class Result extends Component {
                   </div>
                 </div> :
                 <>
-                  {response === true ?
+                  {response ?
                     <div className="text-center empty_matter   mx-auto ">
                       <div className="empty_one rounded-pill  mx-auto p-4 mt-5">
                         <div className="empty_oned emptied_one">
@@ -60,11 +60,11 @@ class Result extends Component {
                         <span className="onr mt-4">Payment has been made..
               </span> <br />
                       </div>
-                      <div className="end_btn">
+                      <div className="mx-auto end_btn text-center">
                         <button
                           onClick={() => {
                             okay()
-                            createBrowserHistory().back()
+                            this.props.history.back()
                           }}
                           className="btn btn-sm rounded-pill" >
                           Okay
@@ -84,11 +84,11 @@ class Result extends Component {
                             <br />
                             to your email</span> <br />
                         </div>
-                        <div className="end_btn">
+                        <div className="mx-auto end_btn text-center">
                           <button
                             onClick={() => {
                               okay()
-                              createBrowserHistory().back()
+                              this.props.history.back()
                             }}
                             className="btn btn-sm rounded-pill" >
                             Okay
@@ -105,7 +105,7 @@ class Result extends Component {
     )
   }
 }
-export { Result }
+export default withRouter(Result)
 {/* <div ><Loader
   type="TailSpin"
   color="#53A3D1"
