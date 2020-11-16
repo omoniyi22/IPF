@@ -1,4 +1,7 @@
 .CardTwo {
+  .soos{
+    font-size: 12px;
+  }
   .kopiu {
     margin-left: auto;
     margin-top: 46px;
@@ -46,6 +49,7 @@
     }
     .right {
       display: flex;
+      width: 67% !important;
       .days {
         padding: 0 !important;
         font-size: 25px !important;
@@ -62,7 +66,7 @@
       .circles {
         display: flex;
         .circle_one {
-          margin-right: 9%;
+          margin-right: 4%;
           overflow: hidden;
           background: white;
           border-top-color: #fb8a30 !important;

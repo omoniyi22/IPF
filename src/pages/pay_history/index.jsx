@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import Payment_Hisory_Table from './../../components/Tables/Payment_History/Payment_History'
 class Payment_History extends Component {
   render() {
@@ -83,4 +84,9 @@ class Payment_History extends Component {
     )
   }
 }
-export default Payment_History
+
+const mapStateToProps = state => ({
+  payment: state.payment.history
+})
+
+export default connect(mapStateToProps)(Payment_History)

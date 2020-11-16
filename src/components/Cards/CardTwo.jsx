@@ -53,7 +53,7 @@ const CardTwo = ({ event }) => {
                 } :
                 () =>
                   console.log("ks;d")
-            } className="button btn m-0 text-capitalize metro text-center">
+            } className="button btn m-0 text-capitalize metro text-center soos">
             {event ? "Download Attachment" : "No attachment for donwload"}
           </div>
         </div>

@@ -7,7 +7,7 @@ const initialState = {
   active: [],
   closed: [],
   allEvent: [],
-  selectedEvent: null
+  selectedEvent: {}
 }
 
 export default (state = initialState, action) => {
@@ -25,7 +25,7 @@ export default (state = initialState, action) => {
     case FETCHED_AN_EVENT:
       return {
         ...state,
-        selectedEvent: {  ...action.payload }
+        selectedEvent: { ...action.payload }
       }
     case GOT_ALL_EVENTS:
       return {

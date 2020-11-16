@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PageLoader from './assets/utiils/page_loader'
 import PageError from './assets/utiils/page_error'
+import Paid_OR_Failed from './pages/payment/Paid_OR_Failed/index'
 
 import Login from "./pages/login";
 import HomePage from "./pages/home/index";
@@ -97,7 +98,9 @@ class Root extends Component {
             <AdminRoute path="/admin/settings" component={PlatformAdmin} />
             <AdminRoute path="/admin/designation" component={Position} />
 
+            <Route path="/result" render={() => isAuth === false ? <Paid_OR_Failed />: <LandingPage />} />
             <Route path="/" render={() => isAuth === true ? <Dashboard><HomePage /></Dashboard> : <LandingPage />} />
+          
           </Switch>
         </Router >
 

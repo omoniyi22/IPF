@@ -56,3 +56,61 @@ export const invitations = async () => {
   const authApi = await attachApiToken(api)
   return authApi.get(`/events/member/invites`)
 }
+
+//Question Services
+export const postQue = async (event_id, question) => {
+  const authApi = await attachApiToken(api)
+  return authApi.post(`/questions/event`, { event_id, question })
+}
+export const editQue = async (questionId, question) => {
+  const authApi = await attachApiToken(api)
+  return authApi.patch(`/questions/events/${questionId}`, { question })
+}
+
+export const getQues = async (eventId, ) => {
+  const authApi = await attachApiToken(api)
+  return authApi.get(`/questions/${eventId}/events`)
+}
+
+export const getQue = async (questionId) => {
+  const authApi = await attachApiToken(api)
+  return authApi.get(`/questions/${questionId}/events`)
+}
+
+
+// Fees
+export const getFee = async (feeId) => {
+  const authApi = await attachApiToken(api)
+  return authApi.get(`/fees/${feeId}`)
+}
+
+export const getFees = async () => {
+  const authApi = await attachApiToken(api)
+  return authApi.get(`/fees`)
+}
+
+export const editFee = async (feeId) => {
+  const authApi = await attachApiToken(api)
+  return authApi.patch(`/fees/${feeId}`)
+}
+
+export const CreateFee = async (feeId) => {
+  const authApi = await attachApiToken(api)
+  return authApi.post(`/fees/${feeId}`)
+}
+
+// Payment
+export const PaidDetails = async () => {
+  const authApi = await attachApiToken(api)
+  return authApi.get(`/payments/member/transactions`)
+}
+
+export const Pay = async (data) => {
+  const authApi = await attachApiToken(api)
+  return authApi.post(`/payments/fees`, data)
+}
+
+export const listcard = async () => {
+  const authApi = await attachApiToken(api)
+  return authApi.get(`/cards/member/cards`)
+}
