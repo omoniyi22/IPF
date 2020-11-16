@@ -98,7 +98,7 @@ class Root extends Component {
             <AdminRoute path="/admin/settings" component={PlatformAdmin} />
             <AdminRoute path="/admin/designation" component={Position} />
 
-            <Route path="/result" render={() => isAuth === false ? <Paid_OR_Failed />: <LandingPage />} />
+            <Route path="/result" render={() => isAuth === true ? <Paid_OR_Failed />: <LandingPage />} />
             <Route path="/" render={() => isAuth === true ? <Dashboard><HomePage /></Dashboard> : <LandingPage />} />
           
           </Switch>
