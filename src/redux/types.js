@@ -69,9 +69,12 @@ export const QUE_ERROR = "QUE_ERROR"
 
 export const PAID = "PAID"
 export const FAILED = "FAILED"
-export const GOT_PAID_DETAILS = "GOT_PAID_DETAILS"
 export const GOT_PAIDMENT_NEEDS = "GOT_PAIDMENT_NEEDS"
 export const LIST_FAILED = "LIST_FAILED"
 export const PAY = "PAY"
 export const PAY_REF = "PAY_REF"
 export const CLEARO = "CLEARO"
+
+export const LOADING_PAYMENTS = "LOADING_PAYMENTS"
+export const PAYMENT_FAILED = "PAYMENT_FAILED"
+export const GOT_PAID_DETAILS = "GOT_PAID_DETAILS"

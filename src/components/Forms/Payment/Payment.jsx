@@ -38,14 +38,14 @@ const Payment_Form = ({ list_failed, card_list, setCard, card, card_id, new_card
             <div className=" card_num">
               <div className="title">Card Number</div>
               <div className="input ">
-                <input disabled={list_failed} value={card && `xxxx - xxxx - xxxx - ${card.last4}`} type="text" className="form-control" />
+                <input disabled={true} value={card && `xxxx - xxxx - xxxx - ${card.last4}`} type="text" className="form-control" />
               </div>
             </div>
 
             {/* <div className=" card_num">
               <div className="title">Bank Name</div>
               <div className="input ">
-                <input disabled={list_failed} value={card && card.bank} type="text" className="form-control" />
+                <input disabled={true} value={card && card.bank} type="text" className="form-control" />
               </div>
             </div> */}
             <div className="plate">
@@ -53,13 +53,13 @@ const Payment_Form = ({ list_failed, card_list, setCard, card, card_id, new_card
               <div className=" card_num">
                 <div className="title">Expiring Date</div>
                 <div className="input ">
-                  <input disabled={list_failed} value={card && `${card.exp_month}/${card.exp_year}`} type="text" className="form-control" />
+                  <input disabled={true} value={card && `${card.exp_month}/${card.exp_year}`} type="text" className="form-control" />
                 </div>
               </div>
               <div className=" card_num">
                 <div className="title">Bank Name</div>
                 <div className="input ">
-                  <input disabled={list_failed} value={card && card.bank} type="text" className="form-control" />
+                  <input disabled={true} value={card && card.bank} type="text" className="form-control" />
                 </div>
               </div>
             </div>
@@ -67,7 +67,7 @@ const Payment_Form = ({ list_failed, card_list, setCard, card, card_id, new_card
         }
         {/* <div className=" card_num">
           <div class="custom-control custom-checkbox custom-control-inline">
-            <input disabled={list_failed} type="checkbox" class="custom-control-input che" id="defaultInline1" />
+            <input disabled={true} type="checkbox" class="custom-control-input che" id="defaultInline1" />
             <label class="custom-control-label  save" for="defaultInline1">Save this card</label>
           </div>
         </div> */}
@@ -116,7 +116,9 @@ const Payment_Form = ({ list_failed, card_list, setCard, card, card_id, new_card
                       </div>
                     </div>
                   } else {
-                    return <div className="spay  z-depth-1">
+                    return <div className="spay  z-depth-1"
+                      onClick={() => setCard(res)}
+                    >
                       <div className="slit  text-right  w-100">
                         <div src={""} alt=""
                           style={{ backgroundImage: `url(${zame})` }}
@@ -125,12 +127,14 @@ const Payment_Form = ({ list_failed, card_list, setCard, card, card_id, new_card
                       </div>
                       <div className="clean  h-100">
                         <div className="ttitl">
-                          Master Card
-                </div>
-                        <div className="code">xxxx - xxxx - xxxx - 2345</div>
+                          <span className="text-capitalise">
+                            {res.brand}
+                          </span> Card
+                        </div>
+                        <div className="code">xxxx - xxxx - xxxx - {res.last4}</div>
                         <div className="date">
-                          01/22
-                </div>
+                          {res.exp_month}/{res.exp_year}
+                        </div>
                       </div>
                     </div>
                   }
@@ -139,18 +143,27 @@ const Payment_Form = ({ list_failed, card_list, setCard, card, card_id, new_card
 
 
               <div className="apay aps ">
-                <div className="fpay h-fit z-depth-1 flex ">
-                  <div className=" tux">xxxx - xxxx - xxxx - 2345</div>
-                  <div className="slit   text-right  ml-auto w-fit">
-                    <img src={solid} width="12px" className=" rounded-sm faf" />
-                  </div>
-                </div>
-                <div className="spay  h-fit z-depth-1 flex">
-                  <div className="code tux">xxxx - xxxx - xxxx - 2345</div>
-                  <div className="slit text-right  ml-auto w-fit">
-                    <img src={solid} width="12px" className=" rounded-sm faf" />
-                  </div>
-                </div>
+                {card_list.map((res, key) => {
+                  if (((Number(key) + 1) % 2) !== 0) {
+                    return <div className="fpay h-fit z-depth-1 flex"
+                      onClick={() => setCard(res)}
+                    >
+                      <div className=" tux">xxxx - xxxx - xxxx - {res.last4}</div>
+                      <div className="slit   text-right  ml-auto w-fit">
+                        <img src={solid} width="12px" className=" rounded-sm faf" />
+                      </div>
+                    </div>
+                  } else {
+                    return <div className="spay  h-fit z-depth-1 flex"
+                      onClick={() => setCard(res)}
+                    >
+                      <div className="code tux">xxxx - xxxx - xxxx - {res.last4}</div>
+                      <div className="slit text-right  ml-auto w-fit">
+                        <img src={solid} width="12px" className=" rounded-sm faf" />
+                      </div>
+                    </div>
+                  }
+                })}
               </div>
             </div>
           </>

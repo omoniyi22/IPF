@@ -14,7 +14,11 @@ function Payment() {
     <div className=" payment ">
       <div className="payment_select  flex">
         <div
-          onClick={() => setChose(false)}
+          onClick={() => {
+            setTimeout(() => {
+              setChose(false)
+            }, 100);
+          }}
           className={`rounded annual_sub aal border heart ${!chose} pnt `}>
           {/* <div className="tipt border z-depth-1" >f;d;f'</div> */}
           <div className="rounded-pill  pill heart  border ">
@@ -23,7 +27,11 @@ function Payment() {
           <div className="text">Annual Subscription</div>
         </div>
         <div
-          onClick={() => setChose(true)}
+          onClick={() => {
+            setTimeout(() => {
+              setChose(true)
+            }, 100);
+          }}
           className={` rounded for_member aal  heart border ${chose} pnt`}>
           <div className="rounded-pill  pill   border ">
             <div className="innet border w-100 h-100 rounded-pill" />
@@ -32,9 +40,9 @@ function Payment() {
         </div>
       </div>
       <div className="selected_box">
-        {chose ? <For_Member /> : <AnnualPayment />}
+        {chose  === true && <div className="opacy"> <AnnualPayment only={true} /></div>} {chose  === false &&<div className="opacy"> <AnnualPayment /> </div>}
       </div>
-    </div>
+    </div >
   )
 }
 

@@ -1,4 +1,4 @@
-import { PAY, PAY_REF, GOT_PAID_DETAILS, PAID, FAILED, CLEARO,GOT_PAIDMENT_NEEDS, LIST_FAILED } from './../types'
+import { PAY, PAY_REF, LOADING_PAYMENTS, PAYMENT_FAILED, GOT_PAID_DETAILS, PAID, FAILED, CLEARO, GOT_PAIDMENT_NEEDS, LIST_FAILED } from './../types'
 import { Pay as Pae, getFees, listcard, PaidDetails } from './../../services/all_service'
 import paystack from './../../config/PayStack'
 
@@ -71,6 +71,9 @@ export const Pay = (dat, amount, redirect) => async (dispatch, state) => {
     paystack.pay(payload, onSuccess, onError)
 
   } catch (error) {
+    dispatch({
+      type: FAILED,
+    })
     console.log({ error })
   }
 }

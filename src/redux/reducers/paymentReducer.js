@@ -1,10 +1,14 @@
-import { GOT_PAIDMENT_NEEDS, PAY, LIST_FAILED, CLEARO, PAID, FAILED } from './../types'
+import { GOT_PAIDMENT_NEEDS, GOT_PAID_DETAILS, PAYMENT_FAILED, LOADING_PAYMENTS, PAY, LIST_FAILED, CLEARO, PAID, FAILED } from './../types'
 
 const initialState = {
   list_loading: true,
   fee_list: [],
   card_list: [],
   list_failed: false,
+
+  payments_loading: false,
+  payments: [],
+  payments_faiied: false,
 
   error: false,
   loading: true,
@@ -26,6 +30,25 @@ export default (state = initialState, action) => {
         ...state,
         list_loading: false,
         list_failed: action.payload
+      }
+    case LOADING_PAYMENTS:
+      return {
+        ...state,
+        payments_faiied: false,
+        payments_loading: true
+      }
+    case PAYMENT_FAILED:
+      return {
+        ...state,
+        payments_faiied: true,
+        payments_loading: false
+      }
+    case GOT_PAID_DETAILS:
+      return {
+        ...state,
+        payments: action.payload,
+        payments_loading: false,
+        payments_faiied: false
       }
     case FAILED:
       return {

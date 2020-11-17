@@ -104,7 +104,7 @@ class Annual_Sub extends Component {
     this.props.PayNeeds()
   }
   render() {
-    let { list_loading, card_list, fee_list, list_failed, opacy } = this.props
+    let { list_loading, card_list, fee_list, list_failed, opacy, only } = this.props
     let {
       fee_id,
       new_card,
@@ -140,7 +140,13 @@ class Annual_Sub extends Component {
                           <option >An Error Occured</option> :
                           <>
                             <option >Choose Fee</option>
-                            {fee_list.map(fi => <option >{fi.name}</option>)}
+                            {
+                              only !== true ?
+                                fee_list.filter(data => data.fee_for === "MEMBERSHIP")
+                                  .map(fi => <option >{fi.name}</option>) :
+                                fee_list.filter(data => data.fee_for === "ADDITIONAL_MEMBER")
+                                  .map(fi => <option >{fi.name}</option>)
+                            }
                           </>
                       }
                     </>
