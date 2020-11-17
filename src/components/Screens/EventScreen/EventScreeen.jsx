@@ -39,6 +39,7 @@ const style = StyleSheet.create({
     marginBottom: "4"
   },
   size: {
+    
     width: "100%"
     // width: "fitContent",
     // maxWidth: "fit-content",
