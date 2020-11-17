@@ -5,7 +5,7 @@ import { DateForm, TimeForm } from './../../assets/utiils/date'
 
 const Question = (
   {
-    data: { question, created_at, member_id, question_id },
+    data: { question, created_at, member_id, question_id, firstName, lastName, avatar },
     edit, user, kin
   }
 ) => {
@@ -13,10 +13,6 @@ const Question = (
   const [display, setDisplay] = useState("none")
 
   let key = `${kin}`
-  console.log({ kin: "start" })
-  console.log({ kin })
-  console.log({ kin: "end" })
-
   window.onclick = function (event) {
     if (
       // !event.target.matches(`#dropas`)
@@ -33,7 +29,7 @@ const Question = (
       <div className="my_que   pnt p-2 z-balm">
         <div className="head  flex">
           <div className=" flex-2 break_2 hir pr-2">
-            {question} 2 {user}  3 {member_id}
+            {question}
           </div>
           <div className="set_up heart">
             <div className="fa fa-star border rounded-pill font-weight-light"></div>
@@ -44,10 +40,10 @@ const Question = (
         <div className="flex">
           <div className=" bottom heart flex-2">
             <div className="the_img border rounded-pill"
-              style={{ backgroundImage: `url(${require('./../../assets/medias/user.png')})` }}
+              style={{ backgroundImage: `url("${avatar}")` }}
             />
             <div className="content py-1" >
-              <div className="name">Andrew John</div>
+              <div className="name">{firstName} {lastName}</div>
               <div className="time break_1">
                 {/* {DateForm(created_at)} {TimeForm(created_at.substr(11, 8))} */}
               </div>

@@ -5,8 +5,7 @@ import { createLogger } from "redux-logger";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-
-const NODE_ENV = "production";
+const NODE_ENV = "development";
 const logger = createLogger();
 let middlewares = [];
 
@@ -20,8 +19,6 @@ const persistConfig = {
   key: "root",
   storage,
 };
-
-
 
 const rootReducer = persistReducer(persistConfig, reducers);
 const composeEnhancers =

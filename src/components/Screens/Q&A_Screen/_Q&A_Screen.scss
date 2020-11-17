@@ -35,7 +35,7 @@
     }
     .event_1_form {
       .box {
-        min-height: 210px;
+        // min-height: 210px;
         .fa {
           position: absolute;
           font-size: 19px;
@@ -176,6 +176,7 @@
   }
   .Q_A {
     overflow: hidden;
+    // height: 100;
     .sokk {
       border-color: rgb(235, 232, 232) !important;
     }
@@ -209,8 +210,9 @@
         }
       }
       .event_1_form {
+        // height: fit-content;
         .box {
-          min-height: 210px;
+          // min-height: 210px;
           .fa {
             position: absolute;
             font-size: 16px;

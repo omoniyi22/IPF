@@ -6,7 +6,7 @@ import "./_POF.scss"
 class Result extends Component {
   componentDidMount() {
     if (this.props.error === false && this.props.loading === false && this.props.response === "") {
-      this.props.history.back()
+      this.props.history.goBack()
     }
   }
   render() {
@@ -41,7 +41,7 @@ class Result extends Component {
                     <button
                       onClick={() => {
                         okay()
-                        this.props.history.back()
+                        this.props.history.goBack()
                       }}
                       className="btn btn-sm rounded-pill" >
                       Okay
@@ -64,7 +64,7 @@ class Result extends Component {
                         <button
                           onClick={() => {
                             okay()
-                            this.props.history.back()
+                            this.props.history.goBack()
                           }}
                           className="btn btn-sm rounded-pill" >
                           Okay
@@ -88,7 +88,7 @@ class Result extends Component {
                           <button
                             onClick={() => {
                               okay()
-                              this.props.history.back()
+                              this.props.history.goBack()
                             }}
                             className="btn btn-sm rounded-pill" >
                             Okay
@@ -106,11 +106,3 @@ class Result extends Component {
   }
 }
 export default withRouter(Result)
-{/* <div ><Loader
-  type="TailSpin"
-  color="#53A3D1"
-  height={30}
-  width={30}
-  secondaryColor={"white"}
-
-/></div> */}

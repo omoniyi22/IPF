@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import Download from './../../assets/utiils/download'
 import { DateForm, TimeForm } from './../../assets/utiils/date'
-const CardTwo = ({ event }) => {
+const CardTwo = ({ event}) => {
 
   const calculateTimeLeft = () => {
-    let difference = +new Date(event ? event.event_date.slice(0, 10) : "2020-11-07T00:00:00.000Z".slice(0, 10)) - +new Date();
-    let timeLeft = {};
-    // if (difference > 0) {
-    timeLeft = {
-      days: Number(Math.floor(difference / (1000 * 60 * 60 * 24))) > 1 ? Number(Math.floor(difference / (1000 * 60 * 60 * 24))) : 0,
-      hours: Number(Math.floor((difference / (1000 * 60 * 60)) % 24)) > 1 ? Number(Math.floor((difference / (1000 * 60 * 60)) % 24)) : 0,
-      minutes: Number(Math.floor((difference / 1000 / 60) % 60)) > 1 ? Number(Math.floor((difference / 1000 / 60) % 60)) : 0,
-      seconds: Number(Math.floor((difference / 1000) % 60)) > 1 ? Number(Math.floor((difference / 1000) % 60)) : 0
-    };
-    // }
-    return timeLeft;
+
+    if(event && event.event_date) {
+
+      let difference = +new Date(event ? event.event_date.slice(0, 10) : "2020-11-07T00:00:00.000Z".slice(0, 10)) - +new Date();
+      let timeLeft = {};
+      // if (difference > 0) {
+      timeLeft = {
+        days: Number(Math.floor(difference / (1000 * 60 * 60 * 24))) > 1 ? Number(Math.floor(difference / (1000 * 60 * 60 * 24))) : 0,
+        hours: Number(Math.floor((difference / (1000 * 60 * 60)) % 24)) > 1 ? Number(Math.floor((difference / (1000 * 60 * 60)) % 24)) : 0,
+        minutes: Number(Math.floor((difference / 1000 / 60) % 60)) > 1 ? Number(Math.floor((difference / 1000 / 60) % 60)) : 0,
+        seconds: Number(Math.floor((difference / 1000) % 60)) > 1 ? Number(Math.floor((difference / 1000) % 60)) : 0
+      };
+      // }
+      return timeLeft;
+    }
+    return 0
+   
   }
 
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());

@@ -16,8 +16,8 @@ class QA_Screen extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      moved: true,
-      move: "unmoved",
+      moved: "unmoved",
+      move: true,
       question: "",
       question_id: "",
       edit: false
@@ -142,9 +142,8 @@ class QA_Screen extends Component {
                 </div>
               </div>
             </div>
-            <div className= "p-5 red"></div>
-            <div className="border border-danger">
-              <div className="questions pr-2 pt-3 red">
+            <div >
+              <div className="questions pr-2">
 
                 <div className="question_head ">
                   <div className="text-center btn text-capitalize rounded-sm">
@@ -195,7 +194,7 @@ class QA_Screen extends Component {
             <div className="empty_archive heart">
               <div>
                 <div className="title">Archive is Empty</div>
-                <div className="content">
+                <div className="content px-3">
                   You can archive questions in the
                 Live tab after they  were answered
                    or are no longer relevant.

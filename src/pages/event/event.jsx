@@ -10,7 +10,6 @@ import { withRouter } from 'react-router-dom'
 
 
 class Event extends Component {
-
   constructor(props) {
     super(props)
     this.state = {
@@ -30,7 +29,6 @@ class Event extends Component {
 
   render() {
     let swit = Switch(EditForm, InviteForm)
-
     let {
       event,
       rejected_invite, accepted_invite,
@@ -56,7 +54,6 @@ class Event extends Component {
                   </div>
                 </Link>
               </div>}
-              <CardTwo event={event} />
               <CardTwo event={event} />
               <div className="switch_button mb-4  ">
                 <div className={`one border btn ${this.state.switch === false && "bem"}`}

@@ -103,6 +103,12 @@ class Annual_Sub extends Component {
   componentDidMount() {
     this.props.PayNeeds()
   }
+
+
+
+  returnAnnualFeesList = (arr, type = "MEMBERSHIP") => {
+    return arr.filter(item => item.fee_for !== type)
+  }
   render() {
     let { list_loading, card_list, fee_list, list_failed, opacy, only } = this.props
     let {
@@ -116,19 +122,18 @@ class Annual_Sub extends Component {
       fee_duration,
       card_id
     } = this.state
+    const annualFeesList = this.returnAnnualFeesList(fee_list, "ADDITIONAL_MEMBER") || []
     return (
       <div className="Annual_Sub " >
         <div className=" z-depth-1 cad flex border rounded-lg border-success">
           <div className="left flex-2 ">
             <div className={`headr ${opacy}`}>
-              {!name ? "Annual Subscription" :
+              {!name ? "Membership Subscriptions" :
                 <>
-                  {`${fee_for}: ${name}`} < br /> {`CODE: ${fee_code} AMOUNT ₦${amount}`}
+                  {`${fee_for}: ${name}`} < br /> {`AMOUNT ₦${amount}`}
                 </>}
             </div>
-            <div className="data ">
-              Payment Data
-            </div>
+
             <div className="flex">
               <select class="mdb-select md-form form-control " onChange={this.onChange}>
                 {
@@ -161,9 +166,9 @@ class Annual_Sub extends Component {
             <div className="plan ">
               Select membership plan
           </div>
-            <div className="date ">
+            {/* <div className="date ">
               Date: 19th September, 2021
-          </div>
+          </div> */}
           </div>
           <div className="right  "></div>
         </div>
