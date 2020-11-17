@@ -1,0 +1,56 @@
+.overun {
+  .empty_matter {
+  .empty_one {
+    max-width: 140px;
+    max-height: 140px;
+    width: 110px;
+    height: 110px;
+    background-color: rgba(204, 204, 204, 0.267);
+    @include heart_center();
+  }
+  .sofo{
+    color: rgb(179, 175, 175);
+  }
+  .errored,
+  .empty_oned {
+    width: 100%;
+    height: 100%;
+    background-size: 100%;
+    filter: opacity(40%);
+    background-image: url("./EC.png");
+  }
+  .errored {
+    background-image: url("./erroed.png") !important;
+  }
+  .onr {
+    font-size: 15px;
+  }
+  .empty_text {
+    color: rgba(5, 5, 5, 0.39) !important;
+  }
+}
+
+
+
+
+  min-height: 400px;
+    @include heart_center();
+  .loadd {
+    @include heart_center();
+  }
+  .fa{
+    color: rgba(0, 0, 0, 0.198);
+  }
+  .fa-envelope{
+  font-size:44px;
+  color: rgba(40, 141, 224, 0.541);
+  }
+  
+  .end_btn{
+    margin-top: 40px;
+    button{
+
+      font-size: 10px;
+    }
+  }
+}

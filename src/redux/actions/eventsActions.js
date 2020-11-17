@@ -1,5 +1,5 @@
 import {
-  PAGE_ERROR, PAGE_LOADER, POPUP, POPIN, 
+  PAGE_ERROR, PAGE_LOADER, POPUP, POPIN,
 } from "./../types";
 
 import {
@@ -20,22 +20,22 @@ export const Get_All_Event = () => async (dispatch) => {
     type: PAGE_LOADER,
     payload: true
   })
-  Promise.all([getAllEvents(), getActiveEvents(), getClosedEvents()])
+  Promise.all([getActiveEvents(), getClosedEvents()])
     .then(values => values
       .map((result, num) => {
+        // if (num === 0) {
+        //   dispatch({
+        //     type: GOT_ALL_EVENTS,
+        //     payload: result.data.data
+        //   })
+        // }
         if (num === 0) {
-          dispatch({
-            type: GOT_ALL_EVENTS,
-            payload: result.data.data
-          })
-        }
-        if (num === 1) {
           dispatch({
             type: GOT_ACTIVE_EVENTS,
             payload: result.data.data
           })
         }
-        if (num === 2) {
+        if (num === 1) {
           dispatch({
             type: GOT_CLOSED_EVENTS,
             payload: result.data.data

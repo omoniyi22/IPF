@@ -6,7 +6,8 @@ import uiReducer from "./uiReducer";
 import eventReducer from './eventReducer'
 import load_or_error from './errorReducer'
 import invite from './inviteReducer'
-
+import Q_A from './QandA_reducer'
+import payment from './paymentReducer'
 
 
 
@@ -18,6 +19,8 @@ const reducers = combineReducers({
   UI: uiReducer,
   company: companyReducer,
   event: eventReducer,
+  Q_A,
+  payment
 });
 
 export default reducers

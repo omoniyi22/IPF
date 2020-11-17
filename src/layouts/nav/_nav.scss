@@ -3,6 +3,7 @@
   padding: 4px 22px 4px 15px;
   background: #0f2f3edf;
   display: flex;
+  margin-top: -9px !important;
   .logo_img {
     .LOGO {
       height: 90px;
@@ -82,7 +83,7 @@
 .sticky {
   position: -webkit-sticky !important;
   position: sticky !important;
-  top: 0 !important;
+  top: 0px !important;
   z-index: 5 !important;
 }
 .sticker {
@@ -126,7 +127,7 @@
 .sticky {
   position: -webkit-sticky !important;
   position: sticky !important;
-  top: 0 !important;
+  top: -0.1px !important;
 }
 @media (max-width: 1000px) {
   .sticker {

@@ -250,7 +250,7 @@ class Header extends Component {
                       </div>
                       <div className="row">
                           <div className="col-md-6"> 
-                              <div className="shadow text-center mobile-menu-item"><Link to="/user/dashboard/profile-update">
+                              <div className="shadow text-center mobile-menu-item"><Link to="/user_dashboard/profile-update">
  
                            <span>Manage Profile</span>
                         </Link></div>

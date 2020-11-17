@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { DateForm, TimeForm } from "./../../../assets/utiils/date"
+
+
 class Event_Table extends Component {
   render() {
-    let { event: { event_name, event_date }, click } = this.props
+    let { isAdmin, kin, event: { event_name, event_date, event_time }, click } = this.props
     return (
       <Link to="/event_page" className="opacy text-init event_table  py-3 flex w-100 mb-4" onClick={click}>
         <div className="numb rounded-pill text-center  heart border">
-          1
+          {`${Number(kin) + 1}`}
         </div>
         <div className="data">
           <div>
@@ -14,7 +17,7 @@ class Event_Table extends Component {
               {event_name}
             </div>
             <div className="date">
-              {event_date}
+              {DateForm(event_date)} {TimeForm(event_time)}
             </div>
           </div>
           <div className="numn border-top flex ">
@@ -26,9 +29,12 @@ class Event_Table extends Component {
             </div>
           </div>
         </div>
-        <div className="manage my-auto mr-3 heart border text-white rounded-pill z-depth-1 btn text-capitalize">
+        {isAdmin === 1 ? <div className="manage my-auto mr-3 heart border text-white rounded-pill z-depth-1 btn text-capitalize">
           Manage
-        </div>
+        </div> :
+          <div className="manage my-auto mr-3 heart border text-white rounded-pill z-depth-1 btn text-capitalize">
+            View
+        </div>}
       </Link>
     )
   }

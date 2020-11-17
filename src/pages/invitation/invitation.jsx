@@ -30,7 +30,7 @@ class invitation extends Component {
     return (
       <>
         {
-          this.state.error &&
+          this.state.error === true &&
           <VetModal closeError={this.closeError} classx={"pachee"} error={pop === true ? pop_data.data : error} clas={"JOEUI"} clos={"JOE"} />
         }
 

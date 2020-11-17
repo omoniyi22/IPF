@@ -1,12 +1,33 @@
 .CardTwo {
-  background: rgba(73, 49, 174, 0.56);
+  .soos{
+    font-size: 12px;
+  }
+  .kopiu {
+    margin-left: auto;
+    margin-top: 46px;
+    position: absolute;
+    color: white;
+    text-shadow: rgb(73, 71, 71) 1px 2px 2px;
+
+    // right: 5%;
+    // margin-right: 16px;
+  }
+  background-color: rgba(73, 49, 174, 0.56);
   padding: 50px 70px;
+  border: rgb(212, 212, 216) solid;
+  height: fit-content;
+  min-height: 300px;
+  max-height: fit-content;
+  background-size: 47% 100%;
+  background-position: 0 0;
+  background-repeat: no-repeat;
   .inner {
     // .left,
     // .right {
     // }
     .left {
       color: white;
+      text-shadow: rgb(73, 71, 71) 1px 2px 2px;
       .title {
         font-size: metro;
         font-size: 27px;
@@ -28,6 +49,7 @@
     }
     .right {
       display: flex;
+      width: 67% !important;
       .days {
         padding: 0 !important;
         font-size: 25px !important;
@@ -44,7 +66,7 @@
       .circles {
         display: flex;
         .circle_one {
-          margin-right: 9%;
+          margin-right: 4%;
           overflow: hidden;
           background: white;
           border-top-color: #fb8a30 !important;
@@ -71,8 +93,24 @@
 
 @media (max-width: 1000px) {
   .CardTwo {
-    background: rgba(73, 49, 174, 0.56);
+    .kopiu {
+      margin-left: auto;
+      margin-top: 6px;
+      right: 6%;
+      margin-top: 30px;
+      // position: relative;
+      color: white;
+      text-shadow: rgb(73, 71, 71) 1px 2px 2px;
+      margin-left: auto;
+      width: 100%;
+      text-align: right;
+      padding-top: 8px;
+      margin-bottom: -9px;
+    }
+    background: rgba(74, 49, 174, 0.37);
     padding: 20px 8%;
+    background-size: 100% 100%;
+    background-position: 0 0;
     .inner {
       display: block;
       .left,

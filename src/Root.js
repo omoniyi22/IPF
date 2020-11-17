@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PageLoader from './assets/utiils/page_loader'
 import PageError from './assets/utiils/page_error'
+import Paid_OR_Failed from './pages/payment/Paid_OR_Failed/index'
 
 import Login from "./pages/login";
 import HomePage from "./pages/home/index";
@@ -79,6 +80,8 @@ class Root extends Component {
             <Route path="/payment_history" component={() => <Dashboard><Payment_History /></Dashboard>} />
             <Route path="/members" component={() => <Dashboard><MemberPage /></Dashboard>} />
             <Route path="/payment" component={() => <Dashboard><Payment /></Dashboard>} />
+            <Route path="/change-password" component={() => isAuth ? <ChangePassword /> : <LandingPage />} />
+            <Route path="/profile-update" component={() => isAdmin === 1 ? <ManageProfile /> : <>{isAuth === true ? <ManageUserProfile /> : <LandingPage />} <ManageUserProfile /></>} />
 
 
             <AuthRoute path="/user/dashboard/addmember" component={() => <Dashboard><AddMember /></Dashboard>} />
@@ -86,21 +89,18 @@ class Root extends Component {
             <AuthRoute path="/platform-settings" component={MembershipSettings} />
             <AuthRoute path="/user/dashboard" component={UserProfile} />
             <AuthRoute path="/user/dashboard/profile-update" component={ManageUserProfile} />
-            <AuthRoute path="/user/dashboard/change-password" component={UserChangePassword} />
             <AuthRoute path="/payment" component={PaymentPage} />
             <AuthRoute path="/events" component={Events} />
 
 
             <AdminRoute path="/admin/manage-members" component={Members} />
-            <AdminRoute path="/profile-update" component={ManageProfile} />
-            <AdminRoute path="/admin/events" component={Events} />
-            <AdminRoute path="/admin/payment" component={PaymentPage} />
             <AdminRoute path="/admin/settings/membership" component={GeneralSettings} />
             <AdminRoute path="/admin/settings" component={PlatformAdmin} />
             <AdminRoute path="/admin/designation" component={Position} />
-            <AdminRoute path="/admin/change-password" component={ChangePassword} />
 
-            <Route path="/" render={() => isAuth === false ? <Dashboard><HomePage /></Dashboard> : <LandingPage />} />
+            <Route path="/result" render={() => isAuth === true ? <Paid_OR_Failed />: <LandingPage />} />
+            <Route path="/" render={() => isAuth === true ? <Dashboard><HomePage /></Dashboard> : <LandingPage />} />
+          
           </Switch>
         </Router >
 

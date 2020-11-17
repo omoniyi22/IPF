@@ -53,7 +53,7 @@ class Layout extends Component {
             </Link>
           </li>
           <li className="list-item">
-            <Link to="/user/dashboard/profile-update">
+            <Link to="/user_dashboard/profile-update">
               <span>
                 {" "}
                 <i className="material-icons">account_circle</i>
@@ -145,7 +145,7 @@ class Layout extends Component {
 
         <ul id="slide-out2" class="sidenav">
           <li className="list-item">
-            <Link to="/user/dashboard">
+            <Link to="/user_dashboard">
               <span>
                 {" "}
                 <i className="material-icons">format_list_bulleted</i>
@@ -155,7 +155,7 @@ class Layout extends Component {
           </li>
 
           <li className="list-item">
-            <Link to="/user/dashboard/profile-update">
+            <Link to="/user_dashboard/profile-update">
               <span>
                 {" "}
                 <i className="material-icons">supervisor_account</i>
@@ -165,7 +165,7 @@ class Layout extends Component {
           </li>
 
           <li className="list-item">
-            <Link to="/user/dashboard/managecompany">
+            <Link to="/user_dashboard_managecompany">
               <span>
                 {" "}
                 <i className="material-icons">supervisor_account</i>
