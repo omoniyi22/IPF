@@ -57,6 +57,7 @@ class Event extends Component {
                 </Link>
               </div>}
               <CardTwo event={event} />
+              <CardTwo event={event} />
               <div className="switch_button mb-4  ">
                 <div className={`one border btn ${this.state.switch === false && "bem"}`}
                   onClick={() => this.setState({ switch: false })}

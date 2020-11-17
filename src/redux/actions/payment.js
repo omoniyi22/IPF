@@ -3,8 +3,6 @@ import { Pay as Pae, getFees, listcard, PaidDetails } from './../../services/all
 import paystack from './../../config/PayStack'
 
 
-
-
 export const PayNeeds = () => async (dispatch) => {
   Promise.all([getFees(), listcard()])
     .then(values => {
@@ -23,6 +21,7 @@ export const Okay = () => async dispatch => {
 
 
 export const PaidList = () => async (dispatch, state) => {
+  dispatch({ type: LOADING_PAYMENTS })
   try {
     let paid = await PaidDetails()
     paid = await paid.data
@@ -30,6 +29,7 @@ export const PaidList = () => async (dispatch, state) => {
     dispatch({ type: GOT_PAID_DETAILS, payload: paid })
   } catch (error) {
     console.log(error.response)
+    dispatch({ type: PAYMENT_FAILED })
   }
 }
 
@@ -44,32 +44,31 @@ export const Pay = (dat, amount, redirect) => async (dispatch, state) => {
     data = await data.data
     data = await data.reference
     console.log({ data })
-    // console.log(Pae(data).data)
-    const payload = {
-      email: email,
-      amount: amount,
-      reference: data
-    }
-
-    console.log("daa", payload)
-
-    const onSuccess = () => {
+    if (dat.card_id === "NEW") {
+      // console.log(Pae(data).data)
+      const payload = {
+        email: email,
+        amount: amount,
+        reference: data
+      }
+      console.log("daa", payload)
+      const onSuccess = () => {
+        dispatch({
+          type: PAID,
+        })
+      }
+      const onError = (error) => {
+        // console.log({ error })
+        dispatch({
+          type: FAILED,
+        })
+      }
+      paystack.pay(payload, onSuccess, onError)
+    } else {
       dispatch({
         type: PAID,
       })
     }
-
-    const onError = (error) => {
-      // console.log({ error })
-      dispatch({
-        type: FAILED,
-      })
-    }
-
-
-
-    paystack.pay(payload, onSuccess, onError)
-
   } catch (error) {
     dispatch({
       type: FAILED,
@@ -77,3 +76,4 @@ export const Pay = (dat, amount, redirect) => async (dispatch, state) => {
     console.log({ error })
   }
 }
+

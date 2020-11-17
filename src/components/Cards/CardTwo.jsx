@@ -54,7 +54,7 @@ const CardTwo = ({ event }) => {
                 () =>
                   console.log("ks;d")
             } className="button btn m-0 text-capitalize metro text-center soos">
-            {event ? "Download Attachment" : "No attachment for donwload"}
+            <span className="don">    {event ? "Download Attachment" : "No attachment for donwload"}</span>
           </div>
         </div>
         <div className="right  w-50">

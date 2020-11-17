@@ -142,8 +142,9 @@ class QA_Screen extends Component {
                 </div>
               </div>
             </div>
-            <div >
-              <div className="questions pr-2">
+            <div className= "p-5 red"></div>
+            <div className="border border-danger">
+              <div className="questions pr-2 pt-3 red">
 
                 <div className="question_head ">
                   <div className="text-center btn text-capitalize rounded-sm">
