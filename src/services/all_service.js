@@ -111,3 +111,15 @@ export const listcard = async () => {
   const authApi = await attachApiToken(api);
   return authApi.get(`/cards/member/cards`);
 };
+
+
+//Comments
+export const get_all_comment = async (question_id) => {
+  const authApi = await attachApiToken(api);
+  return authApi.get(`/comments/questions/${question_id}`);
+}
+
+export const post_comment = async (data) => {
+  const authApi = await attachApiToken(api);
+  return authApi.post(`comments/question`, data);
+}

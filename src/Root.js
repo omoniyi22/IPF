@@ -51,7 +51,7 @@ import UserChangePassword from "./pages/user/changePassword";
 class Root extends Component {
   render() {
     console.log(`${this.props.isAuth} is Auth`)
-    let { isAuth, page_loader, page_error, isAdmin, nrole } = this.props
+    let { isAuth, page_loader, page_error, isAdmin, selectEvent, nrole } = this.props
     return (
 
       <>
@@ -73,7 +73,7 @@ class Root extends Component {
             <Route path="/login" component={Login} />
 
             <Route path="/invitations" component={() => <Dashboard> <Invitation /></Dashboard>} />
-            <Route path="/event_page" component={() => <Dashboard><EventPage /></Dashboard>} />
+            <Route path="/event_page" component={() => isAuth ? <>{selectEvent !== null ? <Dashboard> <EventPage /></Dashboard> : <Dashboard> <HomePage /> </Dashboard> } </> : <LandingPage /> } />
             <Route path="/create-event" component={() => <Dashboard> <HomePage /></Dashboard>} />
             <Route path="/invite" component={() => <Dashboard><EventPage /></Dashboard>} />
             <Route path="/edit_event" render={() => <Dashboard><EventPage /></Dashboard>} />
@@ -98,9 +98,9 @@ class Root extends Component {
             <AdminRoute path="/admin/settings" component={PlatformAdmin} />
             <AdminRoute path="/admin/designation" component={Position} />
 
-            <Route path="/result" render={() => isAuth === true ? <Paid_OR_Failed />: <LandingPage />} />
+            <Route path="/result" render={() => isAuth === true ? <Paid_OR_Failed /> : <LandingPage />} />
             <Route path="/" render={() => isAuth === true ? <Dashboard><HomePage /></Dashboard> : <LandingPage />} />
-          
+
           </Switch>
         </Router >
 
@@ -110,7 +110,7 @@ class Root extends Component {
 }
 
 const mapStateToProps = state => ({
-
+  selectEvent: state.event.selectedEvent,
   page_loader: state.load_or_error.page_loader,
   page_error: state.load_or_error.page_error,
   isAuth: state.user.isAuth,

@@ -36,12 +36,14 @@ class QA_Screen extends Component {
       question_id: question_id
     })
   }
+
   changeMoveToTrue() {
     this.setState({
       move: true,
       moved: "unmoved"
     })
   }
+
   changeMoveToFalse() {
     this.setState({
       move: false,
@@ -158,6 +160,17 @@ class QA_Screen extends Component {
             </div>
               </div>
               <div className="quea">
+                {/* <Question edit={this.editQuestion} data={{
+                  "question": "God is good skdnsdn;sd z-depth-1 z-depth-1 z-depth-1 z-depth-1z-depth-1 z-depth-1 z-depth-1 z-depth-1 z-dept z-depth-1 z-depth-1h-1 1 z-depth-1h-1 ",
+                  "question_id": "5f286e93-3661-4b4b-9674-4459e0354f13",
+                  "event_id": "052d1e09-f422-41aa-91da-a5bd000643eb",
+                  "member_id": "8787e5bc-0770-4015-bbd2-22dae59e0f39",
+                  "avatar": "http://res.cloudinary.com/dnevwxinm/image/upload/v1604844373/aw0t5jjiq462dioxaujp.jpg",
+                  "firstName": "Seun",
+                  "lastName": "Seun",
+                  "created_at": "2020-11-12T08:07:11.000Z",
+                  "updated_at": "2020-11-12T08:17:05.000Z"
+                }} user={"user_id"} /> */}
                 {loading === false ?
                   <div>
                     {
