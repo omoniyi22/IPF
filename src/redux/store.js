@@ -1,16 +1,16 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import reducers from "./reducers/index";
 import thunk from "redux-thunk";
-import { createLogger } from "redux-logger";
+import logger, { createLogger } from "redux-logger";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 const NODE_ENV = "development";
-const logger = createLogger();
-let middlewares = [];
+
+let middlewares = [logger];
 
 if (NODE_ENV === "development") {
-  middlewares = [...middlewares, thunk, logger];
+  middlewares = [...middlewares, thunk];
 } else {
   middlewares = [...middlewares, thunk];
 }
@@ -18,6 +18,7 @@ if (NODE_ENV === "development") {
 const persistConfig = {
   key: "root",
   storage,
+  whitelist: ["user", "event"]
 };
 
 const rootReducer = persistReducer(persistConfig, reducers);

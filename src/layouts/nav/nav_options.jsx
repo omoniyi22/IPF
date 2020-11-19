@@ -118,20 +118,13 @@ class Nav_Options extends Component {
                 Overview
             </div>
             </Link>
-            {event ?
+            
               <Link to={"/event_"}>
                 <div className={`nav_button text-white sm-flex  ${this.state.events === true && "changed_nav"}`} onClick={this.onEvents}>
                   <div className="p-1   rounded-pill white rounded_point sm-show" />
                   Events
                   </div>
-              </Link> :
-              <Link onClick={() => this.setState({ error: "Pls select an event from overview" })}>
-                <div className={`nav_button text-white sm-flex  ${this.state.events === true && "changed_nav"}`} onClick={this.onEvents}>
-                  <div className="p-1   rounded-pill white rounded_point sm-show" />
-                  Events
-                  </div>
               </Link>
-            }
             <Link to="/profile-update">
               <div className={`nav_button sm-flex text-white sm-flex  ${this.state.manage_profile === true && "changed_nav"}`} onClick={this.onManage}>
                 <div className="p-1   rounded-pill white rounded_point sm-show" />

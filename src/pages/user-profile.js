@@ -7,7 +7,7 @@ import images from "../assets/images";
 import AppWrapper from "../components/appWrapper.js";
 import { TextInput } from "../components/components";
 import PhoneNumber from "../components/General/phoneInput";
-import UserDashboard from "../hoc/UserDashboard";
+import UserDashboard from "../hoc/Dashboard";
 import * as actions from "../redux/actions";
 import {
   getClassificationCall,
