@@ -102,24 +102,24 @@ class Root extends Component {
             <Route path="/overview" render={() => !isAuth === true ? <Dashboard><HomePage /></Dashboard> : <LandingPage />} />
             <Route path="/landing" render={() => <LandingPage />} />
 
-            <Route path="/" component={() => isAuth === true ? <> {isAdmin === 1 ? <Dashboard><HomePage /></Dashboard> : null} : <LandingPage />} />
+            <Route path="/" component={() => isAuth === true ? <> {isAdmin === 1 ? <Dashboard><HomePage /></Dashboard> : <UserProfile />}</> : <LandingPage />} />
 
             {/* <AuthRoute path="/" component={} /> */}
 
-            </Switch>
-        </Router >
-    
+          </Switch>
+        </Router>
+
       </>
-          );
-        }
-      }
-      
+    );
+  }
+}
+
 const mapStateToProps = state => ({
-            selectEvent: state.event.selectedEvent,
-          page_loader: state.load_or_error.page_loader,
-          page_error: state.load_or_error.page_error,
-          isAuth: state.user.isAuth,
-          isAdmin: state.user.currentUser.isAdmin,
-          nrole: state.user.currentUser.nrole
-        })
+  selectEvent: state.event.selectedEvent,
+  page_loader: state.load_or_error.page_loader,
+  page_error: state.load_or_error.page_error,
+  isAuth: state.user.isAuth,
+  isAdmin: state.user.currentUser.isAdmin,
+  nrole: state.user.currentUser.nrole
+})
 export default connect(mapStateToProps)(Root);

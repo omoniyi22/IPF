@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Download from './../../assets/utiils/download'
 import { DateForm, TimeForm } from './../../assets/utiils/date'
-const CardTwo = ({ event}) => {
+const CardTwo = ({ event }) => {
 
   const calculateTimeLeft = () => {
 
-    if(event && event.event_date) {
+    if (event && event.event_date) {
 
       let difference = +new Date(event ? event.event_date.slice(0, 10) : "2020-11-07T00:00:00.000Z".slice(0, 10)) - +new Date();
       let timeLeft = {};
@@ -20,7 +20,7 @@ const CardTwo = ({ event}) => {
       return timeLeft;
     }
     return 0
-   
+
   }
 
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
@@ -59,7 +59,7 @@ const CardTwo = ({ event}) => {
                 } :
                 () =>
                   console.log("ks;d")
-            } className="button btn m-0 text-capitalize metro text-center soos">
+            } className="button btn m-0 px-0 text-capitalize metro text-center soos ">
             <span className="don">    {event ? "Download Attachment" : "No attachment for donwload"}</span>
           </div>
         </div>
