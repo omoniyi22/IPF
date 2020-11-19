@@ -73,7 +73,7 @@ class Root extends Component {
             <Route path="/login" component={Login} />
 
             <Route path="/invitations" component={() => <Dashboard> <Invitation /></Dashboard>} />
-            <Route path="/event_page" component={() => isAuth ? <>{selectEvent !== null ? <Dashboard> <EventPage /></Dashboard> : <Dashboard> <HomePage /> </Dashboard> } </> : <LandingPage /> } />
+            <Route path="/event_page" component={() => isAuth ? <>{selectEvent !== null ? <Dashboard> <EventPage /></Dashboard> : <Dashboard> <HomePage /> </Dashboard>} </> : <LandingPage />} />
             <Route path="/create-event" component={() => <Dashboard> <HomePage /></Dashboard>} />
             <Route path="/invite" component={() => <Dashboard><EventPage /></Dashboard>} />
             <Route path="/edit_event" render={() => <Dashboard><EventPage /></Dashboard>} />
@@ -83,11 +83,11 @@ class Root extends Component {
             <Route path="/change-password" component={() => isAuth ? <ChangePassword /> : <LandingPage />} />
             <Route path="/profile-update" component={() => isAdmin === 1 ? <ManageProfile /> : <>{isAuth === true ? <ManageUserProfile /> : <LandingPage />} <ManageUserProfile /></>} />
 
+            <Route path="/event_" component={() => isAuth ? <HomePage /> : <LandingPage />} />
 
             <AuthRoute path="/user/dashboard/addmember" component={() => <Dashboard><AddMember /></Dashboard>} />
             <AuthRoute path="/user/dashboard/managecompany" component={AddCompany} />
             <AuthRoute path="/platform-settings" component={MembershipSettings} />
-            <AuthRoute path="/user/dashboard" component={UserProfile} />
             <AuthRoute path="/user/dashboard/profile-update" component={ManageUserProfile} />
             <AuthRoute path="/payment" component={PaymentPage} />
             <AuthRoute path="/events" component={Events} />
@@ -99,7 +99,12 @@ class Root extends Component {
             <AdminRoute path="/admin/designation" component={Position} />
 
             <Route path="/result" render={() => isAuth === true ? <Paid_OR_Failed /> : <LandingPage />} />
-            <Route path="/" render={() => isAuth === true ? <Dashboard><HomePage /></Dashboard> : <LandingPage />} />
+            <Route path="/overview" render={() => !isAuth === true ? <Dashboard><HomePage /></Dashboard> : <LandingPage />} />
+            <Route path="/landing" render={() => <LandingPage />} />
+
+            <Route path="/" component={() => isAuth === true ? <><Dashboard><HomePage /></Dashboard> </> : <LandingPage />} />
+
+            {/* <AuthRoute path="/" component={} /> */}
 
           </Switch>
         </Router >

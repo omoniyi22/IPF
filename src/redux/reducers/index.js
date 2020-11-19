@@ -9,6 +9,8 @@ import invite from './inviteReducer'
 import Q_A from './QandA_reducer'
 import payment from './paymentReducer'
 
+import register from './registerReducer'
+
 
 
 const reducers = combineReducers({
@@ -20,7 +22,8 @@ const reducers = combineReducers({
   company: companyReducer,
   event: eventReducer,
   Q_A,
-  payment
+  payment,
+  register
 });
 
 export default reducers

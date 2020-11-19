@@ -1,6 +1,6 @@
 import {
   GET_SENT_INVITATION, POPIN, POPUP, POP_LOADER, INVITE_LOADING, INVITE_ERROR,
-  GOT_INVITATIONS, SELECT_INVITAION, I_LOAD, I_ERROR
+  GOT_INVITATIONS, SELECT_INVITAION, I_LOAD, I_ERROR, REG_DONE, BEGIN_REG, END_REG
 
 } from './../types'
 import { getInvites, sendInvites, AcceptReject, invitations } from './../../services/all_service'
@@ -111,7 +111,7 @@ export const Invitations = () => async (dispatch) => {
 
 export const changeStatus = (type, id) => async (dispatch) => {
   dispatch({ type: POP_LOADER })
-  try { 
+  try {
     let sent_invite = await AcceptReject(type.toLowerCase(), id)
     sent_invite = await sent_invite.data
     sent_invite = await sent_invite.message
@@ -138,3 +138,28 @@ export const changeStatus = (type, id) => async (dispatch) => {
   }
 }
 
+
+
+export const Register = (event_id) => async (dispatch, state) => {
+  dispatch({ type: BEGIN_REG })
+  let email = state().user.currentUser.email
+  console.log({ event_id, email })
+  try {
+    if (event_id) {
+      let sent_invite = await sendInvites({ event_id, email })
+      sent_invite = await sent_invite.data
+      sent_invite = await sent_invite.message
+      console.log({ sent_invite })
+      await dispatch({
+        type: REG_DONE
+      })
+    } else
+      throw new Error("event Id")
+  } catch (error) {
+    console.log(error.response)
+    let errored = await error.response ? await error.response.data.error : "An error occured, Try Again"
+    dispatch({
+      type: END_REG
+    })
+  }
+}

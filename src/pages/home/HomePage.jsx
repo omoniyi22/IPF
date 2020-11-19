@@ -112,7 +112,7 @@ class HomePage extends Component {
   render() {
     let swit = Switch(EventForm);
     let { position } = this.state
-    let { user, isAdmin, nrole, Get_All_Event, allEvents, Select_Event, active, closed } = this.props
+    let { user, isAdmin, nrole, Register, reg_load , reg_pass, reg_fail, Get_All_Event, allEvents, Select_Event, active, closed } = this.props
 
     return (
       <div className={`${swit[2]} `}>
@@ -123,6 +123,17 @@ class HomePage extends Component {
               <div className="upcoming_text mb-4 ml-1">Upcoming Events</div>
               <div className="flex my_events_card">
                 <div className="seprate w-50 pr-1 ">
+                  {<EventCard
+                    reg_load={reg_load} reg_pass={reg_pass} reg_fail={reg_fail}
+                    Register={Register}
+                    event={{
+                      "question_id": "5f286e93-3661-4b4b-9674-4459e0354f13",
+                      "event_id": "052d1e09-f422-41aa-91da-a5bd000643eb",
+                      "question": "God is good",
+                      "member_id": "8787e5bc-0770-4015-bbd2-22dae59e0f39",
+                      "created_at": "2020-11-12T08:07:11.000Z",
+                      "updated_at": "2020-11-12T08:17:05.000Z"
+                    }} />}
                   {active[0] && <EventCard event={active[0]} />}
                 </div>
                 <div className="seprate w-50 pl-1 ">

@@ -112,14 +112,14 @@ class Nav_Options extends Component {
 
         <div className="h-100 ri">
           <div className="nav_options text-left  ">
-            <Link to="/">
+            <Link to="/overview">
               <div className={`nav_button text-white sm-flex  ${this.state.overview === true && "changed_nav"}`} onClick={this.onOverview}>
                 <div className="p-1  rounded-pill white rounded_point sm-show" />
                 Overview
             </div>
             </Link>
             {event ?
-              <Link to={"/event_page"}>
+              <Link to={"/event_"}>
                 <div className={`nav_button text-white sm-flex  ${this.state.events === true && "changed_nav"}`} onClick={this.onEvents}>
                   <div className="p-1   rounded-pill white rounded_point sm-show" />
                   Events
