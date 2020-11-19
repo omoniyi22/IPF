@@ -34,7 +34,7 @@ const reducers = combineReducers({
   event: eventReducer,
   Q_A,
   payment,
-  // register
+  register
 });
 
 export default reducers
