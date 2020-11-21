@@ -10,7 +10,7 @@ export default class Page_Error extends Component {
           </div>
           <div className="what">
             Data Not Fetched
-        </div>
+          </div>
           {/* <div className="talk">
             Data for this page was not successfully fetched
             Data for this page was not successfully fetched

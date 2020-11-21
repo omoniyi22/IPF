@@ -90,8 +90,8 @@ class Preview extends Component {
             <button
               onClick={this.props.unmove}
               className="btn eppes btn-sm m-0 h-100 w-100 flex p-0">
-              <div className="fa fa-arrow-left heart " />
-              <div className="text f ml-2 heart lens h-100">
+              <div className="fa fa-arrow-left heart text-white " />
+              <div className="text f ml-2 heart lens h-100  text-white">
                 Go Back
                   </div>
             </button>
@@ -122,8 +122,8 @@ class Preview extends Component {
                   )
               }}
               className="btn eppe btn-sm m-0 h-100 w-100 flex p-0">
-              <div className="fa  fa-plus heart " />
-              <div className="text  ml-1 heart lens h-100">
+              <div className="fa  fa-plus heart text-white" />
+              <div className="text  ml-1 heart lens h-100  text-white">
                 {edit ? "Edit Event" : "Create Event"}
               </div>
             </button>

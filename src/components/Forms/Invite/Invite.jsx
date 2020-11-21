@@ -102,9 +102,9 @@ class InviteForm extends Component {
                       this.props.history.goBack()
                     }, 290);
                   }} className="btn eppes btn-sm m-0 h-100 w-100 flex p-0">
-                  <div className="fa fa-times heart " />
-                  <div className="text f ml-2 heart  h-100">
-                    Close
+                  <div className="fa fa-times heart text-white " />
+                  <div className="text f ml-2 heart  h-100 text-white ">
+                    <span className="text-white">Close</span>
                   </div>
                 </button>
               </div>
@@ -112,9 +112,9 @@ class InviteForm extends Component {
                 <button
                   onClick={this.onSubmit}
                   className="btn eppe btn-sm m-0 h-100 w-100 flex p-0">
-                  <div className="fa  fa-plus heart " />
-                  <div className="text  ml-1 heart lens h-100">
-                    Send Invite
+                  <div className="fa  fa-plus heart text-white" />
+                  <div className="text small ml-1 heart lens h-100 text-white">
+                    Send <span className=" text-white sm_go">Invite</span>
                   </div>
                 </button>
               </div>

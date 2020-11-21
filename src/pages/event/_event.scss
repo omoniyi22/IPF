@@ -3,7 +3,7 @@
     width: 100%;
     .main_button {
       margin-bottom: 20px;
-      max-width: 300px;
+      max-width: fit-content;
       margin-left: auto;
       .edit_b {
         max-width: 150px;
@@ -29,7 +29,7 @@
         }
         padding: 6px 16px !important;
         color: rgb(255, 255, 255);
-        background: #ff9d4d !important;
+        background: #ff9d4d;
         border-color: rgba(41, 39, 36, 0.178) !important;
       }
     }
@@ -71,7 +71,7 @@
       width: 100%;
       .main_button {
         margin-bottom: 20px;
-        max-width: 300px;
+        max-width: fit-content;
         margin-left: auto;
         .edit_b {
           max-width: 150px;
@@ -84,16 +84,21 @@
             margin-top: 1.1px;
             margin-left: 5px;
             font-family: metro;
+            font-size: 10px;
+          }
+          .dssp{
+            display: none;
           }
           .fa {
             color: rgba(0, 0, 0, 0.39);
             margin-top: -1px !important;
+            font-size: 13px;
           }
         }
         .edit_b.a {
           padding: 0px 8px !important;
           color: rgb(255, 255, 255);
-          background: #ff9d4d !important;
+          background: #ff9d4d ;
         }
       }
       .switch_button {
@@ -112,10 +117,11 @@
         }
         .one {
           margin-right: 0 !important;
+          height: 44.3px !important;
         }
         .two {
           padding-top: 9.9px;
-          height: 44.3px !important;
+          height: 42.3px !important;
           padding-bottom: 9px;
         }
         .bem {
@@ -125,4 +131,8 @@
       }
     }
   }
+}
+
+.ssa{
+  // background:  #eddc6c !important;
 }

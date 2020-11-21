@@ -40,17 +40,29 @@ class Event extends Component {
         <div className="home1">
           <div className="Event_Page">
             <div className="main_page">
-              {isAdmin === 1 && <div className="main_button    flex ">
+              {isAdmin !== 1 && <div className="main_button     flex ">
                 <Link className="text-init ml-auto " to="/edit_event">
                   <div className="edit_b heart  text-center btn border flex   rounded-pill">
                     <div className="fa fa-edit" />
-                    <div className="text">Edit Event</div>
+                    <div className="text text-white">Edit <span className="dssp text-white">Event</span></div>
                   </div>
                 </Link>
                 <Link to="/invite">
                   <div className="edit_b a  ml-2 heart text-center btn border flex   rounded-pill">
                     <div className="fa fa-user-plus pl-1" />
                     <div className="text pr-1 ">Invite</div>
+                  </div>
+                </Link>
+                <Link to="/invite">
+                  <div className="edit_b a  ml-2 heart text-center btn border flex   rounded-pill">
+                    <div className="fa fa-trash pl-1" />
+                    <div className="text pr-1 ">Delete</div>
+                  </div>
+                </Link>
+                <Link to="/invite">
+                  <div className="edit_b  ssa ml-2 heart text-center btn border flex   rounded-pill">
+                    <div className="fa fa-times pl-1" />
+                    <div className="text pr-1 text-white ">Close</div>
                   </div>
                 </Link>
               </div>}
@@ -69,7 +81,7 @@ class Event extends Component {
               </div>
               <div className="screens">
                 <div className="ones">
-                  {!this.state.switch === false ?
+                  {this.state.switch === false ?
                     <EventScreen
                       // invitatio={true}
                       rejected_invite={rejected_invite} accepted_invite={accepted_invite}

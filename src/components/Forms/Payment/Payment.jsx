@@ -32,7 +32,7 @@ const Payment_Form = ({ list_failed, card_list, setCard, card, card_id, new_card
         }
       </div>
 
-      <div className=" body ">
+      <div className=" body  ">
         {new_card === false &&
           <>
             <div className=" card_num">
@@ -74,12 +74,12 @@ const Payment_Form = ({ list_failed, card_list, setCard, card, card_id, new_card
         {!list_failed ?
           <>
             {fee_id ?
-              <button className="p-0 white m-0 w-100  btn z-depth-0 border border-warning rounded  rounded-sm " style={{ color: "black" }} onClick={Pay} > Pay </button> :
-              <button className="p-0 white m-0 w-100  btn z-depth-0 border border-warning rounded  rounded-sm " style={{ color: "black" }}  > Select Fee Type </button>
+              <button className="p-0 white m-0 w-100  py-3 green lighten-1 z-depth-0 border border-warning rounded  rounded-sm heart " style={{ color: "black" }} onClick={Pay} > Pay </button> :
+              <button className="p-0 white m-0 w-100  py-3 warning lighten-1 z-depth-0 border border-warning rounded  rounded-sm heart" style={{ color: "black" }}  > Select Fee Type </button>
             }
           </>
           :
-          <button className="red text-white p-0  m-0 w-100  btn z-depth-0 border border-warning rounded  rounded-sm">Please Reload Page, An Error Occured</button>}
+          <button className="red text-white p-0  m-0 w-100  py-3 lighten-1 z-depth-0 border border-warning rounded  rounded-sm">Please Reload Page, An Error Occured</button>}
         {!list_failed &&
           <>
 

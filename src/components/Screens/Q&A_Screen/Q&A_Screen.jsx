@@ -2,6 +2,7 @@ import React, { useState, Component } from 'react'
 import Question from './../../Question/Question'
 import ChatLoad from './../../Loaders/chat_loader'
 import Loader from 'react-loader-spinner'
+import { withRouter } from 'react-router-dom'
 
 let dat = {
   "question_id": "5f286e93-3661-4b4b-9674-4459e0354f13",
@@ -110,7 +111,9 @@ class QA_Screen extends Component {
               <div className="title my-auto ">Live</div>
               <div className="btn rounded-sm  mt-auto heart w-fit ml-auto">
                 <div className="fa fa-angle-double-left mr-1" />
-                <div className="text-capitalize sand_small">Go Back</div>
+                <div className="text-capitalize sand_small"
+                  onClick={this.props.history.goBack}
+                >Go Back</div>
               </div>
             </div>
             <div className="event_1_form ">
@@ -160,7 +163,7 @@ class QA_Screen extends Component {
             </div>
               </div>
               <div className="quea">
-                {/* <Question edit={this.editQuestion} data={{
+                <Question edit={this.editQuestion} data={{
                   "question": "God is good skdnsdn;sd z-depth-1 z-depth-1 z-depth-1 z-depth-1z-depth-1 z-depth-1 z-depth-1 z-depth-1 z-dept z-depth-1 z-depth-1h-1 1 z-depth-1h-1 ",
                   "question_id": "5f286e93-3661-4b4b-9674-4459e0354f13",
                   "event_id": "052d1e09-f422-41aa-91da-a5bd000643eb",
@@ -170,7 +173,8 @@ class QA_Screen extends Component {
                   "lastName": "Seun",
                   "created_at": "2020-11-12T08:07:11.000Z",
                   "updated_at": "2020-11-12T08:17:05.000Z"
-                }} user={"user_id"} /> */}
+                }} user={"user_id"} />
+
                 {loading === false ?
                   <div>
                     {
@@ -220,4 +224,4 @@ class QA_Screen extends Component {
     )
   }
 }
-export default QA_Screen
+export default withRouter(QA_Screen)

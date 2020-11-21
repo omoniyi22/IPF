@@ -39,7 +39,7 @@ const style = StyleSheet.create({
     marginBottom: "4"
   },
   size: {
-    
+
     width: "100%"
     // width: "fitContent",
     // maxWidth: "fit-content",
@@ -294,8 +294,10 @@ class EventScreen extends Component {
                         <div id="dropdownMenu1" className="download_icon mx-auto pr-3" />
                         <div className="flex">
                           <div className="dropas " id="dropas">
-                            <div id="drope" className="">Download As</div>
-                            <div id="dropa" className="z-depth-1 mt-1">
+                            <div id="drope" className="small">Download <span className="soaa"> As</span></div>
+                            <div id="dropa" className="z-depth-1 mt-1 posaa"
+                              style={{ display: "none" }}
+                            >
                               <div className="toe" id={"toe"}>
 
                                 <PDFDownloadLink

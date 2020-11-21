@@ -5,8 +5,7 @@ window.onclick = function (event) {
     // && !event.target.matches('#toe')
   ) {
     if (document.getElementById("dropa"))
-      document.getElementById("dropa").style.display = "none"
-    console.log("Hooola")
+      document.getElementById("dropa").style.display = "none";
   } else {
     if (document.getElementById("dropa"))
       if (document.getElementById("dropa").style.display === "none")

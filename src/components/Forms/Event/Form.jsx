@@ -227,8 +227,8 @@ class Form extends Component {
                     }, 300);
                   }}
                   className="btn eppe btn-sm m-0 h-100 w-100 flex p-0">
-                  <div className="fa  fa-eye heart " />
-                  <div className="text  ml-2 heart h-100">
+                  <div className="fa  fa-eye heart text-white " />
+                  <div className="text  ml-2 heart h-100 text-white">
                     Preview
                   </div>
                 </button>

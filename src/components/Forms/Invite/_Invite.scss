@@ -55,13 +55,17 @@
           font-size: 12px;
           margin-top: 1px;
           margin-right: 10px !important;
+          color: white;
         }
       }
     }
   }
 }
 @media (max-width: 1000px) {
-  .invitation_form{
+  .sm_go{
+    display:  none;
+  }
+  .invitation_form {
     animation: none !important;
   }
   .form {
@@ -88,18 +92,22 @@
       width: 100%;
 
       button {
+        padding: 1px;
+        width: fit-content !important;
         .fa-eye,
         .fa-times,
         .fa-arrow-left,
         .fa-plus {
-          padding-left: 14px;
+          padding-left: 1px;
           height: 29px !important;
         }
         .text {
+          color: white !important;
           height: 29px !important;
-          font-size: 12px;
+          font-size: 9.3px !important;
+          line-height: 0px !important;
           margin-top: 1px;
-          margin-right: 10px !important;
+          margin-right: 0px !important;
         }
       }
     }

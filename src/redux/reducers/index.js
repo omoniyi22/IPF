@@ -11,6 +11,7 @@ import load_or_error from './errorReducer'
 import invite from './inviteReducer'
 import Q_A from './QandA_reducer'
 import payment from './paymentReducer'
+import register from './registerReducer'
 
 // import register from './registerReducer'
 

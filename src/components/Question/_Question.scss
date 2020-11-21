@@ -7,8 +7,8 @@
   width: 95px;
   position: absolute;
   float: left;
-  margin-left: 330px;
-  margin-top: 37px;
+  margin-left: -55px;
+  margin-top: 9px;
   padding: 4px 0;
   .toe {
     font-family: sand_reg;
@@ -32,6 +32,7 @@
 .real_question {
   .my_que {
     transition-duration: 0.2s;
+        background: #e9e9e9 ;
     &:hover {
       background: #b5e9d0d7;
       .fa-star {
@@ -74,8 +75,8 @@
         .fa-chevron-circle-down {
           margin-bottom: 2px;
           border-color: #fb8a30 !important;
-          color: #ffb031 !important;
           color: white;
+          color: #ffb031;
           // padding: 3.3px 3.2px 3px 3.2px;
           font-size: 18.3px;
         }
@@ -184,8 +185,8 @@
           .fa-chevron-circle-down {
             margin-bottom: 2px;
             border-color: #fb8a30 !important;
-            color: #fb8a30 !important;
             color: white;
+            color: #fb8a30 ;
             // padding: 1.3px 1.2px 1px 1.2px;
             font-size: 20px !important;
           }
@@ -356,20 +357,28 @@
     }
   }
 }
-    .post {
-      background: #31b476;
-      display: flex;
-      color: white !important;
-      font-size: 10.4px !important;
-      padding-left: 4px !important;
-      padding-right: 4px !important;
-      border-radius: 4px !important;
-      min-height: 61px !important;
-      max-height: 61px !important;
-      height: 61px !important;
-      min-width: 67.03px !important;
+.post {
+  background: #31b476;
+  display: flex;
+  color: white !important;
+  font-size: 10.4px !important;
+  padding-left: 4px !important;
+  padding-right: 4px !important;
+  border-radius: 4px !important;
+  min-height: 61px !important;
+  max-height: 61px !important;
+  height: 61px !important;
+  min-width: 67.03px !important;
 
-      text-align: center;
-      justify-content: center;
-      align-items: center;
-    }
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+@media (max-width: 900px) {
+  .absoluted {
+    // margin-left: 67% !important;
+  }
+}
+.ksoa {
+  position: absolute;
+}

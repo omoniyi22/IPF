@@ -7,7 +7,18 @@ const initialState = {
   active: [],
   closed: [],
   allEvent: [],
-  selectedEvent: null
+  selectedEvent: {
+    "event_id": "fc3e5bd8-cc99-48e4-bcd9-8e932a99f346",
+    "event_name": "Tech conference",
+    "event_details": "Dummy data",
+    "event_date": "2020-10-22T00:00:00.000Z",
+    "event_time": "00:01:00",
+    "set_reminder": 0,
+    "reminder": null,
+    "status": "active",
+    "banner_image": "http://res.cloudinary.com/dnevwxinm/raw/upload/v1604334389/xyfg3zviza2pq8elsylo.js",
+    "reminder_body": null
+  }
 }
 
 export default (state = initialState, action) => {

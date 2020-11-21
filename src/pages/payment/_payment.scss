@@ -62,7 +62,7 @@ $grey: #dee2e64d;
     .true {
       background: $orange !important;
       border-color: transparent !important;
-      .text{
+      .text {
         color: white;
       }
       .pill {
@@ -96,6 +96,7 @@ $grey: #dee2e64d;
         width: 100%;
         height: 43px;
         &::after {
+          display: none;
           margin-top: 59.3px !important;
         }
       }
@@ -103,5 +104,4 @@ $grey: #dee2e64d;
   }
 }
 
-
-@import './one/one'
+@import "./one/one";

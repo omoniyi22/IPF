@@ -116,6 +116,24 @@ class HomePage extends Component {
       reg_load , reg_pass, reg_fail, 
       Get_All_Event, allEvents, Select_Event, active, closed } = this.props
 
+window.onclick = function (event) {
+  if (!event.target.matches('#dropas')
+    && !event.target.matches('#dropa')
+    && !event.target.matches('#drope')
+    // && !event.target.matches('#toe')
+  ) {
+    if (document.getElementById("dropa"))
+      document.getElementById("dropa").style.display = "none";
+  } else {
+    if (document.getElementById("dropa"))
+      if (document.getElementById("dropa").style.display === "none")
+        document.getElementById("dropa").style.display = "block"
+      else
+        document.getElementById("dropa").style.display = "none"
+  }
+}
+
+
     return (
       <div className={`${swit[2]} `}>
         <div className="home1 ">
@@ -182,16 +200,18 @@ class HomePage extends Component {
 
                     <div className="dropas " id="dropas">
                       <div id="drope" className="">Download As</div>
-                      <div id="dropa" className="z-depth-1 mt-1">
+                      <div id="dropa" className="z-depth-1 mt-1"
+                      style={{display: "none"}}
+                      >
                         <div className="toe" id={"toe"}>
                           <PDFDownloadLink
-                            document={<Melo data={position === true ? closed : active} headers={headers} />}
+                            document={<Melo data={position === false ? closed : active} headers={headers} />}
                             fileName="ipf_events.pdf">
                             PDF
                           </PDFDownloadLink>
                         </div>
                         <div className="toe" id={"toe"}>
-                          <CSVLink data={position === true ? closed : active} headers={headers} >
+                          <CSVLink data={position === false ? closed : active} headers={headers} >
                             CSV
                           </CSVLink>
                         </div>
