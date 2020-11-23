@@ -34,6 +34,23 @@ export const EditEvent = async (data, id) => {
   return authApi.patch(`/admin/events/${id}`, { ...data });
 };
 
+
+export const DeleteEvent = async (id) => {
+  const authApi = await attachApiToken(api);
+  return authApi.delete(`/admin/events/${id}/delete`);
+};
+
+
+
+
+export const CloseEvent = async (data, id) => {
+
+  const authApi = await attachApiToken(api);
+  return authApi.patch(`/admin/events/${id}/delete`, { ...data });
+}
+
+
+
 //Invite Services
 export const AcceptReject = async (type, id) => {
   const authApi = await attachApiToken(api);
@@ -122,4 +139,22 @@ export const get_all_comment = async (question_id) => {
 export const post_comment = async (data) => {
   const authApi = await attachApiToken(api);
   return authApi.post(`comments/question`, data);
+}
+
+
+// Archieve
+export const getArchieve = async () => {
+  const authApi = await attachApiToken(api);
+  return authApi.get(`/questions/archive/get`)
+}
+
+export const postArchieve = async (data) => {
+  const authApi = await attachApiToken(api);
+  return authApi.post(`/questions/archive`, data)
+}
+
+// Like
+export const Like = async (data) => {
+  const authApi = await attachApiToken(api);
+  return authApi.post(`/questions/like`, data)
 }

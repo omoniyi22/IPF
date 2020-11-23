@@ -88,3 +88,19 @@ export const GET_PAYMENT_HISTORY_REQUEST_FAILED =
 export const REG_DONE = "REG_DONE"
 export const BEGIN_REG = "BEGIN_REG"
 export const END_REG = "END_REG"
+
+
+export const SENDING_ARCHIEVE = "SENDING_ARCHIEVE"
+export const ARCHIEVE_SENT = "ARCHIEVE_SENT"
+export const GET_ARCHIEVES = "GET_ARCHIEVES"
+export const GET_A_ARCHIEVE = "GET_A_ARCHIEVE"
+export const ARC_ERROR = "ARC_ERROR"
+
+
+export const CLOSE_ERROR = "CLOSE_ERROR"
+export const CLOSE_LOADER = "CLOSE_LOADER"
+export const EVENT_CLOSED = "EVENT_CLOSED"
+
+export const DEL_DONE = "DEL_DONE"
+export const DEL_FAIL = "DEL_FAIL"
+export const DEL_LOAD = "DEL_LOAD"

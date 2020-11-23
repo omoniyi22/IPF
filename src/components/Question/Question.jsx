@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { DateForm, TimeForm } from './../../assets/utiils/date'
 import Comment from './Comment'
+import { Like } from '../../services/all_service'
 
 const Question = (
   {
@@ -71,7 +72,22 @@ const Question = (
             <div className="commentary heart">
               <div className="comments ld">{Number(no)} comments</div>
               <div className="likes dl border ml-2">{Number(no)} <span className={`fa ${Number(no) > 1 ? "fa-comments" : "fa-comment"}  pl-1 font-weight-light`} /></div>
-              <div className="likes border ml-2">1 <span className="fa fa-thumbs-up pl-1 font-weight-light" /></div>
+
+
+              <div className="likes border ml-2"
+                onClick={async () => {
+                  try {
+                    let like = await Like()
+                    like = await like
+                    
+                  } catch (error) {
+                    console(error.response)
+                  }
+                }}
+              >1 <span className="fa fa-thumbs-up pl-1 font-weight-light" /></div>
+
+
+
               <div className="menus  " id={`drope`}
               >
                 <div className="menus flex  w-100 mr-auto"

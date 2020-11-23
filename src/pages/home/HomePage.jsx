@@ -38,7 +38,7 @@ const style = StyleSheet.create({
 })
 
 const Melo = ({ headers, data }) =>
-  <Document>
+  <Document onRender={() => { return null }}>
     <Page size="A3" style={style.size}>
       <View style={style.view}>
         <View style={style.flex}>
@@ -113,25 +113,25 @@ class HomePage extends Component {
     let swit = Switch(EventForm);
     let { position } = this.state
     let { user, isAdmin, nrole, Register,
-      reg_load , reg_pass, reg_fail, 
+      reg_load, reg_pass, reg_fail,
       Get_All_Event, allEvents, Select_Event, active, closed } = this.props
 
-window.onclick = function (event) {
-  if (!event.target.matches('#dropas')
-    && !event.target.matches('#dropa')
-    && !event.target.matches('#drope')
-    // && !event.target.matches('#toe')
-  ) {
-    if (document.getElementById("dropa"))
-      document.getElementById("dropa").style.display = "none";
-  } else {
-    if (document.getElementById("dropa"))
-      if (document.getElementById("dropa").style.display === "none")
-        document.getElementById("dropa").style.display = "block"
-      else
-        document.getElementById("dropa").style.display = "none"
-  }
-}
+    window.onclick = function (event) {
+      if (!event.target.matches('#dropas')
+        && !event.target.matches('#dropa')
+        && !event.target.matches('#drope')
+        // && !event.target.matches('#toe')
+      ) {
+        if (document.getElementById("dropa"))
+          document.getElementById("dropa").style.display = "none";
+      } else {
+        if (document.getElementById("dropa"))
+          if (document.getElementById("dropa").style.display === "none")
+            document.getElementById("dropa").style.display = "block"
+          else
+            document.getElementById("dropa").style.display = "none"
+      }
+    }
 
 
     return (
@@ -201,7 +201,7 @@ window.onclick = function (event) {
                     <div className="dropas " id="dropas">
                       <div id="drope" className="">Download As</div>
                       <div id="dropa" className="z-depth-1 mt-1"
-                      style={{display: "none"}}
+                        style={{ display: "none" }}
                       >
                         <div className="toe" id={"toe"}>
                           <PDFDownloadLink

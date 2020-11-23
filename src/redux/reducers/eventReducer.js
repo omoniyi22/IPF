@@ -1,6 +1,8 @@
 import {
   GOT_ALL_EVENTS, GOT_CLOSED_EVENTS, GOT_ACTIVE_EVENTS,
-  SELECT_EVENT, FETCHED_AN_EVENT
+  SELECT_EVENT, FETCHED_AN_EVENT,
+  CLOSE_ERROR, CLOSE_LOADER, EVENT_CLOSED,
+  DEL_DONE, DEL_FAIL, DEL_LOAD
 } from './../types'
 
 const initialState = {
@@ -18,7 +20,15 @@ const initialState = {
     "status": "active",
     "banner_image": "http://res.cloudinary.com/dnevwxinm/raw/upload/v1604334389/xyfg3zviza2pq8elsylo.js",
     "reminder_body": null
-  }
+  },
+
+  del_load: false,
+  deleted: false,
+
+  closed_load: false
+
+  // close_load: false,
+
 }
 
 export default (state = initialState, action) => {
@@ -46,7 +56,37 @@ export default (state = initialState, action) => {
     case SELECT_EVENT:
       return {
         ...state,
-        selectedEvent: action.payload
+        selectedEvent: action.payload,
+        deleted: false,
+        close_load: false,
+      }
+    case DEL_LOAD:
+      return {
+        ...state,
+        del_load: true,
+        deleted: false
+      }
+    case DEL_DONE:
+      return {
+        ...state,
+        del_load: false,
+        deleted: true
+      }
+    case DEL_FAIL:
+      return {
+        ...state,
+        del_load: false,
+        deleted: false
+      }
+    case CLOSE_LOADER:
+      return {
+        ...state,
+        close_load: true,
+      }
+    case CLOSE_ERROR:
+      return {
+        ...state,
+        close_load: false
       }
     default:
       return {

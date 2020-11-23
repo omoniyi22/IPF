@@ -5,8 +5,9 @@ import QandA from './../../components/Screens/Q&A_Screen'
 import Switch from './../../utils/Switch_2'
 import EditForm from './../../components/Forms/Event'
 import InviteForm from './../../components/Forms/Invite/index'
-import { Link } from 'react-router-dom'
-import { withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
+import Loader from 'react-loader-spinner'
+
 
 
 class Event extends Component {
@@ -32,7 +33,9 @@ class Event extends Component {
     let {
       event,
       rejected_invite, accepted_invite,
-      pending_invite, invite_error, invite_loading, isAdmin
+      pending_invite, invite_error, invite_loading, isAdmin,
+      del_load, deleted, Delete, event_id, close_load, statu,
+      Close_Event
     } = this.props
 
     return (
@@ -40,7 +43,7 @@ class Event extends Component {
         <div className="home1">
           <div className="Event_Page">
             <div className="main_page">
-              {isAdmin !== 1 && <div className="main_button     flex ">
+              {isAdmin === 1 && <div className="main_button     flex ">
                 <Link className="text-init ml-auto " to="/edit_event">
                   <div className="edit_b heart  text-center btn border flex   rounded-pill">
                     <div className="fa fa-edit" />
@@ -53,16 +56,61 @@ class Event extends Component {
                     <div className="text pr-1 ">Invite</div>
                   </div>
                 </Link>
-                <Link to="/invite">
+                <Link>
                   <div className="edit_b a  ml-2 heart text-center btn border flex   rounded-pill">
-                    <div className="fa fa-trash pl-1" />
-                    <div className="text pr-1 ">Delete</div>
+
+                    {deleted === false && del_load === false &&
+                      <>
+                        <div className="fa fa-trash pl-1" />
+                        <div className="text pr-1 "
+                          onClick={() => Delete(event_id, this.props.history)}
+                        >Delete</div>
+                      </>
+                    }
+
+                    {deleted === true && del_load === false &&
+                      <div className="text pr-1 ">Deleted</div>
+                    }
+
+                    {del_load === true && deleted === false &&
+                      <Loader
+                        type="ThreeDots"
+                        color="white"
+                        height={40}
+                        width={40}
+                        secondaryColor={"white"}
+                      />
+                    }
+
                   </div>
                 </Link>
-                <Link to="/invite">
+                <Link>
                   <div className="edit_b  ssa ml-2 heart text-center btn border flex   rounded-pill">
-                    <div className="fa fa-times pl-1" />
-                    <div className="text pr-1 text-white ">Close</div>
+                    {close_load === true &&
+                      <Loader
+                        type="ThreeDots"
+                        color="white"
+                        height={40}
+                        width={40}
+                        secondaryColor={"white"}
+                      />
+                    }
+                    {statu === "active" && close_load === false &&
+                      <>
+                        <div className="fa fa-times pl-1" />
+                        <div className="text pr-1 text-white"
+                          onClick={() => { Close_Event({ status: "closed" }, event_id) }}
+                        >Close</div>
+                      </>
+                    }
+
+                    {statu === "closed" && close_load === false &&
+                      <>
+                        <div className="text pr-1 text-white ">Closed</div>
+                      </>
+                    }
+
+
                   </div>
                 </Link>
               </div>}

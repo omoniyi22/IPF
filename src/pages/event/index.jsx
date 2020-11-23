@@ -1,5 +1,5 @@
 import EventPage from './event'
-import { Fetch_Event } from "./../../redux/actions/eventsActions";
+import { Fetch_Event, Delete, Close_Event } from "./../../redux/actions/eventsActions";
 import { Get_Sent_Invite } from "./../../redux/actions/inviteActions";
 
 import { connect } from 'react-redux'
@@ -11,7 +11,13 @@ const mapStateToProps = state => ({
   pending_invite: state.invite.pending,
   invite_error: state.invite.invite_error,
   invite_loading: state.invite.invite_loading,
-  isAdmin: state.user.currentUser.isAdmin
+  isAdmin: state.user.currentUser.isAdmin,
+  deleted: state.event.deleted,
+  del_load: state.event.del_load,
+
+  close_load: state.event.close_load,
+  statu: state.event.selectedEvent !== null ? state.event.selectedEvent.status : undefined,
+
 
 })
-export default connect(mapStateToProps, { Fetch_Event, Get_Sent_Invite })(EventPage)
+export default connect(mapStateToProps, { Fetch_Event, Delete, Get_Sent_Invite, Close_Event })(EventPage)
