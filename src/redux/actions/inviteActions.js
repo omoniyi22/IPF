@@ -7,15 +7,15 @@ import { getInvites, sendInvites, AcceptReject, invitations } from './../../serv
 
 
 export const Get_Sent_Invite = () => async (dispatch, state) => {
-  // let event_id = state().event.selectedEvent && state().event.selectedEvent.event_id
-  let event_id = "25891d17-308c-478b-ac2d-32c04c9216ad"
+  let event_id = state().event.selectedEvent && state().event.selectedEvent.event_id
+  // let event_id = "25891d17-308c-478b-ac2d-32c04c9216ad"
   try {
     dispatch({
       type: INVITE_LOADING,
       payload: true
     })
     if (event_id) {
-      console.log(event_id)
+
       let get_invite = await getInvites(event_id)
       get_invite = await get_invite.data
       get_invite = await get_invite.data

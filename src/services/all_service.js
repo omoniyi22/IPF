@@ -67,6 +67,12 @@ export const sendInvites = async (data) => {
   return authApi.post(`/admin/events/invites`, { ...data });
 };
 
+export const sendMemInvites = async (data) => {
+  const authApi = await attachApiToken(api);
+  return authApi.post(`/events/members/invites`, { ...data });
+};
+
+
 export const invitations = async () => {
   const authApi = await attachApiToken(api);
   return authApi.get(`/events/member/invites`);
@@ -142,11 +148,13 @@ export const post_comment = async (data) => {
 }
 
 
-// Archieve
-export const getArchieve = async () => {
+
+export const getArchives = async (event_id) => {
   const authApi = await attachApiToken(api);
-  return authApi.get(`/questions/archive/get`)
-}
+  return authApi.get(`/questions/${event_id}/archives`);
+};
+
+
 
 export const postArchieve = async (data) => {
   const authApi = await attachApiToken(api);
@@ -158,3 +166,17 @@ export const Like = async (data) => {
   const authApi = await attachApiToken(api);
   return authApi.post(`/questions/like`, data)
 }
+
+export const noOFmem = async (id, no) => {
+  try {
+    let authApi = await attachApiToken(api);
+    authApi = await authApi.get(`/events/members/${id}/number`)
+    authApi = await authApi.data
+    authApi = await authApi.data
+    no.setState({ no: await authApi.number_of_members })
+  } catch (error) {
+    no.setState({ no: 0 })
+  }
+}
+
+//

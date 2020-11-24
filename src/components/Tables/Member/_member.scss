@@ -8,13 +8,20 @@
   .lom {
     width: 100%;
     overflow: visible !important;
+    display: flex;
+    flex-direction: row !important;
   }
 }
 .baew {
-  width: fit-content;
+  // width: fit-content;
   background: #c4c4c4;
-  padding: 5px 5px;
+  // padding: 5px 5px;
+  margin-top: -5px;
   margin-right: 9px;
+  min-width: 33px;
+  width: 33px !important;
+  max-width: 33px;
+  height: 33px;
 }
 
 .member_table {

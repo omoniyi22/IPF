@@ -162,10 +162,10 @@ class EventScreen extends Component {
     })
   }
   updateSearch(e) {
-    console.log({ dat: this.state.invites })
+    // console.log({ dat: this.state.invites })
     this.setState({
-      search: e.target.value.substr(0, 20),
-      searches: this.state.invites.filter(invite => invite.member_name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1)
+      search: e.target.value
+      // searches: this.state.invites.filter(invite => invite.member_name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1)
     })
   }
 
@@ -184,11 +184,15 @@ class EventScreen extends Component {
         ERROR
       </div>
     )
-    let filter = this.state.invites.filter(invite => invite.member_name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1)
+
+    let filter = [...this.props.accepted_invite, ...this.props.rejected_invite, ...this.props.pending_invite].filter(invite => invite.member_name.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+    let Rfilter = [...this.props.rejected_invite].filter(invite => invite.member_name.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+    let Afilter = [...this.props.accepted_invite].filter(invite => invite.member_name.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+    let Pfilter = [...this.props.pending_invite].filter(invite => invite.member_name.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+
     return (
 
       <>
-
         {invite_loading === true ?
           <div style={{ marginTop: "-110px" }}>
             <TableLoader />
@@ -323,15 +327,15 @@ class EventScreen extends Component {
                   </div>
                   <div className="home_4 ">
                     {invitatio === true ?
-                      <Header first="Event Name" second="My Role" third="Date" fourth="Status" classx={`${opacy + " " + type}`} /> :
-                      <Header first="Member Name" second="Email" third="Date" fourth="Role" classx={`${opacy + " " + type}`} />
+                      <Header first="Event Name" second="My Role" third="Event Date" fourth="Status" classx={`${opacy + " " + type}`} /> :
+                      <Header first="Member Name" second="Email" third="Event Date" fourth="Role" classx={`${opacy + " " + type}`} />
                     }
                     <>
                       {type === "" && search === "" ?
                         <>
                           {[...this.props.accepted_invite, ...this.props.rejected_invite, ...this.props.pending_invite].length < 1 ?
                             <div className="mx-auto text-center my-3 py-2 opacy">No Record Found</div> :
-                            [...this.props.accepted_invite, ...this.props.rejected_invite, ...this.props.pending_invite].map(dat => <MemberTable dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)
+                            [...this.props.accepted_invite, ...this.props.rejected_invite, ...this.props.pending_invite].map((dat, key) => <MemberTable dot={key} dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)
                           }
                         </>
                         :
@@ -341,25 +345,25 @@ class EventScreen extends Component {
                               {
                                 filter.length < 1 ?
                                   <div className="mx-auto text-center my-3 py-2 opacy">No Record Found</div> :
-                                  filter.map(dat => <MemberTable dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)
+                                  filter.map((dat, key) => <MemberTable dot={key} dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)
                               }
                             </>
                           }
                           {type === "rejected" &&
                             <>
                               {
-                                filter.length < 1 ?
+                                Rfilter.length < 1 ?
                                   <div className="mx-auto text-center my-3 py-2 opacy">No Record Found</div> :
-                                  filter.map(dat => <MemberTable dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)
+                                  Rfilter.map((dat, key) => <MemberTable dot={key} dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)
                               }
                             </>
                           }
                           {type === "accepted" &&
                             <>
                               {
-                                filter.length < 1 ?
+                                Afilter.length < 1 ?
                                   <div className="mx-auto text-center my-3 py-2 opacy">No Record Found</div> :
-                                  filter.map(dat => <MemberTable dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)
+                                  Afilter.map((dat, key) => <MemberTable dot={key} dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)
                               }
                             </>
                           }
@@ -367,9 +371,9 @@ class EventScreen extends Component {
                           {type === "pending" &&
                             <>
                               {
-                                filter.length < 1 ?
+                                Pfilter.length < 1 ?
                                   <div className="mx-auto text-center my-3 py-2 opacy">No Record Found</div> :
-                                  filter.map(dat => <MemberTable dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)
+                                  Pfilter.map((dat, key) => <MemberTable dot={key} dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)
                               }
                             </>
                           }

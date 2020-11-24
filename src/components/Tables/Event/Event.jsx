@@ -1,11 +1,23 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { DateForm, TimeForm } from "./../../../assets/utiils/date"
+import { noOFmem } from '../../../services/all_service'
 
 
 class Event_Table extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      no: 0
+    }
+  }
+
+  componentDidMount() {
+    noOFmem(this.props.event.event_id, this)
+  }
+
   render() {
-    let { isAdmin, kin, event: { event_name, event_date, event_time }, click } = this.props
+    let { isAdmin, kin, event: { event_name, event_date, event_time, event_id }, click } = this.props
     return (
       <Link to="/event_page" className="opacy text-init event_table  py-3 flex w-100 mb-4" onClick={click}>
         <div className="numb rounded-pill text-center  heart border">
@@ -17,12 +29,12 @@ class Event_Table extends Component {
               {event_name}
             </div>
             <div className="date">
-              {DateForm(event_date)} {TimeForm(event_time)}
+              {`${DateForm(event_date)}`} {TimeForm(event_time)}
             </div>
           </div>
           <div className="numn border-top flex ">
             <div className="members">
-              20 Members
+              {this.state.no} Members
             </div>
             <div className="name">
               Andrew John

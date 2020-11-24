@@ -2,13 +2,17 @@ import React, { useState } from 'react'
 import { DateForm, TimeForm } from './../../assets/utiils/date'
 import Comment from './Comment'
 import { Like } from '../../services/all_service'
+import { connect } from 'react-redux'
+
+
 
 const Question = (
   {
     data: { question, created_at, member_id, question_id, firstName, lastName, avatar },
-    edit, user, kin
+    edit, user, kin, Arch, posArchive
   }
 ) => {
+  let isAlreadyArchived = Arch.some(dat => dat.question_id === question_id)
 
   const [display, setDisplay] = useState("none")
   const [shelf, setShelf] = useState(false)
@@ -30,7 +34,7 @@ const Question = (
 
   return (
     <div>
-      <div className="real_question border-bottom">
+      <div className="real_question border-bottom z-depth-1">
         <div className="my_que   pnt p-2 z-balm "
           onClick={() => setShelf(!shelf)}
         >
@@ -60,7 +64,7 @@ const Question = (
           <div className="flex">
             <div className=" bottom heart flex-2">
               <div className="the_img border border-white rounded-pill z-depth-1"
-                style={{ backgroundImage: `url("${require('./unnamed.png') || avatar}")` }}
+                style={{ backgroundImage: `url(${require('./unnamed.png') || avatar})` }}
               />
               <div className="content py-1" >
                 <div className="name">{firstName} {lastName}</div>
@@ -79,7 +83,7 @@ const Question = (
                   try {
                     let like = await Like()
                     like = await like
-                    
+
                   } catch (error) {
                     console(error.response)
                   }
@@ -121,10 +125,16 @@ const Question = (
                         console.log({ shelf, reply })
                       }}>
                       <div className="fa fa-reply" />Reply
-            </div>
-                    <div className="toe " id={`toe`}>
-                      <div className="fa fa-file-download" />Archive
-            </div>
+                    </div>
+                    {
+                      isAlreadyArchived === false &&
+                      <div className="toe " id={`toe`}
+                        onClick={() => posArchive(question_id)}
+                      >
+                        <div className="fa fa-file-download" />Archive
+                      </div>
+
+                    }
                     {
                       edit &&
                       <div className="toe " id={`toe`}>
@@ -143,8 +153,12 @@ const Question = (
       <div className={`paod ${shelf === false ? "coment" : "ntt"} border`}>
         <Comment reply={reply} question={question_id} no={(n) => setNo(n)} />
       </div>
-    </div>
+    </div >
   )
 }
 
-export default Question
+const mapStateToProps = state => ({
+  Arch: state.arch.ques
+})
+
+export default connect(mapStateToProps)(Question)

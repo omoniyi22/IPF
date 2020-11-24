@@ -20,3 +20,10 @@ export const TimeForm = (tim) => {
   }
   return time;
 };
+
+
+export const AB = (text) => {
+  let a = text.trim().charAt(0).toString().toUpperCase()
+  let b = text.charAt(text.indexOf(" ") + 1).toUpperCase()
+  return a + b
+}

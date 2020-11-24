@@ -32,7 +32,7 @@
 .real_question {
   .my_que {
     transition-duration: 0.2s;
-        background: #e9e9e9 ;
+    background: #fffefe;
     &:hover {
       background: #b5e9d0d7;
       .fa-star {
@@ -186,7 +186,7 @@
             margin-bottom: 2px;
             border-color: #fb8a30 !important;
             color: white;
-            color: #fb8a30 ;
+            color: #fb8a30;
             // padding: 1.3px 1.2px 1px 1.2px;
             font-size: 20px !important;
           }

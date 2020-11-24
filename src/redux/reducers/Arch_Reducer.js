@@ -1,6 +1,6 @@
 import {
   SENDING_ARCHIEVE, ARCHIEVE_SENT,
-  GET_ARCHIEVES, GET_A_ARCHIEVE, ARC_ERROR
+  GET_ARCHIEVES, ARC_ERROR
 } from './../types'
 
 const initialState = {
@@ -18,16 +18,12 @@ export default (state = initialState, action) => {
         error: false,
         loading: true
       }
-    case ARCHIEVE_SENT:
-      return {
-        ...state,
-        error: false,
-        loading: false
-      }
-    case GET_A_ARCHIEVE:
-      return {
-        ...state
-      }
+    // case ARCHIEVE_SENT:
+    //   return {
+    //     ...state,
+    //     error: false,
+    //     loading: false
+    //   }
     case GET_ARCHIEVES:
       return {
         ...state,

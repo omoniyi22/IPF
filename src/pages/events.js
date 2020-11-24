@@ -2,12 +2,13 @@
 import React, { Component } from "react";
 import Dashboard from "../hoc/Dashboard";
 // import CustomHeader from "../hoc/CustomHeader";
+import { Link } from 'react-router-dom'
 
-class Events extends Component{
-    render(){
-        return (
-            <Dashboard>
-          {/* <CustomHeader>
+class Events extends Component {
+  render() {
+    return (
+      <Dashboard>
+        {/* <CustomHeader>
             <div className="container-fluid">
                 <div className="row ">
                     <div className="col-lg-2">
@@ -25,19 +26,19 @@ class Events extends Component{
                 </div>
             </div>
           </CustomHeader> */}
-          <div className="container-fluid w-100 h-100"> 
-              <div className="d-flex mt-5 events-content flex-column align-items-center h-100 justify-content-center">
-                <h1>
-                  <span className="events-calendar"> <i className="material-icons">date_range</i></span>
-                </h1>
-                <p>
-                    No Upcoming Events  
-                </p> 
-              </div>
+        <div className="container-fluid w-100 h-100">
+          <div className="d-flex mt-5 events-content flex-column align-items-center h-100 justify-content-center">
+            <h1>
+              <span className="events-calendar"> <i className="material-icons">date_range</i></span>
+            </h1>
+            <p>
+              <Link to="/event_"> Check Upcoming Events  </Link>
+            </p>
           </div>
+        </div>
       </Dashboard>
-        )
-    }
+    )
+  }
 }
 
 

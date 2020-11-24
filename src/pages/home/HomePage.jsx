@@ -156,13 +156,13 @@ class HomePage extends Component {
                     }} />} */}
                   {active[0] && <EventCard event={active[0]}
                     reg_load={reg_load} reg_pass={reg_pass} reg_fail={reg_fail}
-                    Register={() => Register()}
+                    user={user} Register={() => Register()}
                   />}
                 </div>
                 <div className="seprate w-50 pl-1 ">
                   {active[1] && <EventCard event={active[1]}
                     reg_load={reg_load} reg_pass={reg_pass} reg_fail={reg_fail}
-                    Register={() => Register()}
+                    user={user} Register={() => Register()}
                   />}
                 </div>
               </div>
@@ -203,18 +203,42 @@ class HomePage extends Component {
                       <div id="dropa" className="z-depth-1 mt-1"
                         style={{ display: "none" }}
                       >
-                        <div className="toe" id={"toe"}>
-                          <PDFDownloadLink
-                            document={<Melo data={position === false ? closed : active} headers={headers} />}
-                            fileName="ipf_events.pdf">
-                            PDF
-                          </PDFDownloadLink>
-                        </div>
-                        <div className="toe" id={"toe"}>
-                          <CSVLink data={position === false ? closed : active} headers={headers} >
-                            CSV
+
+                        {position === false && closed.length > 0 &&
+                          <>
+                            <div className="toe" id={"toe"}>
+                              {/* <PDFDownloadLink
+                                document={<Melo data={[...closed]} headers={headers} />}
+                                fileName="ipf_events.pdf">
+                                PDF
+                          </PDFDownloadLink> */}
+                            </div>
+                            <div className="toe" id={"toe"}>
+                              <CSVLink data={[...closed]} headers={headers} >
+                                CSV
                           </CSVLink>
-                        </div>
+                            </div>
+                          </>
+                        }
+
+                        {position === true && active.length > 0 &&
+                          <>
+                            <div className="toe" id={"toe"}>
+                              {/* <PDFDownloadLink
+                                document={<Melo data={[...active]} headers={headers} />}
+                                fileName="ipf_events.pdf">
+                                PDF
+                          </PDFDownloadLink> */}
+                            </div>
+                            <div className="toe" id={"toe"}>
+                              <CSVLink data={[...active]} headers={headers} >
+                                CSV
+                              </CSVLink>
+                            </div>
+                          </>
+                        }
+
+
                       </div>
 
                     </div>

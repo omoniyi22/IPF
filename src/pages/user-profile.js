@@ -8,6 +8,7 @@ import AppWrapper from "../components/appWrapper.js";
 import { TextInput } from "../components/components";
 import PhoneNumber from "../components/General/phoneInput";
 import UserDashboard from "../hoc/Dashboard";
+import { Link } from 'react-router-dom'
 import * as actions from "../redux/actions";
 import {
   getClassificationCall,
@@ -232,7 +233,7 @@ class UserProfile extends Component {
       }
     );
   };
-  viewEvent = () => {};
+  viewEvent = () => { };
   updateCompany = async (e) => {
     try {
       if (this.state.companyDetails.trim() === "") {
@@ -410,7 +411,7 @@ class UserProfile extends Component {
                               />
                             </div>
                             <div>
-                              <P>No Upcoming Events</P>
+                              <P><Link to="/event_"> Check Upcoming Events</Link></P>
                             </div>
                           </Container>
 
@@ -487,15 +488,15 @@ class UserProfile extends Component {
                     {avatar ? (
                       <img className="img-avatar" src={avatar} alt="profile" />
                     ) : (
-                      <span>
-                        <i
-                          style={{ fontSize: 200, color: "#bdbdbd" }}
-                          className="material-icons"
-                        >
-                          account_circle
+                        <span>
+                          <i
+                            style={{ fontSize: 200, color: "#bdbdbd" }}
+                            className="material-icons"
+                          >
+                            account_circle
                         </i>
-                      </span>
-                    )}
+                        </span>
+                      )}
                     <span onClick={this.uploadWidget} className="camera-button">
                       <i className="material-icons">camera_enhance</i>
                     </span>
@@ -736,8 +737,8 @@ class UserProfile extends Component {
                         {industryType ? (
                           <option>{industryType}</option>
                         ) : (
-                          <option>Select Industry Type</option>
-                        )}
+                            <option>Select Industry Type</option>
+                          )}
                         {this.state.industry.map((ele) => (
                           <option key={ele.id} value={ele.industry_name}>
                             {ele.industry_name}
@@ -757,8 +758,8 @@ class UserProfile extends Component {
                         {industryClassification ? (
                           <option>{industryClassification}</option>
                         ) : (
-                          <option>Select Industry Classification</option>
-                        )}
+                            <option>Select Industry Classification</option>
+                          )}
 
                         {this.state.indusClass.map((ele) => (
                           <option key={ele.id} value={ele.industry_name}>
@@ -822,15 +823,15 @@ class UserProfile extends Component {
                         alt="profile"
                       />
                     ) : (
-                      <span>
-                        <i
-                          style={{ fontSize: 200, color: "#bdbdbd" }}
-                          className="material-icons"
-                        >
-                          account_circle
+                        <span>
+                          <i
+                            style={{ fontSize: 200, color: "#bdbdbd" }}
+                            className="material-icons"
+                          >
+                            account_circle
                         </i>
-                      </span>
-                    )}
+                        </span>
+                      )}
                     <span
                       onClick={this.uploadWidget2}
                       className="camera-button"

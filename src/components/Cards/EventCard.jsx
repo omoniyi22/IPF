@@ -1,11 +1,70 @@
 import React, { Component } from 'react'
 import { DateForm, TimeForm } from './../../assets/utiils/date'
 import Loader from 'react-loader-spinner'
-
+import { getInvites, sendInvites, sendMemInvites, invitations, noOFmem } from '../../services/all_service'
 
 class EventCard extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      reg_fail: false,
+      reg_pass: false,
+      reg_load: true,
+      no: 0
+
+    }
+    this.Register = this.Register.bind(this)
+  }
+
+  async  Register() {
+    this.setState({ reg_load: true })
+    try {
+      let data = {
+        "event_id": this.props.event.event_id,
+        "email": this.props.user.email
+      }
+      let member_id
+      if (this.props.user.isAdmin === 1) {
+        member_id = await sendInvites(data)
+      } else {
+        member_id = await sendMemInvites(data)
+      }
+      console.log({
+        "event_id": this.props.event.event_id,
+        "email": this.props.user.email
+      })
+      member_id = await member_id.data
+      console.log({ member_id })
+      this.setState({ reg_pass: true, reg_fail: false, reg_load: false })
+    } catch (error) {
+      console.log({ error: error.response })
+      this.setState({ reg_fail: true, reg_pass: false, reg_load: false })
+    }
+  }
+
+  async componentDidMount() {
+    noOFmem(this.props.event.event_id, this)
+    try {
+      let member_id = await invitations()
+      member_id = await member_id.data
+      member_id = await member_id.data
+      member_id = member_id.some(dat => dat.event_id === this.props.event.event_id)
+      console.log({ member_id })
+      if (member_id === true) {
+        this.setState({ reg_pass: true })
+      }
+    } catch (error) {
+      console.log(error.response)
+    } finally {
+      this.setState({ reg_load: false })
+    }
+  }
+
+
+
   render() {
-    let { event, Register, reg_load, reg_pass, reg_fail } = this.props
+    let { event } = this.props
+    let { reg_load, reg_pass, reg_fail, no } = this.state
     return (
       <div className="EventCard mx-0 ">
         <div className="card_pix"
@@ -20,7 +79,7 @@ class EventCard extends Component {
             )} {TimeForm(event.event_time)}
           </div>
           <div className="EC_members metro">
-            {event.event_members || "event_members"}
+            {no} members acecepted invitations
           </div>
           <div className="EC_down flex ">
             {
@@ -36,7 +95,7 @@ class EventCard extends Component {
                 </button> :
                 <>{reg_fail === true ?
                   < button className="rounded-pill text-center z-depth-1 ovin"
-                    onClick={Register}
+                    onClick={this.Register}
                   >
                     Try Again
                     </button>
@@ -44,10 +103,10 @@ class EventCard extends Component {
                   <>
                     {reg_pass === true ?
                       < button className="rounded-pill text-center z-depth-1 ovin">
-                        Registered
+                        You are Registered already
                    </button> :
                       < button className="rounded-pill text-center z-depth-1 ovin"
-                        onClick={Register}
+                        onClick={this.Register}
                       >
                         Register
                    </button>
@@ -73,4 +132,6 @@ class EventCard extends Component {
     )
   }
 }
+
+
 export default EventCard
