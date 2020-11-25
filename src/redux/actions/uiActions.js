@@ -1,6 +1,6 @@
 const { SHOW_LOADER } = require("../types");
 
-const showLoader = (isLoading = false) => {
+const showLoader = (isLoading) => {
   return {
     type: SHOW_LOADER, payload: isLoading
   };

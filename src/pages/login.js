@@ -175,7 +175,7 @@ class Login extends Component {
   render() {
     const { msg, openSnack, type } = this.state;
     return (
-          <AppWrapper
+      <AppWrapper
         message={msg}
         open={openSnack}
         type={type}
@@ -185,7 +185,7 @@ class Login extends Component {
           });
         }}
       >
-        <div className="container-fluid" style={{ padding: 0 }}>
+        <div className="container-fluid material" style={{ padding: 0 }}>
           <div className="desktop">
             <BlackBackground>
               <div className="py-4 px-4">
@@ -321,7 +321,7 @@ class Login extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    showLoader: (type = false) => dispatch(actions.showLoader(type)),
+    showLoader: (type) => dispatch(actions.showLoader(type)),
     loginSuccess: (payload) => dispatch(actions.loginSuccessAction(payload)),
     setCurrentUser: (payload) => dispatch(actions.setCurrentUser(payload)),
     getCompanyDetails: () => dispatch(actions.getCompanyDetailsRequest()),
