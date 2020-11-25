@@ -51,17 +51,26 @@ class Login extends Component {
     e.preventDefault();
     try {
       this.props.showLoader(true);
+
       const { emailAddress, password } = this.state;
-      const response = await Axios.post("/api/v1/auth/login", {
+
+      let response = await Axios.post("/api/v1/auth/login", {
         emailAddress,
         password,
       });
+
+      let tokin = response.data.data.token
+
+      response = await Axios.get("/api/v1/auth/details", {
+        headers: {
+          "x-access-token": tokin
+        }
+      })
 
 
       this.props.setCurrentUser(response.data.data)
       const {
         data: {
-          token,
           firstName,
           lastName,
           email,
@@ -85,7 +94,7 @@ class Login extends Component {
         localStorage.clear();
       }
 
-      localStorage.setItem("x-access-token", token);
+      localStorage.setItem("x-access-token", tokin);
       localStorage.setItem(
         "ipf-user",
         JSON.stringify({
@@ -109,29 +118,30 @@ class Login extends Component {
         default_password,
       });
 
-      await this.props.setCurrentUser({
-        firstName,
-        lastName,
-        email,
-        isAdmin,
-        approved,
-        position,
-        phoneNumber,
-        id,
-        role,
-        nrole,
-        memberType,
-        company_id,
-        default_password,
-      })
+      // await this.props.setCurrentUser({
+      //   firstName,
+      //   lastName,
+      //   email,
+      //   isAdmin,
+      //   approved,
+      //   position,
+      //   phoneNumber,
+      //   id,
+      //   role,
+      //   nrole,
+      //   memberType,
+      //   company_id,
+      //   default_password,
+      // })
+
       if (!isAdmin) {
         this.props.getCompanyDetails();
       }
 
       this.props.showLoader(false);
-      if (isAdmin) {
-        return this.props.history.push("/");
-      }
+
+      return this.props.history.push("/");
+
     } catch (error) {
       console.log(error.response)
       if (error.response && error.response.data) {
@@ -140,7 +150,6 @@ class Login extends Component {
       this.props.showLoader(false);
     }
     console.log("i dey here")
-    this.props.history.push("/");
   };
 
   componentDidMount() {
@@ -166,7 +175,7 @@ class Login extends Component {
   render() {
     const { msg, openSnack, type } = this.state;
     return (
-      <AppWrapper
+          <AppWrapper
         message={msg}
         open={openSnack}
         type={type}
@@ -176,7 +185,7 @@ class Login extends Component {
           });
         }}
       >
-        <div className="container-fluid material" style={{ padding: 0 }}>
+        <div className="container-fluid" style={{ padding: 0 }}>
           <div className="desktop">
             <BlackBackground>
               <div className="py-4 px-4">

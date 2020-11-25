@@ -82,7 +82,7 @@ class EventScreen extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      type: "",
+      type: "all",
       opacy: "",
       search: "",
       position: true,
@@ -308,9 +308,11 @@ class EventScreen extends Component {
                                   document={<Melo data={invite_loading === false ? [
                                     ...rejected_invite, ...accepted_invite, ...pending_invite
                                   ] : []} headers={headers} />}
-                                  fileName="ipf_events.pdf">
+                                  fileName={`invitation.pdf`}>
                                   PDF
-                          </PDFDownloadLink>
+                               </PDFDownloadLink>
+
+
                               </div>
                               <div className="toe" id={"toe"}>
                                 <CSVLink data={invite_loading === false ? [
@@ -335,7 +337,8 @@ class EventScreen extends Component {
                         <>
                           {[...this.props.accepted_invite, ...this.props.rejected_invite, ...this.props.pending_invite].length < 1 ?
                             <div className="mx-auto text-center my-3 py-2 opacy">No Record Found</div> :
-                            [...this.props.accepted_invite, ...this.props.rejected_invite, ...this.props.pending_invite].map((dat, key) => <MemberTable dot={key} dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)
+                            [...this.props.accepted_invite, ...this.props.rejected_invite, ...this.props.pending_invite].filter(invite => invite.member_name.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+                            .map((dat, key) => <MemberTable dot={key} dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)
                           }
                         </>
                         :

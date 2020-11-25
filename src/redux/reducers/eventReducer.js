@@ -1,11 +1,12 @@
 import {
   GOT_ALL_EVENTS, GOT_CLOSED_EVENTS, GOT_ACTIVE_EVENTS,
-  SELECT_EVENT, FETCHED_AN_EVENT,
+  SELECT_EVENT, FETCHED_AN_EVENT, PAGE_LOADER,
   CLOSE_ERROR, CLOSE_LOADER, EVENT_CLOSED,
   DEL_DONE, DEL_FAIL, DEL_LOAD
 } from './../types'
 
 const initialState = {
+  event_load: false,
   active: [],
   closed: [],
   allEvent: [],
@@ -33,6 +34,11 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case PAGE_LOADER:
+      return {
+        ...state,
+        event_load: action.payload
+      }
     case GOT_ACTIVE_EVENTS:
       return {
         ...state,

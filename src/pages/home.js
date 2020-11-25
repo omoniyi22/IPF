@@ -6,6 +6,7 @@ import { TableBody, TableHeader } from "../components/components";
 import Dashboard from "../hoc/Dashboard";
 import * as actions from "../redux/actions";
 import { getDashboardOverview } from "../services";
+import { Link } from 'react-router-dom'
 
 class HomePage extends Component {
   state = {
@@ -145,7 +146,7 @@ class HomePage extends Component {
                       />
                     </div>
                     <div>
-                      <P>No Upcoming Events</P>
+                      <P><Link to="/event_">Check Upcoming Events</Link></P>
                     </div>
                   </Container>
                 </TableBody>

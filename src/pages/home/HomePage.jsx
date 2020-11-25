@@ -1,4 +1,3 @@
-import React, { Component } from 'react'
 import EventCard from '../../components/Cards/EventCard'
 import LandingCard from '../../components/Cards/LandingCard'
 import EventTable from '../../components/Tables/Event/Event'
@@ -7,78 +6,10 @@ import { Link } from 'react-router-dom'
 import Switch from './../../utils/Switch'
 import { CSVDownload, CSVLink } from "react-csv";
 import { Dropdown, Icon, Menu } from 'semantic-ui-react'
-import { PDFDownloadLink, Document, View, Page, Text, StyleSheet } from "@react-pdf/renderer";
+import React, { Component } from 'react'
+import { Melo, headers } from './soata'
 
 
-const style = StyleSheet.create({
-  flex: {
-    display: "flex",
-    flexDirection: "row"
-  },
-  view: {
-    marginBottom: 10
-  },
-  text: {
-    paddingHorizontal: 3,
-    paddingVertical: 3,
-    borderStyle: "solid",
-    borderWidth: 1,
-    fontSize: 12
-  },
-
-  ve: {
-    marginBottom: "4"
-  },
-  size: {
-    width: "100%"
-    // width: "fitContent",
-    // maxWidth: "fit-content",
-  }
-
-})
-
-const Melo = ({ headers, data }) =>
-  <Document onRender={() => { return null }}>
-    <Page size="A3" style={style.size}>
-      <View style={style.view}>
-        <View style={style.flex}>
-          {headers.map((data) =>
-            <Text break style={style.text}>
-              {data.label}
-            </Text>
-          )}
-        </View>
-        <View style={style.ve}>
-          {data.map((data) =>
-            <View style={style.flex}>
-              {Object.values(data).map((data) =>
-                <Text break style={style.text}>
-                  {data}
-                </Text>
-              )}
-            </View>
-          )}
-        </View>
-        <View>
-          <Text break>
-          </Text>
-        </View>
-      </View>
-    </Page>
-  </Document>
-
-
-const headers = [
-  { label: "Event ID", key: "event_id" },
-  { label: "Event Name", key: "event_name" },
-  { label: "Event Details", key: "event_details" },
-  { label: "Event Date", key: "event_date" },
-  { label: "Event Time", key: "event_time" },
-  { label: "Set Reminder", key: "set_reminder" },
-  { label: "Reminder", key: "reminder" },
-  { label: "Status", key: "status" },
-  { label: "Banner Image", key: "banner_image" }
-]
 
 class HomePage extends Component {
   constructor(props) {
@@ -114,7 +45,7 @@ class HomePage extends Component {
     let { position } = this.state
     let { user, isAdmin, nrole, Register,
       reg_load, reg_pass, reg_fail,
-      Get_All_Event, allEvents, Select_Event, active, closed } = this.props
+      Get_All_Event, allEvents, Select_Event, active, closed, event_load } = this.props
 
     window.onclick = function (event) {
       if (!event.target.matches('#dropas')
@@ -204,31 +135,32 @@ class HomePage extends Component {
                         style={{ display: "none" }}
                       >
 
-                        {position === false && closed.length > 0 &&
+                        {
+                          position === false &&
                           <>
-                            <div className="toe" id={"toe"}>
-                              {/* <PDFDownloadLink
-                                document={<Melo data={[...closed]} headers={headers} />}
-                                fileName="ipf_events.pdf">
-                                PDF
-                          </PDFDownloadLink> */}
+                            <div className="toe" id={"toe"}>{
+                              setTimeout(() =>
+                                <Melo data={event_load === true ? [] : closed} />
+                                , 9)
+                            }
                             </div>
                             <div className="toe" id={"toe"}>
                               <CSVLink data={[...closed]} headers={headers} >
                                 CSV
-                          </CSVLink>
+                              </CSVLink>
                             </div>
                           </>
                         }
 
-                        {position === true && active.length > 0 &&
+                        {
+                          position === true &&
                           <>
                             <div className="toe" id={"toe"}>
-                              {/* <PDFDownloadLink
-                                document={<Melo data={[...active]} headers={headers} />}
-                                fileName="ipf_events.pdf">
-                                PDF
-                          </PDFDownloadLink> */}
+                             {
+                              setTimeout(() =>
+                                <Melo data={event_load === true ? [] : active} />
+                                , 9)
+                            }
                             </div>
                             <div className="toe" id={"toe"}>
                               <CSVLink data={[...active]} headers={headers} >

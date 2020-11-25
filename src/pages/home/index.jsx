@@ -10,6 +10,7 @@ const mapStateToProps = state => ({
   nrole: state.user.currentUser.nrole,
   closed: state.event.closed,
   active: state.event.active,
+  event_load: state.event.event_load,
   user: state.user.currentUser,
 
   reg_load: state.register.loading,

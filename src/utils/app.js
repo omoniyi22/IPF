@@ -12,3 +12,5 @@ export const chartColors = {
   purple: "rgb(153, 102, 255)",
   grey: "rgb(231,233,237)",
 };
+
+export const avata = "https://res.cloudinary.com/ninja-dev/image/upload/v1597409650/user_cibuzv.png"

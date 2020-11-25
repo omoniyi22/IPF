@@ -21,7 +21,7 @@ class Comment extends Component {
     this.setState({ [e.target.name]: e.target.value })
   }
   async onSubmit() {
-    this.setState({ loader: true, error: false })
+    this.setState({ loader: true, error: false, comment: "" })
     try {
       let comment = post_comment({
         question_id: this.props.question,

@@ -77,9 +77,7 @@ export const Create_Event = (newEvent) => async (dispatch) => {
     })
 
   } catch (error) {
-    console.log(error.response)
-    console.log(createEvent, "error")
-
+    console.log({ Eventerror: error.response })
     dispatch({
       type: POPUP,
       payload: {
@@ -188,7 +186,7 @@ export const Close_Event = (editedEvent, id) => async (dispatch, state) => {
         ...CreateEvent
       }
     })
-    console.log({prevState, CreateEvent})
+    console.log({ prevState, CreateEvent })
   } catch (error) {
     console.log(error.response)
     console.log(createEvent, "error")

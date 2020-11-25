@@ -4,12 +4,12 @@ import Loader from 'react-loader-spinner'
 
 class vetModal extends Component {
   render() {
-    let { closeError, error, classx, loading, clas, clos } = this.props
+    let { closeError, error, classx, inVite, loading, clas, clos } = this.props
     return (
       <>
         <div className={`vetModal  ${clas} opas`} onClick={() => {
           closeError()
-          classx === "success" && this.props.history.goBack()
+          classx === "success" && inVite !== true && this.props.history.goBack()
         }}>
 
         </div>

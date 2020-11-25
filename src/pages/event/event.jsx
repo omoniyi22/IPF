@@ -103,14 +103,10 @@ class Event extends Component {
                         >Close</div>
                       </>
                     }
-
                     {statu === "closed" && close_load === false &&
                       <>
                         <div className="text pr-1 text-white ">Closed</div>
-                      </>
-                    }
-
-
+                      </>}
                   </div>
                 </Link>
               </div>}
@@ -120,12 +116,12 @@ class Event extends Component {
                   onClick={() => this.setState({ switch: false })}
                 >
                   Attendance Summary
-            </div>
+                </div>
                 <div className={`two border btn  ${this.state.switch === true && "bem"} `}
                   onClick={() => this.setState({ switch: true })}
                 >
                   Audience Q & A
-            </div>
+              </div>
               </div>
               <div className="screens">
                 <div className="ones">

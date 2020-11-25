@@ -31,17 +31,17 @@ class invitation extends Component {
       <>
         {
           this.state.error === true &&
-          <VetModal closeError={this.closeError} classx={"pachee"} error={pop === true ? pop_data.data : error} clas={"JOEUI"} clos={"JOE"} />
+          <VetModal closeError={this.closeError} classx={"pachee"} error={pop === true ? pop_data.data : error} clas={"JOEUI"} clos={"JOE"} inVite={true}/>
         }
 
         {
           pop &&
-          <VetModal closeError={Clear_Error} error={pop_data.data} classx={pop_data.status} clas={"JOEUI"} clos={"JOE"} />
+          <VetModal closeError={Clear_Error} error={pop_data.data} classx={pop_data.status} clas={"JOEUI"} clos={"JOE"} inVite={true} />
         }
 
         {
           loader &&
-          <VetModal closeError={() => console.log("hola")} error={pop_data.data} loading={loader} classx={pop_data.status} clas={"JOEUI"} clos={"JOE"} />
+          <VetModal closeError={() => console.log("hola")} error={pop_data.data} loading={loader} classx={pop_data.status} clas={"JOEUI"} clos={"JOE"} inVite={true} />
         }
         <div>
 
