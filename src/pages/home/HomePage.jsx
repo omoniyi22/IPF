@@ -138,11 +138,12 @@ class HomePage extends Component {
                         {
                           position === false &&
                           <>
-                            <div className="toe" id={"toe"}>{
+                            <div className="toe" id={"toe"}>
+                              {/* {
                               setTimeout(() =>
                                 <Melo data={event_load === true ? [] : closed} />
                                 , 9)
-                            }
+                            } */}
                             </div>
                             <div className="toe" id={"toe"}>
                               <CSVLink data={[...closed]} headers={headers} >
@@ -156,11 +157,11 @@ class HomePage extends Component {
                           position === true &&
                           <>
                             <div className="toe" id={"toe"}>
-                             {
+                             {/* {
                               setTimeout(() =>
                                 <Melo data={event_load === true ? [] : active} />
                                 , 9)
-                            }
+                            } */}
                             </div>
                             <div className="toe" id={"toe"}>
                               <CSVLink data={[...active]} headers={headers} >

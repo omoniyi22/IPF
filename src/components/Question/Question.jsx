@@ -64,7 +64,7 @@ const Question = (
           <div className="flex">
             <div className=" bottom heart flex-2">
               <div className="the_img border border-white rounded-pill z-depth-1"
-                style={{ backgroundImage: `url(${ avatar || require('./unnamed.png') })` }}
+                style={{ backgroundImage: `url(${avatar || require('./unnamed.png')})` }}
               />
               <div className="content py-1" >
                 <div className="name">{firstName} {lastName}</div>
@@ -135,11 +135,11 @@ const Question = (
                       </div>
 
                     }
-                    {
+                    {/* {
                       edit &&
                       <div className="toe " id={`toe`}>
                         <div className="fa fa-trash" />Delete
-            </div>}
+            </div>} */}
 
                   </div>
                 </div>
