@@ -17,7 +17,7 @@ class Event_Table extends Component {
   }
 
   render() {
-    let { isAdmin, kin, event: { event_name, event_date, event_time, event_id }, click } = this.props
+    let { isAdmin, kin, event: { created_by, event_name, event_date, event_time, event_id }, click } = this.props
     return (
       <Link to="/event_page" className="opacy text-init event_table  py-3 flex w-100 mb-4" onClick={click}>
         <div className="numb rounded-pill text-center  heart border">
@@ -37,7 +37,7 @@ class Event_Table extends Component {
               {this.state.no} Members
             </div>
             <div className="name">
-              Andrew John
+              {created_by}
             </div>
           </div>
         </div>

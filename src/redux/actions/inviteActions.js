@@ -132,7 +132,7 @@ export const Invitations = () => async (dispatch) => {
 export const changeStatus = (type, id) => async (dispatch) => {
   dispatch({ type: POP_LOADER })
   try {
-    let sent_invite = await AcceptReject(type.toLowerCase(), id)
+    let sent_invite = await AcceptReject(type, id)
     sent_invite = await sent_invite.data
     sent_invite = await sent_invite.message
     console.log({ sent_invite })
@@ -153,6 +153,18 @@ export const changeStatus = (type, id) => async (dispatch) => {
       type: GOT_INVITATIONS,
       payload: invitation
     })
+
+    setTimeout(() => {
+      dispatch({
+        type: POPIN,
+        payload: {
+          status: "success",
+          data: "Event created successfully"
+        }
+      })
+    }, 3300);
+
+
   } catch (error) {
     console.log(error.response)
     let errored = await error.response ? await error.response.data.error : "An error occured, Try Again"
@@ -164,6 +176,15 @@ export const changeStatus = (type, id) => async (dispatch) => {
       }
     })
   }
+  setTimeout(() => {
+    dispatch({
+      type: POPIN,
+      payload: {
+        status: "success",
+        data: "Event created successfully"
+      }
+    })
+  }, 3300);
 }
 
 

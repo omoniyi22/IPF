@@ -54,7 +54,7 @@ export const CloseEvent = async (data, id) => {
 //Invite Services
 export const AcceptReject = async (type, id) => {
   const authApi = await attachApiToken(api);
-  return authApi.patch(`/events/invites/${id}`, { ...type });
+  return authApi.patch(`/events/invites/${id}`, { type });
 };
 
 export const getInvites = async (id) => {

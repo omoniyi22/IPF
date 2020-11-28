@@ -124,28 +124,39 @@ class Event extends Component {
                 </div>}
                 <CardTwo event={event} />
                 <div className="switch_button mb-4  ">
-                  <div className={`one border btn ${this.state.switch === false && "bem"}`}
-                    onClick={() => this.setState({ switch: false })}
-                  >
-                    Attendance Summary
+                  {isAdmin === 1 &&
+                    <>
+
+                      <div className={`one border btn ${this.state.switch === false && "bem"}`}
+                        onClick={() => this.setState({ switch: false })}
+                      >
+                        Attendance Summary
                 </div>
-                  <div className={`two border btn  ${this.state.switch === true && "bem"} `}
-                    onClick={() => this.setState({ switch: true })}
-                  >
-                    Audience Q & A
+                      <div className={`two border btn  ${this.state.switch === true && "bem"} `}
+                        onClick={() => this.setState({ switch: true })}
+                      >
+                        Audience Q & A
               </div>
+                    </>
+                  }
                 </div>
                 <div className="screens">
                   <div className="ones">
-                    {this.state.switch === false ?
-                      <EventScreen
-                        // invitatio={true}
-                        rejected_invite={rejected_invite} accepted_invite={accepted_invite}
-                        pending_invite={pending_invite} invite_error={invite_error}
-                        rejected_invite={rejected_invite} accepted_invite={accepted_invite}
-                        invite_loading={invite_loading} pending_invite={pending_invite}
-                      />
-                      : <QandA />}
+                    {isAdmin === 1 ?
+                      <>
+                        {this.state.switch === false ?
+                          <EventScreen
+                            // invitatio={true}
+                            rejected_invite={rejected_invite} accepted_invite={accepted_invite}
+                            pending_invite={pending_invite} invite_error={invite_error}
+                            rejected_invite={rejected_invite} accepted_invite={accepted_invite}
+                            invite_loading={invite_loading} pending_invite={pending_invite}
+                          />
+                          : <QandA />}
+                      </> : <QandA />
+                    }
+
+
                   </div>
                   <div className="twon"></div>
                 </div>

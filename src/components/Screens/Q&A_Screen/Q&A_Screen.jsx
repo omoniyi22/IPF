@@ -154,10 +154,10 @@ class QA_Screen extends Component {
                 <div className="question_head ">
                   <div className="text-center btn text-capitalize rounded-sm">
                     Popular
-            </div>
+                  </div>
                   <div className="text-center btn text-capitalize rounded-sm">
                     Recent
-            </div>
+                  </div>
                 </div>
                 <div className="question_right  heart">
                   {ques.length} Questions

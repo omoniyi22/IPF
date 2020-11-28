@@ -185,7 +185,8 @@ class EventScreen extends Component {
       </div>
     )
 
-    let filter = invitatio ?
+    let filter
+     = invitatio ?
       [...this.props.accepted_invite, ...this.props.rejected_invite, ...this.props.pending_invite].filter(invite => invite.event_name.toLowerCase().indexOf(search.toLowerCase()) !== -1) :
       [...this.props.accepted_invite, ...this.props.rejected_invite, ...this.props.pending_invite].filter(invite => invite.member_name.toLowerCase().indexOf(search.toLowerCase()) !== -1)
     let Rfilter = invitatio ?

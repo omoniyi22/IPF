@@ -18,6 +18,7 @@ const Question = (
   const [shelf, setShelf] = useState(false)
   const [reply, setReply] = useState(false)
   const [no, setNo] = useState(0)
+  const [no_like, setNo_like] = useState(0)
 
 
   let key = `${kin}`
@@ -85,7 +86,7 @@ const Question = (
                     like = await like
 
                   } catch (error) {
-                    console(error.response)
+                    // console(error.response)
                   }
                 }}
               >1 <span className="fa fa-thumbs-up pl-1 font-weight-light" /></div>

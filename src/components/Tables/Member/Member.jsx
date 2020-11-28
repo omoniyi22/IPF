@@ -15,6 +15,7 @@ class MemberTable extends Component {
     this.setState({
       [e.target.name]: e.target.value
     })
+    console.log((e.target.value).toLowerCase().toString())
     this.props.changeStatus((e.target.value).toLowerCase(), this.props.dat.id)
   }
   render() {
