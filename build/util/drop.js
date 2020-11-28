@@ -4,14 +4,13 @@ window.onclick = function (event) {
     && !event.target.matches('#drope')
     // && !event.target.matches('#toe')
   ) {
-    if (document.querySelector("#dropa"))
-      document.querySelector("#dropa").style.display = "none"
-    console.log("Hooola")
+    if (document.getElementById("dropa"))
+      document.getElementById("dropa").style.display = "none";
   } else {
-    if (document.querySelector("#dropa"))
-      if (document.querySelector("#dropa").style.display === "none")
-        document.querySelector("#dropa").style.display = "block"
+    if (document.getElementById("dropa"))
+      if (document.getElementById("dropa").style.display === "none")
+        document.getElementById("dropa").style.display = "block"
       else
-        document.querySelector("#dropa").style.display = "none"
+        document.getElementById("dropa").style.display = "none"
   }
 }

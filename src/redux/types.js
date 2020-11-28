@@ -98,9 +98,11 @@ export const ARC_ERROR = "ARC_ERROR"
 
 
 export const CLOSE_ERROR = "CLOSE_ERROR"
+export const CLOSE_PASS = "CLOSE_PASS"
 export const CLOSE_LOADER = "CLOSE_LOADER"
 export const EVENT_CLOSED = "EVENT_CLOSED"
 
 export const DEL_DONE = "DEL_DONE"
 export const DEL_FAIL = "DEL_FAIL"
 export const DEL_LOAD = "DEL_LOAD"
+export const DEL_BACK = "DEL_BACK"

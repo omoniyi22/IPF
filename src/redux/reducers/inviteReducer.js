@@ -53,7 +53,8 @@ export default (state = initialState, action) => {
         ...state,
         accepted_invitation: action.payload.filter((data) => data.status === "ACCEPTED"),
         rejected_invitation: action.payload.filter((data) => data.status === "REJECTED"),
-        pending_invitation: action.payload.filter((data) => data.status === "PENDING")
+        pending_invitation: action.payload.filter((data) => data.status === "PENDING"),
+        error: false
       }
     case I_LOAD:
       return {

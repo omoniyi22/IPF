@@ -7,6 +7,12 @@ $sod: rgb(15, 235, 99);
   z-index: 1;
   opacity: 0.3;
 }
+.inVite{
+  left: 0;
+  top: 0;
+  position: fixed !important;
+}
+
 .vetModal {
   // flex-direction: column;
   z-index: 2;
@@ -62,4 +68,13 @@ $sod: rgb(15, 235, 99);
 .JOE{
   left: 50%;
   top: 50%;
+}
+
+.WWO{
+  position: absolute !important;
+  position: relative !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+  width: fit-content;
+  // margin-bottom: -299px;
 }

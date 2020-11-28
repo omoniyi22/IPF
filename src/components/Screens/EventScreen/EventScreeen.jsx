@@ -172,7 +172,7 @@ class EventScreen extends Component {
   render() {
     let {
       rejected_invite, accepted_invite, invitatio,
-      pending_invite, invite_error, invite_loading
+      pending_invite, invite_error, invite_loading, sol
     } = this.props
     console.log({ invitatio })
     let {
@@ -185,10 +185,18 @@ class EventScreen extends Component {
       </div>
     )
 
-    let filter = [...this.props.accepted_invite, ...this.props.rejected_invite, ...this.props.pending_invite].filter(invite => invite.member_name.toLowerCase().indexOf(search.toLowerCase()) !== -1)
-    let Rfilter = [...this.props.rejected_invite].filter(invite => invite.member_name.toLowerCase().indexOf(search.toLowerCase()) !== -1)
-    let Afilter = [...this.props.accepted_invite].filter(invite => invite.member_name.toLowerCase().indexOf(search.toLowerCase()) !== -1)
-    let Pfilter = [...this.props.pending_invite].filter(invite => invite.member_name.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+    let filter = invitatio ?
+      [...this.props.accepted_invite, ...this.props.rejected_invite, ...this.props.pending_invite].filter(invite => invite.event_name.toLowerCase().indexOf(search.toLowerCase()) !== -1) :
+      [...this.props.accepted_invite, ...this.props.rejected_invite, ...this.props.pending_invite].filter(invite => invite.member_name.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+    let Rfilter = invitatio ?
+      [...this.props.rejected_invite].filter(invite => invite.event_name.toLowerCase().indexOf(search.toLowerCase()) !== -1) :
+      [...this.props.rejected_invite].filter(invite => invite.member_name.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+    let Afilter = invitatio ?
+      [...this.props.accepted_invite].filter(invite => invite.event_name.toLowerCase().indexOf(search.toLowerCase()) !== -1) :
+      [...this.props.accepted_invite].filter(invite => invite.member_name.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+    let Pfilter = invitatio ?
+      [...this.props.pending_invite].filter(invite => invite.event_name.toLowerCase().indexOf(search.toLowerCase()) !== -1) :
+      [...this.props.pending_invite].filter(invite => invite.member_name.toLowerCase().indexOf(search.toLowerCase()) !== -1)
 
     return (
 
@@ -198,195 +206,197 @@ class EventScreen extends Component {
             <TableLoader />
           </div>
           :
-          <>{
-            invite_error === true ? <div><ErrorPage /></div> :
+          <>
+            {sol}
+            {
+              invite_error === true ? <div><ErrorPage /></div> :
 
-              < div className="member_page" >
-                <div className="invite_button"></div>
-                <div className="EventScreen opacy">
-                  <div className="inner flex ">
-                    <div className="oner  heart z-depth-1"
-                      onClick={this.chose_All}
-                    >
-                      <div className="icon s border heart rounded-pill z-depth-1">
-                        <div className="icon_1" />
-                      </div>
-                      <div className="text flex-2  mr-auto">
-                        <div className="text_1  sand_small">
-                          {accepted_invite.length + rejected_invite.length + pending_invite.length}
+                < div className="member_page" >
+                  <div className="invite_button"></div>
+                  <div className="EventScreen opacy">
+                    <div className="inner flex ">
+                      <div className="oner  heart z-depth-1"
+                        onClick={this.chose_All}
+                      >
+                        <div className="icon s border heart rounded-pill z-depth-1">
+                          <div className="icon_1" />
                         </div>
-                        <div className="text_2  me">
-                          Invitation Sent
+                        <div className="text flex-2  mr-auto">
+                          <div className="text_1  sand_small">
+                            {accepted_invite.length + rejected_invite.length + pending_invite.length}
+                          </div>
+                          <div className="text_2  me">
+                            {invitatio ? "Invitation Recieved" : "Invitation Sent"}
+                          </div>
+                        </div>
                       </div>
+                      <div className="oner t   heart z-depth-1 "
+                        onClick={this.chose_accepted}
+                      >
+                        <div className="icon s border heart rounded-pill z-depth-1">
+                          <div className="icon1 fa fa-check text-white" />
+                        </div>
+                        <div className="text flex-2  mr-auto">
+                          <div className="text_1  sand_small">
+                            {accepted_invite.length}
+                          </div>
+                          <div className="text_2  me">
+                            Accepted
+                      </div>
+                        </div>
+                      </div>
+                      <div className="oner h  heart z-depth-1"
+                        onClick={this.chose_rejected}
+                      >
+                        <div className="icon s border heart rounded-pill z-depth-1 ">
+                          <div className="icon_1" />
+                        </div>
+                        <div className="text flex-2  mr-auto">
+                          <div className="text_1  sand_small">
+                            {rejected_invite.length}
+                          </div>
+                          <div className="text_2  me">
+                            Rejected
+                        </div>
+                        </div>
+                      </div>
+                      <div className="oner  heart z-depth-1  f"
+                        onClick={this.chose_pending}
+                      >
+                        <div className="icon s border heart rounded-pill z-depth-1 ">
+                          <div className="icon_1" />
+                        </div>
+                        <div className="text flex-2  mr-auto">
+                          <div className="text_1  sand_small">
+                            {pending_invite.length}
+                          </div>
+                          <div className="text_2  me">
+                            Pending
+                        </div>
+                        </div>
+                      </div>
+                      <div className="oner  heart z-depth-1  f g"
+                        onClick={this.chose_pending}
+                      >
+                        <div className="icon s border heart rounded-pill  z-depth-1">
+                          <div className="icon_1" />
+                        </div>
+                        <div className="text flex-2  mr-auto">
+                          <div className="text_1  sand_small">
+                            {pending_invite.length}
+                          </div>
+                          <div className="text_2  me">
+                            Not Sure
+                        </div>
+                        </div>
                       </div>
                     </div>
-                    <div className="oner t   heart z-depth-1 "
-                      onClick={this.chose_accepted}
-                    >
-                      <div className="icon s border heart rounded-pill z-depth-1">
-                        <div className="icon1 fa fa-check text-white" />
+                    <div className=" home_3 mx- pt-5 pb-3">
+                      <div className="upcoming_text mb-4 ml-2">
+                        {invitatio === true ? "Invitation Recieved" : "Invitation Sent"}
                       </div>
-                      <div className="text flex-2  mr-auto">
-                        <div className="text_1  sand_small">
-                          {accepted_invite.length}
+                      <div className="home_3b wq flex-2 flex mt-1 mb-2">
+                        <div className=" home_header  bread ">
+                          <div className="flex awls small h-fit w-fit font-weight-light">
+                            <input className={`form-control z-balm rounded-pill m-0 px-2 pnt ${this.state.position}`} onClick={this.move}
+                              placeholder="Search..." onChange={this.updateSearch} value={this.state.search}
+                            />
+                            <div className="fa fa-search my-auto" />
+                          </div>
                         </div>
-                        <div className="text_2  me">
-                          Accepted
-                      </div>
-                      </div>
-                    </div>
-                    <div className="oner h  heart z-depth-1"
-                      onClick={this.chose_rejected}
-                    >
-                      <div className="icon s border heart rounded-pill z-depth-1 ">
-                        <div className="icon_1" />
-                      </div>
-                      <div className="text flex-2  mr-auto">
-                        <div className="text_1  sand_small">
-                          {rejected_invite.length}
-                        </div>
-                        <div className="text_2  me">
-                          Rejected
-                        </div>
-                      </div>
-                    </div>
-                    <div className="oner  heart z-depth-1  f"
-                      onClick={this.chose_pending}
-                    >
-                      <div className="icon s border heart rounded-pill z-depth-1 ">
-                        <div className="icon_1" />
-                      </div>
-                      <div className="text flex-2  mr-auto">
-                        <div className="text_1  sand_small">
-                          {pending_invite.length}
-                        </div>
-                        <div className="text_2  me">
-                          Pending
-                        </div>
-                      </div>
-                    </div>
-                    <div className="oner  heart z-depth-1  f g"
-                      onClick={this.chose_pending}
-                    >
-                      <div className="icon s border heart rounded-pill  z-depth-1">
-                        <div className="icon_1" />
-                      </div>
-                      <div className="text flex-2  mr-auto">
-                        <div className="text_1  sand_small">
-                          {pending_invite.length}
-                        </div>
-                        <div className="text_2  me">
-                          Not Sure
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className=" home_3 mx- pt-5 pb-3">
-                    <div className="upcoming_text mb-4 ml-2">
-                      {invitatio === true ? "Invitation Recieved" : "Invitation Sent"}
-                    </div>
-                    <div className="home_3b wq flex-2 flex mt-1 mb-2">
-                      <div className=" home_header  bread ">
-                        <div className="flex awls small h-fit w-fit font-weight-light">
-                          <input className={`form-control z-balm rounded-pill m-0 px-2 pnt ${this.state.position}`} onClick={this.move}
-                            placeholder="Search..." onChange={this.updateSearch} value={this.state.search}
-                          />
-                          <div className="fa fa-search my-auto" />
-                        </div>
-                      </div>
-                      <div class="download active   px-2 py-1 small dropdown">
-                        <div id="dropdownMenu1" className="download_icon mx-auto pr-3" />
-                        <div className="flex">
-                          <div className="dropas " id="dropas">
-                            <div id="drope" className="small">Download <span className="soaa"> As</span></div>
-                            <div id="dropa" className="z-depth-1 mt-1 posaa"
-                              style={{ display: "none" }}
-                            >
-                              <div className="toe" id={"toe"}>
+                        <div class="download active   px-2 py-1 small dropdown">
+                          <div id="dropdownMenu1" className="download_icon mx-auto pr-3" />
+                          <div className="flex">
+                            <div className="dropas " id="dropas">
+                              <div id="drope" className="small">Download <span className="soaa"> As</span></div>
+                              <div id="dropa" className="z-depth-1 mt-1 posaa"
+                                style={{ display: "none" }}
+                              >
+                                <div className="toe" id={"toe"}>
 
-                                <PDFDownloadLink
-                                  document={<Melo data={invite_loading === false ? [
-                                    ...rejected_invite, ...accepted_invite, ...pending_invite
-                                  ] : []} headers={headers} />}
-                                  fileName={`invitation.pdf`}>
-                                  PDF
+                                  <PDFDownloadLink
+                                    document={<Melo data={invite_loading === false ? [
+                                      ...rejected_invite, ...accepted_invite, ...pending_invite
+                                    ] : []} headers={headers} />}
+                                    fileName={`invitation.pdf`}>
+                                    PDF
                                </PDFDownloadLink>
 
 
-                              </div>
-                              <div className="toe" id={"toe"}>
-                                <CSVLink data={invite_loading === false ? [
-                                  ...rejected_invite, ...accepted_invite, ...pending_invite
-                                ] : []} headers={headers} >
-                                  CSV
-                          </CSVLink>
+                                </div>
+                                <div className="toe" id={"toe"}>
+                                  <CSVLink data={invite_loading === false ? [
+                                    ...rejected_invite, ...accepted_invite, ...pending_invite
+                                  ] : []} headers={headers} >
+                                    CSV
+                                  </CSVLink>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="home_4 ">
-                    {invitatio === true ?
-                      <Header first="Event Name" second="My Role" third="Event Date" fourth="Status" classx={`${opacy + " " + type}`} /> :
-                      <Header first="Member Name" second="Email" third="Event Date" fourth="Role" classx={`${opacy + " " + type}`} />
-                    }
-                    <>
-                      {type === "" && search === "" ?
-                        <>
-                          {[...this.props.accepted_invite, ...this.props.rejected_invite, ...this.props.pending_invite].length < 1 ?
-                            <div className="mx-auto text-center my-3 py-2 opacy">No Record Found</div> :
-                            [...this.props.accepted_invite, ...this.props.rejected_invite, ...this.props.pending_invite].filter(invite => invite.member_name.toLowerCase().indexOf(search.toLowerCase()) !== -1)
-                            .map((dat, key) => <MemberTable dot={key} dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)
-                          }
-                        </>
-                        :
-                        <>
-                          {type === "all" &&
-                            <>
-                              {
-                                filter.length < 1 ?
-                                  <div className="mx-auto text-center my-3 py-2 opacy">No Record Found</div> :
-                                  filter.map((dat, key) => <MemberTable dot={key} dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)
-                              }
-                            </>
-                          }
-                          {type === "rejected" &&
-                            <>
-                              {
-                                Rfilter.length < 1 ?
-                                  <div className="mx-auto text-center my-3 py-2 opacy">No Record Found</div> :
-                                  Rfilter.map((dat, key) => <MemberTable dot={key} dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)
-                              }
-                            </>
-                          }
-                          {type === "accepted" &&
-                            <>
-                              {
-                                Afilter.length < 1 ?
-                                  <div className="mx-auto text-center my-3 py-2 opacy">No Record Found</div> :
-                                  Afilter.map((dat, key) => <MemberTable dot={key} dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)
-                              }
-                            </>
-                          }
-
-                          {type === "pending" &&
-                            <>
-                              {
-                                Pfilter.length < 1 ?
-                                  <div className="mx-auto text-center my-3 py-2 opacy">No Record Found</div> :
-                                  Pfilter.map((dat, key) => <MemberTable dot={key} dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)
-                              }
-                            </>
-                          }
-                        </>
+                    <div className="home_4 ">
+                      {invitatio === true ?
+                        <Header first="Event Name" second="My Role" third="Event Date" fourth="Status" classx={`${opacy + " " + type}`} /> :
+                        <Header first="Member Name" second="Email" third="Event Date" fourth="Role" classx={`${opacy + " " + type}`} />
                       }
-                    </>
+                      <>
+                        {type === "" && search === "" ?
+                          <>
+                            {[...this.props.accepted_invite, ...this.props.rejected_invite, ...this.props.pending_invite].length < 1 ?
+                              <div className="mx-auto text-center my-3 py-2 opacy">No Record Found</div> :
+                              // [...this.props.accepted_invite, ...this.props.rejected_invite, ...this.props.pending_invite].filter(invite => invite.member_name.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+                              filter.map((dat, key) => <MemberTable dot={key} dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)
+                            }
+                          </>
+                          :
+                          <>
+                            {type === "all" &&
+                              <>
+                                {
+                                  filter.length < 1 ?
+                                    <div className="mx-auto text-center my-3 py-2 opacy">No Record Found</div> :
+                                    filter.map((dat, key) => <MemberTable dot={key} dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)
+                                }
+                              </>
+                            }
+                            {type === "rejected" &&
+                              <>
+                                {
+                                  Rfilter.length < 1 ?
+                                    <div className="mx-auto text-center my-3 py-2 opacy">No Record Found</div> :
+                                    Rfilter.map((dat, key) => <MemberTable dot={key} dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)
+                                }
+                              </>
+                            }
+                            {type === "accepted" &&
+                              <>
+                                {
+                                  Afilter.length < 1 ?
+                                    <div className="mx-auto text-center my-3 py-2 opacy">No Record Found</div> :
+                                    Afilter.map((dat, key) => <MemberTable dot={key} dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)
+                                }
+                              </>
+                            }
+
+                            {type === "pending" &&
+                              <>
+                                {
+                                  Pfilter.length < 1 ?
+                                    <div className="mx-auto text-center my-3 py-2 opacy">No Record Found</div> :
+                                    Pfilter.map((dat, key) => <MemberTable dot={key} dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)
+                                }
+                              </>
+                            }
+                          </>
+                        }
+                      </>
+                    </div>
                   </div>
-                </div>
-              </div >
-          }</>
+                </div >
+            }</>
         }
       </>
     )

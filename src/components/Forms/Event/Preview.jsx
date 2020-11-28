@@ -8,6 +8,7 @@ class Preview extends Component {
         event_details,
         event_date,
         event_time,
+        event_venue,
         reminder,
         reminders,
         banner_image,
@@ -42,6 +43,8 @@ class Preview extends Component {
           </div>
         </div>
 
+
+
         <div className="row_2 ">
           <div className="w-50  first">
             <div className="w-1 border-bottom">
@@ -49,6 +52,17 @@ class Preview extends Component {
               <div className="r_name">{event_details}</div>
             </div>
           </div>
+
+
+          <div className="w-50  first">
+            <div className="w-1 border-bottom">
+              <div className="name">Event Venue</div>
+              <div className="r_name">{event_venue}</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="row_2 ">
           <div className="flue  w-50">
             <div className="flex-2 border-bottom">
               <div className="date">Attachment</div>
@@ -56,6 +70,7 @@ class Preview extends Component {
             </div>
           </div>
         </div>
+
         {reminder_body && <div className="row_3 ">
           <div className="border-bottom pb-2 flex-2">
             <div className="w-1 ">
@@ -121,10 +136,12 @@ class Preview extends Component {
                     event && event.event_id
                   )
               }}
-              className="btn eppe btn-sm m-0 h-100 w-100 flex p-0">
-              <div className="fa  fa-plus heart text-white" />
-              <div className="text  ml-1 heart lens h-100  text-white">
-                {edit ? "Edit Event" : "Create Event"}
+              className="text-uppercase border-white eppe w-fit btn-sm m-0 h-100 w-100 flex p-0">
+              <div className="fa  fa-plus heart text-white pr-1" />
+              <div className="text  ml-1 heart lens h-100 w-fit text-white">
+                {edit ?
+                  <div className="flex"><div>Edit</div> <div className="pl-1">Event</div> </div> :
+                  <div className="flex"><div>Create</div> <div className="pl-1">Event</div> </div>}
               </div>
             </button>
           </div>

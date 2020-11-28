@@ -15,7 +15,9 @@ const mapStateToProps = state => ({
   deleted: state.event.deleted,
   del_load: state.event.del_load,
 
-  close_load: state.event.close_load,
+  close_load: state.event.closed_load,
+  close_pass: state.event.close_pass,
+  close_error: state.event.close_error,
   statu: state.event.selectedEvent !== null ? state.event.selectedEvent.status : undefined,
 
 

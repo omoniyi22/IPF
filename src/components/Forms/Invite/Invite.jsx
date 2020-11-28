@@ -27,12 +27,19 @@ class InviteForm extends Component {
   }
 
   onSubmit() {
-    if (EmailVet(this.state.email) === false)
+    if (EmailVet(this.state.email) === false) {
       this.setState({
         error: "Please enter a valid address"
       })
+
+      setTimeout(() => {
+        this.setState({
+          error: ""
+        })
+      }, 3300);
+    }
     else {
-      this.props.Send_Invite(this.state.email)
+      this.props.Send_Invite(this.state.email, this.props.history.goBack)
     }
   }
 
@@ -114,7 +121,7 @@ class InviteForm extends Component {
                   className="btn eppe btn-sm m-0 h-100 w-100 flex p-0">
                   <div className="fa  fa-plus heart text-white" />
                   <div className="text small ml-1 heart lens h-100 text-white">
-                    Send <span className=" text-white sm_go">Invite</span>
+                    Send <span className=" text-white sm_go pl-1">Invite</span>
                   </div>
                 </button>
               </div>

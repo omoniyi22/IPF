@@ -46,7 +46,7 @@ export const Get_Sent_Invite = () => async (dispatch, state) => {
   // })
 }
 
-export const Send_Invite = (email) => async (dispatch, state) => {
+export const Send_Invite = (email, goBack) => async (dispatch, state) => {
   dispatch({ type: POP_LOADER })
   let event_id = state().event.selectedEvent && state().event.selectedEvent.event_id
   console.log({ event_id, email })
@@ -63,6 +63,17 @@ export const Send_Invite = (email) => async (dispatch, state) => {
           data: "Invitation sent successfully"
         }
       })
+
+      setTimeout(() => {
+        dispatch({
+          type: POPIN,
+          payload: {
+            status: "success",
+            data: "Event created successfully"
+          }
+        })
+        goBack()
+      }, 3300);
     } else
       throw new Error("event Id")
   } catch (error) {
@@ -75,6 +86,15 @@ export const Send_Invite = (email) => async (dispatch, state) => {
         data: await errored
       }
     })
+    setTimeout(() => {
+      dispatch({
+        type: POPIN,
+        payload: {
+          status: "success",
+          data: "Event created successfully"
+        }
+      })
+    }, 3300);
   }
 }
 
@@ -124,6 +144,14 @@ export const changeStatus = (type, id) => async (dispatch) => {
           `You have successfully  ${type.toLowerCase()} the invite` :
           `This invite is successfully ${type.toLowerCase()}`
       }
+    })
+    let invitation = await invitations()
+    invitation = await invitation.data
+    invitation = await invitation.data
+    console.log({ invitation })
+    dispatch({
+      type: GOT_INVITATIONS,
+      payload: invitation
     })
   } catch (error) {
     console.log(error.response)

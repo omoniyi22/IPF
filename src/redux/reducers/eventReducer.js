@@ -2,7 +2,7 @@ import {
   GOT_ALL_EVENTS, GOT_CLOSED_EVENTS, GOT_ACTIVE_EVENTS,
   SELECT_EVENT, FETCHED_AN_EVENT, PAGE_LOADER,
   CLOSE_ERROR, CLOSE_LOADER, EVENT_CLOSED,
-  DEL_DONE, DEL_FAIL, DEL_LOAD
+  DEL_DONE, DEL_FAIL, DEL_LOAD, CLOSE_PASS, DEL_BACK
 } from './../types'
 
 const initialState = {
@@ -24,9 +24,11 @@ const initialState = {
   },
 
   del_load: false,
-  deleted: false,
+  deleted: null,
 
-  closed_load: false
+  close_error: false,
+  closed_load: false,
+  close_pass: false
 
   // close_load: false,
 
@@ -63,7 +65,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         selectedEvent: action.payload,
-        deleted: false,
         close_load: false,
       }
     case DEL_LOAD:
@@ -84,6 +85,11 @@ export default (state = initialState, action) => {
         del_load: false,
         deleted: false
       }
+    case DEL_BACK:
+      return {
+        ...state,
+        deleted: null
+      }
     case CLOSE_LOADER:
       return {
         ...state,
@@ -92,7 +98,15 @@ export default (state = initialState, action) => {
     case CLOSE_ERROR:
       return {
         ...state,
-        close_load: false
+        close_load: false,
+        close_error: action.payload,
+        close_pass: false
+      }
+    case CLOSE_PASS:
+      return {
+        ...state,
+        close_error: false,
+        close_pass: action.payload
       }
     default:
       return {

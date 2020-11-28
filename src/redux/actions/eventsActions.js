@@ -1,12 +1,12 @@
 import {
-  PAGE_ERROR, PAGE_LOADER, POPUP, POPIN,
+  PAGE_ERROR, PAGE_LOADER, POPUP, POPIN, DEL_BACK
 } from "./../types";
 
 import {
   GOT_ACTIVE_EVENTS, POP_LOADER, GOT_ALL_EVENTS, GOT_CLOSED_EVENTS,
   FETCHED_AN_EVENT, SELECT_EVENT,
   CLOSE_ERROR, CLOSE_LOADER, EVENT_CLOSED,
-  DEL_DONE, DEL_FAIL, DEL_LOAD
+  DEL_DONE, DEL_FAIL, DEL_LOAD, CLOSE_PASS
 } from "./../types"
 
 import {
@@ -51,8 +51,8 @@ export const Get_All_Event = () => async (dispatch) => {
     })
     .catch(error => {
       dispatch({
-        type: PAGE_ERROR,
-        payload: true
+        type: PAGE_LOADER,
+        payload: false
       })
       console.log("errored", error.response)
     })
@@ -76,6 +76,16 @@ export const Create_Event = (newEvent) => async (dispatch) => {
       }
     })
 
+    setTimeout(() => {
+      dispatch({
+        type: POPIN,
+        payload: {
+          status: "success",
+          data: "Event created successfully"
+        }
+      })
+    }, 3300);
+
   } catch (error) {
     console.log({ Eventerror: error.response })
     dispatch({
@@ -85,6 +95,15 @@ export const Create_Event = (newEvent) => async (dispatch) => {
         data: "An error occured, Try Again"
       }
     })
+    setTimeout(() => {
+      dispatch({
+        type: POPIN,
+        payload: {
+          status: "success",
+          data: "Event created successfully"
+        }
+      })
+    }, 3300);
   }
 }
 
@@ -160,14 +179,18 @@ export const Delete = (event_id, hist) => async (dispatch) => {
     let dele = await DeleteEvent(event_id)
     dele = await dele.data
     dele = await dele.data
-    dispatch({ type: DEL_DONE })
+    dispatch({ type: DEL_DONE, payload: true })
     setTimeout(() => {
+      dispatch({ type: DEL_BACK })
       hist.push("/event_")
     }, 3300);
 
   } catch (error) {
     console.log(error.response)
     dispatch({ type: DEL_FAIL })
+    setTimeout(() => {
+      dispatch({ type: DEL_BACK })
+    }, 3300);
   }
 }
 
@@ -187,15 +210,28 @@ export const Close_Event = (editedEvent, id) => async (dispatch, state) => {
       }
     })
     console.log({ prevState, CreateEvent })
+    dispatch({
+      type: CLOSE_PASS,
+      payload: true
+    })
+    setTimeout(() => {
+      dispatch({
+        type: CLOSE_PASS,
+        payload: false
+      })
+    }, 3300);
   } catch (error) {
     console.log(error.response)
     console.log(createEvent, "error")
     dispatch({
       type: CLOSE_ERROR,
-      payload: {
-        status: "error",
-        data: "An error occured, Try Again"
-      }
+      payload: true
     })
+    setTimeout(() => {
+      dispatch({
+        type: CLOSE_ERROR,
+        payload: false
+      })
+    }, 3300);
   }
 }

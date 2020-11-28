@@ -31,22 +31,22 @@ class invitation extends Component {
       <>
         {
           this.state.error === true &&
-          <VetModal closeError={this.closeError} classx={"pachee"} error={pop === true ? pop_data.data : error} clas={"JOEUI"} clos={"JOE"} inVite={true}/>
+          <VetModal closeError={this.closeError} classx={"pachee"} error={pop === true ? pop_data.data : error} inVite={"tru"} />
         }
 
         {
           pop &&
-          <VetModal closeError={Clear_Error} error={pop_data.data} classx={pop_data.status} clas={"JOEUI"} clos={"JOE"} inVite={true} />
+          <VetModal closeError={Clear_Error} error={pop_data.data} classx={pop_data.status} inVite={"tru"} />
         }
 
         {
           loader &&
-          <VetModal closeError={() => console.log("hola")} error={pop_data.data} loading={loader} classx={pop_data.status} clas={"JOEUI"} clos={"JOE"} inVite={true} />
+          <VetModal closeError={() => console.log("hola")} error={pop_data.data} loading={loader} classx={pop_data.status} inVite={"tru"} />
         }
         <div>
 
           <EventScreen invitatio={true}
-          changeStatus={changeStatus}
+            changeStatus={changeStatus}
             rejected_invite={rejected_invitation} accepted_invite={accepted_invitation} invitatio={true}
             pending_invite={pending_invitation} invite_error={error} invite_loading={loading}
           />

@@ -1,6 +1,7 @@
 export function vetEvent({
   except,
   event_name,
+  event_venue,
   event_details,
   event_date,
   event_time,
@@ -15,6 +16,7 @@ export function vetEvent({
       event_name === "" ||
       event_details === "" ||
       event_date === "" ||
+      event_venue === "" ||
       event_time === ""
     ) {
       return [false, "Please fill in all fields"]
@@ -31,6 +33,7 @@ export function vetEvent({
       event_details === "" ||
       event_date === "" ||
       event_time === "" ||
+      event_venue === "" ||
       reminder_body === ""
     ) {
       return [false, "Please fill in all fields"]

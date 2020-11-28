@@ -3,13 +3,24 @@
     width: fit-content !important;
   }
   .don {
-    font-size: 12px !important;
+    font-size: 14px !important;
+    cursor: pointer;
     font-family: sand_small;
     width: fit-content !important;
   }
   .kopiu {
     margin-left: auto;
-    margin-top: 46px;
+    margin-top: 21px;
+    position: absolute;
+    color: white;
+    text-shadow: rgb(73, 71, 71) 1px 2px 2px;
+
+    // right: 5%;
+    // margin-right: 16px;
+  }
+  .kopi {
+    margin-left: auto;
+    margin-top: 52px;
     position: absolute;
     color: white;
     text-shadow: rgb(73, 71, 71) 1px 2px 2px;
@@ -21,7 +32,7 @@
   padding: 50px 70px;
   border: rgb(212, 212, 216) solid;
   height: fit-content;
-  min-height: 300px;
+  min-height: 320px;
   max-height: fit-content;
   background-size: 47% 100%;
   background-position: 0 0;
@@ -45,7 +56,7 @@
       }
       .button {
         background: #fb8a30;
-        max-width: 63%;
+        max-width: fit-content;
         border-radius: 7px;
         padding: 12px 30px !important;
         font-size: 13.8px !important;
@@ -98,19 +109,34 @@
 
 @media (max-width: 1000px) {
   .CardTwo {
+    min-height: 350px;
+
     .kopiu {
-      margin-left: auto;
+      // margin-left: auto;
       margin-top: 6px;
-      right: 6%;
+      // right: 6%;
       margin-top: 30px;
       // position: relative;
       color: white;
       text-shadow: rgb(73, 71, 71) 1px 2px 2px;
-      margin-left: auto;
-      width: 100%;
-      text-align: right;
+      // margin-left: auto;
+      width: fit-content;
+      text-align: left;
       padding-top: 8px;
       margin-bottom: -9px;
+      margin-top: 252px;
+    }
+    .kopi {
+      margin-left: auto;
+      margin-right: auto;
+
+      margin-top: 281px;
+      position: absolute;
+      color: white;
+      text-shadow: rgb(73, 71, 71) 1px 2px 2px;
+
+      // right: 5%;
+      // margin-right: 16px;
     }
     background: rgba(74, 49, 174, 0.37);
     padding: 20px 8%;
@@ -139,7 +165,7 @@
           max-width: 63%;
           border-radius: 7px;
           padding: 8px 17px !important;
-          font-size: 12.6px !important;
+          font-size: 11px !important;
           color: white !important;
           margin-bottom: 30px !important;
         }

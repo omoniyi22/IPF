@@ -49,6 +49,9 @@ class EventForm extends Component {
         error: vetEvent(this.state.data)[1]
       })
     }
+    setTimeout(() => {
+      this.closeError()
+    }, 3300);
   }
   onVet(data, reminder_date) {
     if (vetEvent({ ...data, except: true })[0] === true) {

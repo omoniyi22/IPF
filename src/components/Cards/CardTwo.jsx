@@ -59,7 +59,7 @@ const CardTwo = ({ event }) => {
                 } :
                 () =>
                   console.log("ks;d")
-            } className="button btn m-0 px-0 text-capitalize metro text-center soos ">
+            } className="button z-depth-1 m-0 px-0 text-capitalize metro text-center soos ">
             <span className="don">    {event ? "Download Attachment" : "No attachment for donwload"}</span>
           </div>
         </div>
@@ -94,7 +94,8 @@ const CardTwo = ({ event }) => {
           </div>
         </div>
       </div>
-      <div className="kopiu">{DateForm(event.event_date)} {TimeForm(event.event_time)}</div>
+      <div className="kopiu py-2 break_1 ">Time: {DateForm(event.event_date)} {TimeForm(event.event_time)}</div>
+      <div className="kopi py-2 break_2 ">Venue: {event && event.event_venue} 90, Kuffo Street, Ayobo, Lagos</div>
     </div>
   )
 }

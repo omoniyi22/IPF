@@ -7,13 +7,15 @@ class vetModal extends Component {
     let { closeError, error, classx, inVite, loading, clas, clos } = this.props
     return (
       <>
-        <div className={`vetModal  ${clas} opas`} onClick={() => {
+        <div className={`vetModal ${inVite === "tru" ? "inVite" : "sd"}  ${clas} opas`} onClick={() => {
           closeError()
-          classx === "success" && inVite !== true && this.props.history.goBack()
+          classx === "success" && inVite !== 'tru' && this.props.history.goBack()
         }}>
 
         </div>
-        <div className={`vetModal sos rounded-pill white   ${clos} heart z-depth-1 ${classx} `}>
+        <div className={`vetModal sos rounded-pill white 
+        ${inVite === "tru" ? "WWO" : "WO"}
+          ${clos} heart z-depth-1 ${classx} `}>
           {loading ?
             <Loader
               type="Oval"

@@ -21,7 +21,8 @@ class Form extends Component {
       meridiem: this.props.event.meridiem ? this.props.event.meridiem : "AM",
       file: this.props.event.banner_image ? { original_filename: this.props.event.banner_image } : null,
       reminder_date: this.props.event.reminder_date ? this.props.event.reminder_date : "",
-      reminder_body: this.props.event.reminder_body ? this.props.event.reminder_body : ""
+      reminder_body: this.props.event.reminder_body ? this.props.event.reminder_body : "",
+      event_venue: this.props.event.event_venue ? this.props.event.event_venue : ""
     }
     this.onChange = this.onChange.bind(this)
     this.onUpload = this.onUpload.bind(this)
@@ -74,7 +75,7 @@ class Form extends Component {
 
   render() {
     let {
-      set_reminder, event_name, event_date, event_details, reminder_body,
+      set_reminder, event_name, event_venue, event_date, event_details, reminder_body,
       event_time, reminder, banner_image, file, reminder_date
     } = this.state
     let { onVet, closeModal } = this.props
@@ -91,6 +92,7 @@ class Form extends Component {
                 <input className="form-control p-0" name="event_name" placeholder="Event Name" value={event_name} onChange={this.onChange} />
               </div>
             </div>
+
             <div className="flex w-100 ">
               <div className="  col_2  sjs w-100 px-2 ">
                 <div className="tex">Date</div>
@@ -120,6 +122,9 @@ class Form extends Component {
               </div>
             </div>
           </div>
+
+
+
           <div className="  first_form_row ">
             <div className="  col_1 sjs">
               <div className="tex" >Event Details</div>
@@ -149,8 +154,18 @@ class Form extends Component {
                 }
               </div>
             </div>
-
           </div>
+
+          <div className="first_form_row mt-3">
+            <div className="col_1 sjs w-100">
+              <div className="tex">Event Venue</div>
+              <div className="input">
+                <input className="form-control p-0" name="event_venue" placeholder="Event Venue" value={event_venue} onChange={this.onChange} />
+              </div>
+            </div>
+          </div>
+
+
           <div className="tir_form_row">
             <div className="col_1 heart ">
               <div className=" mr-auto flex">
@@ -173,6 +188,7 @@ class Form extends Component {
               </div>
             </div>
           </div>
+
           {set_reminder && <div className="  for_form_row">
             <div className="  col_1 ">
               <div className="   tex text-left">Body</div>
@@ -212,8 +228,8 @@ class Form extends Component {
                 <button
                   onClick={closeModal}
                   className="btn eppes btn-sm m-0 h-100 w-100 flex p-0">
-                  <div className="fa fa-times heart " />
-                  <div className="text f ml-2 heart  h-100">
+                  <div className="fa fa-times heart text-white " />
+                  <div className="text f ml-2 heart  h-100 text-white">
                     Close
                   </div>
                 </button>
