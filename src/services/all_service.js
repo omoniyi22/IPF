@@ -162,10 +162,18 @@ export const postArchieve = async (data) => {
 }
 
 // Like
-export const Like = async (data) => {
+export const postLike = async (id) => {
   const authApi = await attachApiToken(api);
-  return authApi.post(`/questions/like`, data)
+  return authApi.post(`/questions/like`, {
+    question_id: id
+  })
 }
+
+export const getLike = async (id) => {
+  const authApi = await attachApiToken(api);
+  return authApi.get(`questions/${id}/likes`)
+}
+
 
 export const noOFmem = async (id, no) => {
   try {

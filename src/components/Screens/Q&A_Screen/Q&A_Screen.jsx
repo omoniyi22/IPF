@@ -22,7 +22,8 @@ class QA_Screen extends Component {
       move: true,
       question: "",
       question_id: "",
-      edit: false
+      edit: false,
+      recent: false
     }
     this.onChange = this.onChange.bind(this)
     this.sendQuestion = this.sendQuestion.bind(this)
@@ -80,14 +81,18 @@ class QA_Screen extends Component {
   }
 
   componentDidMount() {
+    let ada = Date()
+    console.log({ ada })
     this.props.getAllQuestions()
   }
 
   render() {
-    let { move, moved } = this.state
+    let { move, moved, recent } = this.state
     let { changeMoveToTrue, changeMoveToFalse } = this
     let { loading, error, ques, que, user_id, arch, posArchive } = this.props
     console.log({ user_id })
+    let date = new Date()
+    date = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
     return (
       <>
         <div className="Q_and_A_Top">
@@ -152,10 +157,14 @@ class QA_Screen extends Component {
               <div className="questions pr-2">
 
                 <div className="question_head ">
-                  <div className="text-center btn text-capitalize rounded-sm">
+                  <div className="text-center btn text-capitalize rounded-sm"
+                    onClick={() => this.setState({ recent: false })}
+                  >
                     Popular
                   </div>
-                  <div className="text-center btn text-capitalize rounded-sm">
+                  <div className="text-center btn text-capitalize rounded-sm"
+                    onClick={() => this.setState({ recent: true })}
+                  >
                     Recent
                   </div>
                 </div>
@@ -174,7 +183,7 @@ class QA_Screen extends Component {
                   "lastName": "Seun",
                   "created_at": "2020-11-12T08:07:11.000Z",
                   "updated_at": "2020-11-12T08:17:05.000Z"
-                }} user={"user_id"} /> */}
+                }} user={user_id} /> */}
 
                 {loading === false ?
                   <div>
@@ -187,7 +196,22 @@ class QA_Screen extends Component {
                                 No Questions Yet
                               </div> :
                               <>
-                                {ques.map((data, index) => (<Question posArchive={posArchive} arch={arch} data={data} edit={this.editQuestion} kin={Number(index)} user={user_id} />))}
+
+                                {recent === true &&
+                                  ques.filter(dat => `${dat.created_at.slice(0, 10)}` === `${date}`)
+                                    .map((data, index) => (
+                                      <div className="opacy">
+                                        <Question posArchive={posArchive} arch={arch} data={data} edit={this.editQuestion} kin={Number(index)} user={user_id} />
+                                      </div>
+                                    ))
+                                }
+
+                                {recent === false && ques.map((data, index) => (
+                                  <div className="opacy">
+                                    <Question posArchive={posArchive} arch={arch} data={data} edit={this.editQuestion} kin={Number(index)} user={user_id} />
+                                  </div>
+                                ))}
+
                               </>
                           }
                         </> :

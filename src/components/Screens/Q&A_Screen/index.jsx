@@ -13,7 +13,7 @@ const mapStateToProps = state => ({
   que: state.Q_A.que,
   ques: state.Q_A.ques,
   arch: state.arch.ques,
-  user_id: state.user.currentUser.id
+  user_id: state.user.currentUser.member_id
 })
 
 export default connect(mapStateToProps, {

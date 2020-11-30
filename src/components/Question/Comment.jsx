@@ -65,13 +65,13 @@ class Comment extends Component {
 
         {
           this.state.loader ?
-            <div className="heaty heart text-primary">
+            <div className="heaty heart text-warning">
               Loading Comments ...
             </div> :
             <>
               {
                 this.state.error ?
-                  <div className="heaty heart font-weight-bold text-danger">
+                  <div className="heaty heart font-weight-bold text-warning">
                     Failed to fetch comments
                   </div> :
                   <>

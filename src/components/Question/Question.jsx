@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { DateForm, TimeForm } from './../../assets/utiils/date'
 import Comment from './Comment'
-import { Like } from '../../services/all_service'
+import { postLike, getLike } from '../../services/all_service'
 import { connect } from 'react-redux'
+import Loader from 'react-loader-spinner'
+
 
 
 
@@ -19,6 +21,9 @@ const Question = (
   const [reply, setReply] = useState(false)
   const [no, setNo] = useState(0)
   const [no_like, setNo_like] = useState(0)
+  const [_like, set_like] = useState(false)
+  const [__like, set__like] = useState(false)
+  const [load_like, set_load_like] = useState(false)
 
 
   let key = `${kin}`
@@ -33,13 +38,47 @@ const Question = (
     }
   }
 
+  const Liked = async () => {
+    try {
+      set_load_like(true)
+      let dal = await getLike(question_id)
+      dal = await dal.data
+      dal = await dal.data
+      set_like((dal.some(dat => dat.member_id === user)))
+      setNo_like(dal.length)
+      set_load_like(false)
+    } catch (error) {
+      console.log({ "some thing": error.response })
+      set_load_like(false)
+    }
+  }
+
+
+  useEffect(() => {
+    Liked()
+  }, [__like])
+
+
+  const Like = async () => {
+    try {
+      set_load_like(true)
+      await postLike(question_id)
+      set__like(!__like)
+    } catch (error) {
+      console.log({ "some thing": error.response })
+      set_load_like(false)
+    }
+  }
+
+
   return (
     <div>
       <div className="real_question border-bottom z-depth-1">
         <div className="my_que   pnt p-2 z-balm "
-          onClick={() => setShelf(!shelf)}
         >
-          <div className="head  flex ">
+          <div className="head  flex"
+            onClick={() => setShelf(!shelf)}
+          >
             <div className={`pcsa flex-2 ${shelf === false && "hie  break_2"} pr-2 `}>
               {question}
             </div>
@@ -78,20 +117,25 @@ const Question = (
               <div className="comments ld">{Number(no)} comments</div>
               <div className="likes dl border ml-2">{Number(no)} <span className={`fa ${Number(no) > 1 ? "fa-comments" : "fa-comment"}  pl-1 font-weight-light`} /></div>
 
+              {load_like === false ?
+                <div className={`likes border ml-2  ${_like === true ? "pai" : " "}`}
+                  style={{ transitionDuration: "0.24s" }}
+                  onClick={Like}
+                >
+                  {Number(no_like)}<span className={`fa fa-thumbs-up pl-1 font-weight-light`} /></div> :
+                <div className={`likes border ml-2  ${_like === true ? "pai" : " "}`}
+                  style={{ transitionDuration: "0.24s" }}
+                >
+                  <Loader
+                    type="ThreeDots"
+                    color={_like === true ? "white" : "#31B476"}
+                    height={14}
+                    width={14}
+                    secondaryColor={"white"}
+                  />
+                </div>
 
-              <div className="likes border ml-2"
-                onClick={async () => {
-                  try {
-                    let like = await Like()
-                    like = await like
-
-                  } catch (error) {
-                    // console(error.response)
-                  }
-                }}
-              >1 <span className="fa fa-thumbs-up pl-1 font-weight-light" /></div>
-
-
+              }
 
               <div className="menus  " id={`drope`}
               >

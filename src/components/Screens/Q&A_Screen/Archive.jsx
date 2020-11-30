@@ -57,6 +57,6 @@ const mapStateToProps = state => ({
   error: state.arch.error,
   que: state.arch.que,
   ques: state.arch.ques,
-  user_id: state.user.currentUser.id
+  user_id: state.user.currentUser.member_id
 })
 export default connect(mapStateToProps, { getArchieves })(Archive)
