@@ -95,7 +95,7 @@ class Root extends Component {
             <AuthRoute path="/events" component={Events} />
 
 
-            <AuthRoute path="/admin/manage-members" component={Members} />
+            <AdminRoute path="/admin/manage-members" component={Members} />
             <AdminRoute path="/admin/settings/membership" component={GeneralSettings} />
             <AdminRoute path="/admin/settings" component={PlatformAdmin} />
             <AdminRoute path="/admin/designation" component={Position} />

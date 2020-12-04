@@ -187,24 +187,9 @@ class Nav_Options extends Component {
                   </div>
               </div>
             </Link>
-            <Link to="/invitations">
-              <div className={`nav_button text-white sm-flex  ${this.state.notify === true && "changed_nav"}`} onClick={this.Notify}>
-                <div className="p-1   rounded-pill white rounded_point sm-show" />
-                <span className="fa fa-bell sols4"></span> Invitations
-          </div>
-            </Link>
-            <Link to="/payment">
-              <div className={`nav_button text-white sm-flex  ${this.state.payment === true && "changed_nav"}`} onClick={this.onPayment}>
-                <div className="p-1   rounded-pill white rounded_point sm-show" />
-                <span className="fa fa-credit-card sols2"></span> Payment
-            </div>
-            </Link>
-            < Link to="/payment_history">
-              <div className={`nav_button text-white sm-flex  ${this.state.payment_history === true && "changed_nav"}`} onClick={this.onPaymentHistory}>
-                <div className="p-1   rounded-pill white rounded_point sm-show" />
-                <span className="fa fa-money-bill-wave sols2"></span> Payment History
-              </div>
-            </Link>
+
+
+
             {isAdmin === 1 ?
               <>
                 < Link to="/admin/manage-members">
@@ -246,7 +231,7 @@ class Nav_Options extends Component {
                 <Link to="/user/dashboard/managecompany" className="">
                   <div className={`nav_button text-white sm-flex  ${this.state.transactions === true && "changed_nav"}`} onClick={this.onTransact}>
                     <div className="p-1   rounded-pill white rounded_point sm-show" />
-                    <span className="fa fa-user-circle sols3"/>  Company Details
+                    <span className="fa fa-user-circle sols3" />  Company Details
                   </div>
                 </Link>
 
@@ -260,6 +245,33 @@ class Nav_Options extends Component {
                 }
               </>
             }
+
+
+
+
+
+
+
+            <Link to="/invitations">
+              <div className={`nav_button text-white sm-flex  ${this.state.notify === true && "changed_nav"}`} onClick={this.Notify}>
+                <div className="p-1   rounded-pill white rounded_point sm-show" />
+                <span className="fa fa-bell sols4"></span> Invitations
+          </div>
+            </Link>
+            <Link to="/payment">
+              <div className={`nav_button text-white sm-flex  ${this.state.payment === true && "changed_nav"}`} onClick={this.onPayment}>
+                <div className="p-1   rounded-pill white rounded_point sm-show" />
+                <span className="fa fa-credit-card sols2"></span> Payment
+            </div>
+            </Link>
+            < Link to="/payment_history">
+              <div className={`nav_button text-white sm-flex  ${this.state.payment_history === true && "changed_nav"}`} onClick={this.onPaymentHistory}>
+                <div className="p-1   rounded-pill white rounded_point sm-show" />
+                <span className="fa fa-money-bill-wave sols2"></span> Payment History
+              </div>
+            </Link>
+
+
 
 
             <Link to="/change-password">
