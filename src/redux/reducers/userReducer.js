@@ -8,7 +8,7 @@ import {
 const INITIAL_STATE = {
   isAuth: false,
   isDefaultPassword: false,
-  currentUser: {}
+  currentUser: { role: undefined }
 };
 
 export default (state = INITIAL_STATE, action) => {

@@ -63,9 +63,9 @@ class MembershipSettings extends Component {
   };
   render() {
     return (
-      <Dashboard>
+      <Dashboard clas="new_bg">
         <div
-          className="membership-settings container-fluid mt-5"
+          className="membership-settings container-fluid px-0   mt-5"
           style={{ width: "90%" }}
         >
           <div className="row">

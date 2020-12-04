@@ -269,10 +269,10 @@ function Settings() {
   }
 
   return (
-    <Dashboard>
+    <Dashboard clas="new_bg">
       <div
-        className="membership-settings container-fluid mt-5"
-        style={{ width: "90%" }}
+        className="membership-settings container-fluid px-0   mt-5"
+        style={{ width: "98%" }}
       >
         <div className="row">
           <div className=" col-lg-6 mb-3 box col-sm-12">

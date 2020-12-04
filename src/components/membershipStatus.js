@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 class MembershipStatus extends Component{
     render(){
-       return ( <div className="container-fluid">
+       return ( <div className="container-fluid px-0  ">
             <div className="row  text-white bg-green">
                 <div className="col-lg-4 text-white">
                     <h1 className="text-white header-title">Dashboard</h1>

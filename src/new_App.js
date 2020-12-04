@@ -29,6 +29,7 @@ class App extends Component {
   }
   render() {
     let { show } = this.state;
+    let { clas } = this.props;
     return (
       <>
         <UserOnTop />
@@ -52,11 +53,11 @@ class App extends Component {
               className="heart  z-depth-1 show-more sm-show py-3   pointer"
               onClick={this.onShow}
             >
-              <div className="rali mr-1 ralo"> Show More</div>{" "}
-              <div className="fa fa-angle-down" />
+              <div className="rali mr-1 ralo"> {!show ? "Show" : "Hide"} Menu</div>{" "}
+              {show ? <div className="fa fa-angle-up" /> : <div className="fa fa-angle-down" />}
             </div>
           </div>
-          <div className="sort_page flex-2 mx-auto mt-md-5 mt-4">
+          <div className={`sort_page flex-2 mx-auto pt-md-5 pt-4 ${clas} `}>
             {this.props.children}
             {/* <>
               <Switch>

@@ -109,7 +109,7 @@ class UserDashboard extends Component {
       location.pathname === "/user_dashboard/profile-update" ? "active" : "";
 
     return (
-      <div className="container-fluid">
+      <div className="container-fluid px-0  ">
         <Header />
 
         <div style={{ overflowY: "auto" }} className="user-dasboard-header2">

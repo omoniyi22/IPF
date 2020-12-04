@@ -24,7 +24,7 @@ class MemberTable extends Component {
       <div className="main_button flex   poller w-fit">
         <Link to="/invite" className="">
           <div className="edit_b s m-0 a border  heart text-center btn  flex   rounded-pill">
-            <div className="text pr-1 texti">{title}</div>
+            <div className="text pr-1 texti text-white">{title}</div>
           </div>
         </Link>
       </div>
@@ -54,16 +54,26 @@ class MemberTable extends Component {
                       <>
                         <option>ACCEPT</option>
                         <option>REJECT</option>
+                        <option>NOT SURE</option>
                       </>
                     }
                     {dat.status === "REJECTED" &&
                       <>
                         <option>REJECT</option>
                         <option>ACCEPT</option>
+                        <option>NOT SURE</option>
                       </>
                     }
                     {dat.status === "PENDING" &&
                       <>
+                        <option>REJECT</option>
+                        <option>ACCEPT</option>
+                        <option>NOT SURE</option>
+                      </>
+                    }
+                    {dat.status === "NOT_SURE" &&
+                      <>
+                        <option>NOT SURE</option>
                         <option>REJECT</option>
                         <option>ACCEPT</option>
                       </>

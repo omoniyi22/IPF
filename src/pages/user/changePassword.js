@@ -125,7 +125,7 @@ const ChangePassword = ({ showLoader }) => {
         onClose={onClose}
       >
         <div
-          className="container-fluid py-3"
+          className="container-fluid px-0   py-3"
           style={{
             height: "100vh",
             display: "flex",

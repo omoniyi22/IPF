@@ -199,7 +199,7 @@ class Login extends Component {
             });
           }}
         >
-          <div className="container-fluid material" style={{ padding: 0 }}>
+          <div className="container-fluid px-0   material" style={{ padding: 0 }}>
             <div className="desktop">
               <BlackBackground>
                 <div className="py-4 px-4">
@@ -222,7 +222,7 @@ class Login extends Component {
                         </CustomIntro>
                         </LoginSectionOne>
                       </div>
-                      <div className="col-md-6 col-lg-6">
+                      <div className="col-md-6 col-lg-6 px-0">
                         <LoginBgWhite>
                           <div className="d-flex align-items-center w-100 h-100">
                             <LoginForm onSubmit={this.submit}>

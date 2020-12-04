@@ -19,7 +19,9 @@ import arch from './Arch_Reducer'
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["user", "event"]
+  whitelist: ["load_or_error", "invite", "user",
+    "UI", "company", "event", "Q_A", "payment",
+    "register", "arc", "UI"]
 }
 
 
@@ -40,4 +42,4 @@ const reducers = combineReducers({
   arch
 });
 
-export default reducers
+export default persistReducer(persistConfig, reducers)

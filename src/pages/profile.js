@@ -84,6 +84,7 @@ class ManageProfile extends Component {
       const data = response.data.data;
       this.setState({ ...data }, () => this.props.showLoader());
     } catch (error) {
+      console.log({error: error.response})
       this.props.showLoader();
     }
   };
@@ -225,14 +226,14 @@ class ManageProfile extends Component {
     const { msg, type, openSnackbar } = this.state;
 
     return (
-      <Dashboard>
+      <Dashboard clas="new_bg">
         <AppWrapper
           open={openSnackbar}
           message={msg}
           type={type}
           onClose={this.onClose}
         >
-          <div className="profile container-fluid py-3">
+          <div className="profile container-fluid px-0   py-3">
             <div className="row justify-content-center my-4">
               <div className="circle-avatar text-center d-flex align-items-center justify-content-center">
                 {this.state.avatar ? (

@@ -62,7 +62,7 @@ class ForgotPassword extends Component {
           });
         }}
       >
-        <div className="container-fluid" style={{ padding: 0 }}>
+        <div className="container-fluid px-0  " style={{ padding: 0 }}>
           <div className="desktop">
             <BlackBackground>
               <div className="py-4 px-4">

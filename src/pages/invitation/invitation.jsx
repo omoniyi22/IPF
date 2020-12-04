@@ -25,7 +25,8 @@ class invitation extends Component {
 
 
 
-    let { invitations, loading, error, accepted_invitation, invitatio, rejected_invitation, pending_invitation, } = this.props
+    let { invitations, loading, error, accepted_invitation, invitatio, rejected_invitation, pending_invitation,
+      not_sure_invitation } = this.props
     console.log({ invitations, loading, error, accepted_invitation, rejected_invitation, pending_invitation })
     return (
       <>
@@ -49,6 +50,7 @@ class invitation extends Component {
             changeStatus={changeStatus}
             rejected_invite={rejected_invitation} accepted_invite={accepted_invitation} invitatio={true}
             pending_invite={pending_invitation} invite_error={error} invite_loading={loading}
+            not_sure={not_sure_invitation}
           />
         </div>
       </>

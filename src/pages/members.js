@@ -679,7 +679,7 @@ class Members extends Component {
             {
               icon: "save",
               tooltip: "Save User",
-              onClick: (event, rowData) => {},
+              onClick: (event, rowData) => { },
             },
           ]}
         />
@@ -795,7 +795,7 @@ class Members extends Component {
             {
               icon: "save",
               tooltip: "Save User",
-              onClick: (event, rowData) => {},
+              onClick: (event, rowData) => { },
             },
           ]}
         />
@@ -942,7 +942,7 @@ class Members extends Component {
             {
               icon: "save",
               tooltip: "Save User",
-              onClick: (event, rowData) => {},
+              onClick: (event, rowData) => { },
             },
           ]}
         />
@@ -953,7 +953,7 @@ class Members extends Component {
   openAddMemberModal = async (e) => {
     try {
       window.$("#modal7").modal("open");
-    } catch (error) {}
+    } catch (error) { }
   };
 
   handleFireSnackbar = (msg, type = "default") => {
@@ -969,10 +969,11 @@ class Members extends Component {
       window.$("#modal3").modal("open");
     });
   };
-
   render() {
+    let { role } = this.props
+    role = role === "super-user"
     return (
-      <Dashboard>
+      <Dashboard clas={"new_bg"}>
         <AppWrapper
           open={this.state.openSnackbar}
           onClose={() => {
@@ -983,7 +984,7 @@ class Members extends Component {
           message={this.state.msg}
           type={this.state.type}
         >
-          <div className="container-fluid" style={{ width: "90%" }}>
+          <div className="container-fluid px-0  " style={{ width: "90%" }}>
             <div className="d-flex justify-content-end mb-3">
               <button
                 onClick={this.openAddMemberModal}
@@ -1002,7 +1003,7 @@ class Members extends Component {
                     <h4
                       className={`member-type-header ${
                         this.state.currentTab === "individual" ? "active" : ""
-                      }`}
+                        }`}
                     >
                       Individual Members
                     </h4>
@@ -1015,7 +1016,7 @@ class Members extends Component {
                     <h4
                       className={`member-type-header ${
                         this.state.currentTab === "corporate" ? "active" : ""
-                      }`}
+                        }`}
                     >
                       Corporate Members
                     </h4>
@@ -1028,7 +1029,7 @@ class Members extends Component {
                     <h4
                       className={`member-type-header ${
                         this.state.currentTab === "all" ? "active" : ""
-                      }`}
+                        }`}
                     >
                       All Members
                     </h4>
@@ -1043,7 +1044,7 @@ class Members extends Component {
                     <h4
                       className={`member-type-header mx-2 ${
                         this.state.currentTab === "organisation" ? "active" : ""
-                      }`}
+                        }`}
                     >
                       Organisation
                     </h4>
@@ -1125,7 +1126,7 @@ class Members extends Component {
             <div id="modal1" class="modal modal-fixed-footer">
               <div class="modal-content">
                 <h4>{this.state.data.company_name + " Members"}</h4>
-                <div className="container-fluid mt-3">
+                <div className="container-fluid px-0   mt-3">
                   {this.state.members.map((item) => (
                     <div className="row shadow bg-white rounded p-2">
                       <div className="col-md-12">
@@ -1212,7 +1213,7 @@ class Members extends Component {
             <div id="modal2" class="modal modal-fixed-footer">
               <div class="modal-content">
                 <h4>{"Add members to " + this.state.data.company_name}</h4>
-                <div className="container-fluid mt-3">
+                <div className="container-fluid px-0   mt-3">
                   <div className="row">
                     <TextInput
                       name={"firstName"}
@@ -1277,7 +1278,7 @@ class Members extends Component {
               <>
                 <div class="modal-content">
                   <h4>{"Add members"}</h4>
-                  <div className="container-fluid mt-3">
+                  <div className="container-fluid px-0   mt-3">
                     <div className="row input-field">
                       <select name="companyCode" onChange={this.handleOnChange}>
                         <option>Select membership type</option>
@@ -1421,7 +1422,12 @@ class Members extends Component {
   }
 }
 
-export default connect(null, actions)(Members);
+
+const mapStateToProps = state => ({
+  role: state.user.currentUser.role
+})
+
+export default connect(mapStateToProps, actions)(Members);
 
 const SpanContainer = styled.div`
   border: 1px solid orage;

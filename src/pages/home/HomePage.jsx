@@ -29,7 +29,7 @@ class HomePage extends Component {
       this.props.Get_All_Event()
     }
   }
-  close() { 
+  close() {
     this.setState({
 
     })
@@ -79,7 +79,9 @@ class HomePage extends Component {
             <Paid_OR_Failed loading={event_load} /> :
             < div className={`${swit[2]} `
             }>
-              <div className="home1 ">
+              <div className="home1 "
+                style={{ background: "#c2c9cea1" }}
+              >
                 {isAdmin === 1 && <LandingCard user={user} />}
                 <div className=" my-4 mt-5 mb-4 h4 metro font-weight-bold">
                   <div className="  home_2 mx-0">
@@ -98,12 +100,14 @@ class HomePage extends Component {
                             "updated_at": "2020-11-12T08:17:05.000Z"
                           }} />} */}
                         {active[0] && <EventCard event={active[0]}
+                          isAdmin={isAdmin}
                           reg_load={reg_load} reg_pass={reg_pass} reg_fail={reg_fail}
                           user={user} Register={() => Register()}
                         />}
                       </div>
                       <div className="seprate w-50 pl-1 ">
                         {active[1] && <EventCard event={active[1]}
+                          isAdmin={isAdmin}
                           reg_load={reg_load} reg_pass={reg_pass} reg_fail={reg_fail}
                           user={user} Register={() => Register()}
                         />}
@@ -216,7 +220,7 @@ class HomePage extends Component {
             </div >
 
         }
-     
+
       </>
     );
   }

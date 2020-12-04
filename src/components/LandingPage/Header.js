@@ -14,7 +14,10 @@ const LandingHeader = () => {
   return (
     <HeaderContainer>
       <HeaderContentContainer>
-        <HeaderText>Indian Professionals Forum</HeaderText>
+        
+
+          <HeaderText>Indian Professionals Forum</HeaderText>
+        
 
         <LoginButton>
           <Link to="/login">

@@ -74,19 +74,19 @@ class Root extends Component {
             <Route path="/password/reset/:id/:token" component={ResetPassword} />
             <Route path="/login" component={Login} />
 
-            <Route path="/invitations" component={() => <Dashboard> <Invitation /></Dashboard>} />
-            <Route path="/event_page" component={() => <Dashboard><EventPage /></Dashboard>} />
-            <Route path="/create-event" component={() => <Dashboard> <HomePage /></Dashboard>} />
-            <Route path="/invite" component={() => <Dashboard><EventPage /></Dashboard>} />
-            <Route path="/edit_event" render={() => <Dashboard><EventPage /></Dashboard>} />
-            <Route path="/payment_history" component={() => <Dashboard><Payment_History /></Dashboard>} />
-            <Route path="/members" component={() => <Dashboard><MemberPage /></Dashboard>} />
+            <Route path="/invitations" component={() => <Dashboard clas={"new_bg"}> <Invitation /></Dashboard>} />
+            <Route path="/event_page" component={() => <Dashboard clas={"new_bg"}><EventPage /></Dashboard>} />
+            <Route path="/create-event" component={() => <Dashboard clas={"new_bg"}> <HomePage /></Dashboard>} />
+            <Route path="/invite" component={() => <Dashboard clas={"new_bg"}><EventPage /></Dashboard>} />
+            <Route path="/edit_event" render={() => <Dashboard clas={"new_bg"}><EventPage /></Dashboard>} />
+            <Route path="/payment_history" component={() => <Dashboard clas={"new_bg"}><Payment_History /></Dashboard>} />
+            <Route path="/members" component={() => <Dashboard clas={"new_bg"}><MemberPage /></Dashboard>} />
             <Route path="/payment" component={() => <Dashboard><Payment /></Dashboard>} />
             <Route path="/change-password" component={() => isAuth ? <ChangePassword /> : <LandingPage />} />
-            <Route path="/profile-update" component={() => isAdmin === 1 ? <ManageProfile /> : <>{isAuth === true ? <ManageUserProfile /> : <LandingPage />} <ManageUserProfile /></>} />
+            <Route path="/profile-update" component={() => isAdmin === 1 ? <ManageProfile /> : <>{isAuth === true ? <ManageUserProfile /> : <LandingPage />}</>} />
 
 
-            <AuthRoute path="/user/dashboard/addmember" component={() => <Dashboard><AddMember /></Dashboard>} />
+            <AuthRoute path="/user/dashboard/addmember" component={AddMember} />
             <AuthRoute path="/user/dashboard/managecompany" component={AddCompany} />
             <AuthRoute path="/platform-settings" component={MembershipSettings} />
             <AuthRoute path="/user/dashboard" component={UserProfile} />
@@ -95,11 +95,11 @@ class Root extends Component {
             <AuthRoute path="/events" component={Events} />
 
 
-            <AdminRoute path="/admin/manage-members" component={Members} />
+            <AuthRoute path="/admin/manage-members" component={Members} />
             <AdminRoute path="/admin/settings/membership" component={GeneralSettings} />
             <AdminRoute path="/admin/settings" component={PlatformAdmin} />
             <AdminRoute path="/admin/designation" component={Position} />
-            <Route path="/event_" render={() => isAuth === true ? <Dashboard><HomePage /></Dashboard> : <LandingPage />} />
+            <Route path="/event_" render={() => isAuth === true ? <Dashboard clas="new_bg"><HomePage /></Dashboard> : <LandingPage />} />
             <Route path="/result" render={() => isAuth === true ? <Paid_OR_Failed /> : <LandingPage />} />
             <Route path="/" render={() => isAuth === true ? <Index admin={isAdmin} /> : <LandingPage />} />
           </Switch>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 class Preview extends Component {
   render() {
     let {
@@ -122,18 +123,20 @@ class Preview extends Component {
                     event_time,
                     banner_image,
                     reminder,
-                    reminder_body
+                    reminder_body,
+                    event_venue
                   },
-                    event && event.event_id
+                    event && event.event_id, this.props.history
                   ) :
                   create({
                     event_name,
                     event_details,
                     event_date,
                     event_time,
-                    banner_image
+                    banner_image,
+                    event_venue
                   },
-                    event && event.event_id
+                    event && event.event_id, this.props.history
                   )
               }}
               className="text-uppercase border-white eppe w-fit btn-sm m-0 h-100 w-100 flex p-0">
@@ -154,4 +157,4 @@ class Preview extends Component {
   }
 }
 
-export default Preview
+export default withRouter(Preview)

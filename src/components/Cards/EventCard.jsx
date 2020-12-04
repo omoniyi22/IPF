@@ -77,13 +77,14 @@ class EventCard extends Component {
 
 
   render() {
-    let { event } = this.props
+    let { event, isAdmin } = this.props
     let { reg_load, reg_pass, reg_fail, no } = this.state
     return (
       <>
-        <div className="EventCard mx-0 ">
+        <div className="EventCard mx-0  white">
           <div className="card_pix"
-            style={{ backgroundImage: `url(${require('./../../assets/medias/land_svg.png')})` }}
+            style={{ backgroundImage: `url(${event.banner_image || require('./../../assets/medias/land_svg.png')})` }}
+
           />
           <div className="EC_content  metro">
             <div className="EC_title metro">
@@ -93,11 +94,12 @@ class EventCard extends Component {
               {DateForm(event.event_date
               )} {TimeForm(event.event_time)}
             </div>
-            <div className="EC_members metro">
-              {no} members acecepted invitations
-          </div>
+            {isAdmin === 1 &&
+              <div className="EC_members metro">
+                {no} members acecepted invitations
+          </div>}
             <div className="EC_down flex ">
-              {
+              {/* {
                 reg_load === true ?
                   < button className="rounded-pill text-center z-depth-1 ovin">
                     <Loader
@@ -131,7 +133,7 @@ class EventCard extends Component {
                   }
                   </>
 
-              }
+              } */}
               {/* <div className=" circle-box flex flex-2 mt-2">
               <div className="circum  rounded-pill  ml-auto " />
               <div className="circum border rounded-pill  " />

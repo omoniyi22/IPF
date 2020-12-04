@@ -11,7 +11,7 @@ import Header from './Header';
 class AltDashboard extends Component {
   render() {
     return (
-      <div className="container-fluid alt-dashboard" style={{padding: 0}}>
+      <div className="container-fluid px-0   alt-dashboard" style={{padding: 0}}>
             <Header />
             <div className="desktop">
                 

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const LandingCard = ({ user }) => {
   console.log(user)
   return (
-    <div className="LandingCard flex">
+    <div className="LandingCard flex white">
       <div className="content heart">
         <div className=" text-left">
           <div className="metro font-weight-bold h4 ">Welcome {user && user.firstName} {user && user.lastName}</div>

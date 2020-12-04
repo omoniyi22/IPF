@@ -28,9 +28,9 @@ const initialState = {
 
   close_error: false,
   closed_load: false,
-  close_pass: false
+  close_pass: false,
 
-  // close_load: false,
+  // closed_load: true,
 
 }
 
@@ -65,13 +65,13 @@ export default (state = initialState, action) => {
       return {
         ...state,
         selectedEvent: action.payload,
-        close_load: false,
+        closed_load: false,
       }
     case DEL_LOAD:
       return {
         ...state,
         del_load: true,
-        deleted: false
+        deleted: null
       }
     case DEL_DONE:
       return {
@@ -93,12 +93,12 @@ export default (state = initialState, action) => {
     case CLOSE_LOADER:
       return {
         ...state,
-        close_load: true,
+        closed_load: true,
       }
     case CLOSE_ERROR:
       return {
         ...state,
-        close_load: false,
+        closed_load: false,
         close_error: action.payload,
         close_pass: false
       }

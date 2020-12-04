@@ -184,9 +184,9 @@ class Designation extends Component {
   render() {
     const { positions, msg, type, openSnack } = this.state;
     return (
-      <Dashboard>
+      <Dashboard clas="new_bg">
         <AppWrapper message={msg} type={type} open={openSnack}>
-          <div className="container-fluid" style={{ width: "90%" }}>
+          <div className="container-fluid px-0  " style={{ width: "90%" }}>
             <div className="row mt-5">
               <div className="shadow rounded bg-white col-md-12 px-3 py-1">
                 <div className="d-flex justify-content-center align-items-center">
@@ -206,7 +206,7 @@ class Designation extends Component {
             <div id="modal2" class="modal modal-fixed-footer">
               <div class="modal-content">
                 <h4>{"Assign " + this.state.name}</h4>
-                <div className="container-fluid mt-3">
+                <div className="container-fluid px-0   mt-3">
                   <div className="row">
                     <select name="designation" onChange={this.handleOnChange}>
                       <option>Select Designation</option>

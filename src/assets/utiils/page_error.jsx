@@ -25,7 +25,7 @@ export default class Page_Error extends Component {
 export class ErrorPage extends Component {
   render() {
     return (
-      <div className="page_error boomd heart  w-100 h-100 white">
+      <div className="page_error new_bg boomd heart  w-100 h-100 white">
         <div className="page_loader  heart">
           <div className="the_Logo my-auto fa fa-frown-closed font-weight-light" />
           <div className="the_Error my-auto fa fa-frown-closed font-weight-light" >

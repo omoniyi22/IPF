@@ -121,7 +121,7 @@ const ChangePassword = ({ showLoader }) => {
   };
 
   return (
-    <Dashboard>
+    <Dashboard clas="new_bg">
       <AppWrapper
         open={snackbar.open}
         message={snackbar.msg}
@@ -129,7 +129,7 @@ const ChangePassword = ({ showLoader }) => {
         onClose={onClose}
       >
         <div
-          className="container-fluid py-3"
+          className="container-fluid px-0   py-3"
           style={{
             display: "flex",
             alignItems: "center",

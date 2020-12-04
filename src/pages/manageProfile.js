@@ -296,14 +296,14 @@ class ManageProfile extends Component {
     } = this.state;
     return (
       <div className="">
-        <Dashboard>
+        <Dashboard clas="new_bg">
           <AppWrapper
             open={openSnackbar}
             message={msg}
             type={type}
             onClose={this.onClose}
           >
-            <div className="container-fluid py-3 material">
+            <div className="container-fluid px-0   py-3 material">
               <div
                 className="row justify-content-center"
                 style={{ marginTop: 100 }}

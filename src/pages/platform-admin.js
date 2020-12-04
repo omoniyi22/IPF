@@ -222,7 +222,7 @@ function PlatformAdmin() {
   };
 
   return (
-    <Dashboard>
+    <Dashboard clas="new_bg">
       <AppWrapper
         open={snackbar.open}
         type={snackbar.type}

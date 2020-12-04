@@ -17,6 +17,9 @@ html {
   margin: 0;
   padding: 0;
 }
+.new_bg {
+  background: #d8dde0 !important;
+}
 body {
   // background: rgba(91, 200, 250, 0.02);
   background: white !important;
@@ -29,17 +32,18 @@ body {
 .text_inherit {
   color: inherit !important;
 }
-.ri{
-  border-right: 1px solid #08A85D;
+.ri {
+  border-right: 1px solid #08a85d;
 }
+
 .sort_app {
+  // background: #c2c9cea1;
+
   display: flex;
   .blacko {
     height: 100% !important;
     width: 170px;
-    background: #143240
-    
-    
+    background: #143240;
   }
   .sort_nav {
     .falo {
@@ -57,32 +61,38 @@ body {
     }
   }
   .sort_page {
-    padding-left: 2%;
-    padding-right: 2%;
-    max-width: 950px;
-    width: 96%;
+    padding-left: 7%;
+    padding-right: 7%;
+    max-width: 100%;
+    width: 100%;
   }
   .indez {
     position: absolute;
     z-index: -3;
   }
 }
-@media (max-width: 1000px) {
-  .ri{
-  border-right: 0px solid #08A85D;
-  border-left: 0px solid #08A85D;
+.s_show {
+  display: none;
 }
+.l_show {
+  display: block;
+}
+@media (max-width: 1000px) {
+  .ri {
+    border-right: 0px solid #08a85d;
+    border-left: 0px solid #08a85d;
+  }
   .sort_page {
-    padding-left: 0% !important;
-    padding-right: 0% !important;
-    max-width: 950px;
-    width: 96%;
+    padding-left: 2.5% !important;
+    padding-right: 2.5% !important;
+    max-width: 100%;
+    width: 100%;
   }
   .sort_app {
     display: block;
     // width: 100%;
     .blacko {
-    border-right: none;
+      border-right: none;
 
       width: 100%;
       background: #446162;
@@ -92,7 +102,7 @@ body {
       max-height: fit-content !important;
     }
     .sort_nav.false {
-      max-height: 110px !important;
+      max-height: 0px !important;
       overflow: hidden;
       .nav_button {
         visibility: hidden;
@@ -110,16 +120,16 @@ body {
         visibility: visible;
       }
     }
-    .member_status{
+    .member_status {
       padding-top: 10px !important;
       padding-bottom: 10px !important;
-      .tone{
+      .tone {
         font-size: 11px !important;
       }
-      .down_ed{
+      .down_ed {
         font-size: 13px !important;
       }
-      .smaller{
+      .smaller {
         font-size: 12px;
       }
     }
@@ -147,4 +157,114 @@ body {
   .rounded_point {
     height: 4px;
   }
+  .sols1,
+  .sols2,
+  .sols3,
+  .sols4,
+  .solsho,
+  .solslast,
+  .flaggi {
+    display: none;
+  }
+  .s_show {
+    display: inline;
+  }
+  .l_show {
+    display: block;
+  }
+}
+
+.sols2 {
+  font-size: 14px;
+  padding-right: 6px;
+}
+.sols3 {
+  font-size: 16px;
+  padding-right: 7px;
+}
+.sols4 {
+  font-size: 16px;
+  padding-right: 5px;
+}
+.solsho {
+  font-size: 17px;
+  padding-right: 6px;
+}
+.solslast {
+  font-size: 17px;
+  padding-right: 3px;
+}
+.flaggi {
+  .ind {
+    width: 50%;
+    height: 50px;
+  }
+  .nig {
+    width: 50%;
+    height: 50px;
+  }
+}
+
+.dropbtn {
+  background-color: #4caf50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover,
+.dropbtn:focus {
+  background-color: #3e8e41;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-ontent {
+  display: none;
+  position: absolute;
+  min-width: 100%;
+  margin-bottom: 300px;
+}
+.sowa {
+  &:hover {
+    .dropdown-ontent {
+      display: block !important;
+    }
+  }
+}
+.aswq {
+  background: #86969d !important;
+}
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {
+  display: block;
+}
+.soa {
+  font-size: 12px !important;
+  color: #0f2f3e;
+}
+
+.bbas {
+  margin-top: 108px !important;
 }

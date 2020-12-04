@@ -3,14 +3,25 @@
     width: fit-content !important;
   }
   .don {
-    font-size: 14px !important;
+    font-size: 14px;
     cursor: pointer;
     font-family: sand_small;
     width: fit-content !important;
   }
+    .don {
+    cursor: pointer;
+    font-family: sand_small;
+    width: fit-content !important;
+    font-size: 12px !important;
+  }
+  .spoaa{
+    background: #fefffe49;
+    text-shadow: 0 !important;
+    font-size: 11px;
+  }
   .kopiu {
     margin-left: auto;
-    margin-top: 21px;
+    margin-top: 24px;
     position: absolute;
     color: white;
     text-shadow: rgb(73, 71, 71) 1px 2px 2px;
@@ -51,7 +62,7 @@
       }
       .sub_title {
         margin-top: 12px;
-        height: 53px;
+        height: 48px;
         margin-bottom: 5px;
         font-size: 15px;
       }
@@ -66,6 +77,7 @@
     }
     .right {
       display: flex;
+      padding-left: 50px;
       width: 67% !important;
       .days {
         padding: 0 !important;
@@ -113,11 +125,6 @@
     min-height: 350px;
 
     .kopiu {
-      // margin-left: auto;
-      margin-top: 6px;
-      // right: 6%;
-      margin-top: 30px;
-      // position: relative;
       color: white;
       text-shadow: rgb(73, 71, 71) 1px 2px 2px;
       // margin-left: auto;
@@ -125,13 +132,13 @@
       text-align: left;
       padding-top: 8px;
       margin-bottom: -9px;
-      margin-top: 252px;
+      margin-top: 264px;
     }
     .kopi {
       margin-left: auto;
       margin-right: auto;
 
-      margin-top: 281px;
+      margin-top: 285px;
       position: absolute;
       color: white;
       text-shadow: rgb(73, 71, 71) 1px 2px 2px;
@@ -161,18 +168,22 @@
           margin-bottom: 5px;
           font-size: 15px;
         }
-        .button {
-          background: #fb8a30;
-          max-width: 63%;
-          border-radius: 7px;
-          padding: 8px 17px !important;
-          font-size: 11px !important;
-          color: white !important;
-          margin-bottom: 30px !important;
-        }
+      }
+      .button {
+        background: #fb8a30;
+        max-width: 63%;
+        border-radius: 7px;
+        padding: 8px 17px !important;
+        font-size: 9px !important;
+        color: white !important;
+        margin-bottom: 30px !important;
+      }
+      .soos {
+        font-size: 9px !important;
       }
       .right {
         display: flex;
+        padding-left: 0 !important;
         .days {
           padding: 0 !important;
           font-size: 22px !important;
@@ -215,5 +226,16 @@
         }
       }
     }
+  }
+  .don {
+    cursor: pointer;
+    font-family: sand_small;
+    width: fit-content !important;
+    font-size: 12px !important;
+  }
+  .spoaa{
+    background: #fefffe49;
+    text-shadow: 0 !important;
+    font-size: 11px;
   }
 }

@@ -60,7 +60,7 @@ export const Get_All_Event = () => async (dispatch) => {
 
 
 
-export const Create_Event = (newEvent) => async (dispatch) => {
+export const Create_Event = (newEvent, t, s) => async (dispatch) => {
   try {
     dispatch({ type: POP_LOADER })
     let CreateEvent = await createEvent(newEvent)
@@ -84,7 +84,8 @@ export const Create_Event = (newEvent) => async (dispatch) => {
           data: "Event created successfully"
         }
       })
-    }, 3300);
+      s.goBack()
+    }, 2400);
 
   } catch (error) {
     console.log({ Eventerror: error.response })
@@ -103,7 +104,7 @@ export const Create_Event = (newEvent) => async (dispatch) => {
           data: "Event created successfully"
         }
       })
-    }, 3300);
+    }, 2400);
   }
 }
 
@@ -142,13 +143,18 @@ export const Fetch_Event = (id) => async (dispatch, state) => {
 }
 
 
-export const Edit_Event = (editedEvent, id) => async (dispatch, state) => {
+export const Edit_Event = (editedEvent, id, s) => async (dispatch, state) => {
   try {
+    let chosenEvent = await state().event.selectedEvent
     dispatch({ type: POP_LOADER })
     let CreateEvent = await EditEvent(editedEvent, id)
     CreateEvent = await CreateEvent.data
+    let edited = await CreateEvent.data
     CreateEvent = await CreateEvent.message
-    console.log(CreateEvent, "worked")
+    dispatch({
+      type: SELECT_EVENT,
+      payload: { ...chosenEvent, ...edited }
+    })
     await dispatch({
       type: POPUP,
       payload: {
@@ -157,6 +163,19 @@ export const Edit_Event = (editedEvent, id) => async (dispatch, state) => {
         data: "Event Edited Successfully"
       }
     })
+
+    setTimeout(() => {
+      dispatch({
+        type: POPIN,
+        payload: {
+          status: "success",
+          data: "Event created successfully"
+        }
+      })
+      s.goBack()
+    }, 2400);
+
+
   } catch (error) {
     console.log(error.response)
     console.log(createEvent, "error")
@@ -183,14 +202,14 @@ export const Delete = (event_id, hist) => async (dispatch) => {
     setTimeout(() => {
       dispatch({ type: DEL_BACK })
       hist.push("/event_")
-    }, 3300);
+    }, 2400);
 
   } catch (error) {
     console.log(error.response)
     dispatch({ type: DEL_FAIL })
     setTimeout(() => {
       dispatch({ type: DEL_BACK })
-    }, 3300);
+    }, 2400);
   }
 }
 
@@ -219,7 +238,7 @@ export const Close_Event = (editedEvent, id) => async (dispatch, state) => {
         type: CLOSE_PASS,
         payload: false
       })
-    }, 3300);
+    }, 2400);
   } catch (error) {
     console.log(error.response)
     console.log(createEvent, "error")
@@ -232,6 +251,6 @@ export const Close_Event = (editedEvent, id) => async (dispatch, state) => {
         type: CLOSE_ERROR,
         payload: false
       })
-    }, 3300);
+    }, 2400);
   }
 }

@@ -95,6 +95,7 @@ class EventScreen extends Component {
     this.chose_pending = this.chose_pending.bind(this)
     this.chose_rejected = this.chose_rejected.bind(this)
     this.chose_accepted = this.chose_accepted.bind(this)
+    this.chose_not_sure = this.chose_not_sure.bind(this)
     this.updateSearch = this.updateSearch.bind(this)
   }
   chose_All() {
@@ -127,6 +128,19 @@ class EventScreen extends Component {
     this.setState({
       invites: [...this.props.pending_invite],
       type: "pending",
+      opacy: ""
+    })
+    setTimeout(() => {
+      this.setState({
+        // searches: this.state.invites.filter(invite => invite.member_name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1),
+        opacy: "opacy"
+      })
+    }, 1)
+  }
+  chose_not_sure() {
+    this.setState({
+      invites: [...this.props.pending_invite],
+      type: "not_sure",
       opacy: ""
     })
     setTimeout(() => {
@@ -171,7 +185,7 @@ class EventScreen extends Component {
 
   render() {
     let {
-      rejected_invite, accepted_invite, invitatio,
+      rejected_invite, accepted_invite, invitatio, not_sure,
       pending_invite, invite_error, invite_loading, sol
     } = this.props
     console.log({ invitatio })
@@ -186,9 +200,9 @@ class EventScreen extends Component {
     )
 
     let filter
-     = invitatio ?
-      [...this.props.accepted_invite, ...this.props.rejected_invite, ...this.props.pending_invite].filter(invite => invite.event_name.toLowerCase().indexOf(search.toLowerCase()) !== -1) :
-      [...this.props.accepted_invite, ...this.props.rejected_invite, ...this.props.pending_invite].filter(invite => invite.member_name.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+      = invitatio ?
+        [...this.props.accepted_invite, ...this.props.rejected_invite, ...this.props.pending_invite].filter(invite => invite.event_name.toLowerCase().indexOf(search.toLowerCase()) !== -1) :
+        [...this.props.accepted_invite, ...this.props.rejected_invite, ...this.props.pending_invite].filter(invite => invite.member_name.toLowerCase().indexOf(search.toLowerCase()) !== -1)
     let Rfilter = invitatio ?
       [...this.props.rejected_invite].filter(invite => invite.event_name.toLowerCase().indexOf(search.toLowerCase()) !== -1) :
       [...this.props.rejected_invite].filter(invite => invite.member_name.toLowerCase().indexOf(search.toLowerCase()) !== -1)
@@ -198,6 +212,9 @@ class EventScreen extends Component {
     let Pfilter = invitatio ?
       [...this.props.pending_invite].filter(invite => invite.event_name.toLowerCase().indexOf(search.toLowerCase()) !== -1) :
       [...this.props.pending_invite].filter(invite => invite.member_name.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+    let Nfilter = invitatio ?
+      [...this.props.not_sure].filter(invite => invite.event_name.toLowerCase().indexOf(search.toLowerCase()) !== -1) :
+      [...this.props.not_sure].filter(invite => invite.member_name.toLowerCase().indexOf(search.toLowerCase()) !== -1)
 
     return (
 
@@ -277,14 +294,14 @@ class EventScreen extends Component {
                         </div>
                       </div>
                       <div className="oner  heart z-depth-1  f g"
-                        onClick={this.chose_pending}
+                        onClick={this.chose_not_sure}
                       >
                         <div className="icon s border heart rounded-pill  z-depth-1">
                           <div className="icon_1" />
                         </div>
                         <div className="text flex-2  mr-auto">
                           <div className="text_1  sand_small">
-                            {pending_invite.length}
+                            {not_sure.length}
                           </div>
                           <div className="text_2  me">
                             Not Sure
@@ -363,6 +380,7 @@ class EventScreen extends Component {
                                 }
                               </>
                             }
+
                             {type === "rejected" &&
                               <>
                                 {
@@ -391,6 +409,20 @@ class EventScreen extends Component {
                                 }
                               </>
                             }
+
+                            {type === "not_sure" &&
+                              <>
+                                {
+                                  Nfilter.length < 1 ?
+                                    <div className="mx-auto text-center my-3 py-2 opacy">No Record Found</div> :
+                                    Nfilter.map((dat, key) => <MemberTable dot={key} dat={dat} invitatio={invitatio} changeStatus={this.props.changeStatus} />)
+                                }
+                              </>
+                            }
+
+
+
+
                           </>
                         }
                       </>

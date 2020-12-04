@@ -9,11 +9,13 @@ const mapStateToProps = state => ({
   accepted_invite: state.invite.accepted,
   rejected_invite: state.invite.rejected,
   pending_invite: state.invite.pending,
+  not_sure: state.invite.not_sure,
   invite_error: state.invite.invite_error,
   invite_loading: state.invite.invite_loading,
   isAdmin: state.user.currentUser.isAdmin,
   deleted: state.event.deleted,
   del_load: state.event.del_load,
+
 
   close_load: state.event.closed_load,
   close_pass: state.event.close_pass,

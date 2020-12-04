@@ -35,10 +35,10 @@ class HomePage extends Component {
   render() {
     return (
       <Dashboard>
-        <div className="container-fluid">
+        <div className="container-fluid px-0   z-depth-0">
           <div className="row mt-3">
             <div className="col-lg-3 mb-2">
-              <div className="shadow d-flex bg-white p-3">
+              <div className="shadow white d-flex  p-3">
                 <span className="home-supervisor-icon">
                   <i className="material-icons">supervisor_account</i>
                 </span>
@@ -53,7 +53,7 @@ class HomePage extends Component {
               </div>
             </div>
             <div className="col-lg-3 mb-2">
-              <div className="shadow d-flex bg-white p-3">
+              <div className="shadow white d-flex  p-3">
                 <span className="home-supervisor-icon">
                   {" "}
                   <i className="material-icons">supervisor_account</i>
@@ -69,7 +69,7 @@ class HomePage extends Component {
               </div>
             </div>
             <div className="col-lg-3 mb-2">
-              <div className="shadow d-flex bg-white p-3">
+              <div className="shadow white d-flex  p-3">
                 <span className="home-supervisor-icon">
                   {" "}
                   <i className="material-icons">supervisor_account</i>
@@ -85,7 +85,7 @@ class HomePage extends Component {
               </div>
             </div>
             <div className="col-lg-3 mb-2">
-              <div className="shadow d-flex bg-white p-3">
+              <div className="shadow white d-flex  p-3">
                 <span className="home-supervisor-icon">
                   {" "}
                   <i className="material-icons">supervisor_account</i>
@@ -110,7 +110,7 @@ class HomePage extends Component {
                   Reports
                 </h5>
               </TableHeader>
-              <div className="shadow bg-white p-5" style={{ height: "100%" }}>
+              <div className=" p-1 white shadow" style={{ height: "100%" }}>
                 <Container>
                   <div className="no-notification">
                     <img
@@ -126,10 +126,12 @@ class HomePage extends Component {
               </div>
             </div>
           </div>
-          <div className="row mt-8 mb-4">
+
+
+          <div className="row  my-4 bbas border">
             <div className="col-lg-12 mb-3 ">
-              <div className="shadow bg-white">
-                <TableHeader>
+              <div className="shadow white">
+                <TableHeader className="">
                   <h5
                     style={{ lineHeight: 2, color: "#fff", fontWeight: "bold" }}
                   >
@@ -138,15 +140,19 @@ class HomePage extends Component {
                 </TableHeader>
                 <TableBody>
                   <Container>
-                    <div className="no-notification">
+                    <div className="no-notification ">
                       <img
                         src={Images.calenderBg}
                         alt="bg"
-                        style={{ height: 130, width: 130 }}
+                        style={{ height: 130, width: 130, marginTop: "91px" }}
                       />
                     </div>
                     <div>
-                      <P><Link to="/event_">Check Upcoming Events</Link></P>
+                      <P>
+                        <div style={{ marginTop: "130px" }}>
+                          <Link to="/event_" >Check Upcoming Events</Link>
+                        </div>
+                      </P>
                     </div>
                   </Container>
                 </TableBody>

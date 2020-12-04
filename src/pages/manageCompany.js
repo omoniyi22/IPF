@@ -1,5 +1,5 @@
 import React from "react";
-import DashBoard from "../hoc/UserDashboard";
+import DashBoard from "../hoc/Dashboard";
 import CustomTab from "../components/tab";
 import { connect } from "react-redux";
 import * as actions from "../redux/actions";
@@ -9,8 +9,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 10%;
-  margin-left: 200px;
-  margin-right: 5px;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 const Profile = ({
@@ -19,6 +19,7 @@ const Profile = ({
   updateDetails,
   isLoading,
   history,
+  role
 }) => {
   function updateAccountDetails(data) {
     isLoading(true);
@@ -26,9 +27,10 @@ const Profile = ({
   }
 
   return (
-    <DashBoard other history={history}>
+    <DashBoard clas={"new_bg"}>
       <Container>
         <CustomTab
+          role={role}
           userDetails={userDetails}
           updateDetails={updateAccountDetails}
         />
@@ -41,7 +43,10 @@ const mapStateToProps = (state) => {
   const {
     user: { userDetails },
   } = state;
-  return { userDetails };
+  return {
+    userDetails,
+    role: state.user.currentUser.role === "super-user"
+  };
 };
 
 export default connect(mapStateToProps, actions)(Profile);

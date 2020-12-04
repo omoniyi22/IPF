@@ -195,7 +195,7 @@ const EditMember = ({ data, showLoader, getAll }) => {
     >
       <div class="modal-content">
         <h4>{"Edit User Details"}</h4>
-        <div className="container-fluid mt-3">
+        <div className="container-fluid px-0   mt-3">
           <>
             <div className="row">
               <label>First Name</label>

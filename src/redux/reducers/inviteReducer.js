@@ -9,11 +9,13 @@ const initialState = {
   accepted: [],
   rejected: [],
   pending: [],
+  not_sure: [],
 
   invitations: [],
   accepted_invitation: [],
   rejected_invitation: [],
   pending_invitation: [],
+  not_sure_invitation: [],
   loading: "",
   error: "",
   selectedInvitation: {}
@@ -38,14 +40,16 @@ export default (state = initialState, action) => {
         invite_loading: false,
         accepted: action.payload.filter((data) => data.status === "ACCEPTED"),
         rejected: action.payload.filter((data) => data.status === "REJECTED"),
-        pending: action.payload.filter((data) => data.status === "PENDING")
+        pending: action.payload.filter((data) => data.status === "PENDING"),
+        not_sure: action.payload.filter((data) => data.status === "MAYBE")
       }
     case SEND_INVITATION:
       return {
         ...state,
         accepted: action.payload.filter((data) => data.status === "ACCEPTED"),
         rejected: action.payload.filter((data) => data.status === "REJECTED"),
-        pending: action.payload.filter((data) => data.status === "PENDING")
+        pending: action.payload.filter((data) => data.status === "PENDING"),
+        not_sure: action.payload.filter((data) => data.status === "MAYBE")
       }
 
     case GOT_INVITATIONS:
@@ -54,6 +58,7 @@ export default (state = initialState, action) => {
         accepted_invitation: action.payload.filter((data) => data.status === "ACCEPTED"),
         rejected_invitation: action.payload.filter((data) => data.status === "REJECTED"),
         pending_invitation: action.payload.filter((data) => data.status === "PENDING"),
+        not_sure_invitation: action.payload.filter((data) => data.status === "MAYBE"),
         error: false
       }
     case I_LOAD:

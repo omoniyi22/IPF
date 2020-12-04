@@ -13,7 +13,7 @@ class Result extends Component {
     let { okay, error, loading, response } = this.props
 
     return (
-      <div className="POF w-100">
+      <div className="POF w-100 new_bg">
         {/* {`${this.props.response}`} */}
         <div className="overun  w-100 h-100 ">
           {loading === true ?

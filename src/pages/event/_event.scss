@@ -1,12 +1,13 @@
 .Event_Page {
   .main_page {
+    
+
     width: 100%;
     .main_button {
       margin-bottom: 20px;
       max-width: fit-content;
       margin-left: auto;
       .edit_b {
-        
         max-width: 150px;
         height: 35px;
         padding: 6px 16px !important;
@@ -24,7 +25,6 @@
         }
       }
       .edit_b.a {
-        
         .fa {
           margin-top: 0px !important;
           color: rgba(41, 39, 36, 0.376);
@@ -88,7 +88,7 @@
             font-family: metro;
             font-size: 10px;
           }
-          .dssp{
+          .dssp {
             display: none;
           }
           .fa {
@@ -100,7 +100,7 @@
         .edit_b.a {
           padding: 0px 8px !important;
           color: rgb(255, 255, 255);
-          background: #ff9d4d ;
+          background: #ff9d4d;
         }
       }
       .switch_button {
@@ -135,6 +135,6 @@
   }
 }
 
-.ssa{
-  background:  #26ac9a !important;
+.ssa {
+  background: #26ac9a !important;
 }

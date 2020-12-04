@@ -316,7 +316,7 @@ class UserProfile extends Component {
     } = this.state;
 
     return (
-      <UserDashboard>
+      <UserDashboard clas="new_bg">
         <AppWrapper
           message={msg}
           type={type}
@@ -331,9 +331,9 @@ class UserProfile extends Component {
             <div style={{ height: 250 }}>
               <img src={bg01} className="img-fluid h-100" alt="background" />
             </div>
-            <div className="container-fluid user-profile-container">
+            <div className="container-fluid px-0   user-profile-container">
               <div className="row">
-                <div className="col-md-6" style={{ position: "relative" }}>
+                <div className="col-md-6 mt-4" style={{ position: "relative" }}>
                   <div className="user-profile-score-card shadow bg-white ">
                     <div className="row justify-content-between border-bottom">
                       <div className="d-flex">
@@ -411,7 +411,7 @@ class UserProfile extends Component {
                               />
                             </div>
                             <div>
-                              <P><Link to="/event_"> Check Upcoming Events</Link></P>
+                              <P><Link to="/event_" className="mt-5"> Check Upcoming Events</Link></P>
                             </div>
                           </Container>
 
@@ -482,7 +482,7 @@ class UserProfile extends Component {
           <div id="modal1" class="modal modal-fixed-footer">
             <div class="modal-content">
               <h4>{"Update Profile"}</h4>
-              <div className="container-fluid mt-3">
+              <div className="container-fluid px-0   mt-3">
                 <div className="row justify-content-center">
                   <div className="circle-avatar text-center d-flex align-items-center justify-content-center">
                     {avatar ? (
@@ -813,7 +813,7 @@ class UserProfile extends Component {
           <div id="modal2" class="modal modal-fixed-footer">
             <div class="modal-content">
               <h4>{"Update Company"}</h4>
-              <div className="container-fluid mt-3">
+              <div className="container-fluid px-0   mt-3">
                 <div className="row justify-content-center">
                   <div className="circle-avatar text-center d-flex align-items-center justify-content-center">
                     {this.state.avatar ? (

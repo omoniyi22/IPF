@@ -31,7 +31,7 @@ class Header extends Component {
     return (
       <div className="">
         <div className="desktop header-bg-blue fixed-header">
-          <div className="container-fluid h-100">
+          <div className="container-fluid px-0   h-100">
             <div className="row align-items-center h-100">
               <div className="col-lg-2">
                 {/* <img src={IpfLogo} alt="IPf" className="img-logo" /> */}
@@ -67,7 +67,7 @@ class Header extends Component {
           className="mobile header-bg-lue mobile-fixed-header"
           style={{ background: "#0F2F3E" }}
         >
-          <header className="mobile-header-bg-blue container-fluid">
+          <header className="mobile-header-bg-blue container-fluid px-0  ">
             <div className="d-flex w-100">
               <div className="d-flex flex-column">
                 <div>
@@ -109,7 +109,7 @@ class Header extends Component {
             </div>
           </header>
           <div
-            className="container-fluid"
+            className="container-fluid px-0  "
             style={{ backgroundColor: "#006D3A" }}
           >
             <div

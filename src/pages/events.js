@@ -7,9 +7,9 @@ import { Link } from 'react-router-dom'
 class Events extends Component {
   render() {
     return (
-      <Dashboard>
+      <Dashboard clas="new_bg">
         {/* <CustomHeader>
-            <div className="container-fluid">
+            <div className="container-fluid px-0  ">
                 <div className="row ">
                     <div className="col-lg-2">
                         <h1 className="text-white header-title">Dashboard</h1>
@@ -26,7 +26,7 @@ class Events extends Component {
                 </div>
             </div>
           </CustomHeader> */}
-        <div className="container-fluid w-100 h-100">
+        <div className="container-fluid px-0   w-100 h-100">
           <div className="d-flex mt-5 events-content flex-column align-items-center h-100 justify-content-center">
             <h1>
               <span className="events-calendar"> <i className="material-icons">date_range</i></span>

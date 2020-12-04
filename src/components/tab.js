@@ -61,7 +61,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CustomTab({ userDetails, updateDetails }) {
+export default function CustomTab({ userDetails, updateDetails, role }) {
+  console.log({ role })
   const classes = useStyles();
   const [value, setValue] = React.useState(1);
   const [state, setState] = React.useState({
@@ -227,14 +228,14 @@ export default function CustomTab({ userDetails, updateDetails }) {
     try {
       const response = await axios.get("/company");
       setCompany({ ...company, ...response.data.data });
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  const isCompanyAdmin = () => state?.nrole === "super-user";
+  const isCompanyAdmin = () => role;
 
   return (
     <Fragment>

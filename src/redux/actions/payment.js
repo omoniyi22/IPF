@@ -59,7 +59,7 @@ export const PaidList = () => async (dispatch, state) => {
 export const Pay = (dat, amount, redirect) => async (dispatch, state) => {
   redirect.push("/result");
   try {
-    const email = state().user.currentUser.email;
+    const email = state().user.currentUser.emailAddress;
     let data = await Pae(dat)
     data = await data.data
     data = await data.data

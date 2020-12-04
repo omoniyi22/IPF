@@ -9,8 +9,14 @@ class Index extends Component {
     return (
       <>
         {admin === 0 ?
-          <UserProfile /> :
-          <AdminHome />}
+          <div className="old_bg">
+            <UserProfile />
+          </div>
+          :
+          <div className="old_bg">
+            <AdminHome />
+          </div>
+        }
       </>
     )
   }

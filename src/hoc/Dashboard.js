@@ -7,12 +7,13 @@ import Alert from "@material-ui/lab/Alert";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 
-export default function Dashboard({ children }) {
+export default function Dashboard({ children, clas }) {
   const defaultPassword = useSelector((state) => state.user.isDefaultPassword);
 
+  
   return (
     <React.Fragment>
-      {/* <div className="container-fluid" style={{ padding: 0 }}>
+      {/* <div className="container-fluid px-0  " style={{ padding: 0 }}>
         <Header />
         <div className="desktop">
           <div className="side-menu-left ">
@@ -22,8 +23,7 @@ export default function Dashboard({ children }) {
         <div className="menu-content">
         </div>
       </div> */}
-
-      <LayOut>
+      <LayOut clas={clas}>
         {children}
       </LayOut>
       <Snackbar

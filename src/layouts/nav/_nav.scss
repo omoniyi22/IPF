@@ -1,7 +1,7 @@
 .user_on_top {
   font-family: metro;
   padding: 4px 22px 4px 15px;
-  background: #0f2f3edf;
+  background: #2A4B5A;
   display: flex;
   margin-top: -9px !important;
   .logo_img {
@@ -51,7 +51,7 @@
       .settings,
       .powers {
         margin: 0 9px;
-        &:hover{
+        &:hover {
           filter: brightness(1.7);
           cursor: pointer;
         }
@@ -102,7 +102,7 @@
       font-family: metro !important;
     }
     padding: 18px 9px;
-    background: rgb(68, 97, 110);
+    background: #0f2f3e;
     padding-left: 20px;
     cursor: pointer;
   }
@@ -157,7 +157,7 @@
     height: 21px !important;
     width: 21px !important;
   }
-  .user_buttons{
+  .user_buttons {
     margin-top: 0;
   }
   .tone {
@@ -193,4 +193,8 @@
       }
     }
   }
+}
+
+.old_bg {
+  background: #c2c9cea1;
 }

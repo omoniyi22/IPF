@@ -132,6 +132,9 @@ export const Invitations = () => async (dispatch) => {
 export const changeStatus = (type, id) => async (dispatch) => {
   dispatch({ type: POP_LOADER })
   try {
+    if (type === "not sure") {
+      type = "maybe"
+    }
     let sent_invite = await AcceptReject(type, id)
     sent_invite = await sent_invite.data
     sent_invite = await sent_invite.message

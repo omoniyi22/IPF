@@ -29,7 +29,7 @@ class PaymentPage extends Component {
   render() {
     return (
       <Dashboard>
-        <div className="container-fluid">
+        <div className="container-fluid px-0  ">
           <form onSubmit={this.submit}>
             <div className="row mt-5 px-5">
               <div className="col-lg-12 mt-3">

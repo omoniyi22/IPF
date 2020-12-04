@@ -42,7 +42,7 @@ class Event extends Component {
       rejected_invite, accepted_invite,
       pending_invite, invite_error, invite_loading, isAdmin,
       del_load, deleted, Delete, event_id, close_load, statu,
-      Close_Event, close_error
+      Close_Event, close_error, not_sure
     } = this.props
 
     return (
@@ -80,7 +80,7 @@ class Event extends Component {
                         <div className="text pr-1 ">Deleted</div>
                       }
 
-                      {del_load === true && deleted === false &&
+                      {del_load === true && deleted === null &&
                         <Loader
                           type="ThreeDots"
                           color="white"
@@ -148,6 +148,7 @@ class Event extends Component {
                           <EventScreen
                             // invitatio={true}
                             rejected_invite={rejected_invite} accepted_invite={accepted_invite}
+                            not_sure={not_sure}
                             pending_invite={pending_invite} invite_error={invite_error}
                             rejected_invite={rejected_invite} accepted_invite={accepted_invite}
                             invite_loading={invite_loading} pending_invite={pending_invite}
@@ -175,7 +176,7 @@ class Event extends Component {
         </Snackbar>
 
         <Snackbar open={deleted !== null} autoHideDuration={3600}>
-          <Alert severity={deleted === true ? "success" : deleted === false ? "error" : "error"}>
+          <Alert severity={deleted === true ? "success" : "error"}>
             <span style={{ fontWeight: "bold" }}>{deleted === false && "Event failed to delete, Try Again"}{deleted === true && "Event deleted Successfully"}</span>
           </Alert>
         </Snackbar>

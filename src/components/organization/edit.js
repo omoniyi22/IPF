@@ -173,7 +173,7 @@ const EditOrganization = ({ data, showLoader, onClose }) => {
     >
       <div class="modal-content">
         <h4>{"Edit Company Details"}</h4>
-        <div className="container-fluid mt-3">
+        <div className="container-fluid px-0   mt-3">
           <div className="row">
             <TextInput
               name={"Corporate ID"}

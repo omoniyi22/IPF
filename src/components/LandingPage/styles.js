@@ -33,7 +33,7 @@ const HeaderContainer = styled.div`
 `;
 
 const HeaderLogoContaienr = styled.div`
-  width: 20%;
+  width: 16%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,7 +43,7 @@ const HeaderLogoContaienr = styled.div`
 const HeaderContentContainer = styled.div`
   width: 70%;
   margin: 0 auto;
-  padding: 0rem 3rem;
+  padding: 0rem 1rem;
   @media (max-width: 768px) {
     width: 82%;
   }
@@ -72,21 +72,24 @@ const LoginButton = styled.div`
 `;
 
 const Image = styled.img`
-  height: 140px;
-  width: 135px;
+  height: 110px;
+  width: 105px;
 `;
 
 const HeaderText = styled.h1`
   color: #fff;
   word-break: normal;
   text-align: center;
+  padding-left: 12px;
   font-weight: normal;
-  font-size: 3.1rem;
+  font-size: 3rem;
   position: relative;
   bottom: 0.8rem;
 
   @media (max-width: 992px) {
-    font-size: 2.2rem;
+  text-align: canter;
+  font-size: 2rem;
+  bottom: 45px;
   }
 
   @media (max-width: 768px) {
@@ -140,7 +143,7 @@ const ContentSectionBackground = styled.div`
   background-position: center;
   opacity: 0.1;
   top: 5.4rem;
-  width: 90%;
+  width: 99%;
   height: 90%;
 `;
 

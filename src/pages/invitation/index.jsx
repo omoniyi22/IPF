@@ -8,6 +8,7 @@ const mapSateToProps = state => ({
   accepted_invitation: state.invite.accepted_invitation,
   rejected_invitation: state.invite.rejected_invitation,
   pending_invitation: state.invite.pending_invitation,
+  not_sure_invitation: state.invite.not_sure_invitation,
 
   loader: state.load_or_error.pop_loader,
   pop: state.load_or_error.pop,

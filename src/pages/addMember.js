@@ -6,7 +6,7 @@ import { connect, useDispatch } from "react-redux";
 import styled from "styled-components";
 import AppWrapper from "../components/appWrapper";
 import CustomTab2 from "../components/tab2";
-import DashBoard from "../hoc/UserDashboard";
+import DashBoard from "../hoc/Dashboard";
 import * as actions from "../redux/actions";
 import { api, attachApiToken } from "../services/api";
 import { sanitizeMember } from "../utils/memberType";
@@ -85,8 +85,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 10%;
-  margin-left: 200px;
-  margin-right: 5px;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 const RenderMemberContainer = styled.div`
@@ -264,7 +264,7 @@ const AddMembers = ({
   };
 
   return (
-    <DashBoard other>
+    <DashBoard clas="new_bg">
       <AppWrapper
         onClose={() => {
           setSnack({
