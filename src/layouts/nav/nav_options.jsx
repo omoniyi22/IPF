@@ -222,7 +222,6 @@ class Nav_Options extends Component {
                 </Link>
 
                 <div className="l_show">
-
                   <SimpleMenu masters={this.state.masters} onMaster={this.onMaster} />
                 </div>
               </>
