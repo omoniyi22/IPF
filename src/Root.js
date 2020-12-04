@@ -74,14 +74,14 @@ class Root extends Component {
             <Route path="/password/reset/:id/:token" component={ResetPassword} />
             <Route path="/login" component={Login} />
 
-            <Route path="/invitations" component={() => <Dashboard clas={"new_bg"}> <Invitation /></Dashboard>} />
-            <Route path="/event_page" component={() => <Dashboard clas={"new_bg"}><EventPage /></Dashboard>} />
-            <Route path="/create-event" component={() => <Dashboard clas={"new_bg"}> <HomePage /></Dashboard>} />
-            <Route path="/invite" component={() => <Dashboard clas={"new_bg"}><EventPage /></Dashboard>} />
-            <Route path="/edit_event" render={() => <Dashboard clas={"new_bg"}><EventPage /></Dashboard>} />
-            <Route path="/payment_history" component={() => <Dashboard clas={"new_bg"}><Payment_History /></Dashboard>} />
-            <Route path="/members" component={() => <Dashboard clas={"new_bg"}><MemberPage /></Dashboard>} />
-            <Route path="/payment" component={() => <Dashboard><Payment /></Dashboard>} />
+            <Route path="/invitations" component={() => isAuth ? <Dashboard clas={"new_bg"}> <Invitation /></Dashboard> : <LandingPage />} />
+            <Route path="/event_page" component={() => isAuth ? <Dashboard clas={"new_bg"}><EventPage /></Dashboard> : <LandingPage />} />
+            <Route path="/create-event" component={() => isAuth ? <Dashboard clas={"new_bg"}> <HomePage /></Dashboard> : <LandingPage />} />
+            <Route path="/invite" component={() => isAuth ? <Dashboard clas={"new_bg"}><EventPage /></Dashboard> : <LandingPage />} />
+            <Route path="/edit_event" render={() => isAuth ? <Dashboard clas={"new_bg"}><EventPage /></Dashboard> : <LandingPage />} />
+            <Route path="/payment_history" component={() => isAuth ? <Dashboard clas={"new_bg"}><Payment_History /></Dashboard> : <LandingPage />} />
+            <Route path="/members" component={() => isAuth ? <Dashboard clas={"new_bg"}><MemberPage /></Dashboard> : <LandingPage/>} />
+            <Route path="/payment" component={() =>  isAuth ? <Dashboard><Payment /></Dashboard>: <LandingPage/>} />
             <Route path="/change-password" component={() => isAuth ? <ChangePassword /> : <LandingPage />} />
             <Route path="/profile-update" component={() => isAdmin === 1 ? <ManageProfile /> : <>{isAuth === true ? <ManageUserProfile /> : <LandingPage />}</>} />
 

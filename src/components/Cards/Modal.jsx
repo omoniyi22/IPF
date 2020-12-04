@@ -11,10 +11,20 @@ export default class Modal extends Component {
     return (
       <div className=" p-3 dedom">
         <div className="sstt text-center pt-1 pb-2 font-weight-light">
-          <span className="text-success pr-2">NOTE :</span>
-          {status === "active" ? "This is an upcoming event" :
-            "This event has passed"
+
+          {status === "active" ?
+            <>
+              <span className="text-success pr-2 font-weight-bold">NOTE :</span>
+              <span className="text-success"> " This is an upcoming event, Don't miss it ! "</span>
+            </> :
+            <>
+              <span className="text-danger pr-2 font-weight-bold">NOTE :</span>
+              <span className="text-danger"> " This event has passed ! "</span>
+            </>
           }
+
+
+
         </div>
         <div className=" tones header lead metro font-weight-bold white px-0 mx-0 mb-2 pb-1">
           {title}
