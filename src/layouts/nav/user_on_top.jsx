@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { avata } from '../../utils/app';
 class Nav_Options extends Component {
   render() {
-    let { email, firstName, lastName, logout, user } = this.props
+    let { email, firstName, lastName, logout, user, approved } = this.props
     return (
       <>
         <div>
@@ -60,7 +60,7 @@ class Nav_Options extends Component {
             DASHBOARD
             </div>
           <div className="flex-2 down_ed  pr-md-5 mr-md-5">
-            <span className="font-light">Membership Status:</span><span className="smaller"> ACTIVE</span>
+            <span className="font-light">Membership Status:</span><span className="smaller"> {approved === 1 ? "ACTIVE" : "INACTIVE"}</span>
           </div>
         </div>
       </>
@@ -72,6 +72,7 @@ const mapStateToProps = state => ({
   firstName: state.user.currentUser.firstName,
   lastName: state.user.currentUser.lastName,
   email: state.user.currentUser.emailAddress,
+  approved: state.user.currentUser.approved,
   user: state.user.currentUser
 })
 

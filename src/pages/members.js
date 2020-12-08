@@ -19,6 +19,15 @@ import EditOrganization from "../components/organization/edit";
 import EditMember from "../components/Members/editMember";
 import styled from "styled-components";
 
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import { ProfileModal, useStyle } from "../components/Modal/Profile/ProfileModal";
+
+
+
+
 const pageSizeOptions = [20, 50, 100, 200];
 class Members extends Component {
   state = {
@@ -51,7 +60,33 @@ class Members extends Component {
       phoneNumber: "",
       emailAddress: "",
     },
+    open: false,
+    fullWidth: true,
+    maxWidth: "sm",
+    memberData: {}
   };
+
+
+
+  handleClickOpen = () => {
+    this.setState({
+      open: true
+    })
+  };
+
+  handleClose = () => {
+    this.setState({
+      open: false
+    })
+  };
+
+  handleMaxWidthChange = (event) => {
+    this.setState({
+      maxWidth: event.target.value
+    });
+  };
+
+
   async componentDidMount() {
     //initialize materialize modal
     window.$(".modal").modal();
@@ -595,6 +630,11 @@ class Members extends Component {
         individualMembers.push(item);
       }
     });
+
+
+
+
+
     return (
       <div className="shadow rounded bg-white col-md-12 p-3 material">
         <MaterialTable
@@ -674,6 +714,12 @@ class Members extends Component {
             },
             searchFieldStyle: {},
             actionsColumnIndex: -1,
+          }}
+          onRowClick={(event, memberData) => {
+            this.setState({
+              open: true,
+              memberData
+            })
           }}
           actions={[
             {
@@ -761,6 +807,14 @@ class Members extends Component {
               }
               return <button></button>;
             },
+
+          }}
+
+          onRowClick={(event, memberData) => {
+            this.setState({
+              open: true,
+              memberData
+            })
           }}
           title=""
           columns={[
@@ -815,7 +869,9 @@ class Members extends Component {
     });
 
     return (
-      <div className="shadow rounded bg-white col-md-12 p-3">
+
+
+      <div className="shadow rounded bg-white col-md-12 p-3 material">
         <MaterialTable
           detailPanel={[
             {
@@ -830,6 +886,7 @@ class Members extends Component {
                       display: "flex",
                       flexDirection: "row",
                       padding: 10,
+                      maxWidth: '100%'
                     }}
                   >
                     <SpanContainer>
@@ -878,51 +935,15 @@ class Members extends Component {
             { title: "Member Type", field: "membershipType" },
             { title: "Phone Number", field: "phoneNumber" },
             { title: "Company", field: "company_name" },
-            { title: "Company designation", field: "company_designation" },
-            {
-              title: "Email Address(2)",
-              field: "emailAddress2",
-            },
-            {
-              title: "Phone Number(2)",
-              field: "phoneNumber2",
-            },
 
-            {
-              title: "State",
-              field: "state",
-            },
-            {
-              title: "Street",
-              field: "street1",
-            },
-            {
-              title: "City",
-              field: "city",
-            },
-
-            {
-              title: "Passport",
-              field: "passport",
-            },
-            {
-              title: "Qualifications",
-              field: "qualifications",
-            },
-            {
-              title: "Genger",
-              field: "gender",
-            },
-            {
-              title: "Industry Type",
-              field: "industryType",
-            },
-            {
-              title: "Industry Classification",
-              field: "industryClassification",
-            },
           ]}
           data={_members}
+          onRowClick={(event, memberData) => {
+            this.setState({
+              open: true,
+              memberData
+            })
+          }}
           options={{
             exportButton: true,
             exportAllData: true,
@@ -972,425 +993,303 @@ class Members extends Component {
   render() {
     let { role } = this.props
     role = role === "super-user"
+
+    let { open, fullWidth, maxWidth } = this.state
+    let { handleClickOpen, handleClose, handleMaxWidthChange } = this
+
     return (
-      <Dashboard clas={"new_bg"}>
-        <AppWrapper
-          open={this.state.openSnackbar}
-          onClose={() => {
-            this.setState({
-              openSnackbar: false,
-            });
-          }}
-          message={this.state.msg}
-          type={this.state.type}
-        >
-          <div className="container-fluid px-0  " style={{ width: "90%" }}>
-            <div className="d-flex justify-content-end mb-3">
-              <button
-                onClick={this.openAddMemberModal}
-                class="waves-effect waves-light btn"
-              >
-                Add Member
+      <>
+        <Dashboard clas={"new_bg"}>
+          <AppWrapper
+            open={this.state.openSnackbar}
+            onClose={() => {
+              this.setState({
+                openSnackbar: false,
+              });
+            }}
+            message={this.state.msg}
+            type={this.state.type}
+          >
+            <div className="container-fluid px-0  " style={{ maxWidth: "90%", overflow: "hidden" }}>
+              <div className="d-flex justify-content-end mb-3">
+                <button
+                  onClick={this.openAddMemberModal}
+                  class="waves-effect waves-light btn"
+                >
+                  Add Member
               </button>
-            </div>
-            <div className="row mt-5">
-              <div className="shadow rounded bg-white col-md-12 px-3 py-1">
-                <div className="d-flex justify-content-center align-items-center">
-                  <div
-                    onClick={() => this.setState({ currentTab: "individual" })}
-                    style={{ position: "relative" }}
-                  >
-                    <h4
-                      className={`member-type-header ${
-                        this.state.currentTab === "individual" ? "active" : ""
-                        }`}
+              </div>
+              <div className="row mt-5">
+                <div className="shadow rounded bg-white col-md-12 px-3 py-1">
+                  <div className="d-flex justify-content-center align-items-center">
+                    <div
+                      onClick={() => this.setState({ currentTab: "individual" })}
+                      style={{ position: "relative" }}
                     >
-                      Individual Members
+                      <h4
+                        className={`member-type-header ${
+                          this.state.currentTab === "individual" ? "active" : ""
+                          }`}
+                      >
+                        Individual Members
                     </h4>
-                  </div>
+                    </div>
 
-                  <div
-                    onClick={() => this.setState({ currentTab: "corporate" })}
-                    style={{ position: "relative" }}
-                  >
-                    <h4
-                      className={`member-type-header ${
-                        this.state.currentTab === "corporate" ? "active" : ""
-                        }`}
+                    <div
+                      onClick={() => this.setState({ currentTab: "corporate" })}
+                      style={{ position: "relative" }}
                     >
-                      Corporate Members
+                      <h4
+                        className={`member-type-header ${
+                          this.state.currentTab === "corporate" ? "active" : ""
+                          }`}
+                      >
+                        Corporate Members
                     </h4>
-                  </div>
+                    </div>
 
-                  <div
-                    onClick={() => this.setState({ currentTab: "all" })}
-                    style={{ position: "relative" }}
-                  >
-                    <h4
-                      className={`member-type-header ${
-                        this.state.currentTab === "all" ? "active" : ""
-                        }`}
+                    <div
+                      onClick={() => this.setState({ currentTab: "all" })}
+                      style={{ position: "relative" }}
                     >
-                      All Members
+                      <h4
+                        className={`member-type-header ${
+                          this.state.currentTab === "all" ? "active" : ""
+                          }`}
+                      >
+                        All Members
                     </h4>
-                  </div>
+                    </div>
 
-                  <div
-                    onClick={() =>
-                      this.setState({ currentTab: "organisation" })
-                    }
-                    style={{ position: "relative" }}
-                  >
-                    <h4
-                      className={`member-type-header mx-2 ${
-                        this.state.currentTab === "organisation" ? "active" : ""
-                        }`}
+                    <div
+                      onClick={() =>
+                        this.setState({ currentTab: "organisation" })
+                      }
+                      style={{ position: "relative" }}
                     >
-                      Organisation
+                      <h4
+                        className={`member-type-header mx-2 ${
+                          this.state.currentTab === "organisation" ? "active" : ""
+                          }`}
+                      >
+                        Organisation
                     </h4>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="row mt-4">
-              {this.state.currentTab === "corporate" &&
-                this.renderCorporateMemberBlock()}
+              <div className="row mt-4" style={{ overflow: "scroll" }}>
+                {this.state.currentTab === "corporate" &&
+                  this.renderCorporateMemberBlock()}
 
-              {this.state.currentTab === "individual" &&
-                this.renderIndividualBlock()}
+                {this.state.currentTab === "individual" &&
+                  this.renderIndividualBlock()}
 
-              {this.state.currentTab === "all" && this.renderAllMembersBlock()}
+                {this.state.currentTab === "all" && this.renderAllMembersBlock()}
 
-              {this.state.currentTab === "organisation" && (
-                <div className="shadow rounded bg-white col-md-12 p-3">
-                  <MaterialTable
-                    components={{
-                      Action: (props) => {
-                        if (props.action.icon === "save") {
-                          return (
-                            <TableAction
-                              data={props.data}
-                              onClick={this.handleOnClick}
-                            />
-                          );
-                        }
-                        return <button></button>;
-                      },
-                    }}
-                    title=""
-                    columns={[
-                      {
-                        title: "Name",
-                        field: "company_name",
-                        defaultSort: "asc",
-                      },
-                      { title: "Email", field: "email" },
-                      {
-                        title: "Member No",
-                        field: "memberNumber",
-                        defaultSort: "asc",
-                      },
-                      { title: "Member Type", field: "company_type" },
-                      { title: "Phone Number", field: "phone_number" },
-                    ]}
-                    data={this.state.companies}
-                    options={{
-                      pageSizeOptions: [20, 50, 100, 200],
-                      exportButton: true,
-                      exportAllData: true,
-                      sorting: true,
-                      headerStyle: {
-                        background: "#FA6400",
-                        color: "#FFF",
-                        fontFamily: '"Open Sans", sans-serif',
-                        fontWeight: "bold",
-                        zIndex: 1,
-                      },
-                      searchFieldStyle: {},
-                      actionsColumnIndex: -1,
-                    }}
-                    actions={[
-                      {
-                        icon: "save",
-                        tooltip: "Save User",
-                        onClick: (event, rowData) => {
-                          // Do save operation
+                {this.state.currentTab === "organisation" && (
+                  <div className="shadow rounded bg-white col-md-12 p-3">
+                    <MaterialTable
+
+                      components={{
+                        Action: (props) => {
+                          if (props.action.icon === "save") {
+                            return (
+                              <TableAction
+                                data={props.data}
+                                onClick={this.handleOnClick}
+                              />
+                            );
+                          }
+                          return <button></button>;
                         },
-                      },
-                    ]}
-                  />
-                </div>
-              )}
-            </div>
+                      }}
+                      title=""
 
-            <div id="modal1" class="modal modal-fixed-footer">
-              <div class="modal-content">
-                <h4>{this.state.data.company_name + " Members"}</h4>
-                <div className="container-fluid px-0   mt-3">
-                  {this.state.members.map((item) => (
-                    <div className="row shadow bg-white rounded p-2">
-                      <div className="col-md-12">
-                        <div className="row " style={{ marginBottom: 8 }}>
-                          <div className="col-md-8">
-                            <h5>{`${item.firstName} ${item.lastName}`}</h5>
+                      columns={[
+                        {
+                          title: "Name",
+                          field: "company_name",
+                          defaultSort: "asc",
+                        },
+                        { title: "Email", field: "email" },
+                        {
+                          title: "Member No",
+                          field: "memberNumber",
+                          defaultSort: "asc",
+                        },
+                        { title: "Member Type", field: "company_type" },
+                        { title: "Phone Number", field: "phone_number" },
+                      ]}
+                      data={this.state.companies}
+                      onRowClick={(event, memberData) => {
+                        this.setState({
+                          open: true,
+                          memberData
+                        })
+                      }}
+                      options={{
+                        pageSizeOptions: [20, 50, 100, 200],
+                        exportButton: true,
+                        exportAllData: true,
+                        sorting: true,
+                        headerStyle: {
+                          background: "#FA6400",
+                          color: "#FFF",
+                          fontFamily: '"Open Sans", sans-serif',
+                          fontWeight: "bold",
+                          zIndex: 1,
+                        },
+                        searchFieldStyle: {},
+                        actionsColumnIndex: -1,
+                      }}
+                      actions={[
+                        {
+                          icon: "save",
+                          tooltip: "Save User",
+                          onClick: (event, rowData) => {
+                            // Do save operation
+                          },
+                        },
+                      ]}
+                    />
+                  </div>
+                )}
+              </div>
+
+              <div id="modal1" class="modal modal-fixed-footer">
+                <div class="modal-content">
+                  <h4>{this.state.data.company_name + " Members"}</h4>
+                  <div className="container-fluid px-0   mt-3">
+                    {this.state.members.map((item) => (
+                      <div className="row shadow bg-white rounded p-2"
+
+                      >
+
+
+
+                        <div className="col-md-12"
+                          onClick={() => {
+                            this.setState({
+                              open: true
+                            })
+                          }}>
+                          <div className="row " style={{ marginBottom: 8 }}>
+                            <div className="col-md-8">
+                              <h5>{`${item.firstName} ${item.lastName}`}</h5>
+                            </div>
+                            <div className="col-md-4">
+                              <h5 className="text-primary">{`#${item.memberNumber}`}</h5>
+                            </div>
                           </div>
-                          <div className="col-md-4">
-                            <h5 className="text-primary">{`#${item.memberNumber}`}</h5>
+                          <div className="row " style={{ marginBottom: 8 }}>
+                            <div className="col-md-12">
+                              <span>
+                                Email :
+                              <span
+                                  style={{ fontWeight: "bold", fontSize: "16px" }}
+                                >
+                                  {" "}
+                                  {`${item.emailAddress}`}
+                                </span>
+                              </span>
+                            </div>
                           </div>
-                        </div>
-                        <div className="row " style={{ marginBottom: 8 }}>
-                          <div className="col-md-12">
-                            <span>
-                              Email :
+
+                          <div className="row " style={{ marginBottom: 8 }}>
+                            <div className="col-md-12">
+                              <span>Phone number :</span>
+
                               <span
                                 style={{ fontWeight: "bold", fontSize: "16px" }}
                               >
                                 {" "}
-                                {`${item.emailAddress}`}
+                                {`${item.phoneNumber || " "}`}
                               </span>
-                            </span>
+                            </div>
                           </div>
-                        </div>
+                          <div className="row " style={{ marginBottom: 8 }}>
+                            <div className="col-md-12">
+                              <span>Position :</span>
 
-                        <div className="row " style={{ marginBottom: 8 }}>
-                          <div className="col-md-12">
-                            <span>Phone number :</span>
-
-                            <span
-                              style={{ fontWeight: "bold", fontSize: "16px" }}
-                            >
-                              {" "}
-                              {`${item.phoneNumber || " "}`}
-                            </span>
-                          </div>
-                        </div>
-                        <div className="row " style={{ marginBottom: 8 }}>
-                          <div className="col-md-12">
-                            <span>Position :</span>
-
-                            <span
-                              style={{ fontWeight: "bold", fontSize: "16px" }}
-                            >{`${item.position || " Member"}`}</span>
-                          </div>
-                        </div>
-
-                        <div className="row " style={{ marginBottom: 8 }}>
-                          <div className="col-md-12">
-                            <span>
-                              {`Role:`}
                               <span
-                                className="mx-1"
                                 style={{ fontWeight: "bold", fontSize: "16px" }}
-                              >
-                                {roleSanitizer(item.role)}
-                              </span>
-                            </span>
+                              >{`${item.position || " Member"}`}</span>
+                            </div>
                           </div>
-                        </div>
-                        <div className="row " style={{ marginBottom: 8 }}>
-                          <div className="col-md-12 d-flex justify-content-end">
-                            <UserAction
-                              data={item}
-                              onClick={this.perfromUserAction}
-                            />
+
+                          <div className="row " style={{ marginBottom: 8 }}>
+                            <div className="col-md-12">
+                              <span>
+                                {`Role:`}
+                                <span
+                                  className="mx-1"
+                                  style={{ fontWeight: "bold", fontSize: "16px" }}
+                                >
+                                  {roleSanitizer(item.role)}
+                                </span>
+                              </span>
+                            </div>
+                          </div>
+                          <div className="row " style={{ marginBottom: 8 }}>
+                            <div className="col-md-12 d-flex justify-content-end">
+                              <UserAction
+                                data={item}
+                                onClick={this.perfromUserAction}
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div class="modal-footer">
-                <a
-                  href="#!"
-                  class="modal-close  waves-effect waves-green btn-info btn"
-                >
-                  Close
-                </a>
-              </div>
-            </div>
-
-            <div id="modal2" class="modal modal-fixed-footer">
-              <div class="modal-content">
-                <h4>{"Add members to " + this.state.data.company_name}</h4>
-                <div className="container-fluid px-0   mt-3">
-                  <div className="row">
-                    <TextInput
-                      name={"firstName"}
-                      placeholder="First Name"
-                      onChange={this.handleOnChange}
-                      value={this.state.firstName}
-                    />
-                  </div>
-                  <div className="row">
-                    <TextInput
-                      name={"lastName"}
-                      placeholder="Last Name"
-                      onChange={this.handleOnChange}
-                      value={this.state.lastName}
-                    />
-                  </div>
-                  <div className="row">
-                    <TextInput
-                      name={"email"}
-                      placeholder="Email Addresss"
-                      onChange={this.handleOnChange}
-                      value={this.state.email}
-                    />
-                  </div>
-                  <div className="row">
-                    <PhoneNumber
-                      name={"phoneNumber"}
-                      placeholder="Phone Number"
-                      onChange={this.handleOnChange}
-                      value={this.state.phoneNumber}
-                    />
+                    ))}
                   </div>
                 </div>
-              </div>
-              <div class="modal-footer">
-                <a
-                  href="#!"
-                  class="modal-close  waves-effect waves-green btn-flat"
-                >
-                  Close
+                <div class="modal-footer">
+                  <a
+                    href="#!"
+                    class="modal-close  waves-effect waves-green btn-info btn"
+                  >
+                    Close
                 </a>
-                <button
-                  onClick={this.addMember}
-                  className="waves-effect waves-green btn-primary btn"
-                >
-                  Add
-                </button>
+                </div>
               </div>
-            </div>
-            <div id="modal3" class="modal modal-fixed-footer">
-              <EditOrganization
-                data={this.state.companyData}
-                onClose={() => {
-                  this.setState({
-                    editCompany: false,
-                  });
-                }}
-              />
-            </div>
 
-            <div id="modal7" class="modal modal-fixed-footer">
-              <>
+              <div id="modal2" class="modal modal-fixed-footer">
                 <div class="modal-content">
-                  <h4>{"Add members"}</h4>
+                  <h4>{"Add members to " + this.state.data.company_name}</h4>
                   <div className="container-fluid px-0   mt-3">
-                    <div className="row input-field">
-                      <select name="companyCode" onChange={this.handleOnChange}>
-                        <option>Select membership type</option>
-
-                        {this.state.types.map((ele) => (
-                          <option value={ele.code}>{ele.name}</option>
-                        ))}
-                      </select>
+                    <div className="row">
+                      <TextInput
+                        name={"firstName"}
+                        placeholder="First Name"
+                        onChange={this.handleOnChange}
+                        value={this.state.firstName}
+                      />
                     </div>
-                    {!this.state.codes.includes(this.state.companyCode) ? (
-                      <>
-                        <div className="row">
-                          <TextInput
-                            name={"firstName"}
-                            placeholder="First Name"
-                            onChange={this.handleOnChange}
-                            value={this.state.firstName}
-                          />
-                        </div>
-                        <div className="row">
-                          <TextInput
-                            name={"lastName"}
-                            placeholder="Last Name"
-                            onChange={this.handleOnChange}
-                            value={this.state.lastName}
-                          />
-                        </div>
-                        <div className="row">
-                          <TextInput
-                            name={"email"}
-                            placeholder="Email Addresss"
-                            onChange={this.handleOnChange}
-                            value={this.state.email}
-                          />
-                        </div>
-                        <div className="row">
-                          <PhoneNumber
-                            name={"phoneNumber"}
-                            placeholder="Phone Number"
-                            onChange={this.handleOnChange}
-                            value={this.state.phoneNumber}
-                          />
-                        </div>
-                      </>
-                    ) : null}
-                    {this.state.codes.includes(this.state.companyCode) ? (
-                      <>
-                        <div className="row">
-                          <TextInput
-                            name={"company_name"}
-                            placeholder="Company Name"
-                            onChange={this.handleOnChange}
-                            value={this.state.company_name}
-                          />
-                        </div>
-                        <div className="row">
-                          <TextInput
-                            name={"email"}
-                            placeholder="Email"
-                            onChange={this.handleOnChange}
-                            value={this.state.email}
-                          />
-                        </div>
-                        <div className="row">
-                          <PhoneNumber
-                            name={"phone_number"}
-                            placeholder="Phone Number"
-                            onChange={this.handleOnChange}
-                            value={this.state.phone_number}
-                          />
-                          {/* <TextInput
-                        name={"phone_number"}
+                    <div className="row">
+                      <TextInput
+                        name={"lastName"}
+                        placeholder="Last Name"
+                        onChange={this.handleOnChange}
+                        value={this.state.lastName}
+                      />
+                    </div>
+                    <div className="row">
+                      <TextInput
+                        name={"email"}
+                        placeholder="Email Addresss"
+                        onChange={this.handleOnChange}
+                        value={this.state.email}
+                      />
+                    </div>
+                    <div className="row">
+                      <PhoneNumber
+                        name={"phoneNumber"}
                         placeholder="Phone Number"
                         onChange={this.handleOnChange}
-                        value={this.state.phone_number}
-                      /> */}
-                          {/* <span>format: 2348070706069</span> */}
-                        </div>
-                        <div className="row">
-                          <TextInput
-                            name={"adminFirstName"}
-                            placeholder="Company Admin First Name"
-                            onChange={this.handleOnChange}
-                            value={this.state.adminFirstName}
-                          />
-                        </div>
-                        <div className="row">
-                          <TextInput
-                            name={"adminLastName"}
-                            placeholder="Company Admin Last Name"
-                            onChange={this.handleOnChange}
-                            value={this.state.adminLastName}
-                          />
-                        </div>
-                        <div className="row">
-                          <TextInput
-                            name={"adminEmail"}
-                            placeholder="Company Admin Email Addresss"
-                            onChange={this.handleOnChange}
-                            value={this.state.adminEmail}
-                          />
-                        </div>
-                        <div className="row">
-                          <PhoneNumber
-                            name={"adminPhoneNumber"}
-                            placeholder="Company Admin Phone Number"
-                            onChange={this.handleOnChange}
-                            value={this.state.adminPhoneNumber}
-                          />
-                        </div>
-                      </>
-                    ) : null}
+                        value={this.state.phoneNumber}
+                      />
+                    </div>
                   </div>
                 </div>
                 <div class="modal-footer">
@@ -1399,25 +1298,196 @@ class Members extends Component {
                     class="modal-close  waves-effect waves-green btn-flat"
                   >
                     Close
-                  </a>
+                </a>
                   <button
-                    onClick={this.addIndividualMember}
+                    onClick={this.addMember}
                     className="waves-effect waves-green btn-primary btn"
                   >
                     Add
-                  </button>
+                </button>
                 </div>
-              </>
+              </div>
+              <div id="modal3" class="modal modal-fixed-footer">
+                <EditOrganization
+                  data={this.state.companyData}
+                  onClose={() => {
+                    this.setState({
+                      editCompany: false,
+                    });
+                  }}
+                />
+              </div>
+
+              <div id="modal7" class="modal modal-fixed-footer">
+                <>
+                  <div class="modal-content">
+                    <h4>{"Add members"}</h4>
+                    <div className="container-fluid px-0   mt-3">
+                      <div className="row input-field">
+                        <select name="companyCode" onChange={this.handleOnChange}>
+                          <option>Select membership type</option>
+
+                          {this.state.types.map((ele) => (
+                            <option value={ele.code}>{ele.name}</option>
+                          ))}
+                        </select>
+                      </div>
+                      {!this.state.codes.includes(this.state.companyCode) ? (
+                        <>
+                          <div className="row">
+                            <TextInput
+                              name={"firstName"}
+                              placeholder="First Name"
+                              onChange={this.handleOnChange}
+                              value={this.state.firstName}
+                            />
+                          </div>
+                          <div className="row">
+                            <TextInput
+                              name={"lastName"}
+                              placeholder="Last Name"
+                              onChange={this.handleOnChange}
+                              value={this.state.lastName}
+                            />
+                          </div>
+                          <div className="row">
+                            <TextInput
+                              name={"email"}
+                              placeholder="Email Addresss"
+                              onChange={this.handleOnChange}
+                              value={this.state.email}
+                            />
+                          </div>
+                          <div className="row">
+                            <PhoneNumber
+                              name={"phoneNumber"}
+                              placeholder="Phone Number"
+                              onChange={this.handleOnChange}
+                              value={this.state.phoneNumber}
+                            />
+                          </div>
+                        </>
+                      ) : null}
+                      {this.state.codes.includes(this.state.companyCode) ? (
+                        <>
+                          <div className="row">
+                            <TextInput
+                              name={"company_name"}
+                              placeholder="Company Name"
+                              onChange={this.handleOnChange}
+                              value={this.state.company_name}
+                            />
+                          </div>
+                          <div className="row">
+                            <TextInput
+                              name={"email"}
+                              placeholder="Email"
+                              onChange={this.handleOnChange}
+                              value={this.state.email}
+                            />
+                          </div>
+                          <div className="row">
+                            <PhoneNumber
+                              name={"phone_number"}
+                              placeholder="Phone Number"
+                              onChange={this.handleOnChange}
+                              value={this.state.phone_number}
+                            />
+                            {/* <TextInput
+                        name={"phone_number"}
+                        placeholder="Phone Number"
+                        onChange={this.handleOnChange}
+                        value={this.state.phone_number}
+                      /> */}
+                            {/* <span>format: 2348070706069</span> */}
+                          </div>
+                          <div className="row">
+                            <TextInput
+                              name={"adminFirstName"}
+                              placeholder="Company Admin First Name"
+                              onChange={this.handleOnChange}
+                              value={this.state.adminFirstName}
+                            />
+                          </div>
+                          <div className="row">
+                            <TextInput
+                              name={"adminLastName"}
+                              placeholder="Company Admin Last Name"
+                              onChange={this.handleOnChange}
+                              value={this.state.adminLastName}
+                            />
+                          </div>
+                          <div className="row">
+                            <TextInput
+                              name={"adminEmail"}
+                              placeholder="Company Admin Email Addresss"
+                              onChange={this.handleOnChange}
+                              value={this.state.adminEmail}
+                            />
+                          </div>
+                          <div className="row">
+                            <PhoneNumber
+                              name={"adminPhoneNumber"}
+                              placeholder="Company Admin Phone Number"
+                              onChange={this.handleOnChange}
+                              value={this.state.adminPhoneNumber}
+                            />
+                          </div>
+                        </>
+                      ) : null}
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <a
+                      href="#!"
+                      class="modal-close  waves-effect waves-green btn-flat"
+                    >
+                      Close
+                  </a>
+                    <button
+                      onClick={this.addIndividualMember}
+                      className="waves-effect waves-green btn-primary btn"
+                    >
+                      Add
+                  </button>
+                  </div>
+                </>
+              </div>
+              <div id="modal6" class="modal modal-fixed-footer">
+                <EditMember
+                  getAll={this.getDataAtOnce}
+                  data={this.state.userData}
+                />
+              </div>
             </div>
-            <div id="modal6" class="modal modal-fixed-footer">
-              <EditMember
-                getAll={this.getDataAtOnce}
-                data={this.state.userData}
-              />
-            </div>
-          </div>
-        </AppWrapper>
-      </Dashboard>
+          </AppWrapper>
+        </Dashboard >
+
+        <Dialog
+          fullWidth={fullWidth}
+          maxWidth={maxWidth}
+          open={this.state.open}
+          onClose={() => this.setState({
+            open: false
+          })}
+          aria-labelledby="max-width-dialog-title"
+        >
+
+          <ProfileModal
+            // time={`${DateForm(event.event_date) + " " + TimeForm(event.event_time)}`}
+            // venue={event.event_venue}
+            // detail={event.event_details}
+            // title={event.event_name}
+            // imag={event.banner_image}
+            data={this.state.memberData}
+          />
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Close
+          </Button>
+          </DialogActions>
+        </Dialog>
+      </>
     );
   }
 }

@@ -271,7 +271,7 @@ class ManageProfile extends Component {
       const industry = indusRes.data.data;
       const indusClass = classRes.data.data;
       const quals = qual.data.data;
-
+      console.log({ qual })
       this.setState({
         ...data,
         indusClass,
@@ -344,7 +344,7 @@ class ManageProfile extends Component {
               <form onSubmit={this.submit} className="mt-3 px-3">
                 <div className="row">
                   <div className="col-lg-6">
-                    <label>First Name</label>
+                    <label className="slabel">First Name</label>
                     <TextInput
                       name={"firstName"}
                       onChange={this.handleOnChange}
@@ -353,7 +353,7 @@ class ManageProfile extends Component {
                     />
                   </div>
                   <div className="col-lg-6">
-                    <label>Last Name</label>
+                    <label className="slabel">Last Name</label>
                     <TextInput
                       name={"lastName"}
                       disabled
@@ -364,7 +364,7 @@ class ManageProfile extends Component {
                 </div>
                 <div className="row">
                   <div className="col-lg-6">
-                    <label>Email 1</label>
+                    <label className="slabel">Email 1</label>
                     <TextInput
                       name={"emailAddress"}
                       disabled
@@ -373,7 +373,7 @@ class ManageProfile extends Component {
                       type="email"
                     />
 
-                    <label className="">
+                    <label className="slabel">
                       <input
                         type="checkbox"
                         checked={this.state.email1_primary}
@@ -387,7 +387,7 @@ class ManageProfile extends Component {
                     </label>
                   </div>
                   <div className="col-lg-6">
-                    <label>Email 2</label>
+                    <label className="slabel">Email 2</label>
                     <TextInput
                       name={"emailAddress2"}
                       onChange={this.handleOnChange}
@@ -395,7 +395,7 @@ class ManageProfile extends Component {
                       type="email"
                     />
 
-                    <label className="">
+                    <label className="slabel">
                       <input
                         type="checkbox"
                         checked={this.state.email2_primary}
@@ -411,14 +411,14 @@ class ManageProfile extends Component {
                 </div>
                 <div className="row">
                   <div className="col-lg-6">
-                    <label>Phone number 1</label>
+                    <label className="slabel">Phone number 1</label>
 
                     <PhoneNumber
                       name={"phoneNumber"}
                       onChange={this.handleOnChange}
                       value={this.state.phoneNumber}
                     />
-                    <label className="">
+                    <label className="slabel">
                       <input
                         type="checkbox"
                         checked={this.state.phone1_whatsapp}
@@ -433,7 +433,7 @@ class ManageProfile extends Component {
                     </label>
                   </div>
                   <div className="col-lg-6">
-                    <label>Phone number 2</label>
+                    <label className="slabel">Phone number 2</label>
 
                     <PhoneNumber
                       name="phoneNumber2"
@@ -441,7 +441,7 @@ class ManageProfile extends Component {
                       value={this.state.phoneNumber2}
                     />
 
-                    <label className="">
+                    <label className="slabel">
                       <input
                         type="checkbox"
                         checked={this.state.phone2_whatsapp}
@@ -464,25 +464,31 @@ class ManageProfile extends Component {
                 </div>
                 <div className="row">
                   <div className="col-lg-6">
-                    <label>Qualification</label>
-                    <select
-                      className="custom-select-input"
-                      name="qualifications"
-                      defaultValue={this.state.qualifications}
-                      onChange={this.handleOnChange}
-                      value={this.state.qualifications}
-                    >
-                      <option>select</option>
-                      {this.state.quals.map((ele) => (
-                        <option key={ele.id} value={ele.name}>
-                          {ele.name}
-                        </option>
-                      ))}
-                    </select>
+                    <label className="slabel">Qualification</label>
+
+                    <div class="" >
+                      <select
+                        className="white mdb-select md-form form-control"
+                        style={{ display: "block",  border: "2px solid #7FC7AF", borderRadius: "6px" }}
+                        name="qualifications"
+                        defaultValue={this.state.qualifications}
+                        onChange={this.handleOnChange}
+                        value={this.state.qualifications}
+                      >
+                        <option>select</option>
+                        {this.state.quals.map((ele) => (
+                          <option key={ele.id} >
+                            {ele.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
                   </div>
                   <div className="col-lg-6">
-                    <label>Passport No</label>
+                    <label className="slabel">Passport No</label>
                     <TextInput
+                      style={{ display: "block" }}
                       name={"passport"}
                       onChange={this.handleOnChange}
                       value={this.state.passport}
@@ -492,7 +498,7 @@ class ManageProfile extends Component {
 
                 <div className="row">
                   <div className="col-lg-6">
-                    <label>Date of Birth</label>
+                    <label className="slabel">Date of Birth</label>
                     <TextInput
                       name="dob"
                       defaultValue={this.state.dob}
@@ -502,9 +508,13 @@ class ManageProfile extends Component {
                     />
                   </div>
 
+
+
                   <div className="col-lg-6">
-                    <label>Gender</label>
+                    <label className="slabel">Gender</label>
                     <select
+                        style={{ display: "block",  border: "2px solid #7FC7AF", borderRadius: "6px" }}
+
                       name="gender"
                       className="custom-select-input"
                       defaultValue={this.state.gender}
@@ -522,7 +532,7 @@ class ManageProfile extends Component {
                 </div>
                 <div className="row">
                   <div className="col-lg-6">
-                    <label>Street 1</label>
+                    <label className="slabel">Street 1</label>
                     <TextInput
                       name={"street1"}
                       onChange={this.handleOnChange}
@@ -531,7 +541,7 @@ class ManageProfile extends Component {
                   </div>
 
                   <div className="col-lg-6">
-                    <label>Street 2</label>
+                    <label className="slabel">Street 2</label>
                     <TextInput
                       name={"street2"}
                       onChange={this.handleOnChange}
@@ -541,7 +551,7 @@ class ManageProfile extends Component {
                 </div>
                 <div className="row">
                   <div className="col-lg-6">
-                    <label>City</label>
+                    <label className="slabel">City</label>
                     <TextInput
                       name={"city"}
                       onChange={this.handleOnChange}
@@ -550,7 +560,7 @@ class ManageProfile extends Component {
                   </div>
 
                   <div className="col-lg-6">
-                    <label>State</label>
+                    <label className="slabel">State</label>
                     <TextInput
                       name={"state"}
                       onChange={this.handleOnChange}
@@ -561,7 +571,7 @@ class ManageProfile extends Component {
                 {["AM", "LM", "LP"].includes(this.state.membershipType) && (
                   <div className="row">
                     <div className="col-lg-6">
-                      <label>Company Name</label>
+                      <label className="slabel">Company Name</label>
                       <TextInput
                         name={"company_name"}
                         placeholder="Company Name"
@@ -571,7 +581,7 @@ class ManageProfile extends Component {
                     </div>
 
                     <div className="col-lg-6">
-                      <label>Company Address</label>
+                      <label className="slabel">Company Address</label>
                       <TextInput
                         name={"company_address"}
                         placeholder="Company Addresss"
@@ -585,8 +595,10 @@ class ManageProfile extends Component {
                 {["AM", "LM", "LP"].includes(this.state.membershipType) && (
                   <div className="row">
                     <div className="col-lg-6">
-                      <label>Industry Type</label>
+                      <label className="slabel">Industry Type</label>
                       <select
+                        style={{ display: "block",  border: "2px solid #7FC7AF", borderRadius: "6px" }}
+
                         className="custom-select-input"
                         name="industryType"
                         defaultValue={this.state.industryType}
@@ -602,9 +614,10 @@ class ManageProfile extends Component {
                     </div>
 
                     <div className="col-lg-6">
-                      <label>Industry Classifcation</label>
+                      <label className="slabel">Industry Classifcation</label>
 
                       <select
+                        style={{ display: "block",  border: "2px solid #7FC7AF", borderRadius: "6px" }}
                         className="custom-select-input"
                         name="industryClassification"
                         defaultValue={this.state.industryClassification}
@@ -623,7 +636,7 @@ class ManageProfile extends Component {
 
                 <div className="row">
                   <div className="col-lg-6">
-                    <label>Company Website</label>
+                    <label className="slabel">Company Website</label>
                     <TextInput
                       name={"website"}
                       onChange={this.handleOnChange}
@@ -631,7 +644,7 @@ class ManageProfile extends Component {
                     />
                   </div>
                   <div className="col-lg-6">
-                    <label>Company Designation</label>
+                    <label className="slabel">Company Designation</label>
                     <TextInput
                       name={"company_designation"}
                       onChange={this.handleOnChange}
@@ -641,7 +654,7 @@ class ManageProfile extends Component {
                 </div>
 
                 <div className="col-lg-6">
-                  <label>IPF Position</label>
+                  <label className="slabel">IPF Position</label>
                   <TextInput
                     disabled
                     name={"position"}

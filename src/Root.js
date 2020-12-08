@@ -80,10 +80,11 @@ class Root extends Component {
             <Route path="/invite" component={() => isAuth ? <Dashboard clas={"new_bg"}><EventPage /></Dashboard> : <LandingPage />} />
             <Route path="/edit_event" render={() => isAuth ? <Dashboard clas={"new_bg"}><EventPage /></Dashboard> : <LandingPage />} />
             <Route path="/payment_history" component={() => isAuth ? <Dashboard clas={"new_bg"}><Payment_History /></Dashboard> : <LandingPage />} />
-            <Route path="/members" component={() => isAuth ? <Dashboard clas={"new_bg"}><MemberPage /></Dashboard> : <LandingPage/>} />
-            <Route path="/payment" component={() =>  isAuth ? <Dashboard><Payment /></Dashboard>: <LandingPage/>} />
+            <Route path="/members" component={() => isAuth ? <Dashboard clas={"new_bg"}><MemberPage /></Dashboard> : <LandingPage />} />
+            <Route path="/payment" component={() => isAuth ? <Dashboard><Payment /></Dashboard> : <LandingPage />} />
             <Route path="/change-password" component={() => isAuth ? <ChangePassword /> : <LandingPage />} />
-            <Route path="/profile-update" component={() => isAdmin === 1 ? <ManageProfile /> : <>{isAuth === true ? <ManageUserProfile /> : <LandingPage />}</>} />
+            {/* <Route path="/profile-update" component={() => isAdmin === 1 ? <ManageProfile /> : <>{isAuth === true ? <ManageUserProfile /> : <LandingPage />}</>} /> */}
+            <Route path="/profile-update" component={() => <ManageUserProfile />} />
 
 
             <AuthRoute path="/user/dashboard/addmember" component={AddMember} />
@@ -95,7 +96,7 @@ class Root extends Component {
             <AuthRoute path="/events" component={Events} />
 
 
-            <AdminRoute path="/admin/manage-members" component={Members} />
+            <Route path="/admin/manage-members" component={Members} />
             <AdminRoute path="/admin/settings/membership" component={GeneralSettings} />
             <AdminRoute path="/admin/settings" component={PlatformAdmin} />
             <AdminRoute path="/admin/designation" component={Position} />

@@ -13,10 +13,11 @@ const TableBody = styled.div`
 `;
 
 const TextInput = styled.input`
-    background: rgba(196, 196, 196, 0.32) !important;
-    border: 2px solid rgba(196, 196, 196, 0.32);!important;
+    background: white !important;
+    border: 2px solid #7FC7AF !important;
     border-radius: 6px !important;
-    padding-left: 16px !important;
+    padding-left: 2% !important;
+    width: 98% !important ;
 `;
 
 const FormButton = styled.button`

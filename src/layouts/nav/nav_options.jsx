@@ -209,7 +209,7 @@ class Nav_Options extends Component {
                   <div className={`nav_button text-white sm-flex  ${this.state.transactions === true && "changed_nav"}`} onClick={this.onTransact}>
                     <div className="p-1   rounded-pill white rounded_point sm-show" />
                     Designations
-              </div>
+                  </div>
                 </Link>
 
 
@@ -283,11 +283,11 @@ class Nav_Options extends Component {
 
           <div className="show_more text-center rali heart">
             <div className="flaggi flex mt-3 px-3">
-              <div className="ind mt-auto px-2">
-                <img src={require('./../../assets/Indian_Logo.png')} width="100%" alt="" />
+              <div className="ind mt-auto px-1">
+                <img src={require('./../../assets/Indian_Logo.png')} width="89%" alt="" />
               </div>
-              <div className="nig mt-auto px-2">
-                <img src={require('./../../assets/naija.png')} width="100%" alt="" />
+              <div className="nig mt-auto px-1">
+                <img src={require('./../../assets/naija.png')} width="89%" alt="" />
               </div>
             </div>
           </div>

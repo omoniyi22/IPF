@@ -17,13 +17,13 @@ const HeaderContainer = styled.div`
   @media (max-width: 768px) {
     background-size: 50px;
     height: 20vh;
-    background-position: center left 3%, center right 12%, center right 2%;
+    background-position: center left 3%, center right 70px, center right 2%;
   }
 
   @media (max-width: 480px) {
     background-size: 50px;
     height: 20vh;
-    background-position: center left 3%, center right 23%, center right 2%;
+    background-position: center left 3%, center right 70px, center right 2%;
   }
   justify-content: center;
   display: flex;
@@ -57,7 +57,7 @@ const LoginButton = styled.div`
   font-weight: 400;
   @media (max-width: 768px) {
     right: 1.5rem;
-    bottom: 1rem;
+    bottom: -0.02rem;
     * {
       font-size: 13px;
       font-weight: 400;
@@ -65,9 +65,9 @@ const LoginButton = styled.div`
   }
 
   @media (max-width: 992px) {
-    bottom: 0.4rem;
+    bottom: -0.02rem;
 
-    right: 3rem;
+    right: 3.4rem;
   }
 `;
 

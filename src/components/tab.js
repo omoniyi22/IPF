@@ -33,7 +33,7 @@ function Alert(props) {
 }
 
 const styles = {
-  formGroup: { width: "100%", marginBottom: 40, marginTop: 40 },
+  formGroup: { width: "100%", marginBottom: 40, marginTop: 40 }
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -289,7 +289,7 @@ export default function CustomTab({ userDetails, updateDetails, role }) {
                 }}
               >
                 <FormGroup className style={styles.formGroup}>
-                  <label>{labels.company_name}</label>
+                  <label className="slabel">{labels.company_name}</label>
                   <TextInput
                     disabled
                     label={"Company Name"}
@@ -308,14 +308,16 @@ export default function CustomTab({ userDetails, updateDetails, role }) {
                 style={{
                   justifyContent: "space-between",
                   display: "flex",
-                  width: "100%",
+                  maxWidth: "100%",
                   marginTop: 20,
                   marginBottom: 20,
                 }}
+                className=" mx-0"
               >
                 <FormGroup className style={{ width: "49%" }}>
-                  <label>{labels.industry_class}</label>
+                  <label className="slabel">{labels.industry_class}</label>
                   <select
+                    style={{ display: "block", border: "2px solid #7FC7AF", borderRadius: "6px" }}
                     disabled={isCompanyAdmin() ? false : true}
                     value={company.industryClassification}
                     name="industryClassification"
@@ -335,10 +337,11 @@ export default function CustomTab({ userDetails, updateDetails, role }) {
                   </select>
                 </FormGroup>
 
-                <FormGroup className style={{ width: "49%" }}>
-                  <label>{labels.industry_type}</label>
+                <FormGroup className style={{ width: "50%" }}>
+                  <label className="slabel">{labels.industry_type}</label>
 
                   <select
+                    style={{ display: "block", border: "2px solid #7FC7AF", borderRadius: "6px" }}
                     disabled={isCompanyAdmin() ? false : true}
                     value={company.industry_type}
                     name="industry_type"
@@ -360,7 +363,7 @@ export default function CustomTab({ userDetails, updateDetails, role }) {
               </div>
 
               <FormGroup className style={styles.formGroup}>
-                <label>{labels.corporate_email}</label>
+                <label className="slabel">{labels.corporate_email}</label>
                 <TextInput
                   value={company.email || ""}
                   name="email"
@@ -374,10 +377,15 @@ export default function CustomTab({ userDetails, updateDetails, role }) {
                 />
               </FormGroup>
 
-              <FormGroup className style={styles.formGroup}>
-                <label>{labels.phone_number}</label>
+              <FormGroup
+                className=""
+                style={{
+                  ...styles.formGroup,
+                }}>
+                <label className="slabel">{labels.phone_number}</label>
 
                 <PhoneNumber
+
                   value={company.phone_number || ""}
                   name="phone_number"
                   disabled={isCompanyAdmin() ? false : true}
@@ -392,7 +400,7 @@ export default function CustomTab({ userDetails, updateDetails, role }) {
               </FormGroup>
 
               <FormGroup className style={styles.formGroup}>
-                <label>{labels.company_details}</label>
+                <label className="slabel">{labels.company_details}</label>
                 <TextInput
                   disabled={isCompanyAdmin() ? false : true}
                   placeholder={labels.company_details}
@@ -408,7 +416,7 @@ export default function CustomTab({ userDetails, updateDetails, role }) {
               </FormGroup>
 
               <FormGroup className style={styles.formGroup}>
-                <label>{labels.website}</label>
+                <label className="slabel">{labels.website}</label>
                 <TextInput
                   disabled={isCompanyAdmin() ? false : true}
                   label={"Company Website"}
@@ -496,6 +504,7 @@ export default function CustomTab({ userDetails, updateDetails, role }) {
 }
 
 const AvatarContainer = styled.div`
+  margin-top: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
