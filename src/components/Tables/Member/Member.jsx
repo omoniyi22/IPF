@@ -71,7 +71,7 @@ class MemberTable extends Component {
                         <option>NOT SURE</option>
                       </>
                     }
-                    {dat.status === "NOT_SURE" &&
+                    {dat.status === "MAYBE" &&
                       <>
                         <option>NOT SURE</option>
                         <option>REJECT</option>
