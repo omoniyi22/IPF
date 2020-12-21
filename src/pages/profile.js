@@ -73,7 +73,7 @@ class ManageProfile extends Component {
         industry,
         quals,
       });
-    } catch (error) {}
+    } catch (error) { }
   };
 
   getUserDetail = async () => {
@@ -84,7 +84,7 @@ class ManageProfile extends Component {
       const data = response.data.data;
       this.setState({ ...data }, () => this.props.showLoader());
     } catch (error) {
-      console.log({error: error.response})
+      console.log({ error: error.response })
       this.props.showLoader();
     }
   };
@@ -243,15 +243,15 @@ class ManageProfile extends Component {
                     alt="profile"
                   />
                 ) : (
-                  <span>
-                    <i
-                      style={{ fontSize: 200, color: "#bdbdbd" }}
-                      className="material-icons"
-                    >
-                      account_circle
+                    <span>
+                      <i
+                        style={{ fontSize: 200, color: "#bdbdbd" }}
+                        className="material-icons"
+                      >
+                        account_circle
                     </i>
-                  </span>
-                )}
+                    </span>
+                  )}
                 <span onClick={this.uploadWidget} className="camera-button">
                   <i className="material-icons">camera_enhance</i>
                 </span>
@@ -409,6 +409,8 @@ class ManageProfile extends Component {
                 <div className="col-lg-6">
                   <label>Date of Birth</label>
                   <input
+                    style={{ display: "block", background: "white",  border: "2px solid #7FC7AF", borderRadius: "6px" }}
+
                     name="dob"
                     onChange={this.handleOnChange}
                     value={this.state.dob}
@@ -419,6 +421,8 @@ class ManageProfile extends Component {
                 <div className="col-lg-6">
                   <label>Gender</label>
                   <select
+                    style={{ display: "block", background: "white",  border: "2px solid #7FC7AF", borderRadius: "6px" }}
+
                     name="gender"
                     className="custom-select-input"
                     defaultValue={this.state.gender}
@@ -496,6 +500,8 @@ class ManageProfile extends Component {
               <div className="col-lg-6">
                 <label>Qualification</label>
                 <select
+                  style={{ display: "block", background: "white",  border: "2px solid #7FC7AF", borderRadius: "6px" }}
+
                   name="qualifications"
                   className="custom-select-input"
                   defaultValue={this.state.qualifications}

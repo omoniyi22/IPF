@@ -23,6 +23,7 @@ import Invitation from './pages/invitation'
 // import EventPage from './pages/event'
 // import HomePage from "./pages/home/index";
 
+
 import MemberPage from './pages/members/index'
 import Payment from './pages/payment/payment'
 

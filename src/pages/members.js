@@ -23,14 +23,31 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { ProfileModal, useStyle } from "../components/Modal/Profile/ProfileModal";
+import { ProfileModal, useStyle, neat } from "../components/Modal/Profile/ProfileModal";
+
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import { CSVDownload, CSVLink } from "react-csv";
+
+
+import ReactToPdf from 'react-to-pdf'
+import { I_M, O_M, A_M, C_M } from "../assets/utiils/memberData";
+import { ProfileModal2, headers } from './home/soata'
+
 
 
 
 
 const pageSizeOptions = [20, 50, 100, 200];
 class Members extends Component {
+
+
+
   state = {
+    pdf_load: true,
+    memberPDF: [],
+    corporatePDF: [],
+    anchorEl: null,
     openSnackbar: false,
     currentTab: "organisation",
     companies: [],
@@ -89,14 +106,42 @@ class Members extends Component {
 
   async componentDidMount() {
     //initialize materialize modal
+    try {
+      let aa = await getMembers()
+      aa = await aa.data
+      aa = await aa.data
+
+      let bb = await getCompanies()
+      bb = await bb.data
+      bb = await bb.data
+
+      console.log({ aa, bb })
+
+      setTimeout(() => {
+        console.log({ oya: [aa, bb] })
+        this.setState({
+          memberPDF: aa,
+          corporatePDF: bb,
+          pdf_load: false,
+        })
+        console.log({ oya: [this.state.memberPDF, this.state.corporatePDF] })
+      }, 2000);
+    } catch (error) {
+      console.log({ erroo: error.message })
+      console.log({ erroo: error.response })
+    }
     window.$(".modal").modal();
     this.getDataAtOnce();
+
   }
 
   perfromUserAction = (action, data) => {
     switch (action) {
       case "assign-admin":
         this.assignAdmin(data);
+        break;
+      case "view-profile":
+        this.setState({ open: true, memberData: data });
         break;
       case "block":
         // this.blockUser(data);
@@ -209,6 +254,9 @@ class Members extends Component {
 
   handleOnClick = (action, data) => {
     switch (action) {
+      case "view-profile":
+        this.setState({ open: true, memberData: data });
+        break;
       case "view-members":
         this.viewMembers(data);
         break;
@@ -543,6 +591,9 @@ class Members extends Component {
       case "suspend":
         this.suspendMember(data);
         break;
+      case "view-profile":
+        this.setState({ open: true, memberData: data });
+        break;
 
       case "edit-member":
         this.editMember(data);
@@ -638,6 +689,7 @@ class Members extends Component {
     return (
       <div className="shadow rounded bg-white col-md-12 p-3 material">
         <MaterialTable
+
           detailPanel={[
             {
               tooltip: "More",
@@ -651,6 +703,8 @@ class Members extends Component {
                       display: "flex",
                       flexDirection: "row",
                       padding: 10,
+                      width: "fit-content"
+
                     }}
                   >
                     <SpanContainer>
@@ -690,19 +744,24 @@ class Members extends Component {
               return <button></button>;
             },
           }}
+
           title=""
-          columns={[
-            { title: "First Name", field: "firstName", defaultSort: "asc" },
-            { title: "Last Name", field: "lastName" },
-            { title: "Email", field: "emailAddress" },
-            { title: "Member No", field: "memberNumber", defaultSort: "asc" },
-            { title: "Member Type", field: "membershipType" },
-            { title: "Phone Number", field: "phoneNumber" },
-            { title: "Company", field: "company_name" },
-          ]}
+          columns={
+            //   [
+            //   { title: "First Name", field: "firstName", defaultSort: "asc" },
+            //   { title: "Last Name", field: "lastName" },
+            //   { title: "Email", field: "emailAddress" },
+            //   { title: "Member No", field: "memberNumber", defaultSort: "asc" },
+            //   { title: "Member Type", field: "membershipType" },
+            //   { title: "Phone Number", field: "phoneNumber" },
+            //   { title: "Company", field: "company_name" },
+            // ]
+            I_M.map(keey => ({ title: neat(keey), field: keey }))
+          }
           data={individualMembers}
           options={{
-            exportButton: true,
+            // exportButton: true,
+            exportAllData: true,
             pageSizeOptions: pageSizeOptions,
             sorting: true,
             headerStyle: {
@@ -715,12 +774,7 @@ class Members extends Component {
             searchFieldStyle: {},
             actionsColumnIndex: -1,
           }}
-          onRowClick={(event, memberData) => {
-            this.setState({
-              open: true,
-              memberData
-            })
-          }}
+
           actions={[
             {
               icon: "save",
@@ -759,6 +813,7 @@ class Members extends Component {
           detailPanel={[
             {
               tooltip: "More",
+
               render: (rowData) => {
                 return (
                   <div
@@ -810,28 +865,28 @@ class Members extends Component {
 
           }}
 
-          onRowClick={(event, memberData) => {
-            this.setState({
-              open: true,
-              memberData
-            })
-          }}
+
           title=""
-          columns={[
-            { title: "First Name", field: "firstName", defaultSort: "asc" },
-            { title: "Last Name", field: "lastName" },
-            { title: "Email", field: "emailAddress" },
-            { title: "Member No", field: "memberNumber", defaultSort: "asc" },
-            { title: "Member Type", field: "membershipType" },
-            { title: "Phone Number", field: "phoneNumber" },
-            {
-              title: "Company",
-              field: "company_name",
-            },
-          ]}
+          columns={
+            //   [
+            //   { title: "First Name", field: "firstName", defaultSort: "asc" },
+            //   { title: "Last Name", field: "lastName" },
+            //   { title: "Email", field: "emailAddress" },
+            //   { title: "Member No", field: "memberNumber", defaultSort: "asc" },
+            //   { title: "Member Type", field: "membershipType" },
+            //   { title: "Phone Number", field: "phoneNumber" },
+            //   {
+            //     title: "Company",
+            //     field: "company_name",
+            //   },
+            // ]
+
+            O_M.map(keey => ({ title: neat(keey), field: keey }))
+
+          }
           data={individualMembers}
           options={{
-            exportButton: true,
+            // exportButton: true,
             exportAllData: true,
             sorting: true,
             pageSizeOptions: pageSizeOptions,
@@ -927,25 +982,22 @@ class Members extends Component {
             },
           }}
           title=""
-          columns={[
-            { title: "First Name", field: "firstName", defaultSort: "asc" },
-            { title: "Last Name", field: "lastName" },
-            { title: "Email", field: "emailAddress" },
-            { title: "Member No", field: "memberNumber", defaultSort: "asc" },
-            { title: "Member Type", field: "membershipType" },
-            { title: "Phone Number", field: "phoneNumber" },
-            { title: "Company", field: "company_name" },
-
-          ]}
+          columns={
+            //   [
+            //   { title: "First Name", field: "firstName", defaultSort: "asc" },
+            //   { title: "Last Name", field: "lastName" },
+            //   { title: "Email", field: "emailAddress" },
+            //   { title: "Member No", field: "memberNumber", defaultSort: "asc" },
+            //   { title: "Member Type", field: "membershipType" },
+            //   { title: "Phone Number", field: "phoneNumber" },
+            //   { title: "Company", field: "company_name" },
+            // ]
+            A_M.map(keey => ({ title: neat(keey), field: keey }))
+          }
           data={_members}
-          onRowClick={(event, memberData) => {
-            this.setState({
-              open: true,
-              memberData
-            })
-          }}
+
           options={{
-            exportButton: true,
+            // exportButton: true,
             exportAllData: true,
             pageSizeOptions: pageSizeOptions,
             sorting: true,
@@ -994,6 +1046,10 @@ class Members extends Component {
     let { role } = this.props
     role = role === "super-user"
 
+    const ref = React.createRef();
+    const refo = React.createRef();
+
+
     let { open, fullWidth, maxWidth } = this.state
     let { handleClickOpen, handleClose, handleMaxWidthChange } = this
 
@@ -1010,7 +1066,7 @@ class Members extends Component {
             message={this.state.msg}
             type={this.state.type}
           >
-            <div className="container-fluid px-0  " style={{ maxWidth: "90%", overflow: "hidden" }}>
+            <div className="container-fluid px-0 mx-0" style={{ maxWidth: "100%", overflow: "hidden" }}>
               <div className="d-flex justify-content-end mb-3">
                 <button
                   onClick={this.openAddMemberModal}
@@ -1018,6 +1074,68 @@ class Members extends Component {
                 >
                   Add Member
               </button>
+
+                <div className="border px-2 dowlud z-depth-1 white "
+                  onClick={(e) => this.setState({ anchorEl: e.currentTarget })}
+                />
+                <Menu
+                  id="simple-menu"
+                  anchorEl={this.state.anchorEl}
+                  keepMounted
+                  open={Boolean(this.state.anchorEl)}
+                  onClose={() => this.setState({ anchorEl: null })}
+                >
+
+                  <MenuItem onClick={() => this.setState({ anchorEl: null })}>
+                    <span className="small">
+                      <CSVLink data={this.state.companies}
+                        headers={
+                          this.state.currentTab === "organisation" || this.state.currentTab === "corporate" ?
+                            O_M.map(data => ({ label: neat(data), key: data })) :
+                            I_M.map(data => ({ label: neat(data), key: data }))
+                        } >
+                        All Companies CSV
+                      </CSVLink>
+                    </span>
+                  </MenuItem>
+
+                  <MenuItem onClick={() => this.setState({ anchorEl: null })}>
+                    <span className="small">
+                      <CSVLink data={this.state.registeredMembers}
+                        headers={
+                          this.state.currentTab === "organisation" || this.state.currentTab === "corporate" ?
+                            O_M.map(data => ({ label: neat(data), key: data })) :
+                            I_M.map(data => ({ label: neat(data), key: data }))
+                        } >
+
+                        All Members CSV
+
+                      </CSVLink>
+                    </span>
+                  </MenuItem>
+                  <MenuItem onClick={() => this.setState({ anchorEl: null })} style={{ fontSize: "12" }}>
+                    {this.state.pdf_load === false && this.state.memberPDF.length > 0 &&
+                      <>
+                        <div>
+                          <ProfileModal2 title="All Companies PDF" dat={this.state.pdf_load === true ? [] : this.state.memberPDF} />
+                        </div>
+                      </>
+                    }
+                  </MenuItem>
+                  <MenuItem onClick={() => this.setState({ anchorEl: null })} style={{ fontSize: "12" }}>
+                    {this.state.pdf_load === false && this.state.corporatePDF.length > 0 &&
+                      <>
+                        <div>
+                          <ProfileModal2 title="All Members PDF" dat={this.state.pdf_load === true ? [] : this.state.corporatePDF} />
+                        </div>
+                      </>
+                    }
+                  </MenuItem>
+                </Menu>
+
+
+
+
               </div>
               <div className="row mt-5">
                 <div className="shadow rounded bg-white col-md-12 px-3 py-1">
@@ -1106,31 +1224,35 @@ class Members extends Component {
                       }}
                       title=""
 
-                      columns={[
-                        {
-                          title: "Name",
-                          field: "company_name",
-                          defaultSort: "asc",
-                        },
-                        { title: "Email", field: "email" },
-                        {
-                          title: "Member No",
-                          field: "memberNumber",
-                          defaultSort: "asc",
-                        },
-                        { title: "Member Type", field: "company_type" },
-                        { title: "Phone Number", field: "phone_number" },
-                      ]}
+                      columns={
+                        // [
+                        //   {
+                        //     title: "Name",
+                        //     field: "company_name",
+                        //     defaultSort: "asc",
+                        //   },
+                        //   { title: "Email", field: "email" },
+
+                        //   {
+                        //     title: "Member No",
+                        //     field: "memberNumber",
+                        //     defaultSort: "asc",
+                        //   },
+                        //   { title: "Member Type", field: "company_type" },
+                        //   { title: "Phone Number", field: "phone_number" },
+                        // ]
+                        O_M.map(keey => ({ title: neat(keey), field: keey }))
+                      }
                       data={this.state.companies}
-                      onRowClick={(event, memberData) => {
-                        this.setState({
-                          open: true,
-                          memberData
-                        })
-                      }}
+                      // onRowClick={(event, memberData) => {
+                      //   this.setState({
+                      //     open: true,
+                      //     memberData
+                      //   })
+                      // }}
                       options={{
                         pageSizeOptions: [20, 50, 100, 200],
-                        exportButton: true,
+                        // exportButton: true,
                         exportAllData: true,
                         sorting: true,
                         headerStyle: {
@@ -1471,22 +1593,45 @@ class Members extends Component {
             open: false
           })}
           aria-labelledby="max-width-dialog-title"
+          ref={ref}
         >
 
-          <ProfileModal
-            // time={`${DateForm(event.event_date) + " " + TimeForm(event.event_time)}`}
-            // venue={event.event_venue}
-            // detail={event.event_details}
-            // title={event.event_name}
-            // imag={event.banner_image}
-            data={this.state.memberData}
-          />
+          <div
+          >
+            <ProfileModal
+              data={this.state.memberData}
+            />
+          </div>
+
           <DialogActions>
+            <ReactToPdf targetRef={ref} filename="profile.pdf" x={1.5} y={1.5} scale={0.8}>
+              {({ toPdf }) => (
+                <Button onClick={toPdf}>Generate pdf</Button>
+              )}
+            </ReactToPdf>
             <Button onClick={handleClose} color="primary">
               Close
           </Button>
+
           </DialogActions>
         </Dialog>
+
+        {/* <div className="hiiisf">
+          <div ref={refo}>
+            {this.state.currentTab === "organisation" ?
+              this.state.companies.map(soa =>
+                <ProfileModal
+                  data={soa} />
+              )
+
+              :
+              this.state.registeredMembers.map(soa =>
+                <ProfileModal
+                  data={soa}
+                />
+              )}
+          </div>
+        </div> */}
       </>
     );
   }
@@ -1500,12 +1645,258 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, actions)(Members);
 
 const SpanContainer = styled.div`
-  border: 1px solid orage;
-  display: flex;
-  margin: 5px 5px;
-`;
+              border: 1px solid orage;
+              display: flex;
+              margin: 5px 5px;
+            `;
 
 const Item = styled.p`
-  font-weight: bold;
-  text-transform: capitalize;
-`;
+              font-weight: bold;
+              text-transform: capitalize;
+            `;
+
+
+
+
+
+
+{/*
+import React, { Component } from 'react'
+import { PDFDownloadLink, Document, View, Page, Text, StyleSheet, Image } from "@react-pdf/renderer";
+
+
+
+const style = StyleSheet.create({
+  flex: {
+    display: "flex",
+    flexDirection: "row"
+  },
+  view: {
+    marginBottom: 10
+  },
+  text: {
+    paddingHorizontal: "3px",
+    paddingVertical: 3,
+    borderStyle: "solid",
+    borderWidth: 1,
+    fontSize: 12
+  },
+
+  ve: {
+    marginBottom: "4"
+  },
+  size: {
+    width: "100%"
+    // width: "fitContent",
+    // maxWidth: "fit-content",
+  }
+
+})
+
+
+export const headers = [
+  { label: "Event ID", key: "event_id" },
+  { label: "Event Name", key: "event_name" },
+  { label: "Event Details", key: "event_details" },
+  { label: "Event Date", key: "event_date" },
+  { label: "Event Time", key: "event_time" },
+  { label: "Set Reminder", key: "set_reminder" },
+  { label: "Reminder", key: "reminder" },
+  { label: "Status", key: "status" },
+  { label: "Banner Image", key: "banner_image" }
+]
+
+
+export const Melo = ({ data }) =>
+  <PDFDownloadLink
+    document={
+      <Document>
+        <Page size="A3" style={style.size}>
+          <View style={style.view}>
+            <View style={style.flex}>
+              {headers.map((data) =>
+                <Text break style={style.text}>
+                  {data.label}
+                </Text>
+              )}
+            </View>
+            <View style={style.ve}>
+              {data.map((data) =>
+                <View style={style.flex}>
+                  {Object.values(data).map((data) =>
+                    <Text break style={style.text}>
+                      {data}
+                    </Text>
+                  )}
+                </View>
+              )}
+            </View>
+            <View>
+              <Text break>
+              </Text>
+            </View>
+          </View>
+        </Page>
+      </Document>
+    }>
+    PDF
+  </PDFDownloadLink >
+
+
+export const neat = (data) => {
+  let first = data.replace("_", " ")
+
+  let sec = Array.from(first)
+  let third = []
+  let i
+  for (i in sec) {
+    if (Number(i) > 0 && Number(i) < (sec.length - 1) && sec[Number(i)] === sec[Number(i)].toUpperCase()) {
+
+      third.push(" ")
+    }
+    third.push(sec[i])
+  }
+  return third.join("").toString()
+}
+
+
+const s = StyleSheet.create({
+  deds: {
+    padding: "10",
+    width: "100%"
+
+  },
+  sstt: {
+    paddingVertical: "6",
+    fontWeight: "light",
+    marginBottom: "30",
+    width: "100%"
+  },
+  picpack: {
+    borderStyle: "solid",
+    borderWidth: "1",
+    paddingTop: "10"
+  },
+  picto: {
+    marginHorizontal: "auto",
+    borderRadius: "50%",
+    height: "120",
+    width: "120",
+    borderWidth: "10px",
+    borderColor: "white",
+    borderStyle: "solid"
+  },
+  the_name: {
+    fontSize: "16",
+    marginTop: "60",
+    fontWeight: "bold"
+  },
+  osaml: {
+    fontWeight: "light",
+    fontSize: "12"
+  },
+  adfe: {
+    borderRadius: "5",
+    border: "1 solid",
+    marginVertical: "auto",
+    width: "100%",
+    marginTop: "30"
+  },
+  packa: {
+    display: "flex",
+    marginHorizontal: "auto",
+    width: "97%",
+    borderBottomWidth: "1px",
+    borderBottomStyle: "solid",
+    textAlign: "center"
+  },
+  packaa: {
+    paddingRight: "10",
+    // paddingVertical: "",
+    fontSize: "15",
+    width: "50%",
+    maxWidth: "50%",
+    fontWeight: "bold",
+    textAlign: "right",
+    borderRightWidth: "1px",
+    borderRightStyle: "solid",
+    textOverflow: "ellipsis"
+  },
+
+  packab: {
+    paddingLeft: "10",
+    // paddingVertical: "6",
+    fontSize: "15",
+    width: "50%",
+    maxWidth: "50%",
+    fontWeight: "bold",
+    textAlign: "left",
+    borderRightWidth: "1px",
+    borderRightStyle: "solid",
+    textOverflow: "ellipsis"
+  }
+})
+
+
+
+export const ProfileModal2 = ({ dat, title }) => {
+  return (
+    <PDFDownloadLink
+      document={
+        <Document>
+          <Page size="A3">
+            {dat.map(data =>
+              <View style={s.deds}>
+                <View style={s.sstt}>
+                  <View style={s.picpack}>
+                    <View style={s.picto}>
+                      <Image source={{ uri: data.logo || data.avatar || "https://res.cloudinary.com/ninja-dev/image/upload/v1597409650/user_cibuzv.png" }} />
+                    </View>
+                  </View>
+
+                  <View style={s.the_name}>
+                    <Text>
+                      {data.firstName} {data.lastName}
+                    </Text>
+                    <View>
+                      <Text>
+                        {data.company_name}
+                      </Text>
+                    </View>
+                  </View>
+                  <View style={s.adfe}>
+                    {Object.entries(data).filter(dat => (dat[0] !== "tableData") &&
+                      (dat[0] !== "company_name") &&
+                      (dat[0] !== "firstName") && (dat[0] !== "lastName") &&
+                      (dat[0] !== "logo") && (dat[0] !== "memberId") &&
+                      (dat[0] !== "member_id") &&
+                      (
+                        dat[0] !== "password") && (dat[0] !== "default_password"
+                      ) && (dat[0] !== "companyId") && (dat[0] !== "company_id") &&
+                      (dat[0] !== "avatar")).map(dat =>
+                        <View style={s.packa}>
+                          <View style={s.packaa}>
+                            <Text>
+                              {`${neat(dat[0])}`}
+                            </Text>
+                          </View>
+                          <View style={s.packab}>
+                            <Text>
+                              {`${dat[1] || "_____________________"}`}
+                            </Text>
+                          </View>
+                        </View>
+                      )
+                    }
+                  </View>
+
+                </View>
+              </View>
+            )}
+          </Page>
+        </Document >
+      }>
+      {({ blob, url, loading, error }) => (loading ? 'Loading..' : title)}
+    </PDFDownloadLink >
+  )
+}*/}

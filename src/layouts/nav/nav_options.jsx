@@ -284,7 +284,7 @@ class Nav_Options extends Component {
           <div className="show_more text-center rali heart">
             <div className="flaggi flex mt-3 px-3">
               <div className="ind mt-auto px-1">
-                <img src={require('./../../assets/Indian_Logo.png')} width="89%" alt="" />
+                <img src={require('./../../assets/indian.png')} width="89%" alt="" />
               </div>
               <div className="nig mt-auto px-1">
                 <img src={require('./../../assets/naija.png')} width="89%" alt="" />

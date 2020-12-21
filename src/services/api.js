@@ -13,7 +13,7 @@ const api = axios.create({
 const attachApiToken = async (api) => {
   try {
     const apiToken = localStorage.getItem(AUTH_TOKEN_KEY);
-    console.log({ AUTH_TOKEN_KEY })
+    console.log({ AUTH_TOKEN_KEY, apiToken })
     if (apiToken) {
       api.defaults.headers.common["x-access-token"] = apiToken;
     }

@@ -8,6 +8,11 @@ function TableAction({ data, onClick }) {
         Actions
       </Dropdown.Toggle>
       <Dropdown.Menu>
+        <Dropdown.Item onClick={() => onClick("view-profile", data)}>
+          <span style={{ fontWeight: "bold", color: "#000" }}>
+            View Profile
+          </span>
+        </Dropdown.Item>
         <Dropdown.Item onClick={() => onClick("edit-detail", data)}>
           <span style={{ fontWeight: "bold", color: "#000" }}>
             Edit Details

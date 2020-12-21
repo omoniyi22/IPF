@@ -99,18 +99,27 @@ class HomePage extends Component {
                             "created_at": "2020-11-12T08:07:11.000Z",
                             "updated_at": "2020-11-12T08:17:05.000Z"
                           }} />} */}
-                        {active[0] && <EventCard event={active[0]}
-                          isAdmin={isAdmin}
-                          reg_load={reg_load} reg_pass={reg_pass} reg_fail={reg_fail}
-                          user={user} Register={() => Register()}
-                        />}
+                        {
+                          active[0] &&
+                          <Link className="text-init" to="/event_page" onClick={() => Select_Event(active[0])}>
+                            <EventCard event={active[0]}
+                              isAdmin={isAdmin}
+                              reg_load={reg_load} reg_pass={reg_pass} reg_fail={reg_fail}
+                              user={user} Register={() => Register()}
+                            />
+                          </Link>
+                        }
                       </div>
                       <div className="seprate w-50 pl-1 ">
-                        {active[1] && <EventCard event={active[1]}
-                          isAdmin={isAdmin}
-                          reg_load={reg_load} reg_pass={reg_pass} reg_fail={reg_fail}
-                          user={user} Register={() => Register()}
-                        />}
+                        {active[1] &&
+                          <Link className="text-init" to="/event_page" onClick={() => Select_Event(active[1])}>
+                            <EventCard event={active[1]}
+                              isAdmin={isAdmin}
+                              reg_load={reg_load} reg_pass={reg_pass} reg_fail={reg_fail}
+                              user={user} Register={() => Register()}
+                            />
+                          </Link>
+                        }
                       </div>
                     </div>
                   </div>

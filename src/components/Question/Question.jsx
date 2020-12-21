@@ -23,51 +23,60 @@ const Question = (
   const [no_like, setNo_like] = useState(0)
   const [_like, set_like] = useState(false)
   const [__like, set__like] = useState(false)
+  const [___like, set___like] = useState(false)
   const [load_like, set_load_like] = useState(false)
-
 
   let key = `${kin}`
   window.onclick = function (event) {
     if (
-      // !event.target.matches(`#dropas`)
-      // && !event.target.matches(`#dropa`)
       !event.target.matches(`#drope`)
-      // && !event.target.matches(`#toe`)
     ) {
       setDisplay("none")
     }
   }
 
-  const Liked = async () => {
-    try {
-      set_load_like(true)
-      let dal = await getLike(question_id)
-      dal = await dal.data
-      dal = await dal.data
-      set_like((dal.some(dat => dat.member_id === user)))
-      setNo_like(dal.length)
-      set_load_like(false)
-    } catch (error) {
-      console.log({ "some thing": error.response })
-      set_load_like(false)
-    }
+  const Liked = () => {
+    set_load_like(true)
+    getLike(question_id)
+      .then(dal => {
+        set_like((dal.data.data.some(dat => dat.member_id === user)))
+        setNo_like(dal.data.data.length)
+        set_load_like(false)
+        // console.log({ question_length: await dal.length })
+        // console.log({ question_fact: (dal.some(dat => dat.member_id === user)) })
+        // console.log({ user, dal })
+        // console.log({ question_id })
+        // dal = await dal.data
+        // dal = await dal.data
+        // set_load_like(false)
+      })
+      .catch(err => {
+        set_load_like(false)
+      })
   }
 
-
   useEffect(() => {
+    console.log("HE _DON HAPPEN")
     Liked()
-  }, [__like])
+  }, [___like])
 
 
-  const Like = async () => {
-    try {
-      set_load_like(true)
-      await postLike(question_id)
-      set__like(!__like)
-    } catch (error) {
-      console.log({ "some thing": error.response })
-      set_load_like(false)
-    }
+  const Like = () => {
+    set_load_like(true)
+    postLike(question_id)
+      .then((data) => {
+        console.log({ data })
+        getLike(question_id).then((dal) => {
+          console.log({ dal: dal.data.data })
+          set_like((dal.data.data.some(dat => dat.member_id === user)))
+          setNo_like(dal.data.data.length)
+          set_load_like(false)
+        })
+      }).catch((err) => {
+        set_load_like(false)
+        console.log(err.response)
+        console.log("err.response")
+      })
   }
 
 

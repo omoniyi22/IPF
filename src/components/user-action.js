@@ -8,6 +8,11 @@ function UserAction({ data, onClick }) {
         Actions
       </Dropdown.Toggle>
       <Dropdown.Menu>
+        <Dropdown.Item onClick={() => onClick("view-profile", data)}>
+          <span style={{ fontWeight: "bold", color: "#000" }}>
+            View Profile
+          </span>
+        </Dropdown.Item>
         <Dropdown.Item onClick={() => onClick("assign-admin", data)}>
           <span style={{ fontWeight: "bold", color: "#000" }}>
             Assign as User Admin

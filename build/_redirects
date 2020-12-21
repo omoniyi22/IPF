@@ -1,0 +1,46 @@
+/* /index.html 200
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Web site created using create-react-app" />
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <link href="./fontsawesome/css/all.min.css" rel="stylesheet" />
+  <link href="./BootFont/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="./BootFont/css/mdb.min.css" rel="stylesheet" />
+  <link href="./BootFont/css/style.css" rel="stylesheet" />
+  <!-- <link rel="stylesheet" href="/swiper/package/css/swiper.min.css"> -->
+  <link rel="stylesheet" href="./BootFont/animate.css">
+  <title>IPF</title>
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <script type="text/javascript" src="./BootFont/js/popper.min.js"></script>
+  <script type="text/javascript" src="./BootFont/js/cor.js"></script>
+  <script type="text/javascript" src="./BootFont/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="./BootFont/js/mdb.min.js"></script>
+  <script type="text/javascript" src="./BootFont/js/jquery-3.4.1.min.js"></script>
+  <div id="root"></div>
+
+  <script type="text/javascript" src="./BootFont/js/popper.min.js"></script>
+  <script type="text/javascript" src="./BootFont/js/cor.js"></script>
+  <script type="text/javascript" src="./BootFont/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="./BootFont/js/mdb.min.js"></script>
+  <script type="text/javascript" src="./BootFont/js/jquery-3.4.1.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('.mdb-select').materialSelect();
+    });
+  </script>
+
+  <!-- <script type="text/javascript" src="https://js.paystack.co/v1/inline.js"></script> -->
+</body>
+
+</html>
