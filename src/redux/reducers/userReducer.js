@@ -11,6 +11,7 @@ const INITIAL_STATE = {
   currentUser: { role: undefined }
 };
 
+
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case SET_CURRENT_USER:
