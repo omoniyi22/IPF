@@ -1,4 +1,4 @@
-import { createStore, combineReducers, applyMiddleware, compose } from "redux";
+import { combineReducers } from 'redux'
 import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
@@ -19,9 +19,10 @@ import arch from './Arch_Reducer'
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["load_or_error", "invite", "user",
-    "UI", "company", "event", "Q_A", "payment",
-    "register", "arc", "UI"]
+  whitelist:
+    ["load_or_error", "invite", "user", "data",
+      "UI", "company", "event", "Q_A", "payment",
+      "register", "arch"]
 }
 
 

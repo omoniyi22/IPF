@@ -148,3 +148,45 @@ export const O_M = [
   "website"
 ]
 
+
+
+
+
+export const I_M1 = [
+  "firstName",
+  "lastName",
+  "emailAddress",
+  "memberNumber",
+  "membershipType",
+  "phoneNumber",
+  "company_name"
+]
+
+
+export const C_M1 = [
+  "firstName",
+  "lastName",
+  "emailAddress",
+  "membershipType",
+  "memberNumber",
+  "company_name",
+]
+
+
+export const A_M1 = [
+  "firstName",
+  "lastName",
+  "emailAddress",
+  "membershipType",
+  "memberNumber",
+  "company_name",
+]
+
+
+export const O_M1 = [
+  "company_name",
+  "email",
+  "memberNumber",
+  "company_type",
+  "phone_number"
+]

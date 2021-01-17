@@ -14,13 +14,17 @@ class Layout extends Component {
         style={{ minHeight: "100vh", minWidth: "100vw", position: "relative" }}
       >
         {this.props.children}
-        {this.props.isLoading ? (
-          <div className="loader-wrapper">
-            <div className="loader">
-              <img src={loader} alt="loading" />
+
+        {
+          this.props.isLoading && (
+            <div className="loader-wrapper">
+              <div className="loader">
+                <img src={loader} alt="loading" />
+              </div>
             </div>
-          </div>
-        ) : null}
+          )
+        }
+
         <ul id="slide-out" class="sidenav">
           <li style={{ paddingBottom: "10rem" }}>
             <div class="user-view">

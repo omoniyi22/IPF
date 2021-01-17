@@ -31,7 +31,7 @@ import { CSVDownload, CSVLink } from "react-csv";
 
 
 import ReactToPdf from 'react-to-pdf'
-import { I_M, O_M, A_M, C_M } from "../assets/utiils/memberData";
+import { I_M, O_M, A_M, C_M, I_M1, C_M1, A_M1, O_M1 } from "../assets/utiils/memberData";
 import { ProfileModal2, headers } from './home/soata'
 
 
@@ -689,7 +689,6 @@ class Members extends Component {
     return (
       <div className="shadow rounded bg-white col-md-12 p-3 material">
         <MaterialTable
-
           detailPanel={[
             {
               tooltip: "More",
@@ -756,7 +755,7 @@ class Members extends Component {
             //   { title: "Phone Number", field: "phoneNumber" },
             //   { title: "Company", field: "company_name" },
             // ]
-            I_M.map(keey => ({ title: neat(keey), field: keey }))
+            I_M1.map(keey => ({ title: neat(keey), field: keey }))
           }
           data={individualMembers}
           options={{
@@ -881,7 +880,7 @@ class Members extends Component {
             //   },
             // ]
 
-            O_M.map(keey => ({ title: neat(keey), field: keey }))
+            C_M1.map(keey => ({ title: neat(keey), field: keey }))
 
           }
           data={individualMembers}
@@ -992,7 +991,7 @@ class Members extends Component {
             //   { title: "Phone Number", field: "phoneNumber" },
             //   { title: "Company", field: "company_name" },
             // ]
-            A_M.map(keey => ({ title: neat(keey), field: keey }))
+            A_M1.map(keey => ({ title: neat(keey), field: keey }))
           }
           data={_members}
 
@@ -1114,13 +1113,13 @@ class Members extends Component {
                     </span>
                   </MenuItem>
                   <MenuItem onClick={() => this.setState({ anchorEl: null })} style={{ fontSize: "12" }}>
-                    {this.state.pdf_load === false && this.state.memberPDF.length > 0 &&
+                    {/* {this.state.pdf_load === false && this.state.memberPDF.length > 0 &&
                       <>
                         <div>
                           <ProfileModal2 title="All Companies PDF" dat={this.state.pdf_load === true ? [] : this.state.memberPDF} />
                         </div>
                       </>
-                    }
+                    } */}
                   </MenuItem>
                   <MenuItem onClick={() => this.setState({ anchorEl: null })} style={{ fontSize: "12" }}>
                     {this.state.pdf_load === false && this.state.corporatePDF.length > 0 &&
@@ -1241,7 +1240,7 @@ class Members extends Component {
                         //   { title: "Member Type", field: "company_type" },
                         //   { title: "Phone Number", field: "phone_number" },
                         // ]
-                        O_M.map(keey => ({ title: neat(keey), field: keey }))
+                        O_M1.map(keey => ({ title: neat(keey), field: keey }))
                       }
                       data={this.state.companies}
                       // onRowClick={(event, memberData) => {

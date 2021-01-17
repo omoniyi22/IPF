@@ -1,6 +1,7 @@
 const { SHOW_LOADER } = require("../types");
 
 const showLoader = (isLoading) => {
+  // console.log({ isLoading })
   return {
     type: SHOW_LOADER, payload: isLoading
   };

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "./assets/styles/app.scss";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { connect } from 'react-redux'
+import loader from "./assets/loader.svg";
+
 import HomePage from "./pages/home/index";
 import EventPage from './pages/event'
 import MemberPage from './pages/members/index'
@@ -29,9 +31,18 @@ class App extends Component {
   }
   render() {
     let { show } = this.state;
-    let { clas } = this.props;
+    let { clas, isLoading } = this.props;
     return (
       <>
+        {
+          this.props.isLoading && (
+            <div className="loader-wrapper">
+              <div className="loader">
+                <img src={loader} alt="loading" />
+              </div>
+            </div>
+          )
+        }
         <UserOnTop />
         <div className="sort_app ">
           <div className="sticker over_hide ">
@@ -84,7 +95,7 @@ class App extends Component {
 
 
 const mapStateToProps = (state) => ({
-
+  isLoading: state.UI.isLoading
 });
 
 export default connect(
